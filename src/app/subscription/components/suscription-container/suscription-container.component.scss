@@ -1,0 +1,55 @@
+.page-header {
+  padding-top: 15px;
+}
+.page-footer {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  background-color: #fff;
+  padding: 15px 15px;
+  margin: 0 -15px;
+}
+.aboutUser p {
+  margin: 0;
+  color: grey;
+}
+.userNumber h4 {
+  color: #ff5f00;
+  font-size: 30px;
+  margin: 0;
+}
+.subscrib-list-table .fa-search {
+  color: #8080808c;
+  vertical-align: middle;
+  line-height: 1.5;
+}
+@media(max-width:1280px){
+  .basic > thead > tr > th{
+    min-width: 150px;
+  }
+}
+@media(max-width:767px){
+  .wrap-row{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  .aboutUser {
+    width: 140px;
+}
+.userNumber h4 {
+  font-size: 14px;
+
+}
+.aboutUser p {
+  font-size: 14px;
+}
+}
+@media(max-width:575px){
+  .page-header .btn-blue{
+    float: none;
+    width: 100%;
+    margin-top: 10px;
+  }
+}
