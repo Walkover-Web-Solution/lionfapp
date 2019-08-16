@@ -12,12 +12,12 @@ export class SubscriptionActions {
   public static GET_SUBCRIPTION = 'GET_SUBCRIPTION';
   public static GET_SUBCRIPTION_RESPONSE = 'GET_SUBCRIPTION_RESPONSE';
   @Effect()
-  public createDueRange$: Observable<Action> = this.action$.pipe(ofType(SubscriptionActions.GET_SUBCRIPTION),
-      switchMap((action: CustomActions) => this.subscriptionService.CreateAccount(action.payload)),
-      map(response => this.CreateDueRangeResponse(response)));
+  public getSubscription$: Observable<Action> = this.action$.pipe(ofType(SubscriptionActions.GET_SUBCRIPTION),
+      switchMap((action: CustomActions) => this.subscriptionService.getAllSubscriptions()),
+      map(response => this.getSubscriptionResponse(response)));
 
   @Effect()
-  public createDueRangeResponse$: Observable<Action> = this.action$.pipe(
+  public getSubscriptionResponse$: Observable<Action> = this.action$.pipe(
     ofType(SubscriptionActions.GET_SUBCRIPTION_RESPONSE),
       map((action: CustomActions) => {
         const response = action.payload as BaseResponse<string, any>;
@@ -38,14 +38,13 @@ export class SubscriptionActions {
   ) {
   }
 
-  public CreateDueRange(value): CustomActions {
+  public getSubscription(): CustomActions {
     return {
       type: SubscriptionActions.GET_SUBCRIPTION,
-      payload: value
     };
   }
 
-  public CreateDueRangeResponse(value): CustomActions {
+  public getSubscriptionResponse(value): CustomActions {
     return {
       type: SubscriptionActions.GET_SUBCRIPTION_RESPONSE,
       payload: value

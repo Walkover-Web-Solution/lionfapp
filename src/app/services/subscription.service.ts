@@ -18,9 +18,8 @@ export class SubscriptionService {
     /**
      * Create Account Service
      */
-    public CreateAccount(model) {
-        return this.http.post(this.config.apiUrl + SUBSCRIPTION_API.GET
-            .replace(':companyUniqueName', encodeURIComponent(this.companyUniqueName)), model)
+    public getAllSubscriptions() {
+        return this.http.get(this.config.apiUrl + SUBSCRIPTION_API.GET)
             .pipe(
             map((res) => {
                 return res;

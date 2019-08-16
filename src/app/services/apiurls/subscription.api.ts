@@ -1,3 +1,3 @@
 export const SUBSCRIPTION_API = {
-  GET: 'company/:companyUniqueName/groups/:groupUniqueName/accounts',
+  GET: 'v2/admin/subscriptions/all?sortBy=ADDITIONAL_TRANSACTIONS&sortType=DESC',
 };
