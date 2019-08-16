@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { BaseResponse } from '../../models/api-models/BaseResponse';
 import { ToasterService } from '../toaster.service';
 import { Observable } from 'rxjs';
-// import { LoginActions } from '../actions/login.action';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -10,10 +9,11 @@ import { HttpErrorResponse } from '@angular/common/http';
 @Injectable()
 export class ErrorHandler {
 
-  constructor(private _toaster: ToasterService, private store: Store<AppState>) {
+  constructor(private toaster: ToasterService, private store: Store<AppState>) {
   }
 
-  public HandleCatch<TResponce, TRequest>(r: HttpErrorResponse, request?: any, queryString?: any): Observable<BaseResponse<TResponce, TRequest>> {
+  public HandleCatch<TResponce, TRequest>(r: HttpErrorResponse, request?: any, queryString?: any):
+      Observable<BaseResponse<TResponce, TRequest>> {
     let data: BaseResponse<TResponce, TRequest> = new BaseResponse<TResponce, TRequest>();
     // logout if invalid session detacted
     if (r.status === 0) {
@@ -49,7 +49,7 @@ export class ErrorHandler {
           if (data.code === 'SESSION_EXPIRED_OR_INVALID') {
             this.store.dispatch({type: 'LoginOut'});
           } else if (data.code === 'INVALID_JSON') {
-            let dataToSend = {
+            const dataToSend = {
               requestBody: '', // r.error.request ? r.error.request : request
               queryString: data.queryString,
               method: '',

@@ -1,11 +1,7 @@
-import { empty as observableEmpty, Observable } from 'rxjs';
-
 import { catchError, map } from 'rxjs/operators';
 import { HttpWrapperService } from './httpWrapper.service';
 import { Inject, Injectable, OnInit, Optional } from '@angular/core';
-import { ACCOUNTS_API, ACCOUNTS_API_V2 } from './apiurls/subscription.api';
-import { UserDetails } from '../models/api-models/loginModels';
-import { BaseResponse } from '../models/api-models/BaseResponse';
+import { SUBSCRIPTION_API } from './apiurls/subscription.api';
 import { ErrorHandler } from './catchManager/catchmanger';
 import {IServiceConfigArgs, ServiceConfig} from './service.config';
 
@@ -23,7 +19,7 @@ export class SubscriptionService {
      * Create Account Service
      */
     public CreateAccount(model) {
-        return this.http.post(this.config.apiUrl + ACCOUNTS_API.CREATE
+        return this.http.post(this.config.apiUrl + SUBSCRIPTION_API.GET
             .replace(':companyUniqueName', encodeURIComponent(this.companyUniqueName)), model)
             .pipe(
             map((res) => {

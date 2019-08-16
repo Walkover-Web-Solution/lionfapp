@@ -18,7 +18,6 @@ import { BsDatepickerModule } from 'ngx-bootstrap';
     SubscriptionRoutingModule,
     PerfectScrollbarModule,
     BsDatepickerModule
-
   ]
 })
 export class SubscriptionModule { }

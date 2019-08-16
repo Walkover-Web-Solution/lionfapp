@@ -8,13 +8,13 @@ import { GeneralService } from './general.service';
 @Injectable()
 export class HttpWrapperService {
 
-  constructor(private _http: HttpClient, private _loaderService: LoaderService, private _generalService: GeneralService) {
+  constructor(private httpClient: HttpClient, private loaderService: LoaderService, private generalService: GeneralService) {
   }
 
   public get = (url: string, params?: any, options?: any): Observable<any> => {
     options = this.prepareOptions(options);
     options.params = params;
-    return this._http.get(url, options).pipe(tap((res) => {
+    return this.httpClient.get(url, options).pipe(tap((res) => {
       //
     }), finalize(() => {
       this.hideLoader();
@@ -22,7 +22,7 @@ export class HttpWrapperService {
   }
   public post = (url: string, body: any, options?: any): Observable<any> => {
     options = this.prepareOptions(options);
-    return this._http.post(url, body, options).pipe(tap((res) => {
+    return this.httpClient.post(url, body, options).pipe(tap((res) => {
       //
     }), finalize(() => {
       this.hideLoader();
@@ -30,7 +30,7 @@ export class HttpWrapperService {
   }
   public put = (url: string, body: any, options?: any): Observable<any> => {
     options = this.prepareOptions(options);
-    return this._http.put(url, body, options).pipe(tap((res) => {
+    return this.httpClient.put(url, body, options).pipe(tap((res) => {
       //
     }), finalize(() => {
       this.hideLoader();
@@ -39,7 +39,7 @@ export class HttpWrapperService {
   public delete = (url: string, params?: any, options?: any): Observable<any> => {
     options = this.prepareOptions(options);
     options.search = this.objectToParams(params);
-    return this._http.delete(url, options).pipe(tap((res) => {
+    return this.httpClient.delete(url, options).pipe(tap((res) => {
       //
     }), finalize(() => {
       this.hideLoader();
@@ -47,7 +47,7 @@ export class HttpWrapperService {
   }
   public patch = (url: string, body: any, options?: any): Observable<any> => {
     options = this.prepareOptions(options);
-    return this._http.patch(url, body, options).pipe(tap((res) => {
+    return this.httpClient.patch(url, body, options).pipe(tap((res) => {
       //
     }), finalize(() => {
       this.hideLoader();
@@ -55,7 +55,7 @@ export class HttpWrapperService {
   }
   public prepareOptions(options: any): any {
     this.showLoader();
-    let sessionId = this._generalService.sessionId;
+    const sessionId = this.generalService.sessionId;
     options = options || {};
 
     if (!options.headers) {
@@ -73,8 +73,8 @@ export class HttpWrapperService {
     if (options.headers['Content-Type'] === 'multipart/form-data') {
       delete options.headers['Content-Type'];
     }
-    if (!options.headers['Accept']) {
-      options.headers['Accept'] = 'application/json';
+    if (!options.headers.Accept) {
+      options.headers.Accept = 'application/json';
     }
     options.headers = new HttpHeaders(options.headers);
     return options;
@@ -86,16 +86,16 @@ export class HttpWrapperService {
 
   public objectToParams(object = {}) {
     return Object.keys(object).map((value) => {
-      let objectValue = this.isPrimitive(object[value]) ? object[value] : JSON.stringify(object[value]);
+      const objectValue = this.isPrimitive(object[value]) ? object[value] : JSON.stringify(object[value]);
       return `${value}=${objectValue}`;
     }).join('&');
   }
 
   private showLoader(): void {
-    this._loaderService.show();
+    this.loaderService.show();
   }
 
   private hideLoader(): void {
-    this._loaderService.hide();
+    this.loaderService.hide();
   }
 }
