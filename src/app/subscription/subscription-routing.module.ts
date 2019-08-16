@@ -3,8 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { SubscriptionComponent } from './subscription-component/subscription.component'
 import { UserListComponent } from './components/user-list/user-list.component'
 
-
-
 const routes: Routes = [
   { path: '', redirectTo: 'subscription' },
   { path: 'subscription', component: SubscriptionComponent, pathMatch: 'full' },
