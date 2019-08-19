@@ -10,6 +10,7 @@ import {ToasterService} from './toaster.service';
 import {LoaderService} from '../loader/loader.service';
 import {GeneralService} from './general.service';
 import {UserService} from "./user.service";
+import { LicenceService } from './licence.service';
 
 
 /**
@@ -32,7 +33,8 @@ export class ServiceModule {
         ToasterService,
         LoaderService,
         GeneralService,
-        UserService
+        UserService,
+        LicenceService
       ]
     };
   }

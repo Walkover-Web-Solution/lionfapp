@@ -1,9 +1,9 @@
 <div class="">
   <div class="page-header">
     <div class="d-inline-flex">
-      <h5 class="mb-0">Subscribers List</h5>
+      <h5 class="mb-0">Licence Key</h5>
     </div>
-    <button class="pull-right btn btn-blue">Assign Plan</button>
+    <button (click) = "generateLicenceKeyRedirect()" class="pull-right btn btn-blue">Generate</button>
   </div>
   <div class="page-content">
     <div class="table-responsive">
@@ -25,16 +25,16 @@
           </thead>
           <tbody>
             <tr *ngFor="let item of items">
-              <td data-title="Signup On">{{item.SubOn}}</td>
-              <td data-title="Subscribe on">{{item.SubID}}</td>
-              <td data-title="Subscribtion Id"><a href="javascript:void(0)">{{item.UserName}}</a></td>
-              <td data-title="Plan">{{item.Plan}}</td>
-              <td data-title="No of Company">{{item.NoOfCompany}}</td>
-              <td data-title="Transction Limit">{{item.Balance}}</td>
-              <td data-title="Balance">{{item.TranactionLimit}}</td>
-              <td data-title="Total Amount">{{item.LicenceKey}}</td>
-              <td data-title="Additional Transction">{{item.Status}}</td>
-              <td data-title="Additional Charges">{{item.Expiry}}</td>
+              <td data-title="Signup On">{{item.subOn}}</td>
+              <td data-title="Subscribe on">{{item.subcriptionId}}</td>
+              <td data-title="Subscribtion Id"><a href="javascript:void(0)">{{item.resellerName}}</a></td>
+              <td data-title="Plan">{{item.planName}}</td>
+              <td data-title="No of Company">{{item.currentCompanyCount}}</td>
+              <td data-title="Transction Limit">{{item.balance}}</td>
+              <td data-title="Balance">{{item.transactionLimit}}</td>
+              <td data-title="Total Amount">{{item.licenceKey}}</td>
+              <td data-title="Additional Transction">{{item.licenceKeyStatus}}</td>
+              <td data-title="Additional Charges">{{item.subExpiry}}</td>
               <td data-title="Additional Charges">{{item.TotalAmount}}</td>
             </tr>
           </tbody>
