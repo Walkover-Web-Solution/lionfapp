@@ -8,16 +8,17 @@ import { SuscriptionContainerComponent } from './components/suscription-containe
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { BsDatepickerModule } from 'ngx-bootstrap';
+import { AdvanceSearchComponent } from './components/advance-search/advance-search.component';
 
 
 
 @NgModule({
-  declarations: [SubscriptionComponent, SuscriptionContainerComponent, UserListComponent],
+  declarations: [SubscriptionComponent, SuscriptionContainerComponent, UserListComponent, AdvanceSearchComponent],
   imports: [
     CommonModule,
     SubscriptionRoutingModule,
     PerfectScrollbarModule,
-    BsDatepickerModule
+    BsDatepickerModule.forRoot(),
   ]
 })
 export class SubscriptionModule { }
