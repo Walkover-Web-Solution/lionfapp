@@ -5,11 +5,12 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { BsDatepickerModule } from 'ngx-bootstrap';
 import { licenceKeyRoutingModule } from './licence-key-routing.module';
 import { licenceKeyComponent } from './licence-key-component/licence-key.component';
+import { GenerateKeyComponent } from './components/generate-key/generate-key.component';
 
 
 
 @NgModule({
-  declarations: [licenceKeyComponent],
+  declarations: [licenceKeyComponent, GenerateKeyComponent],
   imports: [
     CommonModule,
     licenceKeyRoutingModule,

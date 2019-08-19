@@ -13,7 +13,12 @@ input[type="checkbox"]:disabled+span { color: #999; }
 input[type="checkbox"]:not(:disabled)+span:hover:before { text-shadow: 0 1px 2px #77F;}
 
 /* checkbox css end */
-
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+}
 .modal-bg {
   background: rgba(0, 0, 0, 0.5);
   position: fixed;
