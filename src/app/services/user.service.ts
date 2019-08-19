@@ -7,7 +7,7 @@ import {IServiceConfigArgs, ServiceConfig} from './service.config';
 
 
 @Injectable()
-export class SubscriptionService {
+export class UserService {
   private companyUniqueName: string;
 
   constructor(private errorHandler: ErrorHandler,
@@ -18,8 +18,8 @@ export class SubscriptionService {
     /**
      * Create Account Service
      */
-    public getAllSubscriptions() {
-        return this.http.get(this.config.apiUrl + SUBSCRIPTION_API.GET_SUBSCRIPTION)
+    public getAllSubscriptionsByUser() {
+        return this.http.get(this.config.apiUrl + SUBSCRIPTION_API.GET_USER_SUBSCRIPTION)
             .pipe(
             map((res) => {
                 return res;

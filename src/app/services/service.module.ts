@@ -9,6 +9,7 @@ import {HttpWrapperService} from './httpWrapper.service';
 import {ToasterService} from './toaster.service';
 import {LoaderService} from '../loader/loader.service';
 import {GeneralService} from './general.service';
+import {UserService} from "./user.service";
 
 
 /**
@@ -30,7 +31,8 @@ export class ServiceModule {
         SubscriptionService,
         ToasterService,
         LoaderService,
-        GeneralService
+        GeneralService,
+        UserService
       ]
     };
   }

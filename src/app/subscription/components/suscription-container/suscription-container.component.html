@@ -31,9 +31,9 @@
             <tr *ngFor="let subscription of subscriptionData">
               <td data-title="Signup On">{{subscription.userDetails.signUpOn}}</td>
               <td data-title="Subscribe on">{{subscription.startedAt}}</td>
-              <td data-title="Subscribtion Id"><a href="">{{subscription.subscriptionId}}</a></td>
+              <td data-title="Subscribtion Id"><a href="javascript:void(0)">{{subscription.subscriptionId}}</a></td>
               <td data-title="Plan">{{subscription.planDetails.name}}</td>
-              <td data-title="No of Company">{{subscription.companies.length}}/{{subscription.totalCompanies}}</td>
+              <td data-title="No of Company">{{subscription.companies?.length}}/{{subscription.totalCompanies}}</td>
               <td data-title="Transction Limit">{{subscription.planDetails.transactionLimit}}</td>
               <td data-title="Balance">{{subscription.balance}}</td>
               <td data-title="Total Amount">{{subscription.planDetails.amount}}/-</td>
@@ -89,4 +89,4 @@
 </div>
 
 
-<app-advance-search></app-advance-search>
+<!--<app-advance-search></app-advance-search>-->

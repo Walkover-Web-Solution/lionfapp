@@ -23,79 +23,17 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td data-title="Signup Date">01/05/2019</td>
-              <td data-title="Name">Alok</td>
-              <td data-title="Email">alok@walkover.in</td>
-              <td data-title="Mobile">8818888768</td>
-              <td data-title="Subscription ID"><a href="#">9080</a></td>
-              <td data-title="Plan Name">Plan 1</td>
-              <td data-title="No. of Companies">100</td>
-              <td data-title="Total Amount">10000/-</td>
-            </tr>
-            <tr>
-              <td data-title="Signup Date">01/05/2019</td>
-              <td data-title="Name">Alok</td>
-              <td data-title="Email">alok@walkover.in</td>
-              <td data-title="Mobile">8818888768</td>
-              <td data-title="Subscription ID"><a href="#">9080</a></td>
-              <td data-title="Plan Name">Plan 1</td>
-              <td data-title="No. of Companies">100</td>
-              <td data-title="Total Amount">10000
-                <span class="expan-icon" (click)="onclick('firstExpand')">
-                  <i class="fa fa-arrows-alt pull-right" aria-hidden="true"></i></span></td>
-            </tr>
-            <tr *ngIf="openExpanList === 'firstExpand' && expandList">
-              <td data-title="Signup Date"></td>
-              <td data-title="Name"></td>
-              <td data-title="Email"></td>
-              <td data-title="Mobile"></td>
-              <td data-title="Subscription ID"><a href="#">9080</a></td>
-              <td data-title="Plan Name">Plan 1</td>
-              <td data-title="No. of Companies">100</td>
-              <td data-title="Total Amount">10000/-</td>
-            </tr>
-            <tr *ngIf="openExpanList === 'firstExpand' && expandList">
-              <td data-title="Signup Date"></td>
-              <td data-title="Name"></td>
-              <td data-title="Email"></td>
-              <td data-title="Mobile"></td>
-              <td data-title="Subscription ID"><a href="#">9080</a></td>
-              <td data-title="Plan Name">Plan 1</td>
-              <td data-title="No. of Companies">100</td>
-              <td data-title="Total Amount">10000/-</td>
-            </tr>
-            <tr *ngIf="openExpanList === 'firstExpand' && expandList">
-              <td data-title="Signup Date"></td>
-              <td data-title="Name"></td>
-              <td data-title="Email"></td>
-              <td data-title="Mobile"></td>
-              <td data-title="Subscription ID"><a href="#">9080</a></td>
-              <td data-title="Plan Name">Plan 1</td>
-              <td data-title="No. of Companies">100</td>
-              <td data-title="Total Amount">10000/-</td>
-            </tr>
-            <tr>
-              <td data-title="Signup Date">01/05/2019</td>
-              <td data-title="Name">Alok</td>
-              <td data-title="Email">alok@walkover.in</td>
-              <td data-title="Mobile">8818888768</td>
-              <td data-title="Subscription ID"><a href="#">9080</a></td>
-              <td data-title="Plan Name">Plan 1</td>
-              <td data-title="No. of Companies">100</td>
-              <td data-title="Total Amount">10000
-                <span class="expan-icon" (click)="onclick('secondExpand')">
-                  <i class="fa fa-arrows-alt pull-right" aria-hidden="true"></i></span></td>
-            </tr>
-            <tr *ngIf="openExpanList === 'secondExpand' && expandList">
-              <td data-title="Signup Date"></td>
-              <td data-title="Name"></td>
-              <td data-title="Email"></td>
-              <td data-title="Mobile"></td>
-              <td data-title="Subscription ID"><a href="#">9080</a></td>
-              <td data-title="Plan Name">Plan 1</td>
-              <td data-title="No. of Companies">100</td>
-              <td data-title="Total Amount">10000/-</td>
+            <tr *ngFor="let userSubscription of userSubscriptionData">
+              <td data-title="Signup Date">{{userSubscription.userDetails.signUpOn}}</td>
+              <td data-title="Name">{{userSubscription.userDetails.name}}</td>
+              <td data-title="Email">{{userSubscription.userDetails.email}}</td>
+              <td data-title="Mobile">{{userSubscription.userDetails.mobileno}}</td>
+              <td data-title="Subscription ID"><a href="javascript:void(0)" *ngIf="userSubscription.subscriptions?.length > 0">{{userSubscription.subscriptions[0].subscriptionId}}</a></td>
+              <td data-title="Plan Name"><span
+                   *ngIf="userSubscription.subscriptions?.length > 0">
+                  {{userSubscription.subscriptions[0].planDetails.name}}</span></td>
+              <td data-title="No. of Companies">{{userSubscription.totalCompanies}}</td>
+              <td data-title="Total Amount">{{userSubscription.totalAmount}}/-</td>
             </tr>
           </tbody>
         </table>

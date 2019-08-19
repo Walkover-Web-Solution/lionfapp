@@ -29,6 +29,9 @@
               },
               {
                 "input": "./node_modules/font-awesome/css/font-awesome.css"
+              },
+              {
+                "input":  "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css"
               }
             ],
             "scripts": []
