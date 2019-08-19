@@ -22,6 +22,11 @@ export class SuscriptionContainerComponent implements OnInit {
     /*this.store.dispatch(this.subscriptionActions.getSubscription());*/
   }
 
+  public rightToggle: boolean = false;
+  public RightSlide() {
+    this.rightToggle = !this.rightToggle;
+  }
+
   ngOnInit() {
   }
 

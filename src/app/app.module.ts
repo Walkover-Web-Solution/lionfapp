@@ -25,7 +25,6 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { LoaderComponent } from './loader/loader.component';
 import * as _ from './lodash-optimized';
 import { ToastrModule } from 'ngx-toastr';
-import { LicenceKeyComponent } from './licence-key/licence-key.component';
 
 interface InternalStateType {
   [key: string]: any;
@@ -69,7 +68,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     HeaderComponent,
     SidebarDirective,
     LoaderComponent,
-    LicenceKeyComponent
   ],
   imports: [
     BrowserModule,
