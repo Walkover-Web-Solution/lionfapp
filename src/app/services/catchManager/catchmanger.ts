@@ -14,6 +14,7 @@ export class ErrorHandler {
 
   public HandleCatch<TResponce, TRequest>(r: HttpErrorResponse, request?: any, queryString?: any):
       Observable<BaseResponse<TResponce, TRequest>> {
+    console.log('test');
     let data: BaseResponse<TResponce, TRequest> = new BaseResponse<TResponce, TRequest>();
     // logout if invalid session detacted
     if (r.status === 0) {

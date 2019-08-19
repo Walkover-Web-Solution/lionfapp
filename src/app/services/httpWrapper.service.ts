@@ -76,6 +76,8 @@ export class HttpWrapperService {
     if (!options.headers.Accept) {
       options.headers.Accept = 'application/json';
     }
+    options.headers['auth-key'] =
+        'RW6m8O_bAvRcPN6EL4QmV1rvmG9bP-z6ZhhIXSxRBMnu6TaqGSvqhcGp3rykzfhqyHSIMYJvskOnbvb76p3D6pqLzX1E2QPtA-AN-H8qM8A=';
     options.headers = new HttpHeaders(options.headers);
     return options;
   }
