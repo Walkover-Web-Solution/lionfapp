@@ -7,11 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SuscriptionContainerComponent implements OnInit {
 
-  public rightToggle: boolean = false;
-  public RightSlide() {
-    this.rightToggle = !this.rightToggle;
-  }
   
+
   constructor() { }
 
   ngOnInit() {
