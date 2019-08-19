@@ -1,8 +1,8 @@
 <div class="">
   <div class="page-header">
-    <div class="d-inline-flex">
-      <h5>Subscribers List</h5>
-      <a class="btn btn-link ml-2" href="#">Advance Search</a>
+    <div class="d-inline-flex align-items-center">
+      <h5 class="mb-0">Subscribers List</h5>
+      <a class="btn btn-link ml-2" href="javascript:void(0)_" on-click="RightSlide()">Advance Search</a>
     </div>
     <button class="pull-right btn btn-blue">Assign Plan</button>
   </div>
@@ -88,5 +88,6 @@
   </div>
 </div>
 
-
-<app-advance-search></app-advance-search>
+<div class="clearfix left-side-main" [ngClass]="rightToggle ? 'in': 'out'">
+  <app-advance-search></app-advance-search>
+</div>

@@ -1,0 +1,46 @@
+<div class="">
+  <div class="page-header">
+    <div class="d-inline-flex">
+      <h5>Subscribers List</h5>
+    </div>
+    <button class="pull-right btn btn-blue">Assign Plan</button>
+  </div>
+  <div class="page-content">
+    <div style="width:100%;">
+      <perfect-scrollbar [scrollIndicators]="true">
+        <table class="table table-bordered basic mt-3 subscrib-list-table card-list-table">
+          <thead>
+            <tr>
+              <th>Sub. on</th>
+              <th>Sub ID</th>
+              <th>User Name</th>
+              <th>Plan</th>
+              <th>No of Company</th>
+              <th>Balance </th>
+              <th>Tranaction Limit </th>
+              <th>Licence Key </th>
+              <th>Status</th>
+              <th>Expiry</th>
+              <th>Totalamount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of items">
+              <td data-title="Signup On">01/05/2019</td>
+              <td data-title="Subscribe on">05/05/2019</td>
+              <td data-title="Subscribtion Id"><a href="">2019-1001</a></td>
+              <td data-title="Plan">Plan2</td>
+              <td data-title="No of Company">10/100</td>
+              <td data-title="Transction Limit">10000</td>
+              <td data-title="Balance">1000</td>
+              <td data-title="Total Amount">4000/-</td>
+              <td data-title="Additional Transction">1000</td>
+              <td data-title="Additional Charges">100</td>
+              <td data-title="Additional Charges">100</td>
+            </tr>
+          </tbody>
+        </table>
+      </perfect-scrollbar>
+    </div>
+  </div>
+</div>
