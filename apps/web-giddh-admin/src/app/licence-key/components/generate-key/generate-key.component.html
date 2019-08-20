@@ -1,0 +1,46 @@
+<div class="clearfix">
+<div class="page-header">
+  <div class="d-inline-flex">
+    <h5 class="mb-0">Subscribers List</h5>
+  </div>
+  <button class="pull-right btn btn-blue">Assign Plan</button>
+</div>
+
+<div class="page-content">
+  <div class="page-number mt-3 mb-4">
+      <div class="wrap-row">
+        <p>Total issued Keys</p>
+        <h4>100</h4>
+      </div>
+
+      <div class="wrap-row">
+        <p>Active keys</p>
+        <h4>88</h4>
+      </div>
+
+      <div class="wrap-row">
+        <p>Expired Keys</p>
+        <h4>12</h4>
+      </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-3">
+      <input type="text" placeholder="No. of keys" class="form-control">
+    </div>
+    <div class="col-md-3">
+      <div class="select-style">
+        <select name="">
+          <option selected disabled>Select Plan</option>
+          <option *ngFor="let selectPlan of selectPlans" value="" >{{selectPlan.plan}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <button type="button" class="btn-blue">Generate</button>
+    </div>
+  </div>
+
+</div>
+</div>

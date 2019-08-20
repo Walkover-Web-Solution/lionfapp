@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 163 91">
+  <defs>
+    <style>
+      .cls-1, .cls-11, .cls-3, .cls-7, .cls-8, .cls-9 {
+        fill: none;
+      }
+
+      .cls-1, .cls-2, .cls-3 {
+        stroke: #33335d;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .cls-4 {
+        fill: #33335d;
+      }
+
+      .cls-5 {
+        fill: #ececff;
+      }
+
+      .cls-6 {
+        fill: #26263a;
+        font-size: 13px;
+        font-family: Lato-Heavy, Lato;
+        font-weight: 800;
+      }
+
+      .cls-7, .cls-8 {
+        stroke: #dddde1;
+      }
+
+      .cls-7 {
+        stroke-width: 0.5px;
+      }
+
+      .cls-8 {
+        stroke-width: 2px;
+      }
+
+      .cls-9 {
+        stroke: #e9e9ed;
+      }
+
+      .cls-10 {
+        stroke: none;
+      }
+    </style>
+  </defs>
+  <g id="Group_3051" data-name="Group 3051" transform="translate(-4163.5 -1159.5)">
+    <path id="XMLID_109_" class="cls-1" d="M177.169,343.915H45v-72.32a9.087,9.087,0,0,1,9.073-9.095H167.952a9.242,9.242,0,0,1,9.218,9.24v72.175Z" transform="translate(4133.879 897.5)"/>
+    <path id="XMLID_108_" class="cls-2" d="M51.9,345.295V274.866a6.049,6.049,0,0,1,6.024-5.966h110.1a6.1,6.1,0,0,1,6.024,5.966v70.429" transform="translate(4131.987 895.757)"/>
+    <path id="XMLID_111_" class="cls-3" d="M177.863,382.985H33.065A8.591,8.591,0,0,1,24.5,374.4h162A8.652,8.652,0,0,1,177.863,382.985Z" transform="translate(4139.5 867.015)"/>
+    <path id="XMLID_110_" class="cls-4" d="M144.242,375.664H116.661A1.148,1.148,0,0,1,115.5,374.5h29.976A1.387,1.387,0,0,1,144.242,375.664Z" transform="translate(4114.548 866.988)"/>
+    <path id="Rectangle_1305" data-name="Rectangle 1305" class="cls-5" d="M5,0H24.2a0,0,0,0,1,0,0V75.235a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V5A5,5,0,0,1,5,0Z" transform="translate(4184.468 1165.259)"/>
+    <text id="Dashboard" class="cls-6" transform="translate(4244.881 1179)"><tspan x="-31.642" y="0">Dashboard</tspan></text>
+    <g id="Rectangle_1361" data-name="Rectangle 1361" class="cls-7" transform="translate(4212.881 1190.945)">
+      <rect class="cls-10" width="39.903" height="19.077"/>
+      <rect class="cls-11" x="0.25" y="0.25" width="39.403" height="18.577"/>
+    </g>
+    <g id="Rectangle_1364" data-name="Rectangle 1364" class="cls-7" transform="translate(4212.881 1214.837)">
+      <rect class="cls-10" width="39.903" height="24.163"/>
+      <rect class="cls-11" x="0.25" y="0.25" width="39.403" height="23.663"/>
+    </g>
+    <g id="Rectangle_1362" data-name="Rectangle 1362" class="cls-7" transform="translate(4257.772 1190.945)">
+      <rect class="cls-10" width="39.903" height="19.077"/>
+      <rect class="cls-11" x="0.25" y="0.25" width="39.403" height="18.577"/>
+    </g>
+    <g id="Rectangle_1363" data-name="Rectangle 1363" class="cls-7" transform="translate(4257.772 1214.837)">
+      <rect class="cls-10" width="39.903" height="24.163"/>
+      <rect class="cls-11" x="0.25" y="0.25" width="39.403" height="23.663"/>
+    </g>
+    <line id="Line_101" data-name="Line 101" class="cls-8" x2="23.942" transform="translate(4216.373 1197.5)"/>
+    <line id="Line_108" data-name="Line 108" class="cls-8" x2="23.942" transform="translate(4262.262 1197.5)"/>
+    <line id="Line_104" data-name="Line 104" class="cls-8" x2="23.942" transform="translate(4216.373 1224.5)"/>
+    <line id="Line_106" data-name="Line 106" class="cls-8" x2="23.942" transform="translate(4262.262 1224.5)"/>
+    <line id="Line_102" data-name="Line 102" class="cls-8" x2="17.956" transform="translate(4216.373 1203.5)"/>
+    <line id="Line_107" data-name="Line 107" class="cls-8" x2="17.956" transform="translate(4262.262 1203.5)"/>
+    <line id="Line_103" data-name="Line 103" class="cls-8" x2="17.956" transform="translate(4216.373 1230.5)"/>
+    <line id="Line_105" data-name="Line 105" class="cls-8" x2="17.956" transform="translate(4262.262 1230.5)"/>
+    <line id="Line_109" data-name="Line 109" class="cls-9" x2="84.794" transform="translate(4213.38 1184.5)"/>
+  </g>
+</svg>

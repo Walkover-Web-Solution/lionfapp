@@ -1,0 +1,44 @@
+<div class="clearfix">
+  <div class="page-header">
+    <div class="d-inline-flex">
+      <h5 class="mb-0">Licence Key</h5>
+    </div>
+    <button (click) = "generateLicenceKeyRedirect()" class="pull-right btn btn-blue">Generate</button>
+  </div>
+  <div class="page-content">
+    <div class="table-responsive">
+        <table class="table table-bordered basic subscrib-list-table card-list-table table-striped">
+          <thead>
+            <tr>
+              <th>Sub. on</th>
+              <th>Sub ID</th>
+              <th>User Name</th>
+              <th>Plan</th>
+              <th>No of Company</th>
+              <th>Balance </th>
+              <th>Tranaction Limit </th>
+              <th>Licence Key </th>
+              <th>Status</th>
+              <th>Expiry</th>
+              <th>Totalamount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of items">
+              <td data-title="Signup On">{{item.subOn}}</td>
+              <td data-title="Subscribe on">{{item.subcriptionId}}</td>
+              <td data-title="Subscribtion Id"><a href="javascript:void(0)">{{item.resellerName}}</a></td>
+              <td data-title="Plan">{{item.planName}}</td>
+              <td data-title="No of Company">{{item.currentCompanyCount}}</td>
+              <td data-title="Transction Limit">{{item.balance}}</td>
+              <td data-title="Balance">{{item.transactionLimit}}</td>
+              <td data-title="Total Amount">{{item.licenceKey}}</td>
+              <td data-title="Additional Transction">{{item.licenceKeyStatus}}</td>
+              <td data-title="Additional Charges">{{item.subExpiry}}</td>
+              <td data-title="Additional Charges">{{item.TotalAmount}}</td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+  </div>
+</div>
