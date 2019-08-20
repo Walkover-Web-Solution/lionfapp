@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 131 91">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #f3f3ff;
+      }
+
+      .cls-2 {
+        fill: none;
+        stroke: #33335d;
+      }
+
+      .cls-3 {
+        fill: #e8e8e8;
+        stroke: #e9e9ed;
+        stroke-width: 3px;
+      }
+
+      .cls-4 {
+        opacity: 0.1;
+      }
+
+      .cls-5 {
+        fill: #33335d;
+      }
+
+      .cls-6 {
+        fill: #26263a;
+        font-size: 13px;
+        font-family: Lato-Heavy, Lato;
+        font-weight: 800;
+      }
+    </style>
+  </defs>
+  <g id="Group_3039" data-name="Group 3039" transform="translate(-4284.5 -892.5)">
+    <g id="XMLID_67_" transform="translate(4289.989 898.348)">
+      <path id="XMLID_68_" class="cls-1" d="M123.4,45H1.613C.726,45,0,44.845,0,44.657V27.042c0-.188.726-.342,1.613-.342H123.4c.887,0,1.613.154,1.613.342V44.657C125.011,44.845,124.285,45,123.4,45Z" transform="translate(0 -26.7)"/>
+    </g>
+    <g id="XMLID_67_2" data-name="XMLID_67_" transform="translate(4285 893)">
+      <path id="XMLID_68_2" data-name="XMLID_68_" class="cls-2" d="M128.323,116.7H1.677A1.686,1.686,0,0,1,0,115.016V28.384A1.686,1.686,0,0,1,1.677,26.7H128.323A1.686,1.686,0,0,1,130,28.384v86.632A1.686,1.686,0,0,1,128.323,116.7Z" transform="translate(0 -26.7)"/>
+    </g>
+    <path id="Path_9110" data-name="Path 9110" class="cls-3" d="M0,0H64.361" transform="translate(4290.475 926.497)"/>
+    <path id="Path_9123" data-name="Path 9123" class="cls-3" d="M0,0H38.776" transform="translate(4369.505 926.497)"/>
+    <path id="Path_9120" data-name="Path 9120" class="cls-3" d="M0,0H64.361" transform="translate(4290.475 932.497)"/>
+    <path id="Path_9122" data-name="Path 9122" class="cls-3" d="M0,0H38.776" transform="translate(4369.505 932.497)"/>
+    <path id="Path_9121" data-name="Path 9121" class="cls-3" d="M0,0H64.361" transform="translate(4290.475 938.497)"/>
+    <g id="Group_2853" data-name="Group 2853" class="cls-4" transform="translate(4290.973 946.638)">
+      <rect id="Rectangle_1294" data-name="Rectangle 1294" class="cls-5" width="12.868" height="33.068" transform="translate(0)"/>
+      <rect id="Rectangle_1295" data-name="Rectangle 1295" class="cls-5" width="59.195" height="33.068" transform="translate(18.016)"/>
+      <rect id="Rectangle_1296" data-name="Rectangle 1296" class="cls-5" width="15.442" height="33.068" transform="translate(102.948)"/>
+      <rect id="Rectangle_1297" data-name="Rectangle 1297" class="cls-5" width="15.442" height="33.068" transform="translate(82.358)"/>
+    </g>
+    <text id="Invoice" class="cls-6" transform="translate(4315.421 911.657)"><tspan x="-20.901" y="0">Invoice</tspan></text>
+  </g>
+</svg>
