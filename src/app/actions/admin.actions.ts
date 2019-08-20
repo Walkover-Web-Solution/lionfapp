@@ -8,17 +8,26 @@ import { CustomActions } from '../store/customActions';
 import {SubscriptionService} from '../services/subscription.service';
 
 @Injectable()
-export class SubscriptionActions {
+export class AdminActions {
   public static GET_SUBCRIPTION = 'GET_SUBCRIPTION';
   public static GET_SUBCRIPTION_RESPONSE = 'GET_SUBCRIPTION_RESPONSE';
   @Effect()
-  public getSubscription$: Observable<Action> = this.action$.pipe(ofType(SubscriptionActions.GET_SUBCRIPTION),
-      switchMap((action: CustomActions) => this.subscriptionService.getAllSubscriptions()),
-      map(response => this.getSubscriptionResponse(response)));
+  public getSubscription$: Observable<Action> = this.action$.pipe(ofType(AdminActions.GET_SUBCRIPTION),
+      switchMap((action: CustomActions) => {
+        return this.subscriptionService.getAllSubscriptions().pipe(
+          map((response) => {
+            return{
+            type: AdminActions.GET_SUBCRIPTION_RESPONSE,
+            payload: response
+          }
+        }))
+      })
+      );
+    
 
   @Effect()
   public getSubscriptionResponse$: Observable<Action> = this.action$.pipe(
-    ofType(SubscriptionActions.GET_SUBCRIPTION_RESPONSE),
+    ofType(AdminActions.GET_SUBCRIPTION_RESPONSE),
       map((action: CustomActions) => {
         const response = action.payload as BaseResponse<string, any>;
         if (response.status === 'error') {
@@ -40,13 +49,13 @@ export class SubscriptionActions {
 
   public getSubscription(): CustomActions {
     return {
-      type: SubscriptionActions.GET_SUBCRIPTION,
+      type: AdminActions.GET_SUBCRIPTION,
     };
   }
 
   public getSubscriptionResponse(value): CustomActions {
     return {
-      type: SubscriptionActions.GET_SUBCRIPTION_RESPONSE,
+      type: AdminActions.GET_SUBCRIPTION_RESPONSE,
       payload: value
     };
   }

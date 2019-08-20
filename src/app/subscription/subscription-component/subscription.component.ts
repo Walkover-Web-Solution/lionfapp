@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store';
+import { AdminActions } from 'src/app/actions/admin.actions';
 
 @Component({
   selector: 'app-subscription',
@@ -7,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SubscriptionComponent implements OnInit {
 
-  constructor() { }
+  constructor(private store: Store<AppState>, private adminActions: AdminActions) { }
 
   ngOnInit() {
   }

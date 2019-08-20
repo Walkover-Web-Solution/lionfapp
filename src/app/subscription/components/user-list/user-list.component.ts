@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from '../../../services/user.service';
+import { AppState } from 'src/app/store';
+import { Store } from '@ngrx/store';
+import { AdminActions } from 'src/app/actions/admin.actions';
+import { takeUntil } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-user-list',
@@ -14,12 +19,13 @@ export class UserListComponent implements OnInit {
   showWeekNumbers = false;
   outsideDays = 'visible';
   public userSubscriptionData = [];
+  destroyed$: Observable<any>;
   public onclick(id: string) {
     this.openExpanList = id;
     this.expandList = !this.expandList;
   }
 
-  constructor(private userService: UserService) {
+  constructor(private store: Store<AppState>, private adminActions: AdminActions, private userService: UserService) {
     userService.getAllSubscriptionsByUser().subscribe(res => {
       this.userSubscriptionData = this.filterResponse(res.body.results);
     });

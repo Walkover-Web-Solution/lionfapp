@@ -1,11 +1,11 @@
 
-import * as fromSubscriptions from './Subscription/subscription.reducer';
+import * as fromAdmin from './Subscription/admin.reducer';
 import { ActionReducerMap } from '@ngrx/store';
 
 export interface AppState {
-  subscriptions: fromSubscriptions.SubscriptionState;
+  subscriptions: fromAdmin.AdminState;
 }
 
 export const reducers: ActionReducerMap<AppState> = {
-  subscriptions: fromSubscriptions.subscriptionReducer,
+  subscriptions: fromAdmin.AdminReducer,
 };
