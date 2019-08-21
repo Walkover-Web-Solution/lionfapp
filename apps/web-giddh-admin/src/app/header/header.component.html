@@ -19,7 +19,7 @@
         </a>
 
         <ul class="submenu" role="menu" *ngIf="activeMenu === 'user' && isDropDownOpen">
-          <li><a [routerLink]="['/users']">User</a></li>
+          <li><a [routerLink]="['/subscription/users']">User</a></li>
 
         </ul>
       </li>
@@ -38,11 +38,11 @@
             </ul>
           </li> -->
       <li>
-        <a (click)="onclick('licence')">Licence Key
+        <a (click)="onclick('licence')" [routerLink]="['/licence-key']">Licence Key
           <i class="fa fa-angle-down pull-right"></i>
         </a>
         <ul class="submenu" role="menu" *ngIf="activeMenu === 'licence' && isDropDownOpen">
-          <li><a href="#">Generate</a></li>
+          <li><a>Generate</a></li>
         </ul>
       </li>
 
