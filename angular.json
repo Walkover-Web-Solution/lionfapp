@@ -157,7 +157,7 @@
             "stage": {
               "outputPath": "dist/apps/web-giddh-admin-stage",
               "extraWebpackConfig": "./webpack.stage.partial.js",
-              "baseHref": "http://stage.giddh.com/app/",
+              "baseHref": "http://stage.giddh.com/vulture/",
               "baseUrl": "stage.giddh.com",
               "fileReplacements": [
                 {
@@ -182,7 +182,7 @@
             "prod": {
               "outputPath": "dist/apps/web-giddh-admin-prod",
               "extraWebpackConfig": "./webpack.prod.partial.js",
-              "baseHref": "https://giddh.com/app/",
+              "baseHref": "https://giddh.com/vulture/",
               "baseUrl": "giddh.com",
               "fileReplacements": [
                 {
