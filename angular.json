@@ -97,6 +97,8 @@
               }
             ],
             "styles": [
+              "apps/web-giddh-admin/src/assets/css/style-1.css",
+              "apps/web-giddh-admin/src/assets/css/style-2.css",
               "apps/web-giddh-admin/src/assets/css/bootstrap.css",
               "apps/web-giddh-admin/src/assets/css/ngx-bootstrap/bs-datepicker.css",
               "apps/web-giddh-admin/src/assets/css/font-awesome.css",
