@@ -28,6 +28,23 @@
             </tr>
           </thead>
           <tbody>
+            <tr>
+              <td data-title="Signup On">12/08/2019</td>
+              <td data-title="Subscribe on">12/08/2019</td>
+              <td data-title="Subscribtion Id"><a href="javascript:void(0)"
+                  (click)="openModalWithClass(template)">2019-1009</a>
+              </td>
+              <td data-title="Plan">Plan2</td>
+              <td data-title="No of Company">10/100</td>
+              <td data-title="Transction Limit">10000</td>
+              <td data-title="Balance">1000</td>
+              <td data-title="Total Amount">4000/-</td>
+              <td data-title="Additional Transction">1000</td>
+              <td data-title="Additional Charges">100</td>
+              <td data-title="Rate/Transction">0.1</td>
+              <td data-title="Expiry"> 12/08/2019 </td>
+              <td data-title="Status">Active</td>
+            </tr>
             <tr *ngFor="let subscription of subscriptionData">
               <td data-title="Signup On">{{subscription.userDetails.signUpOn}}</td>
               <td data-title="Subscribe on">{{subscription.startedAt}}</td>
@@ -91,3 +108,46 @@
 <div class="clearfix left-side-main" [ngClass]="rightToggle ? 'in': 'out'">
   <app-advance-search></app-advance-search>
 </div>
+
+
+<!-- edit modal  -->
+
+<ng-template #template>
+  <div class="modal-header  themeBg pd2 pdL2 pdR2 clearfix">
+    <h4 class="modal-title pull-left">2019-1002</h4>
+
+    <span class="state pull-right"> <span class="active-state"></span> Active</span>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="d-flex wrap-about-subscriber">
+      <div class="about-subscriber">
+        <p>Alok Gangrade</p>
+        <p>alokgangrade@gmail.com</p>
+        <p>9100000000</p>
+      </div>
+      <div class="button-group">
+        <button class="btn btn-default mr-1">Email</button>
+        <button class="btn btn-default mr-1">SMS</button>
+        <button class="btn btn-default mr-1">Edit</button>
+      </div>
+    </div>
+
+    <div class="about-plan-companies d-flex mt-3">
+      <div class="plan-block">
+        <h5>Plan Name</h5>
+        <h3>Plan 2</h3>
+      </div>
+      <div class="plan-block">
+        <h5>No. of Companies</h5>
+        <h3>10/100</h3>
+      </div>
+      <div class="plan-block">
+        <h5>Amount</h5>
+        <h3>4000/-</h3>
+      </div>
+    </div>
+  </div>
+</ng-template>

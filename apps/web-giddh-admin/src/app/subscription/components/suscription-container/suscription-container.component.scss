@@ -29,6 +29,23 @@
 .inline-flex-subscription{
   display: inline-flex !important;
 }
+
+// modal css
+span.state {
+  color: #fff;
+  font-size: 16px;
+  padding-right: 20px;
+}
+span.active-state {
+    width: 10px;
+    height: 10px;
+    background-color: #6fb401;
+    display: inline-block;
+    border-radius: 50%;
+}
+.wrap-about-subscriber{
+  justify-content: space-between;
+}
 @media(max-width:1280px){
   .basic > thead > tr > th{
     min-width: 150px;

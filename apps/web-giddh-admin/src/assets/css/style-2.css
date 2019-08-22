@@ -501,7 +501,27 @@ input[type="checkbox"]:after {
   background: #fff;
 }
 
+/* modal css */
+.modal-header {
+  position: relative;
+  background: #525252;
+}
 
+.close{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 15px;
+  color: #db7f53;
+  opacity: 1;
+  text-shadow: none;
+  cursor: pointer;
+}
+.modal-title {
+  color: #fff!important;
+  font-size: 18px;
+}
+/* modal css end */
 
 /* display flex */
 .d-flex {
@@ -605,9 +625,22 @@ input[type="checkbox"]:after {
   color: #303030;
 }
 
-
-
-
+.edit-subscriber {
+  max-width: 1200px;
+  width: 100%;
+}
+.about-plan-companies h5 {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+.about-plan-companies h3 {
+  font-size: 22px;
+  color: #ff5f00;
+}
+.about-plan-companies .plan-block {
+  margin-right: 30px;
+}
+/* responsive css */
 
 
 @media(max-width:767px){
