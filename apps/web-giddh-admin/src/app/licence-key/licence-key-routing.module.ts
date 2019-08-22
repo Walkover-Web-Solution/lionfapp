@@ -4,10 +4,9 @@ import { licenceKeyComponent } from './licence-key-component/licence-key.compone
 import { GenerateKeyComponent } from './components/generate-key/generate-key.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'licence-key' },
   //{ path: 'subscription', component: SubscriptionComponent, pathMatch: 'full' },
-  { path: 'licence-key', component: licenceKeyComponent, pathMatch: 'full' },
-  { path: 'generate-key', component: GenerateKeyComponent, pathMatch: 'full' }
+  { path: '', component: licenceKeyComponent, pathMatch: 'full' },
+  { path: 'generate', component: GenerateKeyComponent, pathMatch: 'full' }
 ];
 
 

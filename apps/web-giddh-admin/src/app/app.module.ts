@@ -6,7 +6,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ActionReducer, MetaReducer, StoreModule } from '@ngrx/store';
-import * as _ from './lodash-optimized';
 /*
  * Platform and Environment providers/pipes/pipes
  */
@@ -41,10 +40,14 @@ import { ServiceModule } from './services/service.module';
 import { ServiceConfig } from './services/service.config';
 import { HeaderComponent } from './header/header.component';
 import { SidebarDirective } from './shared/directive/sidebar.directive';
+import { LoaderComponent } from './loader/loader.component';
+import { LoginModule } from './login/login.module';
+
+
 // Application wide providers
 const APP_PROVIDERS = [
   ...APP_RESOLVER_PROVIDERS,
-  {provide: APP_BASE_HREF, useValue: IS_ELECTRON_WA ? './' : AppUrl + APP_FOLDER}
+  { provide: APP_BASE_HREF, useValue: IS_ELECTRON_WA ? './' : AppUrl + APP_FOLDER }
   // { provide: APP_BASE_HREF, useValue: './' }
 ];
 
@@ -58,7 +61,7 @@ let CONDITIONAL_IMPORTS = [];
 
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
   // return localStorageSync({ keys: ['session', 'permission'], rehydrate: true, storage: IS_ELECTRON_WA ? sessionStorage : localStorage })(reducer);
-  return localStorageSync({keys: ['session', 'permission'], rehydrate: true, storage: localStorage})(reducer);
+  return localStorageSync({ keys: ['session', 'permission'], rehydrate: true, storage: localStorage })(reducer);
   // return localStorageSync({ keys: ['session', 'permission'], rehydrate: true, storage: sessionStorage })(reducer);
 }
 
@@ -66,7 +69,7 @@ let metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
 if (!environment.production) {
   console.log('loading react devtools ' + ENV);
   // metaReducers.push(storeFreeze);
-  CONDITIONAL_IMPORTS.push(StoreDevtoolsModule.instrument({maxAge: 50}));
+  CONDITIONAL_IMPORTS.push(StoreDevtoolsModule.instrument({ maxAge: 50 }));
   console.log(CONDITIONAL_IMPORTS);
 } else {
   console.log('loading react devtools production');
@@ -85,13 +88,16 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AppComponent,
     NotFoundComponent,
     HeaderComponent,
-    SidebarDirective
+    SidebarDirective,
+    LoaderComponent
+
     // SignupComponent
   ],
   /**
    * Import Angular's modules.
    */
   imports: [
+    LoginModule,
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
@@ -114,10 +120,10 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     TooltipModule.forRoot(),
     DatepickerModule.forRoot(),
     ActionModule.forRoot(),
-    ToastrModule.forRoot({preventDuplicates: true, maxOpened: 3}),
-    StoreModule.forRoot(reducers, {metaReducers}),
+    ToastrModule.forRoot({ preventDuplicates: true, maxOpened: 3 }),
+    StoreModule.forRoot(reducers, { metaReducers }),
     PerfectScrollbarModule,
-    RouterModule.forRoot(ROUTES, {useHash: IS_ELECTRON_WA}),
+    RouterModule.forRoot(ROUTES, { useHash: IS_ELECTRON_WA }),
     StoreRouterConnectingModule,
     ...CONDITIONAL_IMPORTS,
     /**
@@ -140,7 +146,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     },
     {
       provide: ServiceConfig,
-      useValue: {apiUrl: Configuration.ApiUrl, appUrl: Configuration.AppUrl, _}
+      useValue: { apiUrl: Configuration.ApiUrl, appUrl: Configuration.AppUrl, _ }
     }
   ]
 })

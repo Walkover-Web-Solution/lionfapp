@@ -4,8 +4,7 @@ import { SubscriptionComponent } from './subscription-component/subscription.com
 import { UserListComponent } from './components/user-list/user-list.component'
 
 const routes: Routes = [
-  { path: '', redirectTo: 'subscription' },
-  { path: 'subscription', component: SubscriptionComponent, pathMatch: 'full' },
+  { path: '', component: SubscriptionComponent, pathMatch: 'full' },
   { path: 'users', component: UserListComponent, pathMatch: 'full' }
 ];
 
