@@ -3,9 +3,11 @@ import { NotFoundComponent } from './404/404-component';
 
 
 export const ROUTES: Routes = [
-  {path: '', redirectTo: 'subscription', pathMatch: 'full'},
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'subscription', loadChildren: './subscription/subscription.module#SubscriptionModule' },
   { path: 'licence-key', loadChildren: './licence-key/licence-key.module#licenceKeyModule' },
-  {path: '404', component: NotFoundComponent},
-  {path: '**', pathMatch: 'full', component: NotFoundComponent},
+  { path: '404', component: NotFoundComponent },
+  { path: 'login', loadChildren: './login/login.module#LoginModule' },
+  { path: '**', pathMatch: 'full', component: NotFoundComponent },
+
 ];

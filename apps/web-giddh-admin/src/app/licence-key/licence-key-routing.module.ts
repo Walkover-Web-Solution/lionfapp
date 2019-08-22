@@ -6,7 +6,7 @@ import { GenerateKeyComponent } from './components/generate-key/generate-key.com
 const routes: Routes = [
   //{ path: 'subscription', component: SubscriptionComponent, pathMatch: 'full' },
   { path: '', component: licenceKeyComponent, pathMatch: 'full' },
-  { path: 'generate-key', component: GenerateKeyComponent, pathMatch: 'full' }
+  { path: 'generate', component: GenerateKeyComponent, pathMatch: 'full' }
 ];
 
 

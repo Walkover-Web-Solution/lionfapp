@@ -9,7 +9,7 @@
           <span class="admin-thumb mr-1">MB</span> Meghna <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
         </a>
         <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
-          <li role="menuitem"><a class="dropdown-item" href="#">Logout</a></li>
+          <li role="menuitem"><a class="dropdown-item" href="#" [routerLink]="['/login']">Logout</a></li>
 
         </ul>
       </li>
@@ -42,7 +42,7 @@
           <i class="fa fa-angle-down pull-right"></i>
         </a>
         <ul class="submenu" role="menu" *ngIf="activeMenu === 'licence' && isDropDownOpen">
-          <li><a>Generate</a></li>
+          <li><a [routerLink]="['/licence-key/generate']">Generate</a></li>
         </ul>
       </li>
 

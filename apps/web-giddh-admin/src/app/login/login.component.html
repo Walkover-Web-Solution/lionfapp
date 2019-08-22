@@ -1,0 +1,52 @@
+<router-outlet></router-outlet>
+
+<!-- slide 4  -->
+<div class="flex-container">
+    <a href="/" class="logo"><img src="./assets/images/new/giddh-logo-white.png" /> </a>
+    <div class="slide_content col-xs-7 slide4">
+        <div>
+            <img src="./assets/images/login/img4.png" class="img-responsive" />
+        </div>
+        <div>
+            <h1><span class="hash_tag">Share your accounts</span> in real time with your<br /> customers and vendors.
+                And the company with your CA</h1>
+        </div>
+        <a href="http://faq.giddh.com/ledger/what-is-magic-link-and-how-to-get-it" target="_blank"
+            class="btn btn-white">Know
+            more</a>
+    </div>
+
+    <!-- show on small device -->
+    <!-- <div class="slide_content col-xs-12 on_mobile" [hidden]="true">
+        <div>
+            <h1>Giddh handles your accounting seamlessly, wherever you are! <span class="hash_tag">Download</span></h1>
+        </div>
+
+        <div class="download_app mrT4">
+            <ul>
+                <li><a href="" target="_blank"><i class="fa fa-android"></i>Download</a></li>
+                <li><a href="" target="_blank"><i class="fa fa-apple"></i>Download</a></li>
+            </ul>
+        </div>
+    </div> -->
+
+    <div class="login_box flex col-md-5 col-xs-12">
+        <div class="">
+            <h1 class="mrB3">Login to your secure accounting space</h1>
+
+
+            <ul class="social_login">
+                <li class="google_ico"><a href="javascript:void(0);" (click)="signInWithProviders('google')"><i
+                            class="ico-google">
+                            <img src="./assets/images/new/google_ico.svg" />
+                        </i><span>Login with Google</span></a></li>
+                <li class="linkedin_ico" *ngIf="showLinkedInButton"><a href="javascript:void(0);"
+                        (click)="signInWithProviders('linkedin')"><i class="fa fa-linkedin"></i></a></li>
+
+            </ul>
+
+
+
+        </div>
+    </div>
+</div>
