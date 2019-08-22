@@ -6,7 +6,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ActionReducer, MetaReducer, StoreModule } from '@ngrx/store';
-import * as _ from './lodash-optimized';
 /*
  * Platform and Environment providers/pipes/pipes
  */
@@ -41,6 +40,7 @@ import { ServiceModule } from './services/service.module';
 import { ServiceConfig } from './services/service.config';
 import { HeaderComponent } from './header/header.component';
 import { SidebarDirective } from './shared/directive/sidebar.directive';
+import { LoaderComponent } from './loader/loader.component';
 // Application wide providers
 const APP_PROVIDERS = [
   ...APP_RESOLVER_PROVIDERS,
@@ -85,7 +85,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AppComponent,
     NotFoundComponent,
     HeaderComponent,
-    SidebarDirective
+    SidebarDirective,
+    LoaderComponent
     // SignupComponent
   ],
   /**

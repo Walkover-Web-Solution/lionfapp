@@ -8,5 +8,10 @@
 .DS_Store
 package-lock.json
 node_modules/
+Dist/
 
 
+.dockerignore
+.editorconfig
+.gitattributes
+.travis.yml
