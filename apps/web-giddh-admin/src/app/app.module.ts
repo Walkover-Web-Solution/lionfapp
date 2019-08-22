@@ -42,6 +42,7 @@ import { HeaderComponent } from './header/header.component';
 import { SidebarDirective } from './shared/directive/sidebar.directive';
 import { LoaderComponent } from './loader/loader.component';
 import { LoginModule } from './login/login.module';
+import { AdminComponent } from './admin.component';
 
 
 // Application wide providers
@@ -89,7 +90,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NotFoundComponent,
     HeaderComponent,
     SidebarDirective,
-    LoaderComponent
+    LoaderComponent,
+    AdminComponent
 
     // SignupComponent
   ],

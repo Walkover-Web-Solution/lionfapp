@@ -36,13 +36,10 @@
 
 
             <ul class="social_login">
-                <li class="google_ico"><a href="javascript:void(0);" (click)="signInWithProviders('google')"><i
+                <li class="google_ico"><a href="javascript:void(0);" [routerLink]="['/admin/subscription']"><i
                             class="ico-google">
                             <img src="./assets/images/new/google_ico.svg" />
                         </i><span>Login with Google</span></a></li>
-                <li class="linkedin_ico" *ngIf="showLinkedInButton"><a href="javascript:void(0);"
-                        (click)="signInWithProviders('linkedin')"><i class="fa fa-linkedin"></i></a></li>
-
             </ul>
 
 
