@@ -20,21 +20,22 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
     './app.component.css'
   ],
   template: `
+ 
     <noscript *ngIf="isProdMode && !isElectron">
       <iframe [src]="tagManagerUrl"
               height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </noscript>
     <div id="loader-1" *ngIf="!IAmLoaded" class="giddh-spinner vertical-center-spinner"></div>
-    <app-header></app-header>
+    <!--  <app-header></app-header> -->
     <router-outlet></router-outlet>
   `,
   // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
-// tslint:disable-next-line:no-empty
+  // tslint:disable-next-line:no-empty
 
-  public sideMenu: { isopen: boolean } = {isopen: true};
-  public companyMenu: { isopen: boolean } = {isopen: false};
+  public sideMenu: { isopen: boolean } = { isopen: true };
+  public companyMenu: { isopen: boolean } = { isopen: false };
   public isProdMode: boolean = false;
   public isElectron: boolean = false;
   public tagManagerUrl: SafeUrl;
@@ -53,12 +54,12 @@ export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
   private newVersionAvailableForWebApp: boolean = false;
 
   constructor(private store: Store<AppState>,
-              private router: Router,
-              private _cdr: ChangeDetectorRef,
-              private sanitizer: DomSanitizer
-              // private comapnyActions: CompanyActions, 
-              // private activatedRoute: ActivatedRoute, 
-              // private location: Location
+    private router: Router,
+    private _cdr: ChangeDetectorRef,
+    private sanitizer: DomSanitizer
+    // private comapnyActions: CompanyActions, 
+    // private activatedRoute: ActivatedRoute, 
+    // private location: Location
   ) {
     this.IAmLoaded = true;
   }

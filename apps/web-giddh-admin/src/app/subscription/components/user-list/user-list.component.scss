@@ -1,4 +1,4 @@
-.page-header {
+.pageHeader{
   padding-top: 15px;
 }
 
@@ -7,7 +7,7 @@
   vertical-align: middle;
   line-height: 1.5;
 }
-.page-header  .form-group {
+.pageHeader  .form-group {
   margin-bottom: 0;
 }
 input.form-control.date-range-picker {
@@ -41,7 +41,7 @@ color: #36A1E9;
 }
 }
 @media(max-width:575px){
-  .page-header .btn-blue{
+  .pageHeader .btn-blue{
     float: none;
     width: 100%;
     margin-top: 10px;

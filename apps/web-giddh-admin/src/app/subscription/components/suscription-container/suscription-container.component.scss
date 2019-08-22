@@ -1,4 +1,4 @@
-.page-header {
+.pageHeader {
   padding-top: 15px;
 }
 .page-footer {
@@ -25,6 +25,9 @@
 }
 .left-side-main.out {
   display: none;
+}
+.inline-flex-subscription{
+  display: inline-flex !important;
 }
 @media(max-width:1280px){
   .basic > thead > tr > th{
@@ -54,7 +57,7 @@
 }
 }
 @media(max-width:575px){
-  .page-header .btn-blue{
+  .pageHeader .btn-blue{
     float: none;
     width: 100%;
     margin-top: 10px;
