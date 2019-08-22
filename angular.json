@@ -97,7 +97,6 @@
               }
             ],
             "styles": [
-              "xplat/web/scss/_index.scss",
               "apps/web-giddh-admin/src/assets/css/bootstrap.css",
               "apps/web-giddh-admin/src/assets/css/ngx-bootstrap/bs-datepicker.css",
               "apps/web-giddh-admin/src/assets/css/font-awesome.css",
@@ -109,8 +108,7 @@
               "apps/web-giddh-admin/src/assets/css/style-bootstrap.css",
               "apps/web-giddh-admin/src/assets/css/perfect-scrollbar.component.css",
               "apps/web-giddh-admin/src/assets/css/toastr.css",
-              "apps/web-giddh-admin/src/assets/css/busy.css",
-              "apps/web-giddh-admin/src/styles.scss"
+              "apps/web-giddh-admin/src/assets/css/busy.css"
             ],
             "scripts": [
               "apps/web-giddh-admin/src/assets/js/jquery-1.11.3.min.js",
@@ -358,7 +356,6 @@
               }
             ],
             "styles": [
-              "xplat/web/scss/_index.scss",
               "apps/web-giddh-admin/src/assets/css/bootstrap.css",
               "apps/web-giddh-admin/src/assets/css/ngx-bootstrap/bs-datepicker.css",
               "apps/web-giddh-admin/src/assets/css/font-awesome.css",
@@ -370,8 +367,7 @@
               "apps/web-giddh-admin/src/assets/css/style-bootstrap.css",
               "apps/web-giddh-admin/src/assets/css/perfect-scrollbar.component.css",
               "apps/web-giddh-admin/src/assets/css/toastr.css",
-              "apps/web-giddh-admin/src/assets/css/busy.css",
-              "apps/web-giddh-admin/src/styles.scss"
+              "apps/web-giddh-admin/src/assets/css/busy.css"
             ],
             "scripts": [
               "apps/web-giddh-admin/src/assets/js/jquery-1.11.3.min.js",
