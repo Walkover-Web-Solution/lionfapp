@@ -1,0 +1,25 @@
+<div class="bg-box" (click)="RightSlide()" [ngClass]="rightToggle ? 'in': 'out'"></div>
+  <div class="rightSlide kot-repring-sidebar" [ngClass]="rightToggle ? 'in': 'out'">
+    <div class="top-right-head">
+      <p class="bold text-18 text-white mb-0">Create Plan</p>
+      <a href="javascript:void(0)" class="close" (click)="togglePanel()"><i class="fa fa-times"></i></a>
+    </div>
+
+    <div class="clearfix pr-3 pl-3 pt-3">
+      <div class="form-group">
+        <input type="text" placeholder="Plan Name" class="form-control">
+      </div>
+      <div class="form-group">
+        <input type="text" placeholder="Number of companies allowed" class="form-control">
+      </div>
+      <div class="form-group">
+        <input type="text" placeholder="Number of transactions" class="form-control">
+      </div>
+      <div class="form-group">
+        <input type="text" placeholder="Subscription Prices" class="form-control">
+      </div>
+
+      <input type="button" >
+
+    </div>
+  </div>
