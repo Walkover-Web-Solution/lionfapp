@@ -5,6 +5,8 @@ import { AppState } from '../store';
 import { Router } from '@angular/router';
 import { ToasterService } from '../services/toaster.service';
 import { AuthService, GoogleLoginProvider } from "../theme/ng-social-login-module/index";
+import { takeUntil } from 'rxjs/operators';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -52,7 +54,19 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private authService : AuthService,
     private _toaster: ToasterService,
+    private authenticationService : AuthenticationService
 ) {
+  this.authService.authState.pipe(takeUntil(this.destroyed$)).subscribe((user) => {
+    if(user){
+    this.authenticationService.LoginWithGoogle(user.token).subscribe(res => {
+      if(res.status === 'success'){
+        let session = res.body.session;
+        console.log('session created'+ session.id);
+        this.router.navigate(['admin/subscription']);
+      }
+    });
+  }
+  });
 }
   public async signInWithProviders(provider: string) {
       if (provider === "google") {
