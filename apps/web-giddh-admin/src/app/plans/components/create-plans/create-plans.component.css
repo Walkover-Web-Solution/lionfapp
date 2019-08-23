@@ -24,23 +24,23 @@
   padding: 15px;
   position: relative;
 }
-.rightSlide {
-  background: #F5F8F9;
-  position: fixed;
-  right: 0;
-  width: 640px;
-  height: 100vh;
-  top: 0;
-  z-index: 99999;
-  transition: .5s all ease;
-  overflow-y: auto;
-}
 .table-invoice {
   width: 100%;
 }
 .table-invoice tr td {
   border-top: 1px dashed;
   padding: 3px;
+}
+.rightSlide {
+  background: #F5F8F9;
+  position: fixed;
+  right: 0;
+  width: 450px;
+  height: 100vh;
+  top: 0;
+  z-index: 99999;
+  transition: .5s all ease;
+  overflow-y: auto;
 }
 .rightSlide.out {
   right: -670px;
