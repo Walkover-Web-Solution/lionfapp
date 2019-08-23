@@ -10,6 +10,7 @@ export const ROUTES: Routes = [
     children: [
       { path: 'subscription', loadChildren: './subscription/subscription.module#SubscriptionModule' },
       { path: 'licence-key', loadChildren: './licence-key/licence-key.module#licenceKeyModule' },
+      { path: 'plans', loadChildren: './plans/plans.module#PlansModule' },
       { path: '404', component: NotFoundComponent }
     ]
   },
