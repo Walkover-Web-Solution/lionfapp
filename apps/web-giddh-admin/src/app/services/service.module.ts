@@ -2,13 +2,6 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-
-
-/**
- * Home Module
- */
-
-import { AgingreportingService } from './agingreporting.service';
 import { ErrorHandler } from './catchManager/catchmanger';
 import { HttpWrapperService } from './httpWrapper.service';
 import { ToasterService } from './toaster.service';
@@ -33,7 +26,6 @@ export class ServiceModule {
     return {
       ngModule: ServiceModule,
       providers: [
-        AgingreportingService,
         ErrorHandler,
         HttpWrapperService,
         ToasterService,

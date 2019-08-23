@@ -1,8 +1,5 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
-
-
-import { AgingReportActions } from './aging-report.actions';
 import { AdminActions } from './admin.actions';
 
 /**
@@ -12,7 +9,6 @@ import { AdminActions } from './admin.actions';
 @NgModule({
   imports: [
     EffectsModule.forRoot([
-      AgingReportActions,
       AdminActions
     ])
   ],
