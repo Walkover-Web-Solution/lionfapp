@@ -65,6 +65,8 @@ export class LoginComponent implements OnInit {
         let session = res.body.session;
         this.generalService.sessionId = session.id;
         this.router.navigate(['admin/subscription']);
+      }else{
+        this._toaster.errorToast(res.message);
       }
     });
   }

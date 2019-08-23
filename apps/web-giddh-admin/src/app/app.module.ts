@@ -44,7 +44,7 @@ import { LoaderComponent } from './loader/loader.component';
 import { LoginModule } from './login/login.module';
 import { AdminComponent } from './admin.component';
 import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider } from './theme/ng-social-login-module';
-
+import {DecoratorsModule} from './decorators/decorators.module'
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -142,6 +142,7 @@ export function provideConfig() {
     TooltipModule.forRoot(),
     DatepickerModule.forRoot(),
     ActionModule.forRoot(),
+    DecoratorsModule.forRoot(),
     ToastrModule.forRoot({ preventDuplicates: true, maxOpened: 3 }),
     StoreModule.forRoot(reducers, { metaReducers }),
     PerfectScrollbarModule,
