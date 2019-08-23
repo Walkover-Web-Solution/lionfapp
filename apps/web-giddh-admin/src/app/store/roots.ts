@@ -23,7 +23,6 @@ import * as fromNewVsOldInvoices from './new-vs-old-invoices/new-vs-old-invoices
 import * as fromUserSession from './General/session.reducer';
 import * as fromImportExcel from './import-excel/import-excel.reducer';
 import * as fromInventoryInOut from './Inventory-in-out/inventory-in-out.reducer';
-import * as fromAgingReport from './AgingReport/aging-report.reducer';
 import * as fromInventoryBranchTransfer from './InventoryBranchTransfer/InventoryBranchTransfer.reducer';
 import * as fromCompanyImportExport from './CompanyImportExport/companyImportExport';
 import * as fromReceipt from './Invoice/Receipt/receipt.reducer';
@@ -34,10 +33,10 @@ import * as fromSubscriptions from './userSubscriptions/subscriptions.reducer';
 import { ActionReducerMap } from '@ngrx/store';
 
 export interface AppState {
-  agingreport: fromAgingReport.AgingReportState;
+  
   
 }
 
 export const reducers: ActionReducerMap<AppState> = {
-  agingreport: fromAgingReport.agingReportReducer,
+ 
 };
