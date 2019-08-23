@@ -214,7 +214,7 @@
               "outputPath": "dist/apps/web-giddh-admin-test",
               "extraWebpackConfig": "./webpack.test.partial.js",
               "baseHref": "http://test.giddh.com/vulture/",
-              "baseUrl": "test.giddh.com/vulture/",
+              "baseUrl": "test.giddh.com",
               "fileReplacements": [
                 {
                   "replace": "apps/web-giddh-admin/src/index.html",
