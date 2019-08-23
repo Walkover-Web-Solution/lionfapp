@@ -16,6 +16,7 @@ import { LoaderService } from '../loader/loader.service';
 import { LicenceService } from './licence.service';
 import { UserService } from './user.service';
 import { SubscriptionService } from './subscription.service';
+import { AuthenticationService } from './authentication.service';
 
 
 /**
@@ -39,7 +40,8 @@ export class ServiceModule {
         LoaderService,
         LicenceService,
         UserService,
-        SubscriptionService
+        SubscriptionService,
+        AuthenticationService
       ]
     };
   }

@@ -12,7 +12,9 @@ export class licenceKeyComponent implements OnInit {
 
   constructor(private liecnceService: LicenceService) {
     liecnceService.getAllLicence().subscribe(res => {
+      if (res.status === 'success') {
       this.items = res.body.results;
+    }
     });
   }
 

@@ -27,7 +27,9 @@ export class UserListComponent implements OnInit {
 
   constructor(private store: Store<AppState>, private adminActions: AdminActions, private userService: UserService) {
     userService.getAllSubscriptionsByUser().subscribe(res => {
-      this.userSubscriptionData = this.filterResponse(res.body.results);
+      if (res.status === 'success') {
+        this.userSubscriptionData = this.filterResponse(res.body.results);
+      }
     });
   }
 
