@@ -17,7 +17,8 @@ import { LicenceService } from './licence.service';
 import { UserService } from './user.service';
 import { SubscriptionService } from './subscription.service';
 import { PlansService } from './plan.service';
-
+import {GeneralService} from './general.service'
+import { AuthenticationService } from './authentication.service';
 
 /**
  * Do not specify providers for modules that might be imported by a lazy loaded module.
@@ -41,7 +42,9 @@ export class ServiceModule {
         LicenceService,
         UserService,
         SubscriptionService,
-        PlansService
+        PlansService,
+        AuthenticationService,
+        GeneralService
       ]
     };
   }
