@@ -6,7 +6,6 @@ import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
     <div id="main">
       <giddh-loader></giddh-loader>
       <app-header></app-header>
-      <router-outlet></router-outlet>
     </div>`
 })
 export class AdminComponent implements AfterViewInit, OnInit, OnDestroy {

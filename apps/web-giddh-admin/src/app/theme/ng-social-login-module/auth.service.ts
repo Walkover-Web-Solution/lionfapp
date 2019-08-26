@@ -98,6 +98,7 @@ export class AuthService {
           this._authState.next(null);
         });
       } else {
+        this._authState.next(null);
         reject(AuthService.LOGIN_PROVIDER_NOT_FOUND);
       }
     });
