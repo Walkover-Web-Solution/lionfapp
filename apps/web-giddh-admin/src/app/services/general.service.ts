@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class GeneralService {
   private _sessionId: string;
+  private _user : object;
 
   constructor(){
   }
@@ -12,5 +13,12 @@ export class GeneralService {
 
   set sessionId(sessionId: string) {
     this._sessionId = sessionId;
+  }
+  get user(): object {
+    return this._user;
+  }
+
+  set user(user: object) {
+    this._user = user;
   }
 }

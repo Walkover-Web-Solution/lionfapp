@@ -64,11 +64,14 @@ export class LoginComponent implements OnInit {
       if(res.status === 'success'){
         let session = res.body.session;
         this.generalService.sessionId = session.id;
+        this.generalService.user = res.body.user;
         this.router.navigate(['admin/subscription']);
       }else{
         this._toaster.errorToast(res.message);
       }
     });
+  }else{
+    this.router.navigate(['login']);
   }
   });
 }
