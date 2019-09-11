@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgModule } from '@angular/core';
 import { SubscriptionService } from '../../../services/subscription.service';
 import { AppState } from '../../../store';
 import { Store } from '@ngrx/store';
 import { AdminActions } from '../../../actions/admin.actions';
 import { takeUntil, take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { PaginationModule } from 'ngx-bootstrap';
+
 
 @Component({
   selector: 'app-suscription-container',
   templateUrl: './suscription-container.component.html',
   styleUrls: ['./suscription-container.component.scss']
+})
+@NgModule({
+  imports: [PaginationModule.forRoot()]
 })
 export class SuscriptionContainerComponent implements OnInit {
   private destroyed$: Observable<any>;
