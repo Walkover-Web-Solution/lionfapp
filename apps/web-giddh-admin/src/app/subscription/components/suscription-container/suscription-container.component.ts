@@ -6,6 +6,7 @@ import { AdminActions } from '../../../actions/admin.actions';
 import { takeUntil, take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 
 @Component({
@@ -13,6 +14,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
   templateUrl: './suscription-container.component.html',
   styleUrls: ['./suscription-container.component.scss']
 })
+
 export class SuscriptionContainerComponent implements OnInit {
   modalRef: BsModalRef;
   private destroyed$: Observable<any>;
