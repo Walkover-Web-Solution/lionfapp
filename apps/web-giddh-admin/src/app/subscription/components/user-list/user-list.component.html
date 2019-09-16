@@ -1,14 +1,15 @@
 <div class="">
   <div class="pageHeader">
     <div class="form-group">
-      <input type="text" placeholder="Select Date" class="form-control date-range-picker" bsDaterangepicker>
+      <div class="input-group input-date">
+        <span class="input-group-addon" id="sizing-addon2"><i class="fa fa-calendar pull-right"></i></span>
+        <input type="text" class="form-control date-range-picker" placeholder="Select Date" bsDaterangepicker>
+      </div>
     </div>
-
   </div>
   <div class="page-content">
-    <div style="width:100%;">
       <perfect-scrollbar [scrollIndicators]="true">
-        <table class="table table-bordered basic mt-3 subscrib-list-table card-list-table">
+        <table class="table table-bordered basic subscrib-list-table card-list-table">
           <thead>
             <tr>
               <th>Signup Date <i class="fa fa-calendar pull-right"></i></th>
@@ -17,9 +18,8 @@
               <th>Mobile <i class="fa fa-search pull-right"></i></th>
               <th>Subscription ID <i class="fa fa-search pull-right"></i></th>
               <th>Plan Name <i class="fa fa-angle-down pull-right"></i></th>
-              <th>No. of Companies </th>
-              <th>Total Amount </th>
-
+              <th> <i class="fa fa-sort-numeric-asc pull-right"></i> No. of Companies </th>
+              <th>Total Amount <i class="fa fa-sort-numeric-asc pull-right"></i></th>
             </tr>
           </thead>
           <tbody>
@@ -28,22 +28,98 @@
               <td data-title="Name">{{userSubscription.userDetails.name}}</td>
               <td data-title="Email">{{userSubscription.userDetails.email}}</td>
               <td data-title="Mobile">{{userSubscription.userDetails.mobileno}}</td>
-              <td data-title="Subscription ID"><a href="javascript:void(0)"
+              <td data-title="Subscription ID"><a href="javascript:void(0)" (click)="openModalWithClass(template)"
                   *ngIf="userSubscription.subscriptions?.length > 0">{{userSubscription.subscriptions[0].subscriptionId}}</a>
               </td>
               <td data-title="Plan Name"><span *ngIf="userSubscription.subscriptions?.length > 0">
                   {{userSubscription.subscriptions[0].planDetails.name}}</span></td>
               <td data-title="No. of Companies">{{userSubscription.totalCompanies}}</td>
-              <td data-title="Total Amount">{{userSubscription.totalAmount}}/-</td>
+              <td data-title="Total Amount">{{userSubscription.totalAmount}}/-   <a href="javascript:void(0)" class="d-inline-block pull-right"><span class="fa fa-arrows-alt"></span></a></td>
+            </tr>
+          </tbody>
+          <tbody>
+            <tr>
+              <td data-title="Signup Date"></td>
+              <td data-title="Name"></td>
+              <td data-title="Email"></td>
+              <td data-title="Mobile"></td>
+              <td data-title="Subscription ID">
+                <a href="javascript:void(0)" (click)="openModalWithClass(template)">
+                  987
+                </a>
+              </td>
+              <td data-title="Plan Name">Pla1</td>
+              <td data-title="No. of Companies">122</td>
+              <td data-title="Total Amount" >10000 
+                <a href="javascript:void(0)" class="d-inline-block pull-right"><span class="fa fa-compress"></span></a>
+              </td>
+            </tr>
+            <tr>
+              <td data-title="Signup Date"></td>
+              <td data-title="Name"></td>
+              <td data-title="Email"></td>
+              <td data-title="Mobile"></td>
+              <td data-title="Subscription ID">
+                <a href="javascript:void(0)" (click)="openModalWithClass(template)">
+                  987
+                </a>
+              </td>
+              <td data-title="Plan Name">Pla1</td>
+              <td data-title="No. of Companies">122</td>
+              <td data-title="Total Amount">10000</td>
+            </tr>
+            <tr>
+              <td data-title="Signup Date"></td>
+              <td data-title="Name"></td>
+              <td data-title="Email"></td>
+              <td data-title="Mobile"></td>
+              <td data-title="Subscription ID">
+                <a href="javascript:void(0)" (click)="openModalWithClass(template)">
+                  987
+                </a>
+              </td>
+              <td data-title="Plan Name">Pla1</td>
+              <td data-title="No. of Companies">122</td>
+              <td data-title="Total Amount">10000</td>
+            </tr>
+            <tr>
+              <td data-title="Signup Date"></td>
+              <td data-title="Name"></td>
+              <td data-title="Email"></td>
+              <td data-title="Mobile"></td>
+              <td data-title="Subscription ID">
+                <a href="javascript:void(0)" (click)="openModalWithClass(template)">
+                  987
+                </a>
+              </td>
+              <td data-title="Plan Name">Pla1</td>
+              <td data-title="No. of Companies">122</td>
+              <td data-title="Total Amount">10000</td>
+            </tr>
+            <tr>
+              <td data-title="Signup Date"></td>
+              <td data-title="Name"></td>
+              <td data-title="Email"></td>
+              <td data-title="Mobile"></td>
+              <td data-title="Subscription ID">
+                <a href="javascript:void(0)" (click)="openModalWithClass(template)">
+                  987
+                </a>
+              </td>
+              <td data-title="Plan Name">Pla1</td>
+              <td data-title="No. of Companies">122</td>
+              <td data-title="Total Amount">10000</td>
             </tr>
           </tbody>
         </table>
       </perfect-scrollbar>
-
-    </div>
-
-
   </div>
-
-
 </div>
+
+<ng-template class="modal-ubscription" #template>
+  <app-suscription-modal></app-suscription-modal>
+  <button type="button" class="btn btn-primary" (click)="openEditModal(editPlan)">editPlan</button>
+</ng-template>
+<ng-template #editPlan>
+  <app-editPlan-modal></app-editPlan-modal>
+</ng-template>

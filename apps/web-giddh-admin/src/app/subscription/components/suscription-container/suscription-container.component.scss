@@ -1,6 +1,3 @@
-.pageHeader {
-  padding-top: 15px;
-}
 .page-footer {
   position: fixed;
   width: 100%;
@@ -29,9 +26,6 @@
 .inline-flex-subscription{
   display: inline-flex !important;
 }
-
-
-
 @media(max-width:1280px){
   .basic > thead > tr > th{
     min-width: 150px;
@@ -50,18 +44,16 @@
   }
   .aboutUser {
     width: 140px;
-}
-.userNumber h4 {
-  font-size: 14px;
-
-}
-.inline-flex-subscription{
-  display: inline-flex !important;
-}
-
-.aboutUser p {
-  font-size: 14px;
-}
+  }
+  .userNumber h4 {
+    font-size: 14px;
+  }
+  .inline-flex-subscription{
+    display: inline-flex !important;
+  }
+  .aboutUser p {
+    font-size: 14px;
+  }
 }
 @media(max-width:575px){
   .pageHeader .btn-blue{

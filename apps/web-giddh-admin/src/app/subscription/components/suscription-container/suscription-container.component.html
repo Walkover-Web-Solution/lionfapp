@@ -4,21 +4,22 @@
       <h5 class="mb-0">Subscribers List</h5>
       <a class=" btn-link ml-2" href="javascript:void(0)_" on-click="RightSlide()">Advance Search</a>
     </div>
-    <button class="pull-right btn btn-blue">Assign Plan</button>
+    <a href="javascript:void(0)" [routerLink]="['/admin/plans']" class="pull-right btn btn-blue">Assign Plan</a>
+
+
   </div>
   <div class="page-content">
-    <div style="width:100%;">
       <perfect-scrollbar [scrollIndicators]="true">
-        <table class="table table-bordered basic mt-3 subscrib-list-table card-list-table">
+        <table class="table table-bordered basic subscrib-list-table card-list-table">
           <thead>
             <tr>
               <th>Signup On
                 <i class="fa fa-search pull-right"></i>
               </th>
               <th>Subscribe on</th>
-              <th>Subscribtion Id</th>
+              <th>Subscribtion ID</th>
               <th>Plan</th>
-              <th>No of Company</th>
+              <th>No of company</th>
               <th>Transction Limit </th>
               <th>Balance </th>
               <th>Total Amount </th>
@@ -34,7 +35,7 @@
               <td data-title="Signup On">{{subscription.userDetails.signUpOn}}</td>
               <td data-title="Subscribe on">{{subscription.startedAt}}</td>
               <td data-title="Subscribtion Id">
-                <a href="javascript:void(0)" (click)="openModalWithClass(template)">{{subscription.subscriptionId}}</a>
+                <a href="javascript:void(0)">{{subscription.subscriptionId}}</a>
               </td>
               <td data-title="Plan">{{subscription.planDetails.name}}</td>
               <td data-title="No of Company">{{subscription.companies?.length}}/{{subscription.totalCompanies}}</td>
@@ -50,8 +51,6 @@
           </tbody>
         </table>
       </perfect-scrollbar>
-
-    </div>
 
     <div class="page-footer">
       <div class="row">
@@ -91,10 +90,6 @@
     </div>
   </div>
 </div>
-
-<ng-template class="modal-ubscription" #template>
-  <app-suscription-modal></app-suscription-modal>
-</ng-template>
 
 <div class="clearfix left-side-main" [ngClass]="rightToggle ? 'in': 'out'">
   <app-advance-search></app-advance-search>

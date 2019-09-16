@@ -138,7 +138,9 @@ body{
 .mt-5 {
   margin-top: 50px;
 }
-
+.mb-0 {
+  margin-bottom: 0px;
+}
 .mb-1 {
   margin-bottom: 10px;
 }
@@ -209,11 +211,12 @@ body{
 .text-gray {
   color: #9a9a9a;
 }
-.xs-left {
-  text-align: left;
-}
+
 .xs-center {
   text-align: center;
+}
+.table-responsive {
+  width: 100%;
 }
 /* btn */
 a {
@@ -244,7 +247,7 @@ a {
 
 .btn {
   padding: 6px 16px;
-  border: 0;
+  /* border: 0; */
   border-radius: 2px;
   font-size: 14px;
 
@@ -317,7 +320,6 @@ a {
   background: #e5e5e5;
   color: #262626;
   border: 0;
-  font-family: 'lato';
   font-weight: 600;
   text-transform: capitalize;
   border-right:1px solid #c6c4c4;
@@ -396,8 +398,7 @@ input[type="checkbox"]{
   position: relative !important;
   display: inline-block;
   font-weight: 400;
-   
-
+  cursor: pointer;
 }
 input[type=checkbox], input[type=radio] {
   margin: 1px 0 0 !important;
@@ -464,7 +465,7 @@ input[type="checkbox"]:after {
   position: absolute;
   top: 50%;
   margin-top: -1.5px;
-  right: 30px;
+  right: 15px;
   width: 0;
   height: 0;
   border: 5px solid transparent;
@@ -501,13 +502,15 @@ input[type="checkbox"]:after {
 }
 .btn-blue:hover {
   color: #36a1e9;
-  background: #fff;
+  border: 1px solid #36a1e9;
+  background: #fff !important;
 }
 
 .btn-blue,
 .btn-blue:focus {
     background: #36A1E9 !important;
     color: #fff;
+    transition: .5s all ease;
 }
 /* .btn-blue:hover {
   color: #36A1E9;
@@ -520,16 +523,20 @@ input[type="checkbox"]:after {
   position: relative;
   background: #525252;
 }
-
-.close{
+.close {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  right: 15px;
-  color: #db7f53;
+  top: 51%;
+  transform: translateY(-49%);
+  right: 20px;
+  color: #929292;
   opacity: 1;
   text-shadow: none;
   cursor: pointer;
+  font-size: 16px;
+  transition: .5s all ease;
+}
+.close:hover {
+  color: #ccc;
 }
 .modal-title {
   color: #fff!important;
@@ -552,13 +559,12 @@ input[type="checkbox"]:after {
   font-size: 14px !important;
   border-color: #dcdcdc !important;
 }
-​
-
 .pageHeader {
-  display: flex;
   align-items: center;
+  display: flex;
+  width: 100%;
   justify-content: space-between;
-  padding: 10px 0;
+  margin-bottom: 20px;
 }
 .modal-bg {
   background: rgba(0, 0, 0, 0.5);
@@ -600,6 +606,7 @@ input[type="checkbox"]:after {
 }
 .advance-search li {
   display: flex;
+  align-items: center;
   padding-bottom: 20px;
 }
 .advance-search li a {
@@ -615,6 +622,13 @@ input[type="checkbox"]:after {
   height: 28px;
   border-radius: 3px;
   margin: 0 10px;
+}
+.advance-search li input[type="text"]:focus {
+  outline: none;
+}
+
+.advance-search > li input[type="checkbox"] {
+  margin-right: 15px !important;
 }
 .page-number {
   display: flex;
@@ -711,12 +725,9 @@ input[type="checkbox"]:after {
   left: 0;
   bottom: -1px;
 }
-
-
 .modal-content {
   border: 0px;
 }
-
 .active-modal {
   float: right;
   padding-right: 30px;
@@ -732,6 +743,51 @@ input[type="checkbox"]:after {
   border-radius: 90px;
   margin-right: 5px;
 }
+.input-date .input-group-addon {
+  background: #fff;
+  border-radius: 2px 0 2px 0;
+  border-color: #dcdcdc !important;
+  padding-right: 3px;
+  padding-left: 6px;
+  font-size: 12px;
+  color: #ababab;
+}
+.form-control.date-range-picker {
+  border-left: 0;
+  border-radius: 0px 2px 0px 0px !important;
+}
+.width-200 {
+  width: 200px;
+}
+.log-items {
+  list-style-type: none;
+  padding-left: 5px;
+}
+.log-items > li {
+  position: relative;
+  padding: 0 0 30px 25px;
+  border-left: 2px solid #ccc;
+}
+.log-items > li:after {
+  background: white;
+  width: 20px;
+  height: 20px;
+  display: block;
+  content: '';
+  position: absolute;
+  left: -10px;
+  top: 0px;
+  border-radius: 90px;
+  border: 1px solid #ccc;
+}
+.log-items > li:last-child {
+  padding-bottom: 0px;
+}
+.checkbox-list {
+  list-style-type: none;
+}
+
+
 
 @media (min-width: 992px) {
   .modal-lg {
@@ -760,7 +816,7 @@ input[type="checkbox"]:after {
     cursor: pointer;
     display: block;
     padding: 5px 0 10px;
-    margin: 22px auto 0;
+    margin: 0 auto 20px;
     width: 100%;
     max-width: 100%;
  }
@@ -819,5 +875,8 @@ input[type="checkbox"]:after {
   }
   .custom-tabs .nav.nav-tabs {
     margin-bottom: 15px;
+  }
+  .xs-left {
+    text-align: left;
   }
 }

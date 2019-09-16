@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 import { SubscriptionService } from '../../../services/subscription.service';
@@ -21,7 +21,7 @@ export class SuscriptionContainerComponent implements OnInit {
   private destroyed$: Observable<any>;
   public subscriptionData = [];
   constructor(private store: Store<AppState>, private adminActions: AdminActions,
-    private subscriptionService: SubscriptionService, private modalService: BsModalService) {
+    private subscriptionService: SubscriptionService) {
     subscriptionService.getAllSubscriptions().subscribe(res => {
       if (res.status === 'success') {
         this.subscriptionData = res.body.results;
@@ -34,12 +34,6 @@ export class SuscriptionContainerComponent implements OnInit {
     this.rightToggle = !this.rightToggle;
   }
 
-  openModalWithClass(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(
-      template,
-      Object.assign({}, { class: 'gray modal-lg' })
-    );
-  }
 
   ngOnInit() {
   }

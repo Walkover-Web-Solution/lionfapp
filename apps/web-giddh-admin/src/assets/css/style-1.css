@@ -4212,96 +4212,6 @@ tr.db-bnk-account>td.reconnectDiv {
 }
 
 
-/* copy the popover code from bootstrap so this will work even without it */
-
-
-/*.popover {
-position: absolute;
-top: 0;
-left: 0;
-z-index: 1060;
-display: none;
-max-width: 276px;
-padding: 1px;
-font-size: 14px;
-font-weight: normal;
-line-height: 1.42857143;
-text-align: left;
-white-space: normal;
-background-color: #fff;
--webkit-background-clip: padding-box;
-        background-clip: padding-box;
-border: 1px solid #ccc;
-border: 1px solid rgba(0, 0, 0, .2);
-border-radius: 6px;
--webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
-        box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
-}
-.popover.top {
-margin-top: -10px;
-}
-.popover.bottom {
-margin-top: 10px;
-}
-.popover-title {
-padding: 8px 14px;
-margin: 0;
-font-size: 14px;
-background-color: #f7f7f7;
-border-bottom: 1px solid #ebebeb;
-border-radius: 5px 5px 0 0;
-}
-.popover-content {
-padding: 9px 14px;
-}
-.popover > .arrow,
-.popover > .arrow:after {
-position: absolute;
-display: block;
-width: 0;
-height: 0;
-border-color: transparent;
-border-style: solid;
-}
-.popover > .arrow {
-border-width: 11px;
-}
-.popover > .arrow:after {
-content: "";
-border-width: 10px;
-}
-.popover.top > .arrow {
-bottom: -11px;
-left: 50%;
-margin-left: -11px;
-border-top-color: #999;
-border-top-color: rgba(0, 0, 0, .25);
-border-bottom-width: 0;
-}
-.popover.top > .arrow:after {
-bottom: 1px;
-margin-left: -10px;
-content: " ";
-border-top-color: #fff;
-border-bottom-width: 0;
-}
-.popover.bottom > .arrow {
-top: -11px;
-left: 50%;
-margin-left: -11px;
-border-top-width: 0;
-border-bottom-color: #999;
-border-bottom-color: rgba(0, 0, 0, .25);
-}
-.popover.bottom > .arrow:after {
-top: 1px;
-margin-left: -10px;
-content: " ";
-border-top-width: 0;
-border-bottom-color: #fff;
-}
-*/
-
 .invoice-input .ta-editor.ta-html,
 .invoice-input .ta-scroll-window.form-control,
 .invoice-input .invoice-input,
@@ -4405,12 +4315,6 @@ display:none;
 }
 
 
-/*.invoice-wrapper-m.a4 .hasVar{
-display: inline-block;
-width:30px;
-
-}*/
-
 .invoice-wrapper-m.a4 .hasVar input,
 .invoice-wrapper-m.a4 .hasVar input:focus {
     border: 0;
@@ -4458,16 +4362,6 @@ width:30px;
     top: 8px;
 }
 
-
-/*table.table-bordered.head{
-margin-bottom:0;
-border-bottom:none;
-}
-
-table.table-bordered.head thead th{
-border-bottom:0;
-}*/
-
 table.proforma-particulars {
     margin-bottom: 0;
 }
@@ -4480,23 +4374,6 @@ table.proforma-particulars {
     width: 8.5in;
 }
 
-
-/* #intercom-container .intercom-launcher-frame {
-left: 20px !important;
-}
-
-#intercom-container .intercom-messenger-frame {
-left: 20px !important;
-}
-
-#intercom-container .intercom-borderless-frame {
-left: 0px !important;
-}
-
-#intercom-container .intercom-launcher-badge-frame {
-left: 16px !important;
-} */
-
 .marginTop {
     margin-top: -54px;
 }
@@ -4507,14 +4384,6 @@ left: 16px !important;
 
 
 /*** stock inventory**/
-
-
-/*.stock-bar{
-padding:10px;
-margin:0;
-border-bottom: 1px solid #e0e0e0;
-}*/
-
 .stock-bar ul {
     float: right;
     height: auto;
@@ -4560,7 +4429,6 @@ border-bottom: 1px solid #e0e0e0;
 }
 
 .stock-grp-list>li>a {
-    /* text-transform: uppercase; */
     color: #616161;
 }
 
@@ -4868,8 +4736,6 @@ border-bottom: 1px solid #e0e0e0;
     padding-bottom: 350px;
 }
 
-#entryModal {}
-
 #entryModal .modal-body {
     padding: 15px 20px 100px;
     display: flex;
@@ -4892,8 +4758,6 @@ border-bottom: 1px solid #e0e0e0;
 
 .my-dropdown-menu {
     position: absolute;
-    /*top: 100%;*/
-    /* left: 0; */
     z-index: 1000;
     min-width: 160px;
     padding: 5px 0;
@@ -5115,15 +4979,6 @@ bs-datepicker-container {
 .input-group {
     z-index: 1;
 }
-
-.daterangepicker.dropdown-menu {
-    /* z-index: 1 !important; */
-}
-
-
-/* .daterangepicker.show-calendar {
-  min-width: 666px;
-} */
 
 .panel.sFthanks.fieldset {
     display: none;

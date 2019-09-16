@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { takeUntil } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { AdminActions } from '../../../actions/admin.actions';
 import { UserService } from '../../../services/user.service';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { AppState } from '../../../store';
 
 @Component({
@@ -12,6 +13,8 @@ import { AppState } from '../../../store';
   styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent implements OnInit {
+  modalRef: BsModalRef;
+  modalRefEdit: BsModalRef;
   public expandList = false;
   public openExpanList = '';
   displayMonths = 2;
@@ -25,7 +28,7 @@ export class UserListComponent implements OnInit {
     this.expandList = !this.expandList;
   }
 
-  constructor(private store: Store<AppState>, private adminActions: AdminActions, private userService: UserService) {
+  constructor(private store: Store<AppState>, private adminActions: AdminActions, private userService: UserService, private modalService: BsModalService) {
     userService.getAllSubscriptionsByUser().subscribe(res => {
       if (res.status === 'success') {
         this.userSubscriptionData = this.filterResponse(res.body.results);
@@ -34,6 +37,20 @@ export class UserListComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  openModalWithClass(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(
+      template,
+      Object.assign({}, { class: 'gray modal-lg' })
+    );
+  }
+
+  openEditModal(editPlan: TemplateRef<any>) {
+    this.modalRefEdit = this.modalService.show(
+      editPlan,
+      Object.assign({}, { class: 'gray modal-lg' })
+    );
   }
 
   private filterResponse(results) {

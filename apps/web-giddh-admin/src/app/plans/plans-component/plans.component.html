@@ -1,40 +1,49 @@
-  <div class="page-header">
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <input type="text" placeholder="Select Date" class="form-control date-range-picker" bsDaterangepicker>
-        </div>
-      </div>
-      <div class="col-md-6 text-right xs-left">
-        <!-- <button type="button" class="btn btn-blue" (click)="togglePanel()">+ New Plan</button> -->
-      </div>
+<div class="pageHeader">
+    <div class="input-group input-date">
+      <span class="input-group-addon">
+        <i class="fa fa-calendar pull-right"></i>
+      </span>
+      <input type="text" placeholder="Select Date" class="form-control date-range-picker" bsDaterangepicker>
     </div>
+  <button type="button" class="btn btn-blue" (click)="togglePanel()">+ New Plan</button>
+</div>
+<div class="page-content">
+  <div class="table-responsive">
+    <table class="table table-bordered basic subscrib-list-table card-list-table">
+      <thead>
+        <tr>
+          <th>Plan Name
+            <i class="fa fa-search pull-right"></i>
+          </th>
+          <th>Created on
+            <i class="fa fa-calendar pull-right"></i>
+          </th>
+          <th>No of Company
+            <i class="fa fa-angle-down pull-right"></i>
+          </th>
+          <th>Total User
+            <i class="fa fa-angle-down pull-right"></i>
+          </th>
+          <th>Total Amount
+            <i class="fa fa-angle-down pull-right"></i>
+          </th>
+          <th>Expiry in next 30 days
+            <i class="fa fa-angle-down pull-right"></i>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let plans of PlansData">
+          <td>{{plans.name}}</td>
+          <td>{{plans.createdAt}}</td>
+          <td>{{plans.totalCompanies}}</td>
+          <td>{{plans.totalUsers}}</td>
+          <td>{{plans.amount}}</td>
+          <td>{{plans.expiry}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 
-  </div>
-  <div class="page-content">
-      <div class="table-responsive">
-        <table class="table table-bordered basic mt-3 subscrib-list-table card-list-table">
-          <thead>
-            <tr>
-              <th>Plan Name <i class="fa fa-search pull-right"></i></th>
-              <th>Created on <i class="fa fa-calendar pull-right"></i></th>
-              <th>No of Company <i class="fa fa-angle-down pull-right"></i></th>
-              <th>Total User <i class="fa fa-angle-down pull-right"></i></th>
-              <th>Total Amount <i class="fa fa-angle-down pull-right"></i></th>
-              <th>Expiry in next 30 days <i class="fa fa-angle-down pull-right"></i></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let plans of PlansData">
-              <td>{{plans.name}}</td>
-              <td>{{plans.createdAt}}</td>
-              <td>{{plans.totalCompanies}}</td>
-              <td>{{plans.totalUsers}}</td>
-              <td>{{plans.amount}}</td>
-              <td>{{plans.expiry}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-  </div>
-  <app-create-plans [rightToggle]="togglePanelBool"></app-create-plans>
+<app-create-plans [rightToggle]="togglePanelBool"></app-create-plans>

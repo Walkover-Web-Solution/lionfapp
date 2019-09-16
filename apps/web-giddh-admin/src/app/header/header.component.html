@@ -6,7 +6,7 @@
     <ul class="nav sidebar-nav">
       <li class="sidebar-brand" dropdown>
         <a id="button-basic" dropdownToggle>
-          <span class="admin-thumb mr-1">{{shortName}}</span>{{user?.name}} <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+          <span class="admin-thumb mr-1">{{shortName}}</span>{{user?.name}} <i class="icon-dots-three-vertical" aria-hidden="true"></i>
         </a>
         <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
           <li role="menuitem"><a class="dropdown-item" (click)="clearData()">Logout</a></li>
@@ -64,7 +64,7 @@
   <div id="page-content-wrapper">
     <nav class="navbar">
       <button appSidebar #ref="appSidebar" type="button" class="hamburger is-closed" data-toggle="offcanvas">
-        <i class="fa fa-bars" aria-hidden="true"></i>
+        <i class="icon-bar" aria-hidden="true"></i>
       </button>
     </nav>
 
