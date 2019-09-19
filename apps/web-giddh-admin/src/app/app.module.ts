@@ -42,7 +42,9 @@ import { HeaderComponent } from './header/header.component';
 import { SidebarDirective } from './shared/directive/sidebar.directive';
 import { LoaderComponent } from './loader/loader.component';
 import { LoginModule } from './login/login.module';
-
+import { AdminComponent } from './admin.component';
+import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider } from './theme/ng-social-login-module';
+import {DecoratorsModule} from './decorators/decorators.module'
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -54,7 +56,17 @@ const APP_PROVIDERS = [
 interface InternalStateType {
   [key: string]: any;
 }
-
+const getGoogleCredentials = (baseHref: string) => {
+  if (baseHref === 'https://giddh.com/' || isElectron) {
+    return {
+      GOOGLE_CLIENT_ID: '641015054140-3cl9c3kh18vctdjlrt9c8v0vs85dorv2.apps.googleusercontent.com'
+    };
+  } else {
+    return {
+      GOOGLE_CLIENT_ID: '641015054140-uj0d996itggsesgn4okg09jtn8mp0omu.apps.googleusercontent.com'
+    };
+  }
+};
 
 // tslint:disable-next-line:prefer-const
 let CONDITIONAL_IMPORTS = [];
@@ -78,7 +90,16 @@ if (!environment.production) {
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
-
+const SOCIAL_CONFIG = isElectron ? null : new AuthServiceConfig([
+  {
+    id: GoogleLoginProvider.PROVIDER_ID,
+    // provider: new GoogleLoginProvider('641015054140-3cl9c3kh18vctdjlrt9c8v0vs85dorv2.apps.googleusercontent.com')
+    provider: new GoogleLoginProvider(getGoogleCredentials(AppUrl).GOOGLE_CLIENT_ID)
+  }
+], false);
+export function provideConfig() {
+  return SOCIAL_CONFIG || {id: null, providers: []};
+}
 /**
  * `AppModule` is the main entry point into Angular2's bootstraping process
  */
@@ -89,7 +110,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NotFoundComponent,
     HeaderComponent,
     SidebarDirective,
-    LoaderComponent
+    LoaderComponent,
+    AdminComponent
 
     // SignupComponent
   ],
@@ -120,11 +142,13 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     TooltipModule.forRoot(),
     DatepickerModule.forRoot(),
     ActionModule.forRoot(),
+    DecoratorsModule.forRoot(),
     ToastrModule.forRoot({ preventDuplicates: true, maxOpened: 3 }),
     StoreModule.forRoot(reducers, { metaReducers }),
     PerfectScrollbarModule,
     RouterModule.forRoot(ROUTES, { useHash: IS_ELECTRON_WA }),
     StoreRouterConnectingModule,
+    SocialLoginModule,
     ...CONDITIONAL_IMPORTS,
     /**
      * This section will import the `DevModuleModule` only in certain build types.
@@ -139,6 +163,10 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
    */
   providers: [
     environment.ENV_PROVIDERS,
+    {
+      provide: AuthServiceConfig,
+      useFactory: provideConfig
+    },
     APP_PROVIDERS,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,

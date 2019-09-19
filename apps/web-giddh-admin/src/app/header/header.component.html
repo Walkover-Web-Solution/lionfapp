@@ -6,20 +6,20 @@
     <ul class="nav sidebar-nav">
       <li class="sidebar-brand" dropdown>
         <a id="button-basic" dropdownToggle>
-          <span class="admin-thumb mr-1">MB</span> Meghna <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+          <span class="admin-thumb mr-1">{{shortName}}</span>{{user?.name}} <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
         </a>
         <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
-          <li role="menuitem"><a class="dropdown-item" href="#" [routerLink]="['/login']">Logout</a></li>
+          <li role="menuitem"><a class="dropdown-item" (click)="clearData()">Logout</a></li>
 
         </ul>
       </li>
       <li>
-        <a (click)="onclick('user')" [routerLink]="['/subscription']">Subscribe List
+        <a (click)="onclick('user')" [routerLink]="['/admin/subscription']">Subscribe List
           <i class="fa fa-angle-down pull-right"></i>
         </a>
 
         <ul class="submenu" role="menu" *ngIf="activeMenu === 'user' && isDropDownOpen">
-          <li><a [routerLink]="['/subscription/users']">User</a></li>
+          <li><a [routerLink]="['/admin/subscription/users']">User</a></li>
 
         </ul>
       </li>
@@ -38,17 +38,17 @@
             </ul>
           </li> -->
       <li>
-        <a (click)="onclick('licence')" [routerLink]="['/licence-key']">Licence Key
+        <a (click)="onclick('licence')" [routerLink]="['/admin/licence-key']">Licence Key
           <i class="fa fa-angle-down pull-right"></i>
         </a>
         <ul class="submenu" role="menu" *ngIf="activeMenu === 'licence' && isDropDownOpen">
-          <li><a [routerLink]="['/licence-key/generate']">Generate</a></li>
+          <li><a [routerLink]="['/admin/licence-key/generate']">Generate</a></li>
         </ul>
       </li>
 
 
       <li>
-        <a>Plans</a>
+        <a href="javascript:void(0)" [routerLink]="['/admin/plans']">Plans</a>
       </li>
       <li>
         <a>Send SMS</a>

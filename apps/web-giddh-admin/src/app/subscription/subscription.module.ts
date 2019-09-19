@@ -7,7 +7,7 @@ import { SubscriptionComponent } from './subscription-component/subscription.com
 import { SuscriptionContainerComponent } from './components/suscription-container/suscription-container.component';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { UserListComponent } from './components/user-list/user-list.component';
-import { BsDatepickerModule } from 'ngx-bootstrap';
+import { BsDatepickerModule, PaginationModule } from 'ngx-bootstrap';
 import { AdvanceSearchComponent } from './components/advance-search/advance-search.component';
 
 
@@ -18,6 +18,7 @@ import { AdvanceSearchComponent } from './components/advance-search/advance-sear
     CommonModule,
     SubscriptionRoutingModule,
     PerfectScrollbarModule,
+    PaginationModule,
     BsDatepickerModule.forRoot(),
   ]
 })

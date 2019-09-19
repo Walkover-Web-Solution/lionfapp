@@ -2,20 +2,21 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
-import { BsDatepickerModule } from 'ngx-bootstrap';
-import { licenceKeyRoutingModule } from './licence-key-routing.module';
-import { licenceKeyComponent } from './licence-key-component/licence-key.component';
+import { BsDatepickerModule, PaginationModule } from 'ngx-bootstrap';
+import { LicenceKeyRoutingModule } from './licence-key-routing.module';
+import { LicenceKeyComponent } from './licence-key-component/licence-key.component';
 import { GenerateKeyComponent } from './components/generate-key/generate-key.component';
 
 
 
 @NgModule({
-  declarations: [licenceKeyComponent, GenerateKeyComponent],
+  declarations: [LicenceKeyComponent, GenerateKeyComponent],
   imports: [
     CommonModule,
-    licenceKeyRoutingModule,
+    LicenceKeyRoutingModule,
     PerfectScrollbarModule,
     BsDatepickerModule.forRoot(),
+    PaginationModule
   ]
 })
-export class licenceKeyModule { }
+export class LicenceKeyModule { }

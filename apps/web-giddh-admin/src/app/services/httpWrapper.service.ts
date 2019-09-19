@@ -5,10 +5,11 @@ import { Observable } from 'rxjs';
 import { LoaderService } from '../loader/loader.service';
 import { GeneralService } from './general.service';
 
+
 @Injectable()
 export class HttpWrapperService {
 
-  constructor(private _http: HttpClient, private _loaderService: LoaderService) {
+  constructor(private _http: HttpClient, private _loaderService: LoaderService, private generalService: GeneralService) {
   }
 
   public get = (url: string, params?: any, options?: any): Observable<any> => {
@@ -56,7 +57,7 @@ export class HttpWrapperService {
   public prepareOptions(options: any): any {
     this.showLoader();
     //let sessionId = this._generalService.sessionId;
-    let sessionId = 1200;
+    let sessionId = this.generalService.sessionId;
     options = options || {};
 
     if (!options.headers) {

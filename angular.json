@@ -86,11 +86,6 @@
                 "output": "/assets/"
               },
               {
-                "glob": "**/*",
-                "input": "apps/web-giddh-admin/src/meta/",
-                "output": "/"
-              },
-              {
                 "glob": "favicon.ico",
                 "input": "apps/web-giddh-admin/src/",
                 "output": "/"
@@ -106,7 +101,10 @@
               "apps/web-giddh-admin/src/assets/css/style-bootstrap.css",
               "apps/web-giddh-admin/src/assets/css/perfect-scrollbar.component.css",
               "apps/web-giddh-admin/src/assets/css/toastr.css",
-              "apps/web-giddh-admin/src/assets/css/busy.css"
+              "apps/web-giddh-admin/src/assets/css/busy.css",
+              "apps/web-giddh-admin/src/styles.scss",
+              "apps/web-giddh-admin/src/assets/css/style-1.css",
+              "apps/web-giddh-admin/src/assets/css/style-2.css"
             ],
             "scripts": [
               "apps/web-giddh-admin/src/assets/js/jquery-1.11.3.min.js",
@@ -211,7 +209,7 @@
               "outputPath": "dist/apps/web-giddh-admin-test",
               "extraWebpackConfig": "./webpack.test.partial.js",
               "baseHref": "http://test.giddh.com/vulture/",
-              "baseUrl": "test.giddh.com/vulture/",
+              "baseUrl": "test.giddh.com",
               "fileReplacements": [
                 {
                   "replace": "apps/web-giddh-admin/src/index.html",
