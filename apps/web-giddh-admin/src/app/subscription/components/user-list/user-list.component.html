@@ -1,49 +1,50 @@
 <div class="">
-  <div class="pageHeader">
-    <div class="form-group">
-      <input type="text" placeholder="Select Date" class="form-control date-range-picker" bsDaterangepicker>
+    <div class="pageHeader">
+        <div class="form-group">
+            <input type="text" placeholder="Select Date" class="form-control date-range-picker" bsDaterangepicker>
+        </div>
+
     </div>
+    <div class="page-content">
+        <div style="width:100%;">
+            <perfect-scrollbar [scrollIndicators]="true">
+                <table class="table table-bordered basic mt-3 subscrib-list-table card-list-table">
+                    <thead>
+                        <tr>
+                            <th>Signup Date <i class="fa fa-calendar pull-right"></i></th>
+                            <th>Name <i class="fa fa-search pull-right"></i></th>
+                            <th>Email <i class="fa fa-search pull-right"></i></th>
+                            <th>Mobile <i class="fa fa-search pull-right"></i></th>
+                            <th>Subscription ID <i class="fa fa-search pull-right"></i></th>
+                            <th>Plan Name <i class="fa fa-angle-down pull-right"></i></th>
+                            <th>No. of Companies </th>
+                            <th>Total Amount </th>
 
-  </div>
-  <div class="page-content">
-    <div style="width:100%;">
-      <perfect-scrollbar [scrollIndicators]="true">
-        <table class="table table-bordered basic mt-3 subscrib-list-table card-list-table">
-          <thead>
-            <tr>
-              <th>Signup Date <i class="fa fa-calendar pull-right"></i></th>
-              <th>Name <i class="fa fa-search pull-right"></i></th>
-              <th>Email <i class="fa fa-search pull-right"></i></th>
-              <th>Mobile <i class="fa fa-search pull-right"></i></th>
-              <th>Subscription ID <i class="fa fa-search pull-right"></i></th>
-              <th>Plan Name <i class="fa fa-angle-down pull-right"></i></th>
-              <th>No. of Companies </th>
-              <th>Total Amount </th>
-
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let userSubscription of userSubscriptionData">
-              <td data-title="Signup Date">{{userSubscription.userDetails.signUpOn}}</td>
-              <td data-title="Name">{{userSubscription.userDetails.name}}</td>
-              <td data-title="Email">{{userSubscription.userDetails.email}}</td>
-              <td data-title="Mobile">{{userSubscription.userDetails.mobileno}}</td>
-              <td data-title="Subscription ID"><a href="javascript:void(0)"
-                  *ngIf="userSubscription.subscriptions?.length > 0">{{userSubscription.subscriptions[0].subscriptionId}}</a>
-              </td>
-              <td data-title="Plan Name"><span *ngIf="userSubscription.subscriptions?.length > 0">
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let userSubscription of userSubscriptionData">
+                            <td data-title="Signup Date">{{userSubscription.userDetails.signUpOn}}</td>
+                            <td data-title="Name">{{userSubscription.userDetails.name}}</td>
+                            <td data-title="Email">{{userSubscription.userDetails.email}}</td>
+                            <td data-title="Mobile">{{userSubscription.userDetails.mobileno}}</td>
+                            <td data-title="Subscription ID"><a href="javascript:void(0)" *ngIf="userSubscription.subscriptions?.length > 0">{{userSubscription.subscriptions[0].subscriptionId}}</a>
+                            </td>
+                            <td data-title="Plan Name"><span *ngIf="userSubscription.subscriptions?.length > 0">
                   {{userSubscription.subscriptions[0].planDetails.name}}</span></td>
-              <td data-title="No. of Companies">{{userSubscription.totalCompanies}}</td>
-              <td data-title="Total Amount">{{userSubscription.totalAmount}}/-</td>
-            </tr>
-          </tbody>
-        </table>
-      </perfect-scrollbar>
+                            <td data-title="No. of Companies">{{userSubscription.totalCompanies}}</td>
+                            <td data-title="Total Amount">{{userSubscription.totalAmount}}/-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </perfect-scrollbar>
+            <div *ngIf="userSubscriptionData && userlistRes && userlistRes.totalItems>9" class="paginationWrapper">
+                <pagination [totalItems]="userlistRes.totalItems" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true" [itemsPerPage]="10" [rotate]="false" previousText="&#9668;" nextText="&#9658;" (pageChanged)="pageChanged($event)"></pagination>
+            </div>
+        </div>
+
 
     </div>
-
-
-  </div>
 
 
 </div>

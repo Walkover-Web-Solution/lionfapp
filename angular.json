@@ -85,7 +85,6 @@
                 "input": "apps/web-giddh-admin/src/assets/",
                 "output": "/assets/"
               },
-          
               {
                 "glob": "favicon.ico",
                 "input": "apps/web-giddh-admin/src/",

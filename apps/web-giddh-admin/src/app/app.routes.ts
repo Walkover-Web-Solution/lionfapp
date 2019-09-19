@@ -7,10 +7,11 @@ import { UserAuthenticated } from './decorators/UserAuthenticated';
 export const ROUTES: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', loadChildren: './login/login.module#LoginModule' },
-  { path: 'admin', component: AdminComponent,
+  {
+    path: 'admin', component: AdminComponent,
     children: [
       { path: 'subscription', loadChildren: './subscription/subscription.module#SubscriptionModule', canActivate: [UserAuthenticated] },
-      { path: 'licence-key', loadChildren: './licence-key/licence-key.module#licenceKeyModule', canActivate: [UserAuthenticated] },
+      { path: 'licence-key', loadChildren: './licence-key/licence-key.module#LicenceKeyModule', canActivate: [UserAuthenticated] },
       { path: 'plans', loadChildren: './plans/plans.module#PlansModule' },
       { path: '404', component: NotFoundComponent }
     ]

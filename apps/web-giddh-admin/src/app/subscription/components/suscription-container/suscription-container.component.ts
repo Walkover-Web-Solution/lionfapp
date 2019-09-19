@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { AdminActions } from '../../../actions/admin.actions';
 import { takeUntil, take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { CommonPaginatedRequest, SubscriberList } from '../../../modules/modules/api-modules/subscription';
 
 @Component({
   selector: 'app-suscription-container',
@@ -13,22 +14,44 @@ import { Observable } from 'rxjs';
 })
 export class SuscriptionContainerComponent implements OnInit {
   private destroyed$: Observable<any>;
+  public subscriberRes: SubscriberList = new SubscriberList();
   public subscriptionData = [];
+  public rightToggle: boolean = false;
+  public subscriptionRequest: CommonPaginatedRequest = new CommonPaginatedRequest();
+
+
   constructor(private store: Store<AppState>, private adminActions: AdminActions,
     private subscriptionService: SubscriptionService) {
-    subscriptionService.getAllSubscriptions().subscribe(res => {
+
+  }
+  ngOnInit() {
+    this.subscriptionRequest.count = 10;
+    this.subscriptionRequest.page = 1;
+    this.subscriptionRequest.sortBy = 'ADDITIONAL_TRANSACTIONS';
+    this.subscriptionRequest.sortType = 'desc';
+
+    this.getSsubscriptionData();
+
+  }
+
+  public getSsubscriptionData() {
+    this.subscriptionService.getAllSubscriptions(this.subscriptionRequest).subscribe(res => {
       if (res.status === 'success') {
+        this.subscriberRes = res.body;
         this.subscriptionData = res.body.results;
       }
     });
   }
-
-  public rightToggle: boolean = false;
   public RightSlide() {
     this.rightToggle = !this.rightToggle;
   }
+  public pageChanged(event: any): void {
 
-  ngOnInit() {
+    this.subscriptionRequest.page = event.page;
+    this.getSsubscriptionData();
+
   }
+
+
 
 }
