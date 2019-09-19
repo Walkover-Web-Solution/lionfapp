@@ -1,5 +1,5 @@
 export const PLANS_API = {
-  GET_PLANS: '/v2/admin/plans/all?sortBy=TOTAL_AMOUNT&sortType=desc'
+  GET_PLANS: '/v2/admin/plans/all'
 };
 
 // export const SUBSCRIPTION_API = {
