@@ -35,19 +35,11 @@ export class SuscriptionContainerComponent implements OnInit {
     this.subscriptionRequest.page = 1;
     this.subscriptionRequest.sortBy = 'ADDITIONAL_TRANSACTIONS';
     this.subscriptionRequest.sortType = 'desc';
-
     this.getSsubscriptionData();
 
   }
 
-  public getSsubscriptionData() {
-    this.subscriptionService.getAllSubscriptions(this.subscriptionRequest).subscribe(res => {
-      if (res.status === 'success') {
-        this.subscriberRes = res.body;
-        this.subscriptionData = res.body.results;
-      }
-    });
-  }
+  
   public RightSlide() {
     this.rightToggle = !this.rightToggle;
   }
@@ -56,6 +48,14 @@ export class SuscriptionContainerComponent implements OnInit {
     this.subscriptionRequest.page = event.page;
     this.getSsubscriptionData();
 
+  }
+  public getSsubscriptionData() {
+    this.subscriptionService.getAllSubscriptions(this.subscriptionRequest).subscribe(res => {
+      if (res.status === 'success') {
+        this.subscriberRes = res.body;
+        this.subscriptionData = res.body.results;
+      }
+    });
   }
 
 
