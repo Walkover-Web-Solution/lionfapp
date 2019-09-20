@@ -1,6 +1,3 @@
-.pageHeader {
-  padding-top: 15px;
-}
 .page-footer {
   position: fixed;
   width: 100%;
@@ -35,6 +32,10 @@
   }
 }
 @media(max-width:767px){
+  .card-list-table tbody tr {
+    margin-top: 0px;
+    margin-bottom: 20px;
+  }
   .wrap-row{
     display: flex;
     flex-direction: row-reverse;
@@ -43,18 +44,16 @@
   }
   .aboutUser {
     width: 140px;
-}
-.userNumber h4 {
-  font-size: 14px;
-
-}
-.inline-flex-subscription{
-  display: inline-flex !important;
-}
-
-.aboutUser p {
-  font-size: 14px;
-}
+  }
+  .userNumber h4 {
+    font-size: 14px;
+  }
+  .inline-flex-subscription{
+    display: inline-flex !important;
+  }
+  .aboutUser p {
+    font-size: 14px;
+  }
 }
 @media(max-width:575px){
   .pageHeader .btn-blue{

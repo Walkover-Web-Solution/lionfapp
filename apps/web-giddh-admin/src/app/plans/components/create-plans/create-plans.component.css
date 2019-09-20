@@ -59,13 +59,3 @@
 .text-white {
   color: #fff;
 }
-.rightSlide .close {
-  color: #fff;
-  opacity: 1;
-  font-weight: 400 !important;
-  position: absolute;
-  top: 18px;
-  right: 15px;
-  text-shadow: none;
-  font-size: 16px;
-}

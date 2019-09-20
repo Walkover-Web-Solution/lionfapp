@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+
 import { SubscriptionService } from '../../../services/subscription.service';
 import { AppState } from '../../../store';
 import { Store } from '@ngrx/store';
@@ -13,6 +15,10 @@ import { CommonPaginatedRequest, SubscriberList } from '../../../modules/modules
   styleUrls: ['./suscription-container.component.scss']
 })
 export class SuscriptionContainerComponent implements OnInit {
+
+  modalRef: BsModalRef;
+  
+
   private destroyed$: Observable<any>;
   public subscriberRes: SubscriberList = new SubscriberList();
   public subscriptionData = [];
@@ -29,19 +35,11 @@ export class SuscriptionContainerComponent implements OnInit {
     this.subscriptionRequest.page = 1;
     this.subscriptionRequest.sortBy = 'ADDITIONAL_TRANSACTIONS';
     this.subscriptionRequest.sortType = 'desc';
-
     this.getSsubscriptionData();
 
   }
 
-  public getSsubscriptionData() {
-    this.subscriptionService.getAllSubscriptions(this.subscriptionRequest).subscribe(res => {
-      if (res.status === 'success') {
-        this.subscriberRes = res.body;
-        this.subscriptionData = res.body.results;
-      }
-    });
-  }
+  
   public RightSlide() {
     this.rightToggle = !this.rightToggle;
   }
@@ -50,6 +48,14 @@ export class SuscriptionContainerComponent implements OnInit {
     this.subscriptionRequest.page = event.page;
     this.getSsubscriptionData();
 
+  }
+  public getSsubscriptionData() {
+    this.subscriptionService.getAllSubscriptions(this.subscriptionRequest).subscribe(res => {
+      if (res.status === 'success') {
+        this.subscriberRes = res.body;
+        this.subscriptionData = res.body.results;
+      }
+    });
   }
 
 
