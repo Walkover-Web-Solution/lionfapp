@@ -113,6 +113,11 @@
           </tbody>
         </table>
       </perfect-scrollbar>
+
+      <div *ngIf="userSubscriptionData && userlistRes && userlistRes.totalItems>9" class="paginationWrapper">
+        <pagination [totalItems]="userlistRes.totalItems" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true" [itemsPerPage]="10" [rotate]="false" previousText="&#9668;" nextText="&#9658;" (pageChanged)="pageChanged($event)"></pagination>
+    </div>
+    
   </div>
 </div>
 

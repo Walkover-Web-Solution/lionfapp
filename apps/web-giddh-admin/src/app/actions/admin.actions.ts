@@ -5,7 +5,8 @@ import { BaseResponse } from '../models/api-models/BaseResponse';
 import { Injectable } from '@angular/core';
 import { Action } from '@ngrx/store';
 import { CustomActions } from '../store/customActions';
-import {SubscriptionService} from '../services/subscription.service';
+import { SubscriptionService } from '../services/subscription.service';
+import { CommonPaginatedRequest } from '../modules/modules/api-modules/subscription';
 
 @Injectable()
 export class AdminActions {
@@ -13,32 +14,32 @@ export class AdminActions {
   public static GET_SUBCRIPTION_RESPONSE = 'GET_SUBCRIPTION_RESPONSE';
   @Effect()
   public getSubscription$: Observable<Action> = this.action$.pipe(ofType(AdminActions.GET_SUBCRIPTION),
-      switchMap((action: CustomActions) => {
-        return this.subscriptionService.getAllSubscriptions().pipe(
-          map((response) => {
-            return{
+    switchMap((action: CustomActions) => {
+      return this.subscriptionService.getAllSubscriptions(action.payload).pipe(
+        map((response) => {
+          return {
             type: AdminActions.GET_SUBCRIPTION_RESPONSE,
             payload: response
           }
         }))
-      })
-      );
-    
+    })
+  );
+
 
   @Effect()
   public getSubscriptionResponse$: Observable<Action> = this.action$.pipe(
     ofType(AdminActions.GET_SUBCRIPTION_RESPONSE),
-      map((action: CustomActions) => {
-        const response = action.payload as BaseResponse<string, any>;
-        if (response.status === 'error') {
-          // this.toasty.errorToast(response.message, response.code);
-          return {type: 'EmptyAction'};
-        }
-        // this.toasty.successToast('Due date range created successfully', 'Success');
-        // set newly created company as active company
-        return {type: 'EmptyAction'};
-        // check if new uer has created first company then set newUserLoggedIn false
-      }));
+    map((action: CustomActions) => {
+      const response = action.payload as BaseResponse<string, any>;
+      if (response.status === 'error') {
+        // this.toasty.errorToast(response.message, response.code);
+        return { type: 'EmptyAction' };
+      }
+      // this.toasty.successToast('Due date range created successfully', 'Success');
+      // set newly created company as active company
+      return { type: 'EmptyAction' };
+      // check if new uer has created first company then set newUserLoggedIn false
+    }));
 
 
   constructor(
@@ -47,9 +48,10 @@ export class AdminActions {
   ) {
   }
 
-  public getSubscription(): CustomActions {
+  public getSubscription(model: CommonPaginatedRequest): CustomActions {
     return {
       type: AdminActions.GET_SUBCRIPTION,
+      payload: model
     };
   }
 
