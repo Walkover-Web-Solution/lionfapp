@@ -14,6 +14,13 @@ export class UserAuthenticated implements CanActivate {
 
   public canActivate(route: ActivatedRouteSnapshot) {
     let sessionId = this.generalService.sessionId;
+    
+    const session = JSON.parse(localStorage.getItem('session')).user.session;
+    if(session && session.id){
+      sessionId = session.id;
+      this.generalService.sessionId = sessionId;
+    }
+
     if(!sessionId){
       this._router.navigate(['login']);
     }
