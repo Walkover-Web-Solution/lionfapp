@@ -34,10 +34,12 @@
               <td data-title="Plan Name"><span *ngIf="userSubscription.subscriptions?.length > 0">
                   {{userSubscription.subscriptions[0].planDetails.name}}</span></td>
               <td data-title="No. of Companies">{{userSubscription.totalCompanies}}</td>
-              <td data-title="Total Amount">{{userSubscription.totalAmount}}/-   <a href="javascript:void(0)" class="d-inline-block pull-right"><span class="fa fa-arrows-alt"></span></a></td>
+              <td data-title="Total Amount">{{userSubscription.totalAmount}}/-   <!-- <a href="javascript:void(0)" class="d-inline-block pull-right"><span class="fa fa-arrows-alt"></span></a> --></td>
             </tr>
           </tbody>
-          <tbody>
+          
+          <!--
+            <tbody>
             <tr>
               <td data-title="Signup Date"></td>
               <td data-title="Name"></td>
@@ -111,6 +113,8 @@
               <td data-title="Total Amount">10000</td>
             </tr>
           </tbody>
+          -->
+
         </table>
       </perfect-scrollbar>
 
