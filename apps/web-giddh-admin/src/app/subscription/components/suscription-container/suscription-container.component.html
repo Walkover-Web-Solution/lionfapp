@@ -7,8 +7,8 @@
         <button class="pull-right btn btn-blue">Assign Plan</button>
     </div>
     <div class="page-content">
-        <div style="width:100%;">
-            <perfect-scrollbar [scrollIndicators]="true">
+        <div class="table-responsive table-responsive-2" style="width:100%;">
+            <!-- <perfect-scrollbar [scrollIndicators]="true"> -->
                 <table class="table table-bordered basic subscrib-list-table card-list-table">
                     <thead>
                         <tr>
@@ -45,10 +45,12 @@
                         </tr>
                     </tbody>
                 </table>
-            </perfect-scrollbar>
-            <div *ngIf="subscriberRes && subscriberRes.totalItems>9" class="paginationWrapper">
-                <pagination [totalItems]="subscriberRes.totalItems" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true" [itemsPerPage]="10" [rotate]="false" previousText="&#9668;" nextText="&#9658;" (pageChanged)="pageChanged($event)"></pagination>
-            </div>
+            <!-- </perfect-scrollbar> -->
+            
+        </div>
+
+        <div *ngIf="subscriberRes && subscriberRes.totalItems>9" class="paginationWrapper">
+            <pagination [totalItems]="subscriberRes.totalItems" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true" [itemsPerPage]="10" [rotate]="false" previousText="&#9668;" nextText="&#9658;" (pageChanged)="pageChanged($event)"></pagination>
         </div>
 
         <div class="page-footer">
