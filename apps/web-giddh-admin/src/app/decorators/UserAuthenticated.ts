@@ -9,21 +9,25 @@ import { GeneralService } from '../services/general.service';
 
 @Injectable()
 export class UserAuthenticated implements CanActivate {
-  constructor(public _router: Router, private store: Store<AppState>, private generalService : GeneralService) {
-  }
-
-  public canActivate(route: ActivatedRouteSnapshot) {
-    let sessionId = this.generalService.sessionId;
-    
-    const session = JSON.parse(localStorage.getItem('session')).user.session;
-    if(session && session.id){
-      sessionId = session.id;
-      this.generalService.sessionId = sessionId;
+    constructor(public _router: Router, private store: Store<AppState>, private generalService: GeneralService) {
     }
 
-    if(!sessionId){
-      this._router.navigate(['login']);
+    public canActivate(route: ActivatedRouteSnapshot) {
+        let sessionId = this.generalService.sessionId;
+        let session = null;
+
+        if (JSON.parse(localStorage.getItem('session'))) {
+            session = JSON.parse(localStorage.getItem('session')).user.session;
+        }
+
+        if (session && session.id) {
+            sessionId = session.id;
+            this.generalService.sessionId = sessionId;
+        }
+
+        if (!sessionId) {
+            this._router.navigate(['login']);
+        }
+        return true;
     }
-    return true;
-  }
 }
