@@ -28,87 +28,13 @@
               <td data-title="Name">{{userSubscription.userDetails.name}}</td>
               <td data-title="Email">{{userSubscription.userDetails.email}}</td>
               <td data-title="Mobile">{{userSubscription.userDetails.mobileno}}</td>
-              <td data-title="Subscription ID"><a href="javascript:void(0)" (click)="openModalWithClass(template)"
+              <td data-title="Subscription ID"><a href="javascript:void(0)"
                   *ngIf="userSubscription.subscriptions?.length > 0">{{userSubscription.subscriptions[0].subscriptionId}}</a>
               </td>
               <td data-title="Plan Name"><span *ngIf="userSubscription.subscriptions?.length > 0">
                   {{userSubscription.subscriptions[0].planDetails.name}}</span></td>
               <td data-title="No. of Companies">{{userSubscription.totalCompanies}}</td>
               <td data-title="Total Amount">{{userSubscription.totalAmount}}/-   <a href="javascript:void(0)" class="d-inline-block pull-right"><span class="fa fa-arrows-alt"></span></a></td>
-            </tr>
-          </tbody>
-          <tbody>
-            <tr>
-              <td data-title="Signup Date"></td>
-              <td data-title="Name"></td>
-              <td data-title="Email"></td>
-              <td data-title="Mobile"></td>
-              <td data-title="Subscription ID">
-                <a href="javascript:void(0)" (click)="openModalWithClass(template)">
-                  987
-                </a>
-              </td>
-              <td data-title="Plan Name">Pla1</td>
-              <td data-title="No. of Companies">122</td>
-              <td data-title="Total Amount" >10000 
-                <a href="javascript:void(0)" class="d-inline-block pull-right"><span class="fa fa-compress"></span></a>
-              </td>
-            </tr>
-            <tr>
-              <td data-title="Signup Date"></td>
-              <td data-title="Name"></td>
-              <td data-title="Email"></td>
-              <td data-title="Mobile"></td>
-              <td data-title="Subscription ID">
-                <a href="javascript:void(0)" (click)="openModalWithClass(template)">
-                  987
-                </a>
-              </td>
-              <td data-title="Plan Name">Pla1</td>
-              <td data-title="No. of Companies">122</td>
-              <td data-title="Total Amount">10000</td>
-            </tr>
-            <tr>
-              <td data-title="Signup Date"></td>
-              <td data-title="Name"></td>
-              <td data-title="Email"></td>
-              <td data-title="Mobile"></td>
-              <td data-title="Subscription ID">
-                <a href="javascript:void(0)" (click)="openModalWithClass(template)">
-                  987
-                </a>
-              </td>
-              <td data-title="Plan Name">Pla1</td>
-              <td data-title="No. of Companies">122</td>
-              <td data-title="Total Amount">10000</td>
-            </tr>
-            <tr>
-              <td data-title="Signup Date"></td>
-              <td data-title="Name"></td>
-              <td data-title="Email"></td>
-              <td data-title="Mobile"></td>
-              <td data-title="Subscription ID">
-                <a href="javascript:void(0)" (click)="openModalWithClass(template)">
-                  987
-                </a>
-              </td>
-              <td data-title="Plan Name">Pla1</td>
-              <td data-title="No. of Companies">122</td>
-              <td data-title="Total Amount">10000</td>
-            </tr>
-            <tr>
-              <td data-title="Signup Date"></td>
-              <td data-title="Name"></td>
-              <td data-title="Email"></td>
-              <td data-title="Mobile"></td>
-              <td data-title="Subscription ID">
-                <a href="javascript:void(0)" (click)="openModalWithClass(template)">
-                  987
-                </a>
-              </td>
-              <td data-title="Plan Name">Pla1</td>
-              <td data-title="No. of Companies">122</td>
-              <td data-title="Total Amount">10000</td>
             </tr>
           </tbody>
         </table>
