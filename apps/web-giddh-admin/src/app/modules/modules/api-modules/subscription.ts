@@ -3,10 +3,9 @@ export class CommonPaginatedRequest {
   public to?: string;
   public count?: number;
   public page?: number;
-  public sortType?: string;
+  public sort?: string;
   public sortBy?: string;
 }
-
 
 export class SubscriberList {
   page: number;

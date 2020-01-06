@@ -34,7 +34,7 @@ export class SuscriptionContainerComponent implements OnInit {
     this.subscriptionRequest.count = 10;
     this.subscriptionRequest.page = 1;
     this.subscriptionRequest.sortBy = 'ADDITIONAL_TRANSACTIONS';
-    this.subscriptionRequest.sortType = 'desc';
+    this.subscriptionRequest.sort = 'desc';
     this.getSsubscriptionData();
 
   }

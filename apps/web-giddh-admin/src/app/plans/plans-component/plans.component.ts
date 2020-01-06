@@ -34,7 +34,7 @@ export class PlansComponent implements OnInit {
     this.getAllPlansRequest.count = 10;
     this.getAllPlansRequest.page = 1;
     this.getAllPlansRequest.sortBy = 'TOTAL_AMOUNT';
-    this.getAllPlansRequest.sortType = 'desc';
+    this.getAllPlansRequest.sort = 'desc';
     this.getAllPlans();
   }
   public getAllPlans() {
