@@ -15,6 +15,7 @@ export class GenerateKeyComponent implements OnInit {
     /** Form instance */
     @ViewChild('generateKeysForm') generateKeysForm: NgForm;
 
+    public getAllPlansPostRequest: any = {};
     public getAllPlansRequest: CommonPaginatedRequest = new CommonPaginatedRequest();
     public allPlans: any[] = [];
     public generateLicenseKeysRequest: any = {
@@ -47,7 +48,7 @@ export class GenerateKeyComponent implements OnInit {
     public getAllPlans(): void {
         this.getAllPlansRequest.count = 0;
         this.getAllPlansRequest.page = 1;
-        this.plansService.getAllPlans(this.getAllPlansRequest).subscribe(res => {
+        this.plansService.getAllPlans(this.getAllPlansRequest, this.getAllPlansPostRequest).subscribe(res => {
             if (res.status === 'success') {
                 this.allPlans = res.body.results;
             } else {

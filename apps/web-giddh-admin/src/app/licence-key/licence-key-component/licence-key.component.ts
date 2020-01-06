@@ -10,7 +10,7 @@ import { CommonPaginatedRequest, SubscriberList } from '../../modules/modules/ap
 
 export class LicenceKeyComponent implements OnInit {
     public items;
-    public getAllLicenceKeyRequest: CommonPaginatedRequest = new CommonPaginatedRequest();
+    public getAllLicenceKeyRequest: any = {};
     public LicenceKeyRes: SubscriberList = new SubscriberList();
     public activateLicenseKeyRequest: any = {
         uniqueName: ''

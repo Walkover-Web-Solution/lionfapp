@@ -8,8 +8,6 @@ import { CommonPaginatedRequest } from '../modules/modules/api-modules/subscript
 
 @Injectable()
 export class PlansService {
-    private companyUniqueName: string;
-
     constructor(private errorHandler: ErrorHandler,
         private http: HttpWrapperService,
         @Optional() @Inject(ServiceConfig) private config: IServiceConfigArgs) {
@@ -18,8 +16,14 @@ export class PlansService {
     /**
      * Create Account Service
      */
-    public getAllPlans(model: CommonPaginatedRequest) {
-        return this.http.get(this.config.apiUrl + PLANS_API.GET_PLANS, model)
+    public getAllPlans(model: CommonPaginatedRequest, post: any) {
+        let url = this.config.apiUrl + PLANS_API.GET_PLANS;
+        url = url.replace(":sortBy", model.sortBy);
+        url = url.replace(":sortType", model.sortType);
+        url = url.replace(":page", String(model.page));
+        url = url.replace(":count", String(model.count));
+
+        return this.http.post(url, post)
             .pipe(
                 map((res) => {
                     return res;
