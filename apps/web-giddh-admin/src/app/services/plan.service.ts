@@ -46,4 +46,12 @@ export class PlansService {
                 }),
                 catchError((e) => this.errorHandler.HandleCatch(e)));
     }
+
+    public getCurrency() {
+        let url = this.config.apiUrl + PLANS_API.GET_CURRENCIES;
+        return this.http.get(url).pipe(
+            map((res) => {
+                return res;
+            }));
+    }
 }

@@ -41,7 +41,7 @@
             </form>    
         </div>
 
-        <div class="selectAllList mt-5" *ngIf="generatedKeys && generatedKeys.length > 0">
+        <div class="selectAllList mt-5" *ngIf="generatedKeysAvailable">
             <div class="row">
                 <div class="col-sm-4">
                     <label class="checkbox mr-3">
@@ -53,7 +53,7 @@
 
                     <div class="key-list">
                         <span *ngFor="let key of generatedKeys;">
-                            <label class="checkbox mr-3" *ngIf="key">
+                            <label class="checkbox mr-3" *ngIf="!key.deleted">
                                 <input type="checkbox" [attr.checked]="key.checked" (change)="selectLicenseKey(key)"> {{key.key}}
                             </label>
                         </span>    

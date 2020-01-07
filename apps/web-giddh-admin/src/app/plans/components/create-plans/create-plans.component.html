@@ -24,9 +24,16 @@
             </div>
             <div class="form-group">
                 <label>Country</label>
-                <select class="form-control" name="countries" [(ngModel)]="createPlanRequest.countries" required>
+                <select class="form-control" name="countries" [(ngModel)]="createPlanRequest.countries" multiple required>
                     <option value="">Select</option>
                     <option *ngFor="let country of countries;" [value]="country">{{country}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Currency</label>
+                <select class="form-control" name="currency" [(ngModel)]="createPlanRequest.currency" required>
+                    <option value="">Select</option>
+                    <option *ngFor="let currency of currencies;" [value]="currency">{{currency}}</option>
                 </select>
             </div>
             <div class="form-group">
