@@ -184,19 +184,19 @@ export class GenerateKeyComponent implements OnInit {
                     let loop = 0;
                     this.generatedKeys.forEach(key => {
                         let index = deleteKeys.indexOf(key.key);
-                        if(index > -1) {
-                            if(this.generatedKeys[loop]) {
+                        if (index > -1) {
+                            if (this.generatedKeys[loop]) {
                                 this.generatedKeys[loop].deleted = true;
                             }
                         }
 
-                        if(!this.generatedKeys[loop].deleted) {
+                        if (!this.generatedKeys[loop].deleted) {
                             generatedKeysAvailable = true;
                         }
 
                         loop++;
                     });
-                    
+
                     this.getLicenseKeyStatistics();
                     this.generatedKeysAvailable = generatedKeysAvailable;
                     this.selectAllActive = null;

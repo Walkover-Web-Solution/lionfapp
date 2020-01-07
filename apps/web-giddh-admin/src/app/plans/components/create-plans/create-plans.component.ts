@@ -17,11 +17,13 @@ export class CreatePlansComponent implements OnInit {
     @Output() public hidePopup: EventEmitter<boolean> = new EventEmitter(true);
 
     public countries: any[] = [];
+    public currencies: any[] = [];
     public isLoading: boolean = false;
     public createPlanRequest: any = {};
 
     constructor(private plansService: PlansService, private toaster: ToasterService) {
         this.getCountry();
+        this.getCurrency();
     }
 
     ngOnInit() {
@@ -39,6 +41,17 @@ export class CreatePlansComponent implements OnInit {
                     this.countries.push(key.countryName);
                 });
                 this.countries.sort();
+            }
+        });
+    }
+
+    public getCurrency() {
+        this.plansService.getCurrency().subscribe(res => {
+            if (res.status === 'success') {
+                res.body.forEach(key => {
+                    this.currencies.push(key.code);
+                });
+                this.currencies.sort();
             }
         });
     }

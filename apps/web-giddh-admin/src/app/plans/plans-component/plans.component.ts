@@ -19,7 +19,6 @@ export class PlansComponent implements OnInit {
     public inlineSearch: any = '';
     public timeout: any;
 
-
     constructor(private plansService: PlansService) {
 
     }
