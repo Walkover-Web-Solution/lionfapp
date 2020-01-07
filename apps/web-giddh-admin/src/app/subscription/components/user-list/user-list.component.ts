@@ -46,7 +46,7 @@ export class UserListComponent implements OnInit {
       this.inlineSearch = inlineSearch;
 
       setTimeout(() => {
-          if (this.inlineSearch === 'userplanName') {
+          if (this.inlineSearch === 'userName') {
               this.userNameField.nativeElement.focus();
           }
       }, 200);
