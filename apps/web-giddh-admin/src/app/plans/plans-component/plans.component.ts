@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { PlansService } from '../../services/plan.service';
-import { CommonPaginatedRequest, SubscriberList } from '../../modules/modules/api-modules/subscription';
 import { moment } from 'ngx-bootstrap/chronos/test/chain';
 
 @Component({
@@ -13,10 +12,9 @@ export class PlansComponent implements OnInit {
 
     @ViewChild('planNameField') public planNameField;
     
-    public PlansData = [];
+    public plansData = [];
     public getAllPlansRequest: any = {};
     public getAllPlansPostRequest: any = {};
-    public allPlansRes: SubscriberList = new SubscriberList();
     public togglePanelBool: boolean;
     public inlineSearch: any = '';
     public timeout: any;
@@ -36,8 +34,7 @@ export class PlansComponent implements OnInit {
     public getAllPlans() {
         this.plansService.getAllPlans(this.getAllPlansRequest, this.getAllPlansPostRequest).subscribe(res => {
             if (res.status === 'success') {
-                this.allPlansRes = res.body;
-                this.PlansData = res.body.results;
+                this.plansData = res.body;
             }
         });
     }
@@ -69,8 +66,8 @@ export class PlansComponent implements OnInit {
 
     public onChangeFilterDate(dates: any) {
         if (dates !== null) {
-            this.getAllPlansPostRequest.createdAt_from = moment(dates[0]).format("DD-MM-YYYY");
-            this.getAllPlansPostRequest.createdAt_to = moment(dates[0]).format("DD-MM-YYYY");
+            this.getAllPlansPostRequest.createdAtFrom = moment(dates[0]).format("DD-MM-YYYY");
+            this.getAllPlansPostRequest.createdAtTo = moment(dates[0]).format("DD-MM-YYYY");
             this.getAllPlans();
         }
     }
@@ -94,5 +91,9 @@ export class PlansComponent implements OnInit {
             this.getAllPlansRequest.page = 1;
             this.getAllPlans();
         }, 700);
+    }
+
+    public hidePopup() {
+        this.togglePanelBool = false;
     }
 }

@@ -1,27 +1,49 @@
 <div class="bg-box" [ngClass]="rightToggle ? 'in': 'out'"></div>
-  <div class="rightSlide kot-repring-sidebar" [ngClass]="rightToggle ? 'in': 'out'">
+<div class="rightSlide kot-repring-sidebar" [ngClass]="rightToggle ? 'in': 'out'">
     <div class="top-right-head">
-      <p class="bold text-18 text-white mb-0">Create Plan</p>
-      <a href="javascript:void(0)" class="close"><i class="icon-cross"></i></a>
+        <p class="bold text-18 text-white mb-0">Create Plan</p>
+        <a href="javascript:;" (click)="closePopup()" class="close"><i class="icon-cross"></i></a>
     </div>
-
     <div class="clearfix pr-3 pl-3 pt-3">
-      <div class="form-group">
-        <label>Plan Name</label>
-        <input type="text" class="form-control">
-      </div>
-      <div class="form-group">
-        <label>Number of companies allowed</label>
-        <input type="text" class="form-control">
-      </div>
-      <div class="form-group">
-        <label>Number of transactions</label>
-        <input type="text" class="form-control">
-      </div>
-      <div class="form-group">
-        <label>Subscription Prices</label>
-        <input type="text" class="form-control">
-      </div>
-      <input type="button" value="Creat" class="btn-blue btn">
+        <div class="form-group">
+            <label>Plan Name</label>
+            <input type="text" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Number of companies allowed</label>
+            <input type="number" class="form-control" min="1">
+        </div>
+        <div class="form-group">
+            <label>Number of transactions</label>
+            <input type="number" class="form-control" min="1">
+        </div>
+        <div class="form-group">
+            <label>Subscription Prices</label>
+            <input type="number" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Country</label>
+            <select class="form-control">
+                <option value="">Select</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Duration</label>
+            <input type="number" class="form-control" min="1">
+        </div>
+        <div class="form-group">
+            <label>Duration Unit</label>
+            <select class="form-control">
+                <option value="YEAR">YEAR</option>
+                <option value="MONTH">MONTH</option>
+                <option value="WEEK">WEEK</option>
+                <option value="DAY">DAY</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Rate Per Extra Transaction</label>
+            <input type="number" class="form-control" min="0">
+        </div>
+        <input type="button" value="Create" class="btn-blue btn">
     </div>
-  </div>
+</div>
