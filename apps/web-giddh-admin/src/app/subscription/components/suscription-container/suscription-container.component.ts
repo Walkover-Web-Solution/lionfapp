@@ -47,7 +47,7 @@ export class SuscriptionContainerComponent implements OnInit {
       this.inlineSearch = inlineSearch;
 
       setTimeout(() => {
-          if (this.inlineSearch === 'planName') {
+          if (this.inlineSearch === 'suscriptionSignup') {
               this.suscriptionSignupField.nativeElement.focus();
           }
       }, 200);
