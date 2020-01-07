@@ -44,8 +44,8 @@
                     </th>
                 </tr>
             </thead>
-            <tbody>
-                <tr *ngFor="let plans of PlansData">
+            <tbody *ngIf="plansData">
+                <tr *ngFor="let plans of plansData.results">
                     <td>{{plans.name}}</td>
                     <td>{{plans.createdAt}}</td>
                     <td>{{plans.totalCompanies}}</td>
@@ -57,10 +57,10 @@
         </table>
     </div>
 
-    <div *ngIf="PlansData && allPlansRes && allPlansRes.totalItems>9" class="paginationWrapper">
+    <div *ngIf="plansData && plansData.totalItems > 9" class="paginationWrapper">
         <pagination [totalItems]="40" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true" [itemsPerPage]="10"
             [rotate]="false" previousText="&#9668;" nextText="&#9658;" (pageChanged)="pageChanged($event)"></pagination>
     </div>
 </div>
 
-<app-create-plans [rightToggle]="togglePanelBool"></app-create-plans>
+<app-create-plans *ngIf="togglePanelBool" [rightToggle]="togglePanelBool" (hidePopup)="hidePopup()"></app-create-plans>

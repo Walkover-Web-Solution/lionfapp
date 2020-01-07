@@ -26,8 +26,10 @@ export class GenerateKeyComponent implements OnInit {
     public generatedKeys: any[] = [];
     public isLoading: boolean = false;
     public selectAllActive: boolean = false;
+    public licenseStatistics: any;
 
     constructor(private plansService: PlansService, private licenseService: LicenceService, private toaster: ToasterService) {
+        this.getLicenseKeyStatistics();
         this.getAllPlans();
     }
 
@@ -162,6 +164,48 @@ export class GenerateKeyComponent implements OnInit {
      * @memberof GenerateKeyComponent
      */
     public deleteKeys(): void {
+        let deleteKeys = [];
 
+        this.generatedKeys.forEach(key => {
+            if (key.checked) {
+                deleteKeys.push(key.key);
+            }
+        });
+
+        if (deleteKeys && deleteKeys.length > 0) {
+            this.licenseService.deleteLicenseKeys(deleteKeys).subscribe(res => {
+                if (res.status === 'success') {
+                    let loop = 0;
+                    this.generatedKeys.forEach(key => {
+                        let index = deleteKeys.indexOf(key.key);
+                        if(index > -1) {
+                            delete this.generatedKeys[loop];
+                        }
+                        loop++;
+                    });
+
+                    this.toaster.successToast(res.body);
+                } else {
+                    this.toaster.warningToast(res.message);
+                }
+            });
+        } else {
+            this.toaster.warningToast("Please select atleast 1 key to delete!");
+        }
+    }
+
+    /**
+     * This function is used to get license key statistics
+     *
+     * @memberof GenerateKeyComponent
+     */
+    public getLicenseKeyStatistics() {
+        this.licenseService.getLicenseKeyStatistics().subscribe(res => {
+            if (res.status === 'success') {
+                this.licenseStatistics = res.body;
+            } else {
+                this.licenseStatistics = { active: 0, expired: 0, total: 0 };
+            }
+        });
     }
 }
