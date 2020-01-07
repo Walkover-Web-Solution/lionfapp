@@ -837,7 +837,12 @@ input[type="checkbox"]:after {
 .checkbox-list {
   list-style-type: none;
 }
-
+.justify-content-between {
+  justify-content: space-between;
+} 
+.table-search {
+  width: 20%;
+}
 
 
 @media (min-width: 992px) {

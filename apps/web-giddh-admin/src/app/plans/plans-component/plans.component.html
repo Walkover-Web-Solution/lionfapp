@@ -13,13 +13,15 @@
         <table class="table table-bordered basic subscrib-list-table card-list-table">
             <thead>
                 <tr (clickOutside)="inlineSearch = null">
-                    <th>
+                    <th class="table-search">
                         <div [hidden]="inlineSearch == 'planName'">
+                          <div class="d-flex align-items-center justify-content-between">
                             <span>Plan Name</span>
                             <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('planName')"></i>
+                          </div>
                         </div>
                         <div class="input-container" [hidden]="inlineSearch !== 'planName'">
-                            <input type="text" placeholder="Plan Name" class="w100" #planNameField name="planName"
+                            <input type="text" placeholder="Plan Name" class="form-control w100" #planNameField name="planName"
                                 [(ngModel)]="getAllPlansPostRequest.planName" (keypress)="columnSearch()"
                                 (keydown)="columnSearch()" />
                         </div>
