@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 import { SubscriptionService } from '../../../services/subscription.service';
@@ -16,19 +16,19 @@ import { CommonPaginatedRequest, SubscriberList } from '../../../modules/modules
 })
 export class SuscriptionContainerComponent implements OnInit {
 
-    modalRef: BsModalRef;
+  @ViewChild('SubscribersSignupField') public SubscribersSignupField;
 
+    modalRef: BsModalRef;
 
     private destroyed$: Observable<any>;
     public subscriberRes: SubscriberList = new SubscriberList();
     public subscriptionData = [];
     public rightToggle: boolean = false;
     public subscriptionRequest: CommonPaginatedRequest = new CommonPaginatedRequest();
-
+    public inlineSearch: any='';
 
     constructor(private store: Store<AppState>, private adminActions: AdminActions,
         private subscriptionService: SubscriptionService) {
-
     }
     ngOnInit() {
         this.subscriptionRequest.count = 10;
@@ -36,9 +36,17 @@ export class SuscriptionContainerComponent implements OnInit {
         this.subscriptionRequest.sortBy = 'ADDITIONAL_TRANSACTIONS';
         this.subscriptionRequest.sortType = 'desc';
         this.getSsubscriptionData();
-
     }
 
+    public focusOnColumnSearch(inlineSearch) {
+      this.inlineSearch = inlineSearch;
+
+      setTimeout(() => {
+          if (this.inlineSearch === 'SubscribersSignup') {
+              this.SubscribersSignupField.nativeElement.focus();
+          }
+      }, 200);
+  }
 
     public RightSlide() {
         this.rightToggle = !this.rightToggle;
@@ -57,7 +65,4 @@ export class SuscriptionContainerComponent implements OnInit {
             }
         });
     }
-
-
-
 }
