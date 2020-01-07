@@ -26,8 +26,8 @@
                 <tbody>
                     <tr *ngFor="let item of items">
                         <td data-title="Sub. on">{{item.subOn}}</td>
-                        <td data-title="Sub ID"><a href="javascript:void(0)">{{item.subcriptionId}}</a></td>
-                        <td data-title="User Name"><a href="javascript:void(0)">{{item.resellerName}}</a></td>
+                        <td data-title="Sub ID"><a href="javascript:void(0)">{{item.subscriptionId}}</a></td>
+                        <td data-title="User Name"><a href="javascript:void(0)">{{item.user?.name}}</a></td>
                         <td data-title="Plan">{{item.planName}}</td>
                         <td data-title="No of Company">{{item.currentCompanyCount}}</td>
                         <td data-title="Transction Limit">{{item.balance}}</td>
@@ -35,7 +35,7 @@
                         <td data-title="License Key">{{item.licenceKey}}</td>
                         <td data-title="Status"><a href="javascript:;" (click)="activateLicenseKey(item.licenceKey);" *ngIf="item.licenceKeyStatus === 'inactive'" class="btn btn-blue">Activate</a> <span *ngIf="item.licenceKeyStatus !== 'inactive'">{{item.licenceKeyStatus}}</span></td>
                         <td data-title="Expiry">{{item.subExpiry}}</td>
-                        <td data-title="Total Amount">{{item.TotalAmount}}</td>
+                        <td data-title="Total Amount">{{item.amount}}</td>
                     </tr>
                 </tbody>
             </table>
