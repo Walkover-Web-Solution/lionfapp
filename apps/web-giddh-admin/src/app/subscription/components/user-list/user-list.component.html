@@ -15,14 +15,14 @@
               <th>Signup Date <i class="fa fa-calendar pull-right"></i></th>
 
               <th class="table-search">
-                <div [hidden]="inlineSearch == 'planName'">
+                <div [hidden]="inlineSearch == 'userplanName'">
                   <div class="d-flex align-items-center justify-content-between">
                     <span>Name</span>
-                    <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('planName')"></i>
+                    <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('userplanName')"></i>
                   </div>
                 </div>
-                <div class="input-container" [hidden]="inlineSearch !== 'planName'">
-                    <input type="text" placeholder="Name" class="form-control w100" #planNameField name="planName"/>
+                <div class="input-container" [hidden]="inlineSearch !== 'userplanName'">
+                    <input type="text" placeholder="Name" class="form-control w100" #userplanNameField name="userplanName"/>
                 </div>
               </th>
 

@@ -13,14 +13,14 @@
                     <thead>
                         <tr>
                             <th class="table-search">
-                              <div [hidden]="inlineSearch == 'userSignup'">
+                              <div [hidden]="inlineSearch == 'suscriptionSignup'">
                                 <div class="d-flex align-items-center justify-content-between">
                                   <span>Signup On</span>
-                                  <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('userSignup')"></i>
+                                  <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('suscriptionSignup')"></i>
                                 </div>
                               </div>
-                              <div class="input-container" [hidden]="inlineSearch !== 'userSignup'">
-                                  <input type="text" placeholder="Signup" class="form-control w100" #userSignupField name="userSignup"/>
+                              <div class="input-container" [hidden]="inlineSearch !== 'suscriptionSignup'">
+                                  <input type="text" placeholder="Signup" class="form-control w100" #suscriptionSignupField name="suscriptionSignup"/>
                               </div>
                             </th>
 

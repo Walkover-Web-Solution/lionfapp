@@ -14,7 +14,7 @@ import { CommonPaginatedRequest, SubscriberList } from '../../../modules/modules
     styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent implements OnInit {
-  @ViewChild('planNameField') public planNameField;
+  @ViewChild('userNameField') public userNameField;
   @ViewChild('userEmailField') public userEmailField;
   @ViewChild('userMobileField') public userMobileField;
   @ViewChild('userSubscriptionField') public userSubscriptionField;
@@ -46,8 +46,8 @@ export class UserListComponent implements OnInit {
       this.inlineSearch = inlineSearch;
 
       setTimeout(() => {
-          if (this.inlineSearch === 'planName') {
-              this.planNameField.nativeElement.focus();
+          if (this.inlineSearch === 'userplanName') {
+              this.userNameField.nativeElement.focus();
           }
       }, 200);
     }

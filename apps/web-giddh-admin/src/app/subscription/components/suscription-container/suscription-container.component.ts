@@ -16,7 +16,7 @@ import { CommonPaginatedRequest, SubscriberList } from '../../../modules/modules
 })
 export class SuscriptionContainerComponent implements OnInit {
 
-  @ViewChild('userSignupField') public userSignupField;
+  @ViewChild('suscriptionSignupField') public suscriptionSignupField;
 
     modalRef: BsModalRef;
 
@@ -48,7 +48,7 @@ export class SuscriptionContainerComponent implements OnInit {
 
       setTimeout(() => {
           if (this.inlineSearch === 'planName') {
-              this.userSignupField.nativeElement.focus();
+              this.suscriptionSignupField.nativeElement.focus();
           }
       }, 200);
   }
