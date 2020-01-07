@@ -1,9 +1,9 @@
 <div class="clearfix">
     <div class="pageHeader">
         <div class="d-inline-flex">
-            <h5 class="mb-0">Licence Key</h5>
+            <h5 class="mb-0">License Key</h5>
         </div>
-        <button (click)="generateLicenceKeyRedirect()" class="pull-right btn btn-blue">Generate</button>
+        <a href="javascript:;" [routerLink]="['/admin/licence-key/generate']" class="pull-right btn btn-blue">Generate</a>
     </div>
     <div class="page-content">
         <div class="table-responsive">
@@ -14,33 +14,33 @@
                         <th>Sub ID</th>
                         <th>User Name</th>
                         <th>Plan</th>
-                        <th>No of Company</th>
-                        <th>Balance </th>
-                        <th>Tranaction Limit </th>
-                        <th>Licence Key </th>
+                        <th (click)="sortBy('currentcompanycount')">No of Company <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-angle-down': getAllLicenceKeyRequest.sort === 'desc' && getAllLicenceKeyRequest.sortBy === 'currentcompanycount', 'fa-angle-up': (getAllLicenceKeyRequest.sort === 'asc' && getAllLicenceKeyRequest.sortBy === 'currentcompanycount') || getAllLicenceKeyRequest.sortBy !== 'currentcompanycount'}"></i></th>
+                        <th (click)="sortBy('balance')">Balance <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-angle-down': getAllLicenceKeyRequest.sort === 'desc' && getAllLicenceKeyRequest.sortBy === 'balance', 'fa-angle-up': (getAllLicenceKeyRequest.sort === 'asc' && getAllLicenceKeyRequest.sortBy === 'balance') || getAllLicenceKeyRequest.sortBy !== 'balance'}"></i></th>
+                        <th (click)="sortBy('transactionlimit')">Transaction Limit <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-angle-down': getAllLicenceKeyRequest.sort === 'desc' && getAllLicenceKeyRequest.sortBy === 'transactionlimit', 'fa-angle-up': (getAllLicenceKeyRequest.sort === 'asc' && getAllLicenceKeyRequest.sortBy === 'transactionlimit') || getAllLicenceKeyRequest.sortBy !== 'transactionlimit'}"></i></th>
+                        <th>License Key </th>
                         <th>Status</th>
                         <th>Expiry</th>
-                        <th>Totalamount</th>
+                        <th>Total Amount</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let item of items">
-                        <td data-title="Signup On">{{item.subOn}}</td>
-                        <td data-title="Subscribe on">{{item.subcriptionId}}</td>
-                        <td data-title="Subscribtion Id"><a href="javascript:void(0)">{{item.resellerName}}</a></td>
+                        <td data-title="Sub. on">{{item.subOn}}</td>
+                        <td data-title="Sub ID"><a href="javascript:void(0)">{{item.subcriptionId}}</a></td>
+                        <td data-title="User Name"><a href="javascript:void(0)">{{item.resellerName}}</a></td>
                         <td data-title="Plan">{{item.planName}}</td>
                         <td data-title="No of Company">{{item.currentCompanyCount}}</td>
                         <td data-title="Transction Limit">{{item.balance}}</td>
                         <td data-title="Balance">{{item.transactionLimit}}</td>
-                        <td data-title="Total Amount">{{item.licenceKey}}</td>
-                        <td data-title="Additional Transction">{{item.licenceKeyStatus}}</td>
-                        <td data-title="Additional Charges">{{item.subExpiry}}</td>
-                        <td data-title="Additional Charges">{{item.TotalAmount}}</td>
+                        <td data-title="License Key">{{item.licenceKey}}</td>
+                        <td data-title="Status"><a href="javascript:;" (click)="activateLicenseKey(item.licenceKey);" *ngIf="item.licenceKeyStatus === 'inactive'" class="btn btn-blue">Activate</a> <span *ngIf="item.licenceKeyStatus !== 'inactive'">{{item.licenceKeyStatus}}</span></td>
+                        <td data-title="Expiry">{{item.subExpiry}}</td>
+                        <td data-title="Total Amount">{{item.TotalAmount}}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <div *ngIf="LicenceKeyRes && LicenceKeyRes.totalItems>9" class="paginationWrapper">
+        <div *ngIf="LicenceKeyRes && LicenceKeyRes.totalItems > 9" class="paginationWrapper">
             <pagination [totalItems]="LicenceKeyRes.totalItems" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true" [itemsPerPage]="10" [rotate]="false" previousText="&#9668;" nextText="&#9658;" (pageChanged)="pageChanged($event)"></pagination>
         </div>
     </div>

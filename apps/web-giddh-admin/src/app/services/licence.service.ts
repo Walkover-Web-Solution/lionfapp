@@ -1,7 +1,7 @@
 import { catchError, map } from 'rxjs/operators';
 import { HttpWrapperService } from './httpWrapper.service';
 import { Inject, Injectable, OnInit, Optional } from '@angular/core';
-import { SUBSCRIPTION_API } from './apiurls/subscription.api';
+import { LICENSE_API } from './apiurls/licensekeys.api';
 import { ErrorHandler } from './catchManager/catchmanger';
 import { IServiceConfigArgs, ServiceConfig } from './service.config';
 import { CommonPaginatedRequest } from '../modules/modules/api-modules/subscription';
@@ -16,15 +16,27 @@ export class LicenceService {
         @Optional() @Inject(ServiceConfig) private config: IServiceConfigArgs) {
     }
 
-    /**
-     * Create Account Service
-     */
-    public getAllLicence(model: CommonPaginatedRequest) {
-        return this.http.get(this.config.apiUrl + SUBSCRIPTION_API.GET_ALL_LICENCE, model)
-            .pipe(
-                map((res) => {
-                    return res;
-                }),
-                catchError((e) => this.errorHandler.HandleCatch(e)));
+    public getAllLicenseKeys(model: CommonPaginatedRequest) {
+        return this.http.get(this.config.apiUrl + LICENSE_API.GET_ALL_LICENSE, model).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError((e) => this.errorHandler.HandleCatch(e)));
+    }
+
+    public activateLicenseKey(model: any) {
+        return this.http.post(this.config.apiUrl + LICENSE_API.ACTIVATE_LICENSE, model).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError((e) => this.errorHandler.HandleCatch<any, any>(e)));
+    }
+
+    public createLicenseKey(model: any) {
+        return this.http.post(this.config.apiUrl + LICENSE_API.CREATE_LICENSE, model).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError((e) => this.errorHandler.HandleCatch<any, any>(e)));
     }
 }
