@@ -25,8 +25,9 @@ export class GenerateKeyComponent implements OnInit {
     public selectedPlan: any;
     public generatedKeys: any[] = [];
     public isLoading: boolean = false;
-    public selectAllActive: boolean = false;
+    public selectAllActive: boolean = null;
     public licenseStatistics: any;
+    public generatedKeysAvailable: boolean = false;
 
     constructor(private plansService: PlansService, private licenseService: LicenceService, private toaster: ToasterService) {
         this.getLicenseKeyStatistics();
@@ -50,6 +51,8 @@ export class GenerateKeyComponent implements OnInit {
     public getAllPlans(): void {
         this.getAllPlansRequest.count = 0;
         this.getAllPlansRequest.page = 1;
+        this.getAllPlansRequest.sortBy = 'TOTAL_AMOUNT';
+        this.getAllPlansRequest.sortType = 'desc';
         this.plansService.getAllPlans(this.getAllPlansRequest, this.getAllPlansPostRequest).subscribe(res => {
             if (res.status === 'success') {
                 this.allPlans = res.body.results;
@@ -77,10 +80,12 @@ export class GenerateKeyComponent implements OnInit {
                 this.generateLicenseKeysRequest.planUniqueName = "";
                 this.generateLicenseKeysRequest.noOfKeys = 1;
                 this.selectedPlan = [];
-
+                this.generatedKeysAvailable = true;
+                this.getLicenseKeyStatistics();
                 this.toaster.successToast("License keys have been generated successfully.");
                 this.generatedKeys = res.body;
             } else {
+                this.generatedKeysAvailable = false;
                 this.toaster.errorToast("Something went wrong! Please try again.");
                 this.generatedKeys = [];
             }
@@ -165,6 +170,7 @@ export class GenerateKeyComponent implements OnInit {
      */
     public deleteKeys(): void {
         let deleteKeys = [];
+        let generatedKeysAvailable = false;
 
         this.generatedKeys.forEach(key => {
             if (key.checked) {
@@ -179,11 +185,21 @@ export class GenerateKeyComponent implements OnInit {
                     this.generatedKeys.forEach(key => {
                         let index = deleteKeys.indexOf(key.key);
                         if(index > -1) {
-                            delete this.generatedKeys[loop];
+                            if(this.generatedKeys[loop]) {
+                                this.generatedKeys[loop].deleted = true;
+                            }
                         }
+
+                        if(!this.generatedKeys[loop].deleted) {
+                            generatedKeysAvailable = true;
+                        }
+
                         loop++;
                     });
-
+                    
+                    this.getLicenseKeyStatistics();
+                    this.generatedKeysAvailable = generatedKeysAvailable;
+                    this.selectAllActive = null;
                     this.toaster.successToast(res.body);
                 } else {
                     this.toaster.warningToast(res.message);
