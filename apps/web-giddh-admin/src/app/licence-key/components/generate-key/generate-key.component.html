@@ -10,17 +10,15 @@
         <div class="page-number mt-3 mb-4">
             <div class="wrap-row">
                 <p>Total issued Keys</p>
-                <h4>100</h4>
+                <h4>{{licenseStatistics?.total}}</h4>
             </div>
-
             <div class="wrap-row">
                 <p>Active keys</p>
-                <h4>88</h4>
+                <h4>{{licenseStatistics?.active}}</h4>
             </div>
-
             <div class="wrap-row">
                 <p>Expired Keys</p>
-                <h4>12</h4>
+                <h4>{{licenseStatistics?.expired}}</h4>
             </div>
         </div>
 
@@ -51,12 +49,14 @@
                     </label>
 
                     <button class="btn btn-blue mr-1" (click)="copyKeys()">Copy</button>
-                    <button class="btn btn-danger">Delete</button>
+                    <button class="btn btn-danger" (click)="deleteKeys()">Delete</button>
 
                     <div class="key-list">
-                        <label class="checkbox mr-3" *ngFor="let key of generatedKeys;">
-                            <input type="checkbox" [attr.checked]="key.checked" (change)="selectLicenseKey(key)"> {{key.key}}
-                        </label>
+                        <span *ngFor="let key of generatedKeys;">
+                            <label class="checkbox mr-3" *ngIf="key">
+                                <input type="checkbox" [attr.checked]="key.checked" (change)="selectLicenseKey(key)"> {{key.key}}
+                            </label>
+                        </span>    
                     </div>
                 </div>
             </div>

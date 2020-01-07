@@ -39,4 +39,20 @@ export class LicenceService {
             }),
             catchError((e) => this.errorHandler.HandleCatch<any, any>(e)));
     }
+
+    public getLicenseKeyStatistics() {
+        return this.http.get(this.config.apiUrl + LICENSE_API.STATISTICS_LICENSE).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError((e) => this.errorHandler.HandleCatch(e)));
+    }
+
+    public deleteLicenseKeys(model: any) {
+        return this.http.patch(this.config.apiUrl + LICENSE_API.DELETE_LICENSE, model).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError((e) => this.errorHandler.HandleCatch<any, any>(e)));
+    }
 }
