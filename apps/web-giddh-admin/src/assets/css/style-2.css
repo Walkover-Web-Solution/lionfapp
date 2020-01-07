@@ -840,9 +840,6 @@ input[type="checkbox"]:after {
 .justify-content-between {
   justify-content: space-between;
 } 
-.table-search {
-  width: 20%;
-}
 
 
 @media (min-width: 992px) {

@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { takeUntil } from 'rxjs/operators';
 import { Observable } from 'rxjs';
@@ -14,6 +14,11 @@ import { CommonPaginatedRequest, SubscriberList } from '../../../modules/modules
     styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent implements OnInit {
+  @ViewChild('planNameField') public planNameField;
+  @ViewChild('userEmailField') public userEmailField;
+  @ViewChild('userMobileField') public userMobileField;
+  @ViewChild('userSubscriptionField') public userSubscriptionField;
+
     modalRef: BsModalRef;
     modalRefEdit: BsModalRef;
     public expandList = false;
@@ -25,7 +30,7 @@ export class UserListComponent implements OnInit {
     public userSubscriptionData = [];
     public getUserListRequest: CommonPaginatedRequest = new CommonPaginatedRequest();
     public userlistRes: SubscriberList = new SubscriberList();
-
+    public inlineSearch: any='';
 
     destroyed$: Observable<any>;
     public onclick(id: string) {
@@ -35,6 +40,16 @@ export class UserListComponent implements OnInit {
 
     constructor(private store: Store<AppState>, private adminActions: AdminActions, private userService: UserService, private modalService: BsModalService) {
 
+    }
+
+    public focusOnColumnSearch(inlineSearch) {
+      this.inlineSearch = inlineSearch;
+
+      setTimeout(() => {
+          if (this.inlineSearch === 'planName') {
+              this.planNameField.nativeElement.focus();
+          }
+      }, 200);
     }
 
     ngOnInit() {

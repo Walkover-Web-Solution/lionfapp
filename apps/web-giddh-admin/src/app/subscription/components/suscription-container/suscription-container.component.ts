@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 import { SubscriptionService } from '../../../services/subscription.service';
@@ -16,6 +16,8 @@ import { CommonPaginatedRequest, SubscriberList } from '../../../modules/modules
 })
 export class SuscriptionContainerComponent implements OnInit {
 
+  @ViewChild('userSignupField') public userSignupField;
+
     modalRef: BsModalRef;
 
 
@@ -24,6 +26,8 @@ export class SuscriptionContainerComponent implements OnInit {
     public subscriptionData = [];
     public rightToggle: boolean = false;
     public subscriptionRequest: CommonPaginatedRequest = new CommonPaginatedRequest();
+    public inlineSearch: any='';
+
 
 
     constructor(private store: Store<AppState>, private adminActions: AdminActions,
@@ -38,6 +42,16 @@ export class SuscriptionContainerComponent implements OnInit {
         this.getSsubscriptionData();
 
     }
+
+    public focusOnColumnSearch(inlineSearch) {
+      this.inlineSearch = inlineSearch;
+
+      setTimeout(() => {
+          if (this.inlineSearch === 'planName') {
+              this.userSignupField.nativeElement.focus();
+          }
+      }, 200);
+  }
 
 
     public RightSlide() {

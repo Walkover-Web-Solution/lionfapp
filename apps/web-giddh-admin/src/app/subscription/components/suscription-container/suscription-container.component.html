@@ -12,7 +12,19 @@
                 <table class="table table-bordered basic subscrib-list-table card-list-table">
                     <thead>
                         <tr>
-                            <th>Signup On <i class="fa fa-search pull-right"></i></th>
+                            <th class="table-search">
+                              <div [hidden]="inlineSearch == 'userSignup'">
+                                <div class="d-flex align-items-center justify-content-between">
+                                  <span>Signup On</span>
+                                  <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('userSignup')"></i>
+                                </div>
+                              </div>
+                              <div class="input-container" [hidden]="inlineSearch !== 'userSignup'">
+                                  <input type="text" placeholder="Signup" class="form-control w100" #userSignupField name="userSignup"/>
+                              </div>
+                            </th>
+
+
                             <th>Subscribe on</th>
                             <th>Subscribtion Id</th>
                             <th>Plan</th>
