@@ -61,4 +61,4 @@
     </div>
 </div>
 
-<app-create-plans [rightToggle]="togglePanelBool" (hidePopup)="hidePopup()"></app-create-plans>
+<app-create-plans *ngIf="togglePanelBool" [rightToggle]="togglePanelBool" (hidePopup)="hidePopup()"></app-create-plans>

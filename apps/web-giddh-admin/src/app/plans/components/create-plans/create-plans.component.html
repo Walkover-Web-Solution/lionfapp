@@ -5,45 +5,48 @@
         <a href="javascript:;" (click)="closePopup()" class="close"><i class="icon-cross"></i></a>
     </div>
     <div class="clearfix pr-3 pl-3 pt-3">
-        <div class="form-group">
-            <label>Plan Name</label>
-            <input type="text" class="form-control">
-        </div>
-        <div class="form-group">
-            <label>Number of companies allowed</label>
-            <input type="number" class="form-control" min="1">
-        </div>
-        <div class="form-group">
-            <label>Number of transactions</label>
-            <input type="number" class="form-control" min="1">
-        </div>
-        <div class="form-group">
-            <label>Subscription Prices</label>
-            <input type="number" class="form-control">
-        </div>
-        <div class="form-group">
-            <label>Country</label>
-            <select class="form-control">
-                <option value="">Select</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label>Duration</label>
-            <input type="number" class="form-control" min="1">
-        </div>
-        <div class="form-group">
-            <label>Duration Unit</label>
-            <select class="form-control">
-                <option value="YEAR">YEAR</option>
-                <option value="MONTH">MONTH</option>
-                <option value="WEEK">WEEK</option>
-                <option value="DAY">DAY</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label>Rate Per Extra Transaction</label>
-            <input type="number" class="form-control" min="0">
-        </div>
-        <input type="button" value="Create" class="btn-blue btn">
+        <form name="form" #createPlanForm="ngForm" novalidate="" autocomplete="off">
+            <div class="form-group">
+                <label>Plan Name</label>
+                <input type="text" class="form-control" name="name" [(ngModel)]="createPlanRequest.name" required>
+            </div>
+            <div class="form-group">
+                <label>Number of companies allowed</label>
+                <input type="number" class="form-control" min="1" name="companiesLimit" [(ngModel)]="createPlanRequest.companiesLimit" required>
+            </div>
+            <div class="form-group">
+                <label>Number of transactions</label>
+                <input type="number" class="form-control" min="1" name="transactionLimit" [(ngModel)]="createPlanRequest.transactionLimit" required>
+            </div>
+            <div class="form-group">
+                <label>Subscription Price</label>
+                <input type="number" class="form-control" name="amount" [(ngModel)]="createPlanRequest.amount" required>
+            </div>
+            <div class="form-group">
+                <label>Country</label>
+                <select class="form-control" name="countries" [(ngModel)]="createPlanRequest.countries" required>
+                    <option value="">Select</option>
+                    <option *ngFor="let country of countries;" [value]="country">{{country}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Duration</label>
+                <input type="number" class="form-control" min="1" name="duration" [(ngModel)]="createPlanRequest.duration" required>
+            </div>
+            <div class="form-group">
+                <label>Duration Unit</label>
+                <select class="form-control" name="durationUnit" [(ngModel)]="createPlanRequest.durationUnit" required>
+                    <option value="YEAR">YEAR</option>
+                    <option value="MONTH">MONTH</option>
+                    <option value="WEEK">WEEK</option>
+                    <option value="DAY">DAY</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Rate Per Extra Transaction</label>
+                <input type="number" class="form-control" min="0" name="ratePerExtraTransaction" [(ngModel)]="createPlanRequest.ratePerExtraTransaction" required>
+            </div>
+            <input type="button" value="Create" class="btn-blue btn" (click)="createPlan()" [disabled]="createPlanForm.invalid || isLoading">
+        </form>
     </div>
 </div>
