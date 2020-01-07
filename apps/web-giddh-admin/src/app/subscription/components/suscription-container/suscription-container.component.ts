@@ -16,10 +16,9 @@ import { CommonPaginatedRequest, SubscriberList } from '../../../modules/modules
 })
 export class SuscriptionContainerComponent implements OnInit {
 
-  @ViewChild('suscriptionSignupField') public suscriptionSignupField;
+  @ViewChild('SubscribersSignupField') public SubscribersSignupField;
 
     modalRef: BsModalRef;
-
 
     private destroyed$: Observable<any>;
     public subscriberRes: SubscriberList = new SubscriberList();
@@ -28,11 +27,8 @@ export class SuscriptionContainerComponent implements OnInit {
     public subscriptionRequest: CommonPaginatedRequest = new CommonPaginatedRequest();
     public inlineSearch: any='';
 
-
-
     constructor(private store: Store<AppState>, private adminActions: AdminActions,
         private subscriptionService: SubscriptionService) {
-
     }
     ngOnInit() {
         this.subscriptionRequest.count = 10;
@@ -40,19 +36,17 @@ export class SuscriptionContainerComponent implements OnInit {
         this.subscriptionRequest.sortBy = 'ADDITIONAL_TRANSACTIONS';
         this.subscriptionRequest.sortType = 'desc';
         this.getSsubscriptionData();
-
     }
 
     public focusOnColumnSearch(inlineSearch) {
       this.inlineSearch = inlineSearch;
 
       setTimeout(() => {
-          if (this.inlineSearch === 'suscriptionSignup') {
-              this.suscriptionSignupField.nativeElement.focus();
+          if (this.inlineSearch === 'SubscribersSignup') {
+              this.SubscribersSignupField.nativeElement.focus();
           }
       }, 200);
   }
-
 
     public RightSlide() {
         this.rightToggle = !this.rightToggle;
@@ -71,7 +65,4 @@ export class SuscriptionContainerComponent implements OnInit {
             }
         });
     }
-
-
-
 }
