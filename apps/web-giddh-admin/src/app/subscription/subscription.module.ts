@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ModalModule } from 'ngx-bootstrap/modal';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SubscriptionRoutingModule } from './subscription-routing.module';
 import { SubscriptionComponent } from './subscription-component/subscription.component';
 
@@ -15,7 +15,6 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { EditPlanModalComponent } from './components/edit-plan/edit-plan.component';
 import { ClickOutsideModule } from 'ng-click-outside';
 
-
 @NgModule({
   declarations: [SubscriptionComponent, SuscriptionContainerComponent, UserListComponent, AdvanceSearchComponent, SuscriptionModalComponent, EditPlanModalComponent],
   imports: [
@@ -26,7 +25,9 @@ import { ClickOutsideModule } from 'ng-click-outside';
     PaginationModule,
     BsDatepickerModule.forRoot(),
     ModalModule.forRoot(),
-    ClickOutsideModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ClickOutsideModule
   ]
 })
 export class SubscriptionModule { }

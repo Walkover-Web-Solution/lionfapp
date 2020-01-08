@@ -19,8 +19,14 @@ export class UserService {
     /**
      * Create Account Service
      */
-    public getAllSubscriptionsByUser(model: CommonPaginatedRequest) {
-        return this.http.get(this.config.apiUrl + SUBSCRIPTION_API.GET_USER_SUBSCRIPTION, model)
+    public getAllSubscriptionsByUser(model: CommonPaginatedRequest, post: any) {
+        let url = this.config.apiUrl + SUBSCRIPTION_API.GET_USER_SUBSCRIPTION;
+        url = url.replace(":sortBy", model.sortBy);
+        url = url.replace(":sortType", model.sortType);
+        url = url.replace(":page", String(model.page));
+        url = url.replace(":count", String(model.count));
+
+        return this.http.post(url, post)
             .pipe(
                 map((res) => {
                     return res;
