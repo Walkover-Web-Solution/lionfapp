@@ -1,29 +1,5 @@
 
-.bg-box {
-  background: rgba(0, 0, 0, 0.7);
-  position: fixed;
-  z-index: 999;
-  width: 100%;
-  height: 100%;
-  left: 0;
-  top: 0;
-}
-.bg-box.out {
-  opacity: 0;
-  visibility: hidden;
-  transition: .5s all ease;
-}
-.bg-box.in {
-  opacity: 1;
-  visibility: visible;
-  transition: .5s all ease;
-  z-index: 9999;
-}
-.top-right-head {
-  background: #333333;
-  padding: 15px;
-  position: relative;
-}
+
 .table-invoice {
   width: 100%;
 }
@@ -31,31 +7,10 @@
   border-top: 1px dashed;
   padding: 3px;
 }
-.rightSlide {
-  background: #F5F8F9;
-  position: fixed;
-  right: 0;
-  width: 450px;
-  height: 100vh;
-  top: 0;
-  z-index: 99999;
-  transition: .5s all ease;
-  overflow-y: auto;
-}
-.rightSlide.out {
-  right: -670px;
-  transition: .5s all ease;
-}
-.rightSlide.in {
-  right: 0px;
-  transition: .5s all ease;
-}
 .date-picker {
   border: 1px solid #DDDDDD;
 }
-.rightSlide.kot-repring-sidebar.in {
-  right: 0px;
-}
+
 .text-white {
   color: #fff;
 }

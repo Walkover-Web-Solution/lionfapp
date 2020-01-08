@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-advance-search',
@@ -7,7 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdvanceSearchComponent implements OnInit {
  
-  
+  @Input() public rightToggle: boolean = false;
+  @Output() public hidePopup: EventEmitter<boolean> = new EventEmitter(true);
+
+  public closePopup() {
+    this.hidePopup.emit();
+  }
 
   constructor() { }
 

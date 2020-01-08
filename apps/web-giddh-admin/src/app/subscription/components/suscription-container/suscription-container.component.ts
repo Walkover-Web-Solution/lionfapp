@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 import { SubscriptionService } from '../../../services/subscription.service';
@@ -19,6 +19,7 @@ export class SuscriptionContainerComponent implements OnInit {
   @ViewChild('SubscribersSignupField') public SubscribersSignupField;
 
     modalRef: BsModalRef;
+    modalRefEdit: BsModalRef;
 
     private destroyed$: Observable<any>;
     public subscriberRes: SubscriberList = new SubscriberList();
@@ -26,10 +27,26 @@ export class SuscriptionContainerComponent implements OnInit {
     public rightToggle: boolean = false;
     public subscriptionRequest: CommonPaginatedRequest = new CommonPaginatedRequest();
     public inlineSearch: any='';
+    public togglePanelBool: boolean;
 
     constructor(private store: Store<AppState>, private adminActions: AdminActions,
-        private subscriptionService: SubscriptionService) {
+        private subscriptionService: SubscriptionService, private modalService: BsModalService) {
     }
+
+    openModalWithClass(template: TemplateRef<any>) {
+      this.modalRef = this.modalService.show(
+          template,
+          Object.assign({}, { class: 'gray modal-lg' })
+      );
+    }
+
+  openEditModal(editPlan: TemplateRef<any>) {
+      this.modalRefEdit = this.modalService.show(
+          editPlan,
+          Object.assign({}, { class: 'gray modal-lg' })
+      );
+    }
+  
     ngOnInit() {
         this.subscriptionRequest.count = 10;
         this.subscriptionRequest.page = 1;
@@ -65,4 +82,16 @@ export class SuscriptionContainerComponent implements OnInit {
             }
         });
     }
+
+    public togglePanel() {
+      if (this.togglePanelBool) {
+          this.togglePanelBool = false;
+      } else {
+          this.togglePanelBool = true;
+      }
+  }
+  public hidePopup() {
+    this.togglePanelBool = false;
+  }
+  
 }

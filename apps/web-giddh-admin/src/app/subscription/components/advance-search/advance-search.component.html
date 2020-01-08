@@ -1,10 +1,13 @@
-<div class="modal-bg">
+<div class="bg-box" [ngClass]="rightToggle ? 'in': 'out'"></div>
+<div class="rightSlide kot-repring-sidebar" [ngClass]="rightToggle ? 'in': 'out'">
   <div class="aside-panel">
-    <div class="aside-head">
-      <h3 class="aside-title">Some text</h3>
-      <a href="javascript:void(0)" class="close"><i class="icon-cross"></i></a>
-    </div>
-    <div class="clearfix">
+
+    <div class="top-right-head">
+      <p class="bold text-18 text-white mb-0">Some text</p>
+      <a href="javascript:void(0)" (click)="closePopup()" class="close"><i class="icon-cross"></i></a>
+  </div>
+
+    <div class="clearfix pr-2 pl-2 pt-2">
       <ul class="advance-search m-0 p-0">
         <li><label><input type="checkbox"><span>Balance is</span></label> <a href="#">Greater than</a> <input type="text" placeholder="No of transactions"></li>
         <li><label><input type="checkbox"><span>Purchase</span></label> <a href="#">Before</a> <input type="text" placeholder="Date" bsDatepicker></li>
