@@ -7,17 +7,19 @@ import { UserService } from '../../../services/user.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { AppState } from '../../../store';
 import { CommonPaginatedRequest, SubscriberList } from '../../../modules/modules/api-modules/subscription';
+import { moment } from 'ngx-bootstrap/chronos/test/chain';
 
 @Component({
     selector: 'app-user-list',
     templateUrl: './user-list.component.html',
     styleUrls: ['./user-list.component.scss']
 })
+
 export class UserListComponent implements OnInit {
-  @ViewChild('userNameField') public userNameField;
-  @ViewChild('userEmailField') public userEmailField;
-  @ViewChild('userMobileField') public userMobileField;
-  @ViewChild('userSubscriptionField') public userSubscriptionField;
+    @ViewChild('userNameField') public userNameField;
+    @ViewChild('userEmailField') public userEmailField;
+    @ViewChild('userMobileField') public userMobileField;
+    @ViewChild('userSubscriptionField') public userSubscriptionField;
 
     modalRef: BsModalRef;
     modalRefEdit: BsModalRef;
@@ -28,9 +30,10 @@ export class UserListComponent implements OnInit {
     public showWeekNumbers = false;
     public outsideDays = 'visible';
     public userSubscriptionData = [];
-    public getUserListRequest: CommonPaginatedRequest = new CommonPaginatedRequest();
+    public getUserListRequest: any = {};
     public userlistRes: SubscriberList = new SubscriberList();
-    public inlineSearch: any='';
+    public inlineSearch: any = '';
+    public timeout: any;
 
     destroyed$: Observable<any>;
     public onclick(id: string) {
@@ -43,13 +46,22 @@ export class UserListComponent implements OnInit {
     }
 
     public focusOnColumnSearch(inlineSearch) {
-      this.inlineSearch = inlineSearch;
+        this.inlineSearch = inlineSearch;
 
-      setTimeout(() => {
-          if (this.inlineSearch === 'userName') {
-              this.userNameField.nativeElement.focus();
-          }
-      }, 200);
+        setTimeout(() => {
+            if (this.inlineSearch === 'userName') {
+                this.userNameField.nativeElement.focus();
+            }
+            if (this.inlineSearch === 'userEmail') {
+                this.userEmailField.nativeElement.focus();
+            }
+            if (this.inlineSearch === 'userMobile') {
+                this.userMobileField.nativeElement.focus();
+            }
+            if (this.inlineSearch === 'userSubscription') {
+                this.userSubscriptionField.nativeElement.focus();
+            }
+        }, 200);
     }
 
     ngOnInit() {
@@ -68,7 +80,7 @@ export class UserListComponent implements OnInit {
             }
         });
     }
-    
+
     public pageChanged(event: any): void {
 
         this.getUserListRequest.page = event.page;
@@ -109,5 +121,35 @@ export class UserListComponent implements OnInit {
             }
         });
         return filteredResp;
+    }
+
+    public sortBy(column) {
+        if (column === this.getUserListRequest.sortBy) {
+            this.getUserListRequest.sortType = (this.getUserListRequest.sortType === "asc") ? "desc" : "asc";
+        } else {
+            this.getUserListRequest.sortType = "asc";
+        }
+
+        this.getUserListRequest.sortBy = column;
+        this.getAllUserData();
+    }
+
+    public onChangeFilterDate(dates: any) {
+        if (dates !== null) {
+            this.getUserListRequest.signUpOn_from = moment(dates[0]).format("DD-MM-YYYY");
+            this.getUserListRequest.signUpOn_to = moment(dates[0]).format("DD-MM-YYYY");
+            this.getAllUserData();
+        }
+    }
+
+    public columnSearch(): void {
+        if (this.timeout) {
+            clearTimeout(this.timeout);
+        }
+
+        this.timeout = setTimeout(() => {
+            this.getUserListRequest.page = 1;
+            this.getAllUserData();
+        }, 700);
     }
 }

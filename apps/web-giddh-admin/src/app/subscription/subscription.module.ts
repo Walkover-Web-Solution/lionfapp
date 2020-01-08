@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ModalModule } from 'ngx-bootstrap/modal';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SubscriptionRoutingModule } from './subscription-routing.module';
 import { SubscriptionComponent } from './subscription-component/subscription.component';
 
@@ -14,17 +14,18 @@ import { SuscriptionModalComponent } from './components/suscription-modal/suscri
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { EditPlanModalComponent } from './components/edit-plan/edit-plan.component';
 
-
 @NgModule({
-  declarations: [SubscriptionComponent, SuscriptionContainerComponent, UserListComponent, AdvanceSearchComponent, SuscriptionModalComponent, EditPlanModalComponent],
-  imports: [
-    CommonModule,
-    SubscriptionRoutingModule,
-    PerfectScrollbarModule,
-    TabsModule,
-    PaginationModule,
-    BsDatepickerModule.forRoot(),
-    ModalModule.forRoot()
-  ]
+    declarations: [SubscriptionComponent, SuscriptionContainerComponent, UserListComponent, AdvanceSearchComponent, SuscriptionModalComponent, EditPlanModalComponent],
+    imports: [
+        CommonModule,
+        SubscriptionRoutingModule,
+        PerfectScrollbarModule,
+        TabsModule,
+        PaginationModule,
+        BsDatepickerModule.forRoot(),
+        ModalModule.forRoot(),
+        FormsModule,
+        ReactiveFormsModule
+    ]
 })
 export class SubscriptionModule { }

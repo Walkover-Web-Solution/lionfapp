@@ -28,19 +28,19 @@
                     </th>
                     <th>Created on</th>
                     <th (click)="sortBy('NO_OF_COMPANIES')">No of Company <i
-                            [ngClass]="{'fa pull-right': 1 === 1, 'fa-angle-down': getAllPlansRequest.sortType === 'desc' && getAllPlansRequest.sortBy === 'NO_OF_COMPANIES', 'fa-angle-up': (getAllPlansRequest.sortType === 'asc' && getAllPlansRequest.sortBy === 'NO_OF_COMPANIES') || getAllPlansRequest.sortBy !== 'NO_OF_COMPANIES'}"></i>
+                            [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': getAllPlansRequest.sortType === 'desc' && getAllPlansRequest.sortBy === 'NO_OF_COMPANIES', 'fa-sort-numeric-asc': (getAllPlansRequest.sortType === 'asc' && getAllPlansRequest.sortBy === 'NO_OF_COMPANIES') || getAllPlansRequest.sortBy !== 'NO_OF_COMPANIES'}"></i>
                     </th>
                     <th (click)="sortBy('TOTAL_USERS')">Total User
                         <i
-                            [ngClass]="{'fa pull-right': 1 === 1, 'fa-angle-down': getAllPlansRequest.sortType === 'desc' && getAllPlansRequest.sortBy === 'TOTAL_USERS', 'fa-angle-up': (getAllPlansRequest.sortType === 'asc' && getAllPlansRequest.sortBy === 'TOTAL_USERS') || getAllPlansRequest.sortBy !== 'TOTAL_USERS'}"></i>
+                            [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': getAllPlansRequest.sortType === 'desc' && getAllPlansRequest.sortBy === 'TOTAL_USERS', 'fa-sort-numeric-asc': (getAllPlansRequest.sortType === 'asc' && getAllPlansRequest.sortBy === 'TOTAL_USERS') || getAllPlansRequest.sortBy !== 'TOTAL_USERS'}"></i>
                     </th>
                     <th (click)="sortBy('TOTAL_AMOUNT')">Total Amount
                         <i
-                            [ngClass]="{'fa pull-right': 1 === 1, 'fa-angle-down': getAllPlansRequest.sortType === 'desc' && getAllPlansRequest.sortBy === 'TOTAL_AMOUNT', 'fa-angle-up': (getAllPlansRequest.sortType === 'asc' && getAllPlansRequest.sortBy === 'TOTAL_AMOUNT') || getAllPlansRequest.sortBy !== 'TOTAL_AMOUNT'}"></i>
+                            [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': getAllPlansRequest.sortType === 'desc' && getAllPlansRequest.sortBy === 'TOTAL_AMOUNT', 'fa-sort-numeric-asc': (getAllPlansRequest.sortType === 'asc' && getAllPlansRequest.sortBy === 'TOTAL_AMOUNT') || getAllPlansRequest.sortBy !== 'TOTAL_AMOUNT'}"></i>
                     </th>
                     <th (click)="sortBy('CREATED_AT')">Expiry in next 30 days
                         <i
-                            [ngClass]="{'fa pull-right': 1 === 1, 'fa-angle-down': getAllPlansRequest.sortType === 'desc' && getAllPlansRequest.sortBy === 'CREATED_AT', 'fa-angle-up': (getAllPlansRequest.sortType === 'asc' && getAllPlansRequest.sortBy === 'CREATED_AT') || getAllPlansRequest.sortBy !== 'CREATED_AT'}"></i>
+                            [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': getAllPlansRequest.sortType === 'desc' && getAllPlansRequest.sortBy === 'CREATED_AT', 'fa-sort-numeric-asc': (getAllPlansRequest.sortType === 'asc' && getAllPlansRequest.sortBy === 'CREATED_AT') || getAllPlansRequest.sortBy !== 'CREATED_AT'}"></i>
                     </th>
                 </tr>
             </thead>
