@@ -1,111 +1,121 @@
 <div class="">
-  <div class="pageHeader">
-    <div class="form-group">
-      <div class="input-group input-date">
-        <span class="input-group-addon" id="sizing-addon2"><i class="fa fa-calendar pull-right"></i></span>
-        <input type="text" class="form-control date-range-picker" placeholder="Select Date" (bsValueChange)="onChangeFilterDate($event)" bsDaterangepicker>
-      </div>
+    <div class="pageHeader">
+        <div class="form-group">
+            <div class="input-group input-date">
+                <span class="input-group-addon" id="sizing-addon2"><i class="fa fa-calendar pull-right"></i></span>
+                <input type="text" class="form-control date-range-picker" placeholder="Select Date"
+                    (bsValueChange)="onChangeFilterDate($event)" bsDaterangepicker>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="page-content">
-      <perfect-scrollbar [scrollIndicators]="true">
-        <table class="table table-bordered basic subscrib-list-table card-list-table">
-          <thead>
-            <tr>
-              <th>Signup Date</th>
+    <div class="page-content">
+        <perfect-scrollbar [scrollIndicators]="true">
+            <table class="table table-bordered basic subscrib-list-table card-list-table">
+                <thead>
+                    <tr>
+                        <th>Signup Date</th>
 
-              <th class="table-search">
-                <div [hidden]="inlineSearch == 'userName'">
-                  <div class="d-flex align-items-center justify-content-between">
-                    <span>Name</span>
-                    <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('userName')"></i>
-                  </div>
-                </div>
-                <div class="input-container" [hidden]="inlineSearch !== 'userName'">
-                    <input type="text" placeholder="Name" class="form-control w100" #userNameField name="userName"
-                    [(ngModel)]="getUserListPostRequest.userName" (keypress)="columnSearch()"
-                    (keydown)="columnSearch()" />
-                </div>
-              </th>
+                        <th class="table-search">
+                            <div [hidden]="inlineSearch == 'userName'">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <span>Name</span>
+                                    <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('userName')"></i>
+                                </div>
+                            </div>
+                            <div class="input-container" [hidden]="inlineSearch !== 'userName'">
+                                <input type="text" placeholder="Name" class="form-control w100" #userNameField
+                                    name="userName" [(ngModel)]="getUserListPostRequest.userName"
+                                    (keypress)="columnSearch()" (keydown)="columnSearch()" />
+                            </div>
+                        </th>
 
-              <th class="table-search">
-                <div [hidden]="inlineSearch == 'userEmail'">
-                  <div class="d-flex align-items-center justify-content-between">
-                    <span>Email</span>
-                    <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('userEmail')"></i>
-                  </div>
-                </div>
-                <div class="input-container" [hidden]="inlineSearch !== 'userEmail'">
-                    <input type="text" placeholder="Email" class="form-control w100" #userEmailField name="userEmail"
-                    [(ngModel)]="getUserListPostRequest.email" (keypress)="columnSearch()"
-                    (keydown)="columnSearch()"/>
-                </div>
-              </th>
+                        <th class="table-search">
+                            <div [hidden]="inlineSearch == 'userEmail'">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <span>Email</span>
+                                    <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('userEmail')"></i>
+                                </div>
+                            </div>
+                            <div class="input-container" [hidden]="inlineSearch !== 'userEmail'">
+                                <input type="text" placeholder="Email" class="form-control w100" #userEmailField
+                                    name="userEmail" [(ngModel)]="getUserListPostRequest.email"
+                                    (keypress)="columnSearch()" (keydown)="columnSearch()" />
+                            </div>
+                        </th>
 
-              <th class="table-search">
-                <div [hidden]="inlineSearch == 'userMobile'">
-                  <div class="d-flex align-items-center justify-content-between">
-                    <span>Mobile</span>
-                    <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('userMobile')"></i>
-                  </div>
-                </div>
-                <div class="input-container" [hidden]="inlineSearch !== 'userMobile'">
-                    <input type="text" placeholder="Mobile" class="form-control w100" #userMobileField name="userMobile"
-                    [(ngModel)]="getUserListPostRequest.mobile" (keypress)="columnSearch()"
-                    (keydown)="columnSearch()"/>
-                </div>
-              </th>
+                        <th class="table-search">
+                            <div [hidden]="inlineSearch == 'userMobile'">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <span>Mobile</span>
+                                    <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('userMobile')"></i>
+                                </div>
+                            </div>
+                            <div class="input-container" [hidden]="inlineSearch !== 'userMobile'">
+                                <input type="text" placeholder="Mobile" class="form-control w100" #userMobileField
+                                    name="userMobile" [(ngModel)]="getUserListPostRequest.mobile"
+                                    (keypress)="columnSearch()" (keydown)="columnSearch()" />
+                            </div>
+                        </th>
 
-              <th class="table-search">
-                <div [hidden]="inlineSearch == 'userSubscription'">
-                  <div class="d-flex align-items-center justify-content-between">
-                    <span>Subscription ID</span>
-                    <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('userSubscription')"></i>
-                  </div>
-                </div>
-                <div class="input-container" [hidden]="inlineSearch !== 'userSubscription'">
-                    <input type="text" placeholder="Subscription" class="form-control w100" #userSubscriptionField name="userSubscription"
-                    [(ngModel)]="getUserListPostRequest.subscriptionId" (keypress)="columnSearch()"
-                    (keydown)="columnSearch()"/>
-                </div>
-              </th>
+                        <th class="table-search">
+                            <div [hidden]="inlineSearch == 'userSubscription'">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <span>Subscription ID</span>
+                                    <i class="fa fa-search pull-right"
+                                        (click)="focusOnColumnSearch('userSubscription')"></i>
+                                </div>
+                            </div>
+                            <div class="input-container" [hidden]="inlineSearch !== 'userSubscription'">
+                                <input type="text" placeholder="Subscription" class="form-control w100"
+                                    #userSubscriptionField name="userSubscription"
+                                    [(ngModel)]="getUserListPostRequest.subscriptionId" (keypress)="columnSearch()"
+                                    (keydown)="columnSearch()" />
+                            </div>
+                        </th>
 
-              <th (click)="sortBy('planName')">Plan Name <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-angle-down': getUserListRequest.sort === 'desc' && getUserListRequest.sortBy === 'planName', 'fa-angle-up': (getUserListRequest.sort === 'asc' && getUserListRequest.sortBy === 'planName') || getUserListRequest.sortBy !== 'planName'}"></i></th>
-              <th (click)="sortBy('NO_OF_COMPANIES')"> <i
-                [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': getUserListRequest.sortType === 'desc' && getUserListRequest.sortBy === 'NO_OF_COMPANIES', 'fa-sort-numeric-asc': (getUserListRequest.sortType === 'asc' && getUserListRequest.sortBy === 'NO_OF_COMPANIES') || getUserListRequest.sortBy !== 'NO_OF_COMPANIES'}"></i> No. of Companies </th>
-              <th (click)="sortBy('TOTAL_AMOUNT')">Total Amount <i
-                [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': getUserListRequest.sortType === 'desc' && getUserListRequest.sortBy === 'TOTAL_AMOUNT', 'fa-sort-numeric-asc': (getUserListRequest.sortType === 'asc' && getUserListRequest.sortBy === 'TOTAL_AMOUNT') || getUserListRequest.sortBy !== 'TOTAL_AMOUNT'}"></i></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let userSubscription of userSubscriptionData">
-              <td data-title="Signup Date">{{userSubscription.userDetails.signUpOn}}</td>
-              <td data-title="Name">{{userSubscription.userDetails.name}}</td>
-              <td data-title="Email">{{userSubscription.userDetails.email}}</td>
-              <td data-title="Mobile">{{userSubscription.userDetails.mobileno}}</td>
-              <td data-title="Subscription ID"><a href="javascript:void(0)"
-                  *ngIf="userSubscription.subscriptions?.length > 0">{{userSubscription.subscriptions[0].subscriptionId}}</a>
-              </td>
-              <td data-title="Plan Name"><span *ngIf="userSubscription.subscriptions?.length > 0">
-                  {{userSubscription.subscriptions[0].planDetails.name}}</span></td>
-              <td data-title="No. of Companies">{{userSubscription.totalCompanies}}</td>
-              <td data-title="Total Amount">{{userSubscription.totalAmount}}/-   <a href="javascript:void(0)" class="d-inline-block pull-right"><span class="fa fa-arrows-alt"></span></a></td>
-            </tr>
-          </tbody>
-        </table>
-      </perfect-scrollbar>
+                        <th (click)="sortBy('planName')">Plan Name <i
+                                [ngClass]="{'fa pull-right': 1 === 1, 'fa-angle-down': getUserListRequest.sort === 'desc' && getUserListRequest.sortBy === 'planName', 'fa-angle-up': (getUserListRequest.sort === 'asc' && getUserListRequest.sortBy === 'planName') || getUserListRequest.sortBy !== 'planName'}"></i>
+                        </th>
+                        <th (click)="sortBy('NO_OF_COMPANIES')"> <i
+                                [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': getUserListRequest.sortType === 'desc' && getUserListRequest.sortBy === 'NO_OF_COMPANIES', 'fa-sort-numeric-asc': (getUserListRequest.sortType === 'asc' && getUserListRequest.sortBy === 'NO_OF_COMPANIES') || getUserListRequest.sortBy !== 'NO_OF_COMPANIES'}"></i>
+                            No. of Companies </th>
+                        <th (click)="sortBy('TOTAL_AMOUNT')">Total Amount <i
+                                [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': getUserListRequest.sortType === 'desc' && getUserListRequest.sortBy === 'TOTAL_AMOUNT', 'fa-sort-numeric-asc': (getUserListRequest.sortType === 'asc' && getUserListRequest.sortBy === 'TOTAL_AMOUNT') || getUserListRequest.sortBy !== 'TOTAL_AMOUNT'}"></i>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let userSubscription of userSubscriptionData">
+                        <td data-title="Signup Date">{{userSubscription.userDetails.signUpOn}}</td>
+                        <td data-title="Name">{{userSubscription.userDetails.name}}</td>
+                        <td data-title="Email">{{userSubscription.userDetails.email}}</td>
+                        <td data-title="Mobile">{{userSubscription.userDetails.mobileno}}</td>
+                        <td data-title="Subscription ID"><a href="javascript:void(0)"
+                                *ngIf="userSubscription.subscriptions?.length > 0">{{userSubscription.subscriptions[0].subscriptionId}}</a>
+                        </td>
+                        <td data-title="Plan Name"><span *ngIf="userSubscription.subscriptions?.length > 0">
+                                {{userSubscription.subscriptions[0].planDetails.name}}</span></td>
+                        <td data-title="No. of Companies">{{userSubscription.totalCompanies}}</td>
+                        <td data-title="Total Amount">{{userSubscription.totalAmount}}/- <a href="javascript:void(0)"
+                                class="d-inline-block pull-right"><span class="fa fa-arrows-alt"></span></a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </perfect-scrollbar>
 
-      <div *ngIf="userSubscriptionData && userlistRes && userlistRes.totalItems>9" class="paginationWrapper">
-        <pagination [totalItems]="userlistRes.totalItems" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true" [itemsPerPage]="10" [rotate]="false" previousText="&#9668;" nextText="&#9658;" (pageChanged)="pageChanged($event)"></pagination>
+        <div *ngIf="userSubscriptionData && userlistRes && userlistRes.totalItems>9" class="paginationWrapper">
+            <pagination [totalItems]="userlistRes.totalItems" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true"
+                [itemsPerPage]="10" [rotate]="false" previousText="&#9668;" nextText="&#9658;"
+                (pageChanged)="pageChanged($event)"></pagination>
+        </div>
+
     </div>
-    
-  </div>
 </div>
 
 <ng-template class="modal-ubscription" #template>
-  <app-suscription-modal></app-suscription-modal>
-  <button type="button" class="btn btn-primary" (click)="openEditModal(editPlan)">editPlan</button>
+    <app-suscription-modal></app-suscription-modal>
+    <button type="button" class="btn btn-primary" (click)="openEditModal(editPlan)">editPlan</button>
 </ng-template>
 <ng-template #editPlan>
-  <app-editPlan-modal></app-editPlan-modal>
+    <app-editPlan-modal></app-editPlan-modal>
 </ng-template>

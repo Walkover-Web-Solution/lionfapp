@@ -68,7 +68,7 @@ export class CreatePlansComponent implements OnInit {
                 this.toaster.successToast("Plan has been created successfully.");
                 this.closePopup();
             } else {
-                this.toaster.errorToast("Something went wrong! Please try again.");
+                this.toaster.errorToast(res.message);
             }
         });
     }
