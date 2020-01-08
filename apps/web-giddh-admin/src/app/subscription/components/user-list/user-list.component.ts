@@ -66,7 +66,7 @@ export class UserListComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.getUserListRequest.count = 10;
+        this.getUserListRequest.count = 20;
         this.getUserListRequest.page = 1;
         this.getUserListRequest.sortBy = 'User';
         this.getUserListRequest.sortType = 'asc';
@@ -77,7 +77,9 @@ export class UserListComponent implements OnInit {
         this.userService.getAllSubscriptionsByUser(this.getUserListRequest, this.getUserListPostRequest).subscribe(res => {
             if (res.status === 'success') {
                 this.userlistRes = res.body;
-                this.userSubscriptionData = this.filterResponse(res.body.results);
+                this.userSubscriptionData = res.body.results;
+                console.log(this.userSubscriptionData);
+                console.log(res.body.results);
             }
         });
     }
@@ -102,28 +104,6 @@ export class UserListComponent implements OnInit {
         );
     }
 
-    private filterResponse(results) {
-        const filteredResp = results;
-
-        filteredResp.forEach(resp => {
-            if (resp.subscriptions.length > 1) {
-                let planDetails = resp.subscriptions[0].planDetails;
-                resp.subscriptions.forEach(subs => {
-                    if (planDetails.uniqueName !== subs.planDetails.uniqueName) {
-                        planDetails.name = 'Multiple';
-                        return;
-                    }
-                });
-                const subscriptionsNew = resp.subscriptions[0];
-                subscriptionsNew.subscriptionId = 'Multiple';
-                subscriptionsNew.planDetails = planDetails;
-                resp.subscriptions = [];
-                resp.subscriptions.push(subscriptionsNew);
-            }
-        });
-        return filteredResp;
-    }
-
     public sortBy(column) {
         if (column === this.getUserListRequest.sortBy) {
             this.getUserListRequest.sortType = (this.getUserListRequest.sortType === "asc") ? "desc" : "asc";
@@ -137,8 +117,8 @@ export class UserListComponent implements OnInit {
 
     public onChangeFilterDate(dates: any) {
         if (dates !== null) {
-            this.getUserListPostRequest.signUpOn_from = moment(dates[0]).format("DD-MM-YYYY");
-            this.getUserListPostRequest.signUpOn_to = moment(dates[0]).format("DD-MM-YYYY");
+            this.getUserListPostRequest.signUpOnFrom = moment(dates[0]).format("DD-MM-YYYY");
+            this.getUserListPostRequest.signUpOnTo = moment(dates[0]).format("DD-MM-YYYY");
             this.getAllUserData();
         }
     }

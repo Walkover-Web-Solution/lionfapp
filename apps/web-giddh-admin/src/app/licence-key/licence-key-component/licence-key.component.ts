@@ -21,7 +21,7 @@ export class LicenceKeyComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.getAllLicenceKeyRequest.count = 10;
+        this.getAllLicenceKeyRequest.count = 20;
         this.getAllLicenceKeyRequest.page = 1;
         this.getAllLicenceKeyRequest.sort = "asc";
         this.getAllLicenceKey();
