@@ -21,8 +21,8 @@ export class UserListComponent implements OnInit {
     @ViewChild('userMobileField') public userMobileField;
     @ViewChild('userSubscriptionField') public userSubscriptionField;
 
-    modalRef: BsModalRef;
-    modalRefEdit: BsModalRef;
+    // modalRef: BsModalRef;
+    // modalRefEdit: BsModalRef;
     public expandList = false;
     public openExpanList = '';
     public displayMonths = 2;
@@ -88,19 +88,19 @@ export class UserListComponent implements OnInit {
         this.getAllUserData();
     }
 
-    openModalWithClass(template: TemplateRef<any>) {
-        this.modalRef = this.modalService.show(
-            template,
-            Object.assign({}, { class: 'gray modal-lg' })
-        );
-    }
+    // openModalWithClass(template: TemplateRef<any>) {
+    //     this.modalRef = this.modalService.show(
+    //         template,
+    //         Object.assign({}, { class: 'gray modal-lg' })
+    //     );
+    // }
 
-    openEditModal(editPlan: TemplateRef<any>) {
-        this.modalRefEdit = this.modalService.show(
-            editPlan,
-            Object.assign({}, { class: 'gray modal-lg' })
-        );
-    }
+    // openEditModal(editPlan: TemplateRef<any>) {
+    //     this.modalRefEdit = this.modalService.show(
+    //         editPlan,
+    //         Object.assign({}, { class: 'gray modal-lg' })
+    //     );
+    // }
 
     private filterResponse(results) {
         const filteredResp = results;
