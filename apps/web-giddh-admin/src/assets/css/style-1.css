@@ -5143,3 +5143,6 @@ form#groupDetailForm {
     padding: 3px 8px !important;
 }
 }
+.cdk-overlay-container {
+    z-index: 99999 !important;
+}
