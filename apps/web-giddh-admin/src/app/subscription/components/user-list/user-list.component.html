@@ -23,7 +23,7 @@
                 </div>
                 <div class="input-container" [hidden]="inlineSearch !== 'userName'">
                     <input type="text" placeholder="Name" class="form-control w100" #userNameField name="userName"
-                    [(ngModel)]="getUserListRequest.userName" (keypress)="columnSearch()"
+                    [(ngModel)]="getUserListPostRequest.userName" (keypress)="columnSearch()"
                     (keydown)="columnSearch()" />
                 </div>
               </th>
@@ -37,7 +37,7 @@
                 </div>
                 <div class="input-container" [hidden]="inlineSearch !== 'userEmail'">
                     <input type="text" placeholder="Email" class="form-control w100" #userEmailField name="userEmail"
-                    [(ngModel)]="getUserListRequest.email" (keypress)="columnSearch()"
+                    [(ngModel)]="getUserListPostRequest.email" (keypress)="columnSearch()"
                     (keydown)="columnSearch()"/>
                 </div>
               </th>
@@ -51,7 +51,7 @@
                 </div>
                 <div class="input-container" [hidden]="inlineSearch !== 'userMobile'">
                     <input type="text" placeholder="Mobile" class="form-control w100" #userMobileField name="userMobile"
-                    [(ngModel)]="getUserListRequest.mobile" (keypress)="columnSearch()"
+                    [(ngModel)]="getUserListPostRequest.mobile" (keypress)="columnSearch()"
                     (keydown)="columnSearch()"/>
                 </div>
               </th>
@@ -65,12 +65,12 @@
                 </div>
                 <div class="input-container" [hidden]="inlineSearch !== 'userSubscription'">
                     <input type="text" placeholder="Subscription" class="form-control w100" #userSubscriptionField name="userSubscription"
-                    [(ngModel)]="getUserListRequest.subscriptionId" (keypress)="columnSearch()"
+                    [(ngModel)]="getUserListPostRequest.subscriptionId" (keypress)="columnSearch()"
                     (keydown)="columnSearch()"/>
                 </div>
               </th>
 
-              <th (click)="sortBy('PLAN')">Plan Name <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-angle-down': getUserListRequest.sort === 'desc' && getUserListRequest.sortBy === 'PLAN', 'fa-angle-up': (getUserListRequest.sort === 'asc' && getUserListRequest.sortBy === 'PLAN') || getUserListRequest.sortBy !== 'PLAN'}"></i></th>
+              <th (click)="sortBy('planName')">Plan Name <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-angle-down': getUserListRequest.sort === 'desc' && getUserListRequest.sortBy === 'planName', 'fa-angle-up': (getUserListRequest.sort === 'asc' && getUserListRequest.sortBy === 'planName') || getUserListRequest.sortBy !== 'planName'}"></i></th>
               <th (click)="sortBy('NO_OF_COMPANIES')"> <i
                 [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': getUserListRequest.sortType === 'desc' && getUserListRequest.sortBy === 'NO_OF_COMPANIES', 'fa-sort-numeric-asc': (getUserListRequest.sortType === 'asc' && getUserListRequest.sortBy === 'NO_OF_COMPANIES') || getUserListRequest.sortBy !== 'NO_OF_COMPANIES'}"></i> No. of Companies </th>
               <th (click)="sortBy('TOTAL_AMOUNT')">Total Amount <i

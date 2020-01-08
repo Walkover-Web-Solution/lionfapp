@@ -31,6 +31,7 @@ export class UserListComponent implements OnInit {
     public outsideDays = 'visible';
     public userSubscriptionData = [];
     public getUserListRequest: any = {};
+    public getUserListPostRequest: any = {};
     public userlistRes: SubscriberList = new SubscriberList();
     public inlineSearch: any = '';
     public timeout: any;
@@ -73,7 +74,7 @@ export class UserListComponent implements OnInit {
     }
 
     public getAllUserData() {
-        this.userService.getAllSubscriptionsByUser(this.getUserListRequest).subscribe(res => {
+        this.userService.getAllSubscriptionsByUser(this.getUserListRequest, this.getUserListPostRequest).subscribe(res => {
             if (res.status === 'success') {
                 this.userlistRes = res.body;
                 this.userSubscriptionData = this.filterResponse(res.body.results);
@@ -136,8 +137,8 @@ export class UserListComponent implements OnInit {
 
     public onChangeFilterDate(dates: any) {
         if (dates !== null) {
-            this.getUserListRequest.signUpOn_from = moment(dates[0]).format("DD-MM-YYYY");
-            this.getUserListRequest.signUpOn_to = moment(dates[0]).format("DD-MM-YYYY");
+            this.getUserListPostRequest.signUpOn_from = moment(dates[0]).format("DD-MM-YYYY");
+            this.getUserListPostRequest.signUpOn_to = moment(dates[0]).format("DD-MM-YYYY");
             this.getAllUserData();
         }
     }
