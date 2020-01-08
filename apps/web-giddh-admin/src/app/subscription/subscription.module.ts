@@ -13,6 +13,7 @@ import { AdvanceSearchComponent } from './components/advance-search/advance-sear
 import { SuscriptionModalComponent } from './components/suscription-modal/suscription-modal.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { EditPlanModalComponent } from './components/edit-plan/edit-plan.component';
+import { ClickOutsideModule } from 'ng-click-outside';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { EditPlanModalComponent } from './components/edit-plan/edit-plan.compone
     TabsModule,
     PaginationModule,
     BsDatepickerModule.forRoot(),
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    ClickOutsideModule,
   ]
 })
 export class SubscriptionModule { }
