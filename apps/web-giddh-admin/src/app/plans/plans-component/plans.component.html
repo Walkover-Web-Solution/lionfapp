@@ -57,8 +57,8 @@
         </table>
     </div>
 
-    <div *ngIf="plansData && plansData.totalItems > 9" class="paginationWrapper">
-        <pagination [totalItems]="40" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true" [itemsPerPage]="10"
+    <div *ngIf="plansData && plansData.totalItems > 19" class="paginationWrapper">
+        <pagination [totalItems]="plansData.totalItems" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true" [itemsPerPage]="20"
             [rotate]="false" previousText="&#9668;" nextText="&#9658;" (pageChanged)="pageChanged($event)"></pagination>
     </div>
 </div>
