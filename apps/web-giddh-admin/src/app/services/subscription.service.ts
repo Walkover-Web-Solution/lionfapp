@@ -27,4 +27,16 @@ export class SubscriptionService {
                 }),
                 catchError((e) => this.errorHandler.HandleCatch(e)));
     }
+
+    /**
+        * get all total for subscriptions
+        */
+    public getAllTotalSubscriptions() {
+        return this.http.get(this.config.apiUrl + SUBSCRIPTION_API.GET_SUBSCRIPTION_TOTAL)
+            .pipe(
+                map((res) => {
+                    return res;
+                }),
+                catchError((e) => this.errorHandler.HandleCatch(e)));
+    }
 }

@@ -66,3 +66,10 @@ export class UserDetails {
     signUpOn: string;
     mobileno?: any;
 }
+
+export class TotalSubscribers {
+    total: number;
+    inactive: number;
+    active: number;
+    trial: number
+}
