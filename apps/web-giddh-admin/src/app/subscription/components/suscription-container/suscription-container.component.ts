@@ -17,7 +17,9 @@ import { ToasterService } from '../../../services/toaster.service';
 })
 export class SuscriptionContainerComponent implements OnInit {
 
-    @ViewChild('SubscribersSignupField') public SubscribersSignupField;
+  @ViewChild('SubscribersSignupField') public SubscribersSignupField;
+  @ViewChild('subscribOnField') public subscribOnField;
+  @ViewChild('subscribIdField') public subscribIdField;
 
     modalRef: BsModalRef;
     modalRefEdit: BsModalRef;
