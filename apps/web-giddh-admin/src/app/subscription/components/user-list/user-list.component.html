@@ -3,8 +3,9 @@
         <div class="form-group">
             <div class="input-group input-date">
                 <span class="input-group-addon" id="sizing-addon2"><i class="fa fa-calendar pull-right"></i></span>
-                <input type="text" class="form-control date-range-picker" placeholder="Select Date"
+                <input type="text" class="form-control date-range-picker" readonly [(bsValue)]="bsValue" placeholder="Select Date"
                     (bsValueChange)="onChangeFilterDate($event)" bsDaterangepicker>
+                <button class="btn btn-danger" *ngIf="getUserListPostRequest.signUpOnFrom" (click)="resetFilters();">Reset Filter</button>    
             </div>
         </div>
     </div>
