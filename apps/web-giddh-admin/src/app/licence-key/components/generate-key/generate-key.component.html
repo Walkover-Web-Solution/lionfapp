@@ -34,6 +34,9 @@
                             <option *ngFor="let plan of allPlans">{{plan.name}}</option>
                         </select>
                     </div>
+
+                    
+
                 </div>
                 <div class="col-md-3">
                     <button type="button" class="btn-blue btn" [disabled]="generateKeysForm.invalid || isLoading" (click)="generateKeys()">Generate</button>

@@ -34,19 +34,16 @@ html { height: 100%;}
   margin-left: -215px;
   overflow-y: auto;
   overflow-x: hidden;
-  background: #1a1a1a;
-  // -webkit-transition: all 0.5s ease;
-  // -moz-transition: all 0.5s ease;
-  // -o-transition: all 0.5s ease;
-  // transition: all 0.5s ease;
   position: fixed;
   top: 0;
   bottom: 0;
   min-height: 100vh;
-  background: #303E4E;
+  background: #fff;
   width: 215px;
-padding: 0;
+  padding: 0;
   z-index: 999;
+  box-shadow: -2px -2px 15px rgba(0,0,0,.2);
+  border: 0px;
 }
 span.admin-thumb {
   border: 2px solid #fff;
@@ -107,10 +104,9 @@ display: none;
 
 .sidebar-nav li a {
   display: block;
-  color: #ddd;
-  text-decoration: none;
-  padding: 8px 20px;
-  font-size: 14px;
+  padding: 5px 15px;
+  color: #1c1c1c;
+  position: relative;
 }
 
 .sidebar-nav li a:hover,
@@ -119,15 +115,17 @@ display: none;
 .sidebar-nav li.open a:hover,
 .sidebar-nav li.open a:active,
 .sidebar-nav li.open a:focus{
-  color: #fff;
+  color: #01a9f4;
   text-decoration: none;
   background-color: transparent;
-  background-color: #40505F;
+  transition: .5s all ease;
 }
 
 .sidebar-nav > .sidebar-brand {
   font-size: 20px;
-  background: #253240;
+  background: #1A2482;
+  color: #fff;
+  margin-bottom: 15px;
 }
 .sidebar-nav .dropdown-menu {
   position: absolute;
@@ -140,15 +138,10 @@ display: none;
   box-shadow: none;
   padding-left: 0;
   border: 1px solid #CCCCCC;
-
-
   z-index: 90;
 }
 .sidebar-nav .dropdown-menu a{
   color: #333;
-}
-.sidebar-nav .dropdown-menu li a:hover{
-  background-color: #2D9EE0;
 }
 ul.submenu {
   padding: 0;
@@ -160,25 +153,29 @@ ul.submenu  li a{
 /*       Hamburger-Cross         */
 /*-------------------------------*/
 nav.navbar {
-  background-color: #00000014;
-  min-height: 54px;
+  background-color: #fff;
+  min-height: 58px;
   padding: 0;
 }
 .hamburger {
-  position: relative;
-  top: 10px;
-  z-index: 999;
   display: block;
   width: 32px;
   height: 32px;
   background: transparent;
   border: none;
-  left: 15px;
-
+  color: #192482;
 }
 .hamburger:focus, .hamburger:active{
   outline: none;
   box-shadow: none;
+}
+
+.hamburger_menu h4 {
+  font-size: 20px;
+  text-transform: capitalize;
+  width: auto;
+  color: #1a237e;
+  font-weight: bold;
 }
 
 
@@ -208,6 +205,7 @@ i.fa.fa-bars {
   float: right;
   font-size: 19px;
   line-height: 2.4;
+  color: #fff;
 }
 .rightSideContent {
   padding-left: 15px;

@@ -1,12 +1,17 @@
 <div class="pageHeader">
-    <div class="input-group input-date">
+    <div class="d-flex align-items-center">
+      <div class="input-group input-date">
         <span class="input-group-addon">
             <i class="fa fa-calendar pull-right"></i>
         </span>
         <input type="text" placeholder="Select Date" readonly [(bsValue)]="bsValue" (bsValueChange)="onChangeFilterDate($event)"
             class="form-control date-range-picker" bsDaterangepicker>
-        <button class="btn btn-danger" *ngIf="getAllPlansPostRequest.createdAtFrom" (click)="resetFilters();">Reset Filter</button>
     </div>
+
+    <button class=" btn-link" *ngIf="getAllPlansPostRequest.createdAtFrom" (click)="resetFilters();"><i class="icon icon-loop2
+      "></i> Clear Filter</button>
+    </div>
+
     <button type="button" class="btn btn-blue" (click)="togglePanel()">+ New Plan</button>
 </div>
 <div class="page-content">
