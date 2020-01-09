@@ -12,6 +12,7 @@ import { BsDatepickerModule, PaginationModule } from 'ngx-bootstrap';
 import { AdvanceSearchComponent } from './components/advance-search/advance-search.component';
 import { SuscriptionModalComponent } from './components/suscription-modal/suscription-modal.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+
 import { EditPlanModalComponent } from './components/edit-plan/edit-plan.component';
 import { ClickOutsideModule } from 'ng-click-outside';
 
