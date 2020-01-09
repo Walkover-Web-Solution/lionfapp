@@ -112,6 +112,11 @@
                         </td>
                     </tr>
                 </tbody>
+                <tbody *ngIf="!userSubscriptionData || userSubscriptionData.length === 0">
+                    <tr>
+                       <td colspan="8" align="center">No records found.</td> 
+                    </tr>
+                </tbody>
             </table>
         </perfect-scrollbar>
         <div *ngIf="userSubscriptionData && userlistRes && userlistRes.totalItems > 19" class="paginationWrapper">

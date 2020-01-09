@@ -54,6 +54,11 @@
                     <td>{{plans.expiry}}</td>
                 </tr>
             </tbody>
+            <tbody *ngIf="!plansData || !plansData.results || plansData.results.length === 0">
+                <tr>
+                    <td colspan="6" align="center">No records found.</td> 
+                 </tr>
+            </tbody>
         </table>
     </div>
 
