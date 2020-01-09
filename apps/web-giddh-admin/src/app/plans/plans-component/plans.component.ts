@@ -18,6 +18,8 @@ export class PlansComponent implements OnInit {
     public togglePanelBool: boolean;
     public inlineSearch: any = '';
     public timeout: any;
+    public bsValue: any = '';
+    public defaultLoad: boolean = true;
 
     constructor(private plansService: PlansService) {
 
@@ -65,10 +67,14 @@ export class PlansComponent implements OnInit {
     }
 
     public onChangeFilterDate(dates: any) {
-        if (dates !== null) {
+        if (dates !== null && !this.defaultLoad) {
             this.getAllPlansPostRequest.createdAtFrom = moment(dates[0]).format("DD-MM-YYYY");
-            this.getAllPlansPostRequest.createdAtTo = moment(dates[0]).format("DD-MM-YYYY");
+            this.getAllPlansPostRequest.createdAtTo = moment(dates[1]).format("DD-MM-YYYY");
             this.getAllPlans();
+        }
+
+        if (dates !== null && this.defaultLoad) {
+            this.defaultLoad = false;
         }
     }
 
@@ -96,6 +102,13 @@ export class PlansComponent implements OnInit {
     public hidePopup() {
         this.togglePanelBool = false;
         this.getAllPlansRequest.page = 1;
+        this.getAllPlans();
+    }
+
+    public resetFilters() {
+        this.bsValue = null;
+        this.getAllPlansPostRequest.createdAtFrom = '';
+        this.getAllPlansPostRequest.createdAtTo = '';
         this.getAllPlans();
     }
 }

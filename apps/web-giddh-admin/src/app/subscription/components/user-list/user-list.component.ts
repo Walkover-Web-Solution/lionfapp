@@ -36,6 +36,8 @@ export class UserListComponent implements OnInit {
     public inlineSearch: any = '';
     public timeout: any;
     public subscriptionId: any = '';
+    public bsValue: any = '';
+    public defaultLoad: boolean = true;
 
     destroyed$: Observable<any>;
     public onclick(id: string) {
@@ -103,10 +105,14 @@ export class UserListComponent implements OnInit {
     }
 
     public onChangeFilterDate(dates: any) {
-        if (dates !== null) {
+        if (dates !== null && !this.defaultLoad) {
             this.getUserListPostRequest.signUpOnFrom = moment(dates[0]).format("DD-MM-YYYY");
-            this.getUserListPostRequest.signUpOnTo = moment(dates[0]).format("DD-MM-YYYY");
+            this.getUserListPostRequest.signUpOnTo = moment(dates[1]).format("DD-MM-YYYY");
             this.getAllUserData();
+        }
+
+        if (dates !== null && this.defaultLoad) {
+            this.defaultLoad = false;
         }
     }
 
@@ -127,5 +133,12 @@ export class UserListComponent implements OnInit {
             template,
             Object.assign({}, { class: 'gray modal-lg' })
         );
+    }
+
+    public resetFilters() {
+        this.bsValue = null;
+        this.getUserListPostRequest.signUpOnFrom = '';
+        this.getUserListPostRequest.signUpOnTo = '';
+        this.getAllUserData();
     }
 }
