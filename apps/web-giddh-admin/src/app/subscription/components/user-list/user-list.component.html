@@ -102,8 +102,8 @@
                     </tr>
                     <tr *ngIf="userSubscription.subscriptions?.length > 1 && userSubscription.showInner">
                         <td colspan="8" width="100%">
-                            <table width="100%" *ngFor="let userSubscriptionInner of userSubscription.subscriptions;">
-                                <tr>
+                            <table class="table table-bordered basic subscrib-list-table card-list-table" >
+                                <tr *ngFor="let userSubscriptionInner of userSubscription.subscriptions;">
                                     <td data-title="Signup Date">&nbsp;</td>
                                     <td data-title="Name">&nbsp;</td>
                                     <td data-title="Email">&nbsp;</td>
