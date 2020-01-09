@@ -54,4 +54,14 @@ export class PlansService {
                 return res;
             }));
     }
+
+    public getPlan(uniqueName) {
+        let url = this.config.apiUrl + PLANS_API.GET_PLAN_DETAILS;
+        url = url.replace(":uniqueName", uniqueName);
+
+        return this.http.get(url).pipe(
+            map((res) => {
+                return res;
+            }));
+    }
 }
