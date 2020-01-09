@@ -52,7 +52,7 @@
             </thead>
             <tbody *ngIf="plansData">
                 <tr *ngFor="let plans of plansData.results">
-                    <td>{{plans.name}}</td>
+                    <td><a href="javascript:;" (click)="showPlanDetails(plans.uniqueName)">{{plans.name}}</a></td>
                     <td>{{plans.createdAt}}</td>
                     <td>{{plans.totalCompanies}}</td>
                     <td>{{plans.totalUsers}}</td>
@@ -75,3 +75,4 @@
 </div>
 
 <app-create-plans *ngIf="togglePanelBool" [rightToggle]="togglePanelBool" (hidePopup)="hidePopup()"></app-create-plans>
+<app-plan-details *ngIf="togglePlanDetailsPanelBool" [planUniqueName]="selectedPlan" [rightToggle]="togglePlanDetailsPanelBool" (hidePopup)="hidePlanDetailsPopup()"></app-plan-details>

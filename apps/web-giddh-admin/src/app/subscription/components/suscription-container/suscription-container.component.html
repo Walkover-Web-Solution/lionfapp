@@ -50,7 +50,7 @@
 
                             <th>
                               <div class="d-flex align-items-center justify-content-between">
-                              Plan <a href="javascript:void(0)" class="text-black"><i class="fa fa-sort-desc"></i></a> </div>
+                              Plan <a href="javascript:void(0)" class="text-black"><i class="fa fa-angle-down"></i></a> </div>
                             </th>
                             <th>No of Company</th>
 
@@ -109,6 +109,8 @@
 
 
 <a href="javascript:void(0)" (click)="openEditModal(editPlan)">Edit modal</a>
+
+
         <div *ngIf="subscriberRes && subscriberRes.totalItems>9" class="paginationWrapper">
           <pagination [totalItems]="subscriberRes.totalItems" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true" [itemsPerPage]="10" [rotate]="false" previousText="&#9668;" nextText="&#9658;" (pageChanged)="pageChanged($event)"></pagination>
       </div>

@@ -7,8 +7,8 @@
     <div class="clearfix pr-2 pl-2 pt-2">
         <form name="form" #createPlanForm="ngForm" novalidate="" autocomplete="off">
             <div class="form-group">
-                <label>Plan Name</label>
-                <input type="text" class="form-control" name="name" [(ngModel)]="createPlanRequest.name" required>
+                <label>Plan name</label>
+                <input type="text" class="form-control" name="name" [(ngModel)]="createPlanRequest.name" required (blur)="validatePlanName()">
             </div>
             <div class="form-group">
                 <label>Number of companies allowed</label>
@@ -19,44 +19,27 @@
                 <input type="number" class="form-control" min="1" name="transactionLimit" [(ngModel)]="createPlanRequest.transactionLimit" required>
             </div>
             <div class="form-group">
-                <label>Subscription Price</label>
+                <label>Subscription price</label>
                 <input type="number" class="form-control" name="amount" [(ngModel)]="createPlanRequest.amount" required>
             </div>
             <div class="form-group">
-                <label>Country</label>
-                <mat-form-field>
-                    <mat-select class="form-control" name="countries" [(ngModel)]="createPlanRequest.countries" multiple required>
-                        <mat-option value="">Select</mat-option>
-                        <mat-option *ngFor="let country of countries;" [value]="country">{{country}}</mat-option>
-                    </mat-select>
-                </mat-form-field>    
+                <label>Country</label>   
+                <sh-select [multiple]="true" placeholder="Select Countries" name="countries" autocomplete="false" id="countries" [(ngModel)]="createPlanRequest.countries" [options]="countries" [isFilterEnabled]="true" [ItemHeight]="33"></sh-select>
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label>Currency</label>
-                <mat-form-field>
-                    <mat-select class="form-control" name="currency" [(ngModel)]="createPlanRequest.currency" required>
-                        <mat-option value="">Select</mat-option>
-                        <mat-option *ngFor="let currency of currencies;" [value]="currency">{{currency}}</mat-option>
-                    </mat-select>
-                </mat-form-field>    
-            </div>
+                <sh-select placeholder="Select Currency" name="currency" autocomplete="false" id="currency" [(ngModel)]="createPlanRequest.currency" [options]="currencies" [isFilterEnabled]="true" [ItemHeight]="33"></sh-select>
+            </div> -->
             <div class="form-group">
                 <label>Duration</label>
                 <input type="number" class="form-control" min="1" name="duration" [(ngModel)]="createPlanRequest.duration" required>
             </div>
             <div class="form-group">
-                <label>Duration Unit</label>
-                <mat-form-field>
-                    <mat-select class="form-control" name="durationUnit" [(ngModel)]="createPlanRequest.durationUnit" required>
-                        <mat-option value="YEAR">YEAR</mat-option>
-                        <mat-option value="MONTH">MONTH</mat-option>
-                        <mat-option value="WEEK">WEEK</mat-option>
-                        <mat-option value="DAY">DAY</mat-option>
-                    </mat-select>
-                </mat-form-field>    
+                <label>Duration unit</label>
+                <sh-select placeholder="Select Duration Unit" name="durationUnit" autocomplete="false" id="durationUnit" [(ngModel)]="createPlanRequest.durationUnit" [options]="durationUnits" [isFilterEnabled]="true" [ItemHeight]="33"></sh-select>   
             </div>
             <div class="form-group">
-                <label>Rate Per Extra Transaction</label>
+                <label>Rate per extra transaction</label>
                 <input type="number" class="form-control" min="0" name="ratePerExtraTransaction" [(ngModel)]="createPlanRequest.ratePerExtraTransaction" required>
             </div>
             <input type="button" value="Create" class="btn-blue btn" (click)="createPlan()" [disabled]="createPlanForm.invalid || isLoading">

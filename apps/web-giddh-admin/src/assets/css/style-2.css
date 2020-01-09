@@ -759,6 +759,7 @@ input[type="checkbox"]:after {
 .custom-tabs .nav.nav-tabs {
   border-bottom: 2px solid #e0e0e0;
   padding-top: 0px;
+  margin-bottom: 15px;
 }
 .custom-tabs .nav.nav-tabs>li.active a {
   color: #1b1f6d;
@@ -897,6 +898,10 @@ bs-datepicker-container {
 }
 .rightSlide.kot-repring-sidebar.in {
   right: 0px;
+}
+.subscrib-list-table i {
+  color: #4847478c;
+  cursor: pointer;
 }
 
 @media (min-width: 992px) {

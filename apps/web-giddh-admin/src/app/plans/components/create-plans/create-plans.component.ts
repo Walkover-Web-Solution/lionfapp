@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angu
 import { PlansService } from '../../../services/plan.service';
 import { NgForm } from '@angular/forms';
 import { ToasterService } from '../../../services/toaster.service';
+import { IOption } from '../../../theme/ng-select/option.interface';
 
 @Component({
     selector: 'app-create-plans',
@@ -17,9 +18,10 @@ export class CreatePlansComponent implements OnInit {
     @Output() public hidePopup: EventEmitter<boolean> = new EventEmitter(true);
 
     public countries: any[] = [];
-    public currencies: any[] = [];
+    public currencies: IOption[] = [];
     public isLoading: boolean = false;
     public createPlanRequest: any = {};
+    public durationUnits: IOption[] = [{ label: 'YEAR', value: 'YEAR' }, { label: 'MONTH', value: 'MONTH' }, { label: 'WEEK', value: 'WEEK' }, { label: 'DAY', value: 'DAY' }];
 
     constructor(private plansService: PlansService, private toaster: ToasterService) {
         this.getCountry();
@@ -38,7 +40,7 @@ export class CreatePlansComponent implements OnInit {
         this.plansService.getCountry().subscribe(res => {
             if (res.status === 'success') {
                 res.body.forEach(key => {
-                    this.countries.push(key.countryName);
+                    this.countries.push({ label: key.countryName, value: key.countryName });
                 });
                 this.countries.sort();
             }
@@ -49,7 +51,7 @@ export class CreatePlansComponent implements OnInit {
         this.plansService.getCurrency().subscribe(res => {
             if (res.status === 'success') {
                 res.body.forEach(key => {
-                    this.currencies.push(key.code);
+                    this.currencies.push({ label: key.code, value: key.code });
                 });
                 this.currencies.sort();
             }
@@ -71,5 +73,11 @@ export class CreatePlansComponent implements OnInit {
                 this.toaster.errorToast(res.message);
             }
         });
+    }
+
+    public validatePlanName() {
+        if(this.createPlanRequest.name) {
+            this.createPlanRequest.name = this.createPlanRequest.name.trim();
+        }
     }
 }
