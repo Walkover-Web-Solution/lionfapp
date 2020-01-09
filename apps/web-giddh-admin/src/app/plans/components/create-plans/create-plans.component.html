@@ -23,22 +23,12 @@
                 <input type="number" class="form-control" name="amount" [(ngModel)]="createPlanRequest.amount" required>
             </div>
             <div class="form-group">
-                <label>Country</label>
-                <mat-form-field>
-                    <mat-select class="form-control" name="countries" [(ngModel)]="createPlanRequest.countries" multiple required>
-                        <mat-option value="">Select</mat-option>
-                        <mat-option *ngFor="let country of countries;" [value]="country">{{country}}</mat-option>
-                    </mat-select>
-                </mat-form-field>    
+                <label>Country</label>   
+                <sh-select placeholder="Select Countries" name="countries" autocomplete="false" id="countries" [(ngModel)]="createPlanRequest.countries" [options]="countries" [isFilterEnabled]="true" [ItemHeight]="33"></sh-select>
             </div>
             <div class="form-group">
                 <label>Currency</label>
-                <mat-form-field>
-                    <mat-select class="form-control" name="currency" [(ngModel)]="createPlanRequest.currency" required>
-                        <mat-option value="">Select</mat-option>
-                        <mat-option *ngFor="let currency of currencies;" [value]="currency">{{currency}}</mat-option>
-                    </mat-select>
-                </mat-form-field>    
+                <sh-select placeholder="Select Currency" name="currency" autocomplete="false" id="currency" [(ngModel)]="createPlanRequest.currency" [options]="currencies" [isFilterEnabled]="true" [ItemHeight]="33"></sh-select>
             </div>
             <div class="form-group">
                 <label>Duration</label>
@@ -46,14 +36,7 @@
             </div>
             <div class="form-group">
                 <label>Duration Unit</label>
-                <mat-form-field>
-                    <mat-select class="form-control" name="durationUnit" [(ngModel)]="createPlanRequest.durationUnit" required>
-                        <mat-option value="YEAR">YEAR</mat-option>
-                        <mat-option value="MONTH">MONTH</mat-option>
-                        <mat-option value="WEEK">WEEK</mat-option>
-                        <mat-option value="DAY">DAY</mat-option>
-                    </mat-select>
-                </mat-form-field>    
+                <sh-select placeholder="Select Duration Unit" name="durationUnit" autocomplete="false" id="durationUnit" [(ngModel)]="createPlanRequest.durationUnit" [options]="durationUnits" [isFilterEnabled]="true" [ItemHeight]="33"></sh-select>   
             </div>
             <div class="form-group">
                 <label>Rate Per Extra Transaction</label>

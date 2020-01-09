@@ -6,6 +6,7 @@ import { BsDatepickerModule, PaginationModule } from 'ngx-bootstrap';
 import { PlansRoutingModule } from './plans-routing.module';
 import { PlansComponent } from './plans-component/plans.component';
 import { CreatePlansComponent } from './components/create-plans/create-plans.component';
+import { ShSelectModule } from '../theme/ng-virtual-select/sh-select.module';
 import { MatSelectModule } from '@angular/material/select';
 import { ClickOutsideModule } from 'ng-click-outside';
 
@@ -20,7 +21,8 @@ import { ClickOutsideModule } from 'ng-click-outside';
         FormsModule,
         ReactiveFormsModule,
         MatSelectModule,
-        ClickOutsideModule
+        ClickOutsideModule,
+        ShSelectModule
     ]
 })
 export class PlansModule { }
