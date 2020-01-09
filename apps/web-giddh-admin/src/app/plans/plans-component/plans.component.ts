@@ -11,11 +11,13 @@ import { moment } from 'ngx-bootstrap/chronos/test/chain';
 export class PlansComponent implements OnInit {
 
     @ViewChild('planNameField') public planNameField;
-    
+
     public plansData = [];
     public getAllPlansRequest: any = {};
     public getAllPlansPostRequest: any = {};
     public togglePanelBool: boolean;
+    public togglePlanDetailsPanelBool: boolean;
+    public selectedPlan: any = '';
     public inlineSearch: any = '';
     public timeout: any;
     public bsValue: any = '';
@@ -24,7 +26,7 @@ export class PlansComponent implements OnInit {
     constructor(private plansService: PlansService) {
 
     }
-    
+
     ngOnInit() {
         this.getAllPlansRequest.count = 20;
         this.getAllPlansRequest.page = 1;
@@ -56,7 +58,7 @@ export class PlansComponent implements OnInit {
     }
 
     public sortBy(column) {
-        if(column === this.getAllPlansRequest.sortBy) {
+        if (column === this.getAllPlansRequest.sortBy) {
             this.getAllPlansRequest.sortType = (this.getAllPlansRequest.sortType === "asc") ? "desc" : "asc";
         } else {
             this.getAllPlansRequest.sortType = "asc";
@@ -105,10 +107,20 @@ export class PlansComponent implements OnInit {
         this.getAllPlans();
     }
 
+    public hidePlanDetailsPopup() {
+        this.selectedPlan = '';
+        this.togglePlanDetailsPanelBool = false;
+    }
+
     public resetFilters() {
         this.bsValue = null;
         this.getAllPlansPostRequest.createdAtFrom = '';
         this.getAllPlansPostRequest.createdAtTo = '';
         this.getAllPlans();
+    }
+
+    public showPlanDetails(uniqueName) {
+        this.selectedPlan = uniqueName;
+        this.togglePlanDetailsPanelBool = true;
     }
 }
