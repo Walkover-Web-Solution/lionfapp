@@ -21,7 +21,7 @@ export class UserListComponent implements OnInit {
     @ViewChild('userMobileField') public userMobileField;
     @ViewChild('userSubscriptionField') public userSubscriptionField;
 
-    // modalRef: BsModalRef;
+    public modalRef: BsModalRef;
     // modalRefEdit: BsModalRef;
     public expandList = false;
     public openExpanList = '';
@@ -35,6 +35,9 @@ export class UserListComponent implements OnInit {
     public userlistRes: SubscriberList = new SubscriberList();
     public inlineSearch: any = '';
     public timeout: any;
+    public subscriptionId: any = '';
+    public bsValue: any = '';
+    public defaultLoad: boolean = true;
 
     destroyed$: Observable<any>;
     public onclick(id: string) {
@@ -90,20 +93,6 @@ export class UserListComponent implements OnInit {
         this.getAllUserData();
     }
 
-    // openModalWithClass(template: TemplateRef<any>) {
-    //     this.modalRef = this.modalService.show(
-    //         template,
-    //         Object.assign({}, { class: 'gray modal-lg' })
-    //     );
-    // }
-
-    // openEditModal(editPlan: TemplateRef<any>) {
-    //     this.modalRefEdit = this.modalService.show(
-    //         editPlan,
-    //         Object.assign({}, { class: 'gray modal-lg' })
-    //     );
-    // }
-
     public sortBy(column) {
         if (column === this.getUserListRequest.sortBy) {
             this.getUserListRequest.sortType = (this.getUserListRequest.sortType === "asc") ? "desc" : "asc";
@@ -116,10 +105,14 @@ export class UserListComponent implements OnInit {
     }
 
     public onChangeFilterDate(dates: any) {
-        if (dates !== null) {
+        if (dates !== null && !this.defaultLoad) {
             this.getUserListPostRequest.signUpOnFrom = moment(dates[0]).format("DD-MM-YYYY");
-            this.getUserListPostRequest.signUpOnTo = moment(dates[0]).format("DD-MM-YYYY");
+            this.getUserListPostRequest.signUpOnTo = moment(dates[1]).format("DD-MM-YYYY");
             this.getAllUserData();
+        }
+
+        if (dates !== null && this.defaultLoad) {
+            this.defaultLoad = false;
         }
     }
 
@@ -132,5 +125,20 @@ export class UserListComponent implements OnInit {
             this.getUserListRequest.page = 1;
             this.getAllUserData();
         }, 700);
+    }
+
+    public openSubscriptionModal(template: TemplateRef<any>, subscriptionId) {
+        this.subscriptionId = subscriptionId;
+        this.modalRef = this.modalService.show(
+            template,
+            Object.assign({}, { class: 'gray modal-lg' })
+        );
+    }
+
+    public resetFilters() {
+        this.bsValue = null;
+        this.getUserListPostRequest.signUpOnFrom = '';
+        this.getUserListPostRequest.signUpOnTo = '';
+        this.getAllUserData();
     }
 }

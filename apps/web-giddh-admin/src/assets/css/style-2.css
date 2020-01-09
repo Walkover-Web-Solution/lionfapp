@@ -207,6 +207,9 @@ body {
 .mt-27 {
     margin-top: 27px;
 }
+.text-white {
+  color: #fff;
+}
 .text-gray {
   color: #9a9a9a;
 }
@@ -237,13 +240,13 @@ a {
 
 .btn-primary {
     background: #e5e5e5;
-    color: #ff5f00;
+    color: #1b1f6d;
 }
 
 .btn-primary:hover,
 .btn-primary:focus,
 .btn-primary:disabled {
-    background: #ff5f00;
+    background: #1b1f6d;
     color: #fff;
 }
 
@@ -453,7 +456,7 @@ input[type="checkbox"]:before {
     z-index: 1;
     width: 12px;
     height: 7px;
-    border: 2px solid #ff5f00;
+    border: 2px solid #1b1f6d;
     border-top-style: none;
     border-right-style: none;
 }
@@ -581,7 +584,9 @@ input[type="checkbox"]:after {
 .d-flex {
     display: flex;
 }
-
+.align-items-center {
+  align-items: center;
+}
 .d-inline-flex {
     display: inline-flex;
 }
@@ -682,7 +687,7 @@ input[type="checkbox"]:after {
 }
 
 .page-number h4 {
-    color: #ff5f00;
+    color: #1b1f6d;
 }
 
 ​ .page-number p {
@@ -713,7 +718,7 @@ input[type="checkbox"]:after {
 
 .about-plan-companies h3 {
     font-size: 22px;
-    color: #ff5f00;
+    color: #1b1f6d;
 }
 
 .about-plan-companies .plan-block {
@@ -744,7 +749,7 @@ input[type="checkbox"]:after {
   border: 0px;
 }
 .text-orange {
-  color: #ff5f00;
+  color: #1b1f6d;
 }
 .custom-tabs {
   background: #eee;
@@ -756,7 +761,7 @@ input[type="checkbox"]:after {
   padding-top: 0px;
 }
 .custom-tabs .nav.nav-tabs>li.active a {
-  color: #ff5f00;
+  color: #1b1f6d;
 }
 .custom-tabs .nav.nav-tabs>li a {
   background: 0 0;
@@ -767,7 +772,7 @@ input[type="checkbox"]:after {
   padding-bottom: 5px;
 }
 .custom-tabs .nav.nav-tabs>li.active a:after {
-  background: #ff5f00;
+  background: #1b1f6d;
   width: 40px;
   height: 3px;
   content: '';
@@ -805,6 +810,9 @@ input[type="checkbox"]:after {
   padding-left: 6px;
   font-size: 12px;
   color: #ababab;
+}
+bs-datepicker-container {
+  z-index: 99999;
 }
 .form-control.date-range-picker {
   border-left: 0;

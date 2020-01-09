@@ -91,7 +91,7 @@
                         <tr *ngFor="let subscription of subscriptionData">
                             <td data-title="Signup On">{{subscription.userDetails.signUpOn}}</td>
                             <td data-title="Subscribe on">{{subscription.startedAt}}</td>
-                            <td data-title="Subscribtion Id"><a href="javascript:void(0)" (click)="openModalWithClass(template)">{{subscription.subscriptionId}}</a></td>
+                            <td data-title="Subscribtion Id"><a href="javascript:void(0)" (click)="openSubscriptionModal(template, subscription.subscriptionId)">{{subscription.subscriptionId}}</a></td>
                             <td data-title="Plan">{{subscription.planDetails.name}}</td>
                             <td data-title="No of Company">{{subscription?.totalCompanies}}/{{subscription?.planDetails?.companiesLimit}}</td>
                             <td data-title="Transction Limit">{{subscription.planDetails.transactionLimit}}</td>
@@ -107,9 +107,13 @@
                 </table>
         </div>
 
+
+<a href="javascript:void(0)" (click)="openEditModal(editPlan)">Edit modal</a>
         <div *ngIf="subscriberRes && subscriberRes.totalItems>9" class="paginationWrapper">
           <pagination [totalItems]="subscriberRes.totalItems" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true" [itemsPerPage]="10" [rotate]="false" previousText="&#9668;" nextText="&#9658;" (pageChanged)="pageChanged($event)"></pagination>
       </div>
+
+
 
         <div class="page-footer">
             <div class="row">
@@ -150,9 +154,6 @@
     </div>
 </div>
 
-<!-- <div class="clearfix left-side-main" [ngClass]="rightToggle ? 'in': 'out'">
-    <app-advance-search></app-advance-search>
-</div> -->
 
 
 
@@ -161,8 +162,7 @@
 </ng-template>
 
 <ng-template class="modal-ubscription" #template>
-    <app-suscription-modal></app-suscription-modal>
-    <button type="button" class="btn btn-primary" (click)="openEditModal(editPlan)">editPlan</button>
+  <app-subscription-modal [subscriptionId]="subscriptionId"></app-subscription-modal>
 </ng-template>
 
 

@@ -21,8 +21,9 @@ export class SuscriptionContainerComponent implements OnInit {
   @ViewChild('subscribOnField') public subscribOnField;
   @ViewChild('subscribIdField') public subscribIdField;
 
-    modalRef: BsModalRef;
-    modalRefEdit: BsModalRef;
+    public modalRef: BsModalRef;
+    public modalRefEdit: BsModalRef;
+    public subscriptionId: any = '';
 
     private destroyed$: Observable<any>;
     public subscriberRes: SubscriberList = new SubscriberList();
@@ -37,19 +38,21 @@ export class SuscriptionContainerComponent implements OnInit {
         private subscriptionService: SubscriptionService, private modalService: BsModalService) {
     }
 
-    openModalWithClass(template: TemplateRef<any>) {
-        this.modalRef = this.modalService.show(
-            template,
-            Object.assign({}, { class: 'gray modal-lg' })
-        );
-    }
-
-    openEditModal(editPlan: TemplateRef<any>) {
+    public openEditModal(editPlan: TemplateRef<any>) {
         this.modalRefEdit = this.modalService.show(
             editPlan,
             Object.assign({}, { class: 'gray modal-lg' })
         );
     }
+
+
+    public openSubscriptionModal(template: TemplateRef<any>, subscriptionId) {
+      this.subscriptionId = subscriptionId;
+      this.modalRef = this.modalService.show(
+          template,
+          Object.assign({}, { class: 'gray modal-lg' })
+      );
+  }
 
     ngOnInit() {
         this.subscriptionRequest.count = 10;

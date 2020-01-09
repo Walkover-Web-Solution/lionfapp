@@ -3,8 +3,9 @@
         <div class="form-group">
             <div class="input-group input-date">
                 <span class="input-group-addon" id="sizing-addon2"><i class="fa fa-calendar pull-right"></i></span>
-                <input type="text" class="form-control date-range-picker" placeholder="Select Date"
+                <input type="text" class="form-control date-range-picker" readonly [(bsValue)]="bsValue" placeholder="Select Date"
                     (bsValueChange)="onChangeFilterDate($event)" bsDaterangepicker>
+                <button class="btn btn-danger" *ngIf="getUserListPostRequest.signUpOnFrom" (click)="resetFilters();">Reset Filter</button>    
             </div>
         </div>
     </div>
@@ -90,7 +91,7 @@
                         <td data-title="Name">{{userSubscription.userDetails.name}}</td>
                         <td data-title="Email">{{userSubscription.userDetails.email}}</td>
                         <td data-title="Mobile">{{userSubscription.userDetails.mobileno}}</td>
-                        <td data-title="Subscription ID"><a href="javascript:void(0)" *ngIf="userSubscription.subscriptions?.length > 0">{{ userSubscription.subscriptions.length > 1 ? 'Multiple' : userSubscription.subscriptions[0].subscriptionId}}</a></td>
+                        <td data-title="Subscription ID"><a href="javascript:void(0)" (click)="openSubscriptionModal(template, userSubscription.subscriptions[0].subscriptionId);" *ngIf="userSubscription.subscriptions?.length > 0">{{ userSubscription.subscriptions.length > 1 ? 'Multiple' : userSubscription.subscriptions[0].subscriptionId}}</a></td>
                         <td data-title="Plan Name"><span *ngIf="userSubscription.subscriptions?.length > 0">{{userSubscription.subscriptions[0].planDetails.name}}</span></td>
                         <td data-title="No. of Companies">{{userSubscription.totalCompanies}}</td>
                         <td data-title="Total Amount">{{userSubscription.totalAmount}}/- <a href="javascript:void(0)" *ngIf="userSubscription.subscriptions?.length > 1" (click)="userSubscription.showInner = !userSubscription.showInner" class="d-inline-block pull-right"><span class="fa fa-arrows-alt"></span></a></td>
@@ -103,13 +104,18 @@
                                     <td data-title="Name">&nbsp;</td>
                                     <td data-title="Email">&nbsp;</td>
                                     <td data-title="Mobile">&nbsp;</td>
-                                    <td data-title="Subscription ID"><a href="javascript:void(0)">{{userSubscriptionInner.subscriptionId}}</a></td>
+                                    <td data-title="Subscription ID"><a href="javascript:void(0)" (click)="openSubscriptionModal(template, userSubscriptionInner.subscriptionId);" >{{userSubscriptionInner.subscriptionId}}</a></td>
                                     <td data-title="Plan Name"><span>{{userSubscriptionInner.planDetails.name}}</span></td>
                                     <td data-title="No. of Companies">{{userSubscriptionInner.totalCompanies}}</td>
                                     <td data-title="Total Amount">{{userSubscriptionInner.totalAmount}}/-</td>
                                 </tr>
                             </table>        
                         </td>
+                    </tr>
+                </tbody>
+                <tbody *ngIf="!userSubscriptionData || userSubscriptionData.length === 0">
+                    <tr>
+                       <td colspan="8" align="center">No records found.</td> 
                     </tr>
                 </tbody>
             </table>
@@ -121,10 +127,9 @@
         </div>
     </div>
 </div>
-<!-- <ng-template class="modal-ubscription" #template>
-    <app-suscription-modal></app-suscription-modal>
-    <button type="button" class="btn btn-primary" (click)="openEditModal(editPlan)">editPlan</button>
+<ng-template class="modal-ubscription" #template>
+    <app-subscription-modal [subscriptionId]="subscriptionId"></app-subscription-modal>
 </ng-template>
-<ng-template #editPlan>
+<!-- <ng-template #editPlan>
     <app-editPlan-modal></app-editPlan-modal>
 </ng-template> -->

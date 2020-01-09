@@ -1,11 +1,17 @@
 <div class="pageHeader">
-    <div class="input-group input-date">
+    <div class="d-flex align-items-center">
+      <div class="input-group input-date">
         <span class="input-group-addon">
             <i class="fa fa-calendar pull-right"></i>
         </span>
-        <input type="text" placeholder="Select Date" (bsValueChange)="onChangeFilterDate($event)"
+        <input type="text" placeholder="Select Date" readonly [(bsValue)]="bsValue" (bsValueChange)="onChangeFilterDate($event)"
             class="form-control date-range-picker" bsDaterangepicker>
     </div>
+
+    <button class=" btn-link" *ngIf="getAllPlansPostRequest.createdAtFrom" (click)="resetFilters();"><i class="icon icon-loop2
+      "></i> Clear Filter</button>
+    </div>
+
     <button type="button" class="btn btn-blue" (click)="togglePanel()">+ New Plan</button>
 </div>
 <div class="page-content">
@@ -38,9 +44,9 @@
                         <i
                             [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': getAllPlansRequest.sortType === 'desc' && getAllPlansRequest.sortBy === 'TOTAL_AMOUNT', 'fa-sort-numeric-asc': (getAllPlansRequest.sortType === 'asc' && getAllPlansRequest.sortBy === 'TOTAL_AMOUNT') || getAllPlansRequest.sortBy !== 'TOTAL_AMOUNT'}"></i>
                     </th>
-                    <th (click)="sortBy('CREATED_AT')">Expiry in next 30 days
+                    <th (click)="sortBy('EXPIRY_DATE')">Expiry in next 30 days
                         <i
-                            [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': getAllPlansRequest.sortType === 'desc' && getAllPlansRequest.sortBy === 'CREATED_AT', 'fa-sort-numeric-asc': (getAllPlansRequest.sortType === 'asc' && getAllPlansRequest.sortBy === 'CREATED_AT') || getAllPlansRequest.sortBy !== 'CREATED_AT'}"></i>
+                            [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': getAllPlansRequest.sortType === 'desc' && getAllPlansRequest.sortBy === 'EXPIRY_DATE', 'fa-sort-numeric-asc': (getAllPlansRequest.sortType === 'asc' && getAllPlansRequest.sortBy === 'EXPIRY_DATE') || getAllPlansRequest.sortBy !== 'EXPIRY_DATE'}"></i>
                     </th>
                 </tr>
             </thead>
@@ -53,6 +59,11 @@
                     <td>{{plans.amount}}</td>
                     <td>{{plans.expiry}}</td>
                 </tr>
+            </tbody>
+            <tbody *ngIf="!plansData || !plansData.results || plansData.results.length === 0">
+                <tr>
+                    <td colspan="6" align="center">No records found.</td> 
+                 </tr>
             </tbody>
         </table>
     </div>
