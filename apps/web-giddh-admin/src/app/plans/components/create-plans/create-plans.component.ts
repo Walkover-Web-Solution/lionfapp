@@ -74,4 +74,10 @@ export class CreatePlansComponent implements OnInit {
             }
         });
     }
+
+    public validatePlanName() {
+        if(this.createPlanRequest.name) {
+            this.createPlanRequest.name = this.createPlanRequest.name.trim();
+        }
+    }
 }

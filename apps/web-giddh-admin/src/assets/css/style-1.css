@@ -5146,3 +5146,20 @@ form#groupDetailForm {
 .cdk-overlay-container {
     z-index: 99999 !important;
 }
+
+sh-select .header {
+    line-height: 34px;
+}
+virtual-scroll .scrollable-content .item > a {
+    color: #333;
+    padding: 6px;
+    display: table-cell;
+    vertical-align: middle;
+    height: 100%;
+}
+virtual-scroll .scrollable-content .item.selected > a {
+    color: #5b64c9!important;
+}
+.item.hilighted > a > .item, virtual-scroll .scrollable-content .item:hover .item {
+    color: var(--dark-blue01);
+}

@@ -8,7 +8,7 @@
         <form name="form" #createPlanForm="ngForm" novalidate="" autocomplete="off">
             <div class="form-group">
                 <label>Plan Name</label>
-                <input type="text" class="form-control" name="name" [(ngModel)]="createPlanRequest.name" required>
+                <input type="text" class="form-control" name="name" [(ngModel)]="createPlanRequest.name" required (blur)="validatePlanName()">
             </div>
             <div class="form-group">
                 <label>Number of companies allowed</label>
@@ -24,7 +24,7 @@
             </div>
             <div class="form-group">
                 <label>Country</label>   
-                <sh-select placeholder="Select Countries" name="countries" autocomplete="false" id="countries" [(ngModel)]="createPlanRequest.countries" [options]="countries" [isFilterEnabled]="true" [ItemHeight]="33"></sh-select>
+                <sh-select [multiple]="true" placeholder="Select Countries" name="countries" autocomplete="false" id="countries" [(ngModel)]="createPlanRequest.countries" [options]="countries" [isFilterEnabled]="true" [ItemHeight]="33"></sh-select>
             </div>
             <div class="form-group">
                 <label>Currency</label>
