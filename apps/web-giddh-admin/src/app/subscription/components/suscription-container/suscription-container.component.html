@@ -7,8 +7,7 @@
         <button class="pull-right btn btn-blue">Assign Plan</button>
     </div>
     <div class="page-content">
-        <div style="width:100%;">
-            <perfect-scrollbar [scrollIndicators]="true">
+        <div class="table-responsive table-height">
                 <table class="table table-bordered basic subscrib-list-table card-list-table">
                     <thead>
                         <tr>
@@ -25,17 +24,66 @@
                             </th>
 
 
-                            <th>Subscribe on</th>
-                            <th>Subscribtion Id</th>
-                            <th>Plan</th>
+                            <th class="table-search">
+                              <div [hidden]="inlineSearch == 'subscribOn'">
+                                <div class="d-flex align-items-center justify-content-between">
+                                  <span>Subscribe on</span>
+                                  <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('subscribOn')"></i>
+                                </div>
+                              </div>
+                              <div class="input-container" [hidden]="inlineSearch !== 'subscribOn'">
+                                  <input type="text" placeholder="Subscribe on" class="form-control w100" #subscribOnField name="subscribOn"/>
+                              </div>
+                            </th>
+
+                            <th class="table-search">
+                              <div [hidden]="inlineSearch == 'subscribId'">
+                                <div class="d-flex align-items-center justify-content-between">
+                                  <span>Subscribtion ID</span>
+                                  <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('subscribId')"></i>
+                                </div>
+                              </div>
+                              <div class="input-container" [hidden]="inlineSearch !== 'subscribId'">
+                                  <input type="text" placeholder="Subscribtion ID" class="form-control w100" #subscribIdField name="subscribId"/>
+                              </div>
+                            </th>
+
+                            <th>
+                              <div class="d-flex align-items-center justify-content-between">
+                              Plan <a href="javascript:void(0)" class="text-black"><i class="fa fa-sort-desc"></i></a> </div>
+                            </th>
                             <th>No of Company</th>
-                            <th>Transction Limit </th>
-                            <th>Balance </th>
-                            <th>Total Amount </th>
-                            <th>Additional Transction</th>
-                            <th>Additional Charges</th>
-                            <th>Rate/Transction</th>
-                            <th>Expiry</th>
+
+                            <th>
+                              <div class="d-flex align-items-center justify-content-between">
+                                Transction Limit <a href="javascript:void(0)" class="text-black"><i class="fa fa-sort-numeric-asc"></i></a> </div>
+                            </th>
+
+                            <th>
+                              <div class="d-flex align-items-center justify-content-between">
+                                Balance <a href="javascript:void(0)" class="text-black"><i class="fa fa-sort-numeric-desc"></i></a> </div>
+                            </th>
+
+                            <th>
+                              <div class="d-flex align-items-center justify-content-between">
+                                Total Amount <a href="javascript:void(0)" class="text-black"><i class="fa fa-sort-numeric-asc"></i></a> </div>
+                            </th>
+                            <th>
+                              <div class="d-flex align-items-center justify-content-between">
+                                Additional Transction <a href="javascript:void(0)" class="text-black"><i class="fa fa-sort-numeric-asc"></i></a> </div>
+                            </th>
+                            <th>
+                              <div class="d-flex align-items-center justify-content-between">
+                                Additional Charges <a href="javascript:void(0)" class="text-black"><i class="fa fa-sort-numeric-desc"></i></a> </div>
+                            </th>
+                            <th>
+                              <div class="d-flex align-items-center justify-content-between">
+                                Rate/Transction <a href="javascript:void(0)" class="text-black"><i class="fa fa-sort-numeric-desc"></i></a> </div>
+                            </th>
+                            <th>
+                              <div class="d-flex align-items-center justify-content-between">
+                                Expiry <a href="javascript:void(0)" class="text-black"><i class="fa fa-calendar"></i></a> </div>
+                            </th>
                             <th>Status</th>
                         </tr>
                     </thead>
@@ -57,11 +105,11 @@
                         </tr>
                     </tbody>
                 </table>
-            </perfect-scrollbar>
-            <div *ngIf="subscriberRes && subscriberRes.totalItems>9" class="paginationWrapper">
-                <pagination [totalItems]="subscriberRes.totalItems" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true" [itemsPerPage]="10" [rotate]="false" previousText="&#9668;" nextText="&#9658;" (pageChanged)="pageChanged($event)"></pagination>
-            </div>
         </div>
+
+        <div *ngIf="subscriberRes && subscriberRes.totalItems>9" class="paginationWrapper">
+          <pagination [totalItems]="subscriberRes.totalItems" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true" [itemsPerPage]="10" [rotate]="false" previousText="&#9668;" nextText="&#9658;" (pageChanged)="pageChanged($event)"></pagination>
+      </div>
 
         <div class="page-footer">
             <div class="row">
