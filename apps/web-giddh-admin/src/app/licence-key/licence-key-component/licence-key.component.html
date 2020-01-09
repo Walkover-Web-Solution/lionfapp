@@ -37,6 +37,9 @@
                         <td data-title="Expiry">{{item.subExpiry}}</td>
                         <td data-title="Total Amount">{{item.amount}}</td>
                     </tr>
+                    <tr *ngIf="!items || items.length === 0">
+                        <td colspan="11" align="center">No records found.</td> 
+                    </tr>
                 </tbody>
             </table>
         </div>
