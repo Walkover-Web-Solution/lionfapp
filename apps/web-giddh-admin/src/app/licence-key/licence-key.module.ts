@@ -6,6 +6,7 @@ import { BsDatepickerModule, PaginationModule } from 'ngx-bootstrap';
 import { LicenceKeyRoutingModule } from './licence-key-routing.module';
 import { LicenceKeyComponent } from './licence-key-component/licence-key.component';
 import { GenerateKeyComponent } from './components/generate-key/generate-key.component';
+import { SubscriptionModalModule } from '../shared/subscription-modal/subscription-modal.module';
 
 @NgModule({
     declarations: [LicenceKeyComponent, GenerateKeyComponent],
@@ -16,7 +17,8 @@ import { GenerateKeyComponent } from './components/generate-key/generate-key.com
         BsDatepickerModule.forRoot(),
         PaginationModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        SubscriptionModalModule
     ]
 })
 export class LicenceKeyModule { }

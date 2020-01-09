@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { LicenceService } from '../../services/licence.service';
 import { CommonPaginatedRequest, SubscriberList } from '../../modules/modules/api-modules/subscription';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 
 @Component({
     selector: 'app-licence-key',
@@ -15,8 +16,10 @@ export class LicenceKeyComponent implements OnInit {
     public activateLicenseKeyRequest: any = {
         uniqueName: ''
     };
+    public modalRef: BsModalRef;
+    public subscriptionId: any = '';
 
-    constructor(private licenseService: LicenceService) {
+    constructor(private licenseService: LicenceService, private modalService: BsModalService) {
 
     }
 
@@ -42,7 +45,7 @@ export class LicenceKeyComponent implements OnInit {
     }
 
     public sortBy(column) {
-        if(column === this.getAllLicenceKeyRequest.sortBy) {
+        if (column === this.getAllLicenceKeyRequest.sortBy) {
             this.getAllLicenceKeyRequest.sort = (this.getAllLicenceKeyRequest.sort === "asc") ? "desc" : "asc";
         } else {
             this.getAllLicenceKeyRequest.sort = "asc";
@@ -61,5 +64,13 @@ export class LicenceKeyComponent implements OnInit {
 
             }
         });
+    }
+
+    public openSubscriptionModal(template: TemplateRef<any>, subscriptionId) {
+        this.subscriptionId = subscriptionId;
+        this.modalRef = this.modalService.show(
+            template,
+            Object.assign({}, { class: 'gray modal-lg' })
+        );
     }
 }
