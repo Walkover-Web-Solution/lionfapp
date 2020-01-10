@@ -3,21 +3,19 @@
     <div class="aside-panel">
 
         <div class="top-right-head">
-            <p class="bold text-18 text-white mb-0">Some text</p>
+            <p class="bold text-18 text-white mb-0">Advance Search</p>
             <a href="javascript:void(0)" (click)="closePopup()" class="close"><i class="icon-cross"></i></a>
         </div>
-
-        <div class="clearfix pr-2 pl-2 pt-2">
+        <div class="clearfix pr-2 pl-2 pt-2" [formGroup]="advanceSearchForm">
             <ul class="advance-search m-0 p-0">
-                <li><label><input type="checkbox"><span>Balance is</span></label> <a href="#">Greater than</a> <input type="text" placeholder="No of transactions"></li>
-                <li><label><input type="checkbox"><span>Purchase</span></label> <a href="#">Before</a> <input type="text" placeholder="Date" bsDatepicker placement="left"></li>
-                <li><label><input type="checkbox"><span>Expiry</span></label> <a href="#">Before</a> <input type="text" placeholder="Date" bsDatepicker placement="left"></li>
-                <li><label><input type="checkbox"><span>Signup between</span></label>
-                    <input type="text" placeholder="Start date" bsDatepicker placement="left"> To
-                    <input type="text" placeholder="End date" bsDatepicker placement="left"></li>
+                <li><label><span>Balance is</span></label> <span class="blue-clr">Greater than</span> <input type="number" formControlName="balance" digitsOnlyDirective placeholder="No of transactions"></li>
+                <li><label><span>Subscribe on</span></label> <span class="blue-clr">Before</span> <input type="text" formControlName="startedAtFrom" placeholder="Date" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }" placement="left"></li>
+                <li><label><span>Expiry</span></label> <span class="blue-clr">Before</span> <input type="text" formControlName="expiry" placeholder="Date" [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }" bsDatepicker placement="left"></li>
+                <li><label><span>Signup between</span></label>
+                    <input type="text" placeholder="Start date" formControlName="signUpOnFrom" [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }" bsDatepicker placement="left"> To
+                    <input type="text" placeholder="End date" formControlName="signUpOnTo" [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }" bsDatepicker placement="left "></li>
             </ul>
-
-            <button type="button" class="btn btn-blue" (click)="AdvanceSearch();">Search</button>
+            <button type="button " class="btn btn-blue " (click)="AdvanceSearch(); ">Search</button>
         </div>
     </div>
 </div>

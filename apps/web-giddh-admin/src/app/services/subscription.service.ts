@@ -4,7 +4,7 @@ import { Inject, Injectable, OnInit, Optional } from '@angular/core';
 import { SUBSCRIPTION_API } from './apiurls/subscription.api';
 import { ErrorHandler } from './catchManager/catchmanger';
 import { IServiceConfigArgs, ServiceConfig } from './service.config';
-import { CommonPaginatedRequest } from '../modules/modules/api-modules/subscription';
+import { CommonPaginatedRequest, AdvanceSearchRequestSubscriptions } from '../modules/modules/api-modules/subscription';
 
 
 @Injectable()
@@ -33,6 +33,15 @@ export class SubscriptionService {
         */
     public getAllTotalSubscriptions() {
         return this.http.get(this.config.apiUrl + SUBSCRIPTION_API.GET_SUBSCRIPTION_TOTAL)
+            .pipe(
+                map((res) => {
+                    return res;
+                }),
+                catchError((e) => this.errorHandler.HandleCatch(e)));
+    }
+
+    public getAllSubscriptionsViaAdvancedSearch(model: AdvanceSearchRequestSubscriptions) {
+        return this.http.post(this.config.apiUrl + SUBSCRIPTION_API.GET_SUBSCRIPTION, model)
             .pipe(
                 map((res) => {
                     return res;

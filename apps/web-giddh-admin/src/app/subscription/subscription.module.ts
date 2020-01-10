@@ -16,6 +16,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { SubscriptionModalModule } from '../shared/subscription-modal/subscription-modal.module';
 import { ClickOutsideModule } from 'ng-click-outside';
 import { EditPlanModalComponent } from '../shared/edit-plan/edit-plan.component';
+import { DigitsOnlyModule } from '../shared/helper/directives/digitsOnly/digitsOnly.module';
 
 @NgModule({
   declarations: [SubscriptionComponent, SuscriptionContainerComponent, UserListComponent, AdvanceSearchComponent, SuscriptionModalComponent, EditPlanModalComponent],
@@ -30,7 +31,8 @@ import { EditPlanModalComponent } from '../shared/edit-plan/edit-plan.component'
     FormsModule,
     ReactiveFormsModule,
     ClickOutsideModule,
-    SubscriptionModalModule
+    SubscriptionModalModule,
+    DigitsOnlyModule
   ]
 })
 export class SubscriptionModule { }
