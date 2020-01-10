@@ -25,18 +25,15 @@
         <div class="row">
             <form name="form" #generateKeysForm="ngForm" novalidate="" autocomplete="off">
                 <div class="col-md-3">
-                    <input type="number" min="1" max="1000" placeholder="No. of keys" class="form-control" name="noOfKeys" [(ngModel)]="generateLicenseKeysRequest.noOfKeys" required>
+                    <input type="number" (blur)="validateLicenseKeys()" placeholder="No. of keys" class="form-control" name="noOfKeys" [(ngModel)]="generateLicenseKeysRequest.noOfKeys" required>
                 </div>
                 <div class="col-md-3">
                     <div class="select-style">
-                        <select [(ngModel)]="selectedPlan" name="selectedPlan" required>
+                        <select [(ngModel)]="generateLicenseKeysRequest.planUniqueName" name="planUniqueName" required>
                             <option selected [value]="''">Select Plan</option>
-                            <option *ngFor="let plan of allPlans">{{plan.name}}</option>
+                            <option *ngFor="let plan of allPlans" [value]="plan.uniqueName">{{plan.name}}</option>
                         </select>
                     </div>
-
-                    
-
                 </div>
                 <div class="col-md-3">
                     <button type="button" class="btn-blue btn" [disabled]="generateKeysForm.invalid || isLoading" (click)="generateKeys()">Generate</button>
