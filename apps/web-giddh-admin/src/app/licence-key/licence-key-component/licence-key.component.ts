@@ -1,6 +1,6 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { LicenceService } from '../../services/licence.service';
-import { CommonPaginatedRequest, SubscriberList } from '../../modules/modules/api-modules/subscription';
+import { SubscriberList } from '../../modules/modules/api-modules/subscription';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 
 @Component({
@@ -24,7 +24,7 @@ export class LicenceKeyComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.getAllLicenceKeyRequest.count = 20;
+        this.getAllLicenceKeyRequest.count = 50;
         this.getAllLicenceKeyRequest.page = 1;
         this.getAllLicenceKeyRequest.sort = "asc";
         this.getAllLicenceKey();

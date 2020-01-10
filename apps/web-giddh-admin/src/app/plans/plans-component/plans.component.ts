@@ -28,7 +28,7 @@ export class PlansComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.getAllPlansRequest.count = 20;
+        this.getAllPlansRequest.count = 50;
         this.getAllPlansRequest.page = 1;
         this.getAllPlansRequest.sortBy = 'TOTAL_AMOUNT';
         this.getAllPlansRequest.sortType = 'desc';
