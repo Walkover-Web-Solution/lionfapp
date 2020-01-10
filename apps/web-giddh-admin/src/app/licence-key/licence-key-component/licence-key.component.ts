@@ -20,6 +20,11 @@ export class LicenceKeyComponent implements OnInit {
 
     }
 
+    /**
+     * Initializes the component
+     *
+     * @memberof LicenceKeyComponent
+     */
     ngOnInit() {
         this.getAllLicenceKeyRequest.count = 50;
         this.getAllLicenceKeyRequest.page = 1;
@@ -27,6 +32,11 @@ export class LicenceKeyComponent implements OnInit {
         this.getAllLicenceKey();
     }
 
+    /**
+     * This function is used to get all license keys
+     *
+     * @memberof LicenceKeyComponent
+     */
     public getAllLicenceKey() {
         this.licenseService.getAllLicenseKeys(this.getAllLicenceKeyRequest).subscribe(res => {
             if (res.status === 'success') {
@@ -42,11 +52,23 @@ export class LicenceKeyComponent implements OnInit {
         });
     }
 
+    /**
+     * This function is used to change page
+     *
+     * @param {*} event
+     * @memberof LicenceKeyComponent
+     */
     public pageChanged(event: any): void {
         this.getAllLicenceKeyRequest.page = event.page;
         this.getAllLicenceKey();
     }
 
+    /**
+     * This function is used to apply sorting on columns
+     *
+     * @param {*} column
+     * @memberof LicenceKeyComponent
+     */
     public sortBy(column) {
         if (column === this.getAllLicenceKeyRequest.sortBy) {
             this.getAllLicenceKeyRequest.sort = (this.getAllLicenceKeyRequest.sort === "asc") ? "desc" : "asc";
@@ -58,6 +80,13 @@ export class LicenceKeyComponent implements OnInit {
         this.getAllLicenceKey();
     }
 
+    /**
+     * This function is used to open subscription modal
+     *
+     * @param {TemplateRef<any>} template
+     * @param {*} subscriptionId
+     * @memberof LicenceKeyComponent
+     */
     public openSubscriptionModal(template: TemplateRef<any>, subscriptionId) {
         this.subscriptionId = subscriptionId;
         this.modalRef = this.modalService.show(

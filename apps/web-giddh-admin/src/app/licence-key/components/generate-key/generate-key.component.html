@@ -55,28 +55,27 @@
               </div>
             </div>
           </div>
-        </form>
-  </div>
-
-  <div class="selectAllList mt-5" *ngIf="generatedKeysAvailable">
-      <div class="row">
-          <div class="col-sm-4">
-              <label class="checkbox mr-3">
-                  <input type="checkbox" [attr.checked]="selectAllActive" (change)="selectAllKeys($event)"> Select All
-              </label>
+            </form>
+        
+    </div>
+    <div class="selectAllList mt-5" *ngIf="generatedKeysAvailable">
+        <div class="row">
+            <div class="col-sm-4">
+                <label class="checkbox mr-3">
+                    <input type="checkbox" [attr.checked]="selectAllActive" (change)="selectAllKeys($event)"> Select All
+                </label>
 
               <button class="btn btn-blue mr-1" (click)="copyKeys()">Copy</button>
               <button class="btn btn-danger" (click)="deleteKeys()">Delete</button>
 
-              <div class="key-list">
-                  <span *ngFor="let key of generatedKeys;">
-                      <label class="checkbox mr-3" *ngIf="!key.deleted">
-                          <input type="checkbox" [attr.checked]="key.checked" (change)="selectLicenseKey(key)">
-                          {{key.key}}
-                      </label>
-                  </span>
-              </div>
-          </div>
-      </div>
-  </div>
-</div>
+                <div class="key-list">
+                    <span *ngFor="let key of generatedKeys;">
+                        <label class="checkbox mr-3" *ngIf="!key.deleted">
+                            <input type="checkbox" [attr.checked]="key.checked" (change)="selectLicenseKey(key)">
+                            {{key.key}}
+                        </label>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
