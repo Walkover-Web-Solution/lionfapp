@@ -1,4 +1,8 @@
 <div class="pageHeader">
+  <h5 class="mb-0">Plans</h5>
+</div>
+
+<div class="pageHeader">
     <div class="d-flex align-items-center">
       <div class="input-group input-date">
         <span class="input-group-addon">
@@ -15,7 +19,7 @@
     <button type="button" class="btn btn-blue" (click)="togglePanel()">+ New Plan</button>
 </div>
 <div class="page-content">
-    <div class="table-responsive">
+  <div class="table-responsive table-height">
         <table class="table table-bordered basic subscrib-list-table card-list-table">
             <thead>
                 <tr (clickOutside)="inlineSearch = null">
@@ -69,6 +73,43 @@
             </tbody>
         </table>
     </div>
+
+    <div class="page-footer">
+      <div class="row">
+          <div class="col-md-1 col-sm-3 wrap-row">
+              <div class="userNumber">
+                  <h4>52</h4>
+              </div>
+              <div class="aboutUser">
+                  <p>Total User</p>
+              </div>
+          </div>
+          <div class="col-md-1 col-sm-3 wrap-row">
+              <div class="userNumber">
+                  <h4>9</h4>
+              </div>
+              <div class="aboutUser">
+                  <p>Active User</p>
+              </div>
+          </div>
+          <div class="col-md-1 col-sm-3 wrap-row">
+              <div class="userNumber">
+                  <h4>0</h4>
+              </div>
+              <div class="aboutUser">
+                  <p>Inactive User</p>
+              </div>
+          </div>
+          <div class="col-md-1 col-sm-3 wrap-row">
+              <div class="userNumber">
+                  <h4>43</h4>
+              </div>
+              <div class="aboutUser">
+                  <p>Trial</p>
+              </div>
+          </div>
+      </div>
+  </div>
 
     <div *ngIf="plansData && plansData.totalItems > 50" class="paginationWrapper">
         <pagination [totalItems]="plansData.totalItems" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true" [itemsPerPage]="50"

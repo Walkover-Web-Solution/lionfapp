@@ -25,41 +25,51 @@
         <div class="row">
             <form name="form" #generateKeysForm="ngForm" novalidate="" autocomplete="off">
                 <div class="col-md-3">
-                    <input type="number" (blur)="validateLicenseKeys()" placeholder="No. of keys" class="form-control" name="noOfKeys" [(ngModel)]="generateLicenseKeysRequest.noOfKeys" required>
+                    <input type="number" (blur)="validateLicenseKeys()" placeholder="No. of keys" class="form-control"
+                        name="noOfKeys" [(ngModel)]="generateLicenseKeysRequest.noOfKeys" required>
                 </div>
                 <div class="col-md-3">
-                    <div class="select-style">
+                    <div class="select-style form-group">
                         <select [(ngModel)]="generateLicenseKeysRequest.planUniqueName" name="planUniqueName" required>
                             <option selected [value]="''">Select Plan</option>
                             <option *ngFor="let plan of allPlans" [value]="plan.uniqueName">{{plan.name}}</option>
                         </select>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <button type="button" class="btn-blue btn" [disabled]="generateKeysForm.invalid || isLoading" (click)="generateKeys()">Generate</button>
-                </div>
-            </form>    
-        </div>
-
-        <div class="selectAllList mt-5" *ngIf="generatedKeysAvailable">
-            <div class="row">
-                <div class="col-sm-4">
-                    <label class="checkbox mr-3">
-                        <input type="checkbox" [attr.checked]="selectAllActive" (change)="selectAllKeys($event)"> Select All
-                    </label>
-
-                    <button class="btn btn-blue mr-1" (click)="copyKeys()">Copy</button>
-                    <button class="btn btn-danger" (click)="deleteKeys()">Delete</button>
-
-                    <div class="key-list">
-                        <span *ngFor="let key of generatedKeys;">
-                            <label class="checkbox mr-3" *ngIf="!key.deleted">
-                                <input type="checkbox" [attr.checked]="key.checked" (change)="selectLicenseKey(key)"> {{key.key}}
-                            </label>
-                        </span>    
+                <div class="clearBoth">
+                    <div class="form-group">
+                        <textarea name="comments" class="textarea form-control"
+                            [(ngModel)]="generateLicenseKeysRequest.comments" required></textarea>
                     </div>
+                    <div class="clearfix">
+                        <button type="button" class="btn-blue btn" [disabled]="generateKeysForm.invalid || isLoading"
+                            (click)="generateKeys()">Generate</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="selectAllList mt-5" *ngIf="generatedKeysAvailable">
+        <div class="row">
+            <div class="col-sm-4">
+                <label class="checkbox mr-3">
+                    <input type="checkbox" [attr.checked]="selectAllActive" (change)="selectAllKeys($event)"> Select All
+                </label>
+
+                <button class="btn btn-blue mr-1" (click)="copyKeys()">Copy</button>
+                <button class="btn btn-danger" (click)="deleteKeys()">Delete</button>
+
+                <div class="key-list">
+                    <span *ngFor="let key of generatedKeys;">
+                        <label class="checkbox mr-3" *ngIf="!key.deleted">
+                            <input type="checkbox" [attr.checked]="key.checked" (change)="selectLicenseKey(key)">
+                            {{key.key}}
+                        </label>
+                    </span>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
