@@ -33,7 +33,7 @@
                         <td data-title="No of Company">{{item.currentCompanyCount}}</td>
                         <td data-title="Transction Limit">{{item.balance}}</td>
                         <td data-title="Balance">{{item.transactionLimit}}</td>
-                        <td data-title="License Key">{{item.licenceKey}}</td>
+                        <td data-title="License Key">{{item.licenceKey ? item.licenceKey : '**********'}}</td>
                         <td data-title="Status">{{item.licenceKeyStatus}}</td>
                         <td data-title="Expiry">{{item.subExpiry}}</td>
                         <td data-title="Total Amount">{{item.amount}}</td>
