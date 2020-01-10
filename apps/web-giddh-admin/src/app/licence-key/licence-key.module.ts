@@ -7,6 +7,7 @@ import { LicenceKeyRoutingModule } from './licence-key-routing.module';
 import { LicenceKeyComponent } from './licence-key-component/licence-key.component';
 import { GenerateKeyComponent } from './components/generate-key/generate-key.component';
 import { SubscriptionModalModule } from '../shared/subscription-modal/subscription-modal.module';
+import { ShSelectModule } from '../theme/ng-virtual-select/sh-select.module';
 
 @NgModule({
     declarations: [LicenceKeyComponent, GenerateKeyComponent],
@@ -18,7 +19,8 @@ import { SubscriptionModalModule } from '../shared/subscription-modal/subscripti
         PaginationModule,
         FormsModule,
         ReactiveFormsModule,
-        SubscriptionModalModule
+        SubscriptionModalModule,
+        ShSelectModule
     ]
 })
 export class LicenceKeyModule { }
