@@ -53,7 +53,6 @@ span.admin-thumb {
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  margin-top: 4px;
 }
 #sidebar-wrapper::-webkit-scrollbar {
 display: none;
@@ -104,7 +103,7 @@ display: none;
 
 .sidebar-nav li a {
   display: block;
-  padding: 5px 15px;
+  padding: 8px 15px;
   color: #1c1c1c;
   position: relative;
 }
@@ -127,6 +126,15 @@ display: none;
   color: #fff;
   margin-bottom: 15px;
 }
+.sidebar-nav { 
+  .sidebar-brand {
+    a {
+      color: #fff;
+      font-size: 16px;
+    }
+  }
+}
+
 .sidebar-nav .dropdown-menu {
   position: absolute;
   width: 100%;
