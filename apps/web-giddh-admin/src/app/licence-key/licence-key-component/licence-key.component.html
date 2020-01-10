@@ -37,7 +37,7 @@
                         <td data-title="Status">{{item.licenceKeyStatus}}</td>
                         <td data-title="Expiry">{{item.subExpiry}}</td>
                         <td data-title="Total Amount">{{item.amount}}</td>
-                        <td data-title="Comments">{{item.comments}}</td>
+                        <td data-title="Comments"><span *ngIf="!item.expanded">{{item.comments | slice:0:100}}</span><span *ngIf="item.comments && item.comments.length > 100 && !item.expanded">...</span><span *ngIf="item.expanded">{{item.comments}}</span>&nbsp;<a href="javascript:;" *ngIf="item.comments && item.comments.length > 100" (click)="item.expanded = !item.expanded" [ngClass]="{'fa': 1 === 1, 'fa-arrows-alt': !item.expanded, 'fa-expand': item.expanded}" title="{{item.expanded ? 'Collapse' : 'Expand'}}"></a></td>
                     </tr>
                     <tr *ngIf="!items || items.length === 0">
                         <td colspan="12" align="center">No records found.</td> 
