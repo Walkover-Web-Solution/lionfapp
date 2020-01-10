@@ -22,7 +22,6 @@ export class GenerateKeyComponent implements OnInit {
         planUniqueName: '',
         noOfKeys: 1
     };
-    public selectedPlan: any;
     public generatedKeys: any[] = [];
     public isLoading: boolean = false;
     public selectAllActive: boolean = null;
@@ -68,10 +67,7 @@ export class GenerateKeyComponent implements OnInit {
      * @memberof GenerateKeyComponent
      */
     public generateKeys(): void {
-        if (this.selectedPlan) {
-            this.generateLicenseKeysRequest.planUniqueName = this.selectedPlan.planUniqueName;
-        }
-
+        this.validateLicenseKeys();
         this.isLoading = true;
 
         this.licenseService.createLicenseKey(this.generateLicenseKeysRequest).subscribe(res => {
@@ -79,14 +75,13 @@ export class GenerateKeyComponent implements OnInit {
             if (res.status === 'success') {
                 this.generateLicenseKeysRequest.planUniqueName = "";
                 this.generateLicenseKeysRequest.noOfKeys = 1;
-                this.selectedPlan = [];
                 this.generatedKeysAvailable = true;
                 this.getLicenseKeyStatistics();
                 this.toaster.successToast("License keys have been generated successfully.");
                 this.generatedKeys = res.body;
             } else {
                 this.generatedKeysAvailable = false;
-                this.toaster.errorToast("Something went wrong! Please try again.");
+                this.toaster.errorToast(res.message);
                 this.generatedKeys = [];
             }
         });
@@ -223,5 +218,20 @@ export class GenerateKeyComponent implements OnInit {
                 this.licenseStatistics = { active: 0, expired: 0, total: 0 };
             }
         });
+    }
+
+    /**
+     * This function is to restrict license keys to min/max range
+     *
+     * @memberof GenerateKeyComponent
+     */
+    public validateLicenseKeys() {
+        if (this.generateLicenseKeysRequest.noOfKeys) {
+            if (this.generateLicenseKeysRequest.noOfKeys < 1) {
+                this.generateLicenseKeysRequest.noOfKeys = 1;
+            } else if (this.generateLicenseKeysRequest.noOfKeys > 1000) {
+                this.generateLicenseKeysRequest.noOfKeys = 1000;
+            }
+        }
     }
 }

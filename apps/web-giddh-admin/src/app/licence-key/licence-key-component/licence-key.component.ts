@@ -13,9 +13,6 @@ export class LicenceKeyComponent implements OnInit {
     public items;
     public getAllLicenceKeyRequest: any = {};
     public LicenceKeyRes: SubscriberList = new SubscriberList();
-    public activateLicenseKeyRequest: any = {
-        uniqueName: ''
-    };
     public modalRef: BsModalRef;
     public subscriptionId: any = '';
 
@@ -34,7 +31,13 @@ export class LicenceKeyComponent implements OnInit {
         this.licenseService.getAllLicenseKeys(this.getAllLicenceKeyRequest).subscribe(res => {
             if (res.status === 'success') {
                 this.LicenceKeyRes = res.body;
-                this.items = res.body.results;
+                this.items = [];
+
+                res.body.results.forEach(key => {
+                    key.subOn = key.subOn.replace(/-/g, "/");
+                    key.subExpiry = key.subExpiry.replace(/-/g, "/");
+                    this.items.push(key);
+                });
             }
         });
     }
@@ -53,17 +56,6 @@ export class LicenceKeyComponent implements OnInit {
 
         this.getAllLicenceKeyRequest.sortBy = column;
         this.getAllLicenceKey();
-    }
-
-    public activateLicenseKey(licenseKey) {
-        this.activateLicenseKeyRequest.uniqueName = licenseKey;
-        this.licenseService.activateLicenseKey(this.activateLicenseKeyRequest).subscribe(res => {
-            if (res.status === 'success') {
-                this.getAllLicenceKey();
-            } else {
-
-            }
-        });
     }
 
     public openSubscriptionModal(template: TemplateRef<any>, subscriptionId) {

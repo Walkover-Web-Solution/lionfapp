@@ -24,14 +24,6 @@ export class LicenceService {
             catchError((e) => this.errorHandler.HandleCatch(e)));
     }
 
-    public activateLicenseKey(model: any) {
-        return this.http.post(this.config.apiUrl + LICENSE_API.ACTIVATE_LICENSE, model).pipe(
-            map((res) => {
-                return res;
-            }),
-            catchError((e) => this.errorHandler.HandleCatch<any, any>(e)));
-    }
-
     public createLicenseKey(model: any) {
         return this.http.post(this.config.apiUrl + LICENSE_API.CREATE_LICENSE, model).pipe(
             map((res) => {
