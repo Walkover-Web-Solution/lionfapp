@@ -49,6 +49,25 @@ export class UserListComponent implements OnInit {
 
     }
 
+    /**
+     * Initializes the component
+     *
+     * @memberof UserListComponent
+     */
+    ngOnInit() {
+        this.getUserListRequest.count = 50;
+        this.getUserListRequest.page = 1;
+        this.getUserListRequest.sortBy = 'User';
+        this.getUserListRequest.sortType = 'asc';
+        this.getAllUserData();
+    }
+
+    /**
+     * This function is used to put focus on column search
+     *
+     * @param {*} inlineSearch
+     * @memberof UserListComponent
+     */
     public focusOnColumnSearch(inlineSearch) {
         this.inlineSearch = inlineSearch;
 
@@ -68,14 +87,11 @@ export class UserListComponent implements OnInit {
         }, 200);
     }
 
-    ngOnInit() {
-        this.getUserListRequest.count = 50;
-        this.getUserListRequest.page = 1;
-        this.getUserListRequest.sortBy = 'User';
-        this.getUserListRequest.sortType = 'asc';
-        this.getAllUserData();
-    }
-
+    /**
+     * This function is used to get user list
+     *
+     * @memberof UserListComponent
+     */
     public getAllUserData() {
         this.userService.getAllSubscriptionsByUser(this.getUserListRequest, this.getUserListPostRequest).subscribe(res => {
             if (res.status === 'success') {
@@ -91,11 +107,23 @@ export class UserListComponent implements OnInit {
         });
     }
 
+    /**
+     * This function is used to change page
+     *
+     * @param {*} event
+     * @memberof UserListComponent
+     */
     public pageChanged(event: any): void {
         this.getUserListRequest.page = event.page;
         this.getAllUserData();
     }
 
+    /**
+     * This function is used to apply sorting on columns
+     *
+     * @param {*} column
+     * @memberof UserListComponent
+     */
     public sortBy(column) {
         if (column === this.getUserListRequest.sortBy) {
             this.getUserListRequest.sortType = (this.getUserListRequest.sortType === "asc") ? "desc" : "asc";
@@ -107,6 +135,12 @@ export class UserListComponent implements OnInit {
         this.getAllUserData();
     }
 
+    /**
+     * This function is used to filter by date
+     *
+     * @param {*} dates
+     * @memberof UserListComponent
+     */
     public onChangeFilterDate(dates: any) {
         if (dates !== null && !this.defaultLoad) {
             this.getUserListPostRequest.signUpOnFrom = moment(dates[0]).format("DD-MM-YYYY");
@@ -119,6 +153,11 @@ export class UserListComponent implements OnInit {
         }
     }
 
+    /**
+     * This function is used to get users by search
+     *
+     * @memberof UserListComponent
+     */
     public columnSearch(): void {
         if (this.timeout) {
             clearTimeout(this.timeout);
@@ -130,6 +169,13 @@ export class UserListComponent implements OnInit {
         }, 700);
     }
 
+    /**
+     * This function is used to open subscription modal
+     *
+     * @param {TemplateRef<any>} template
+     * @param {*} subscriptionId
+     * @memberof UserListComponent
+     */
     public openSubscriptionModal(template: TemplateRef<any>, subscriptionId) {
         this.subscriptionId = subscriptionId;
         this.modalRef = this.modalService.show(
@@ -138,6 +184,11 @@ export class UserListComponent implements OnInit {
         );
     }
 
+    /**
+     * This function is used to reset filters
+     *
+     * @memberof UserListComponent
+     */
     public resetFilters() {
         this.bsValue = null;
         this.getUserListPostRequest.signUpOnFrom = '';
