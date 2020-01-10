@@ -7,67 +7,121 @@
         <button class="pull-right btn btn-blue">Assign Plan</button>
     </div>
     <div class="page-content">
-        <div style="width:100%;">
-            <perfect-scrollbar [scrollIndicators]="true">
-                <table class="table table-bordered basic subscrib-list-table card-list-table">
-                    <thead>
-                        <tr>
-                            <th class="table-search">
-                              <div [hidden]="inlineSearch == 'subscribersSignup'">
+        <div class="table-responsive table-height">
+            <table class="table table-bordered basic subscrib-list-table card-list-table">
+                <thead>
+                    <tr>
+                        <th class="table-search">
+                            <div [hidden]="inlineSearch == 'subscribersSignup'">
                                 <div class="d-flex align-items-center justify-content-between">
-                                  <span>Signup On</span>
-                                  <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('subscribersSignup')"></i>
+                                    <span>Signup On</span>
+                                    <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('subscribersSignup')"></i>
                                 </div>
-                              </div>
-                              <div class="input-container" [hidden]="inlineSearch !== 'subscribersSignup'">
-                                  <input type="text" placeholder="Signup On" class="form-control w100" #subscribersSignupField name="subscribersSignup"/>
-                              </div>
-                            </th>
+                            </div>
+                            <div class="input-container" [hidden]="inlineSearch !== 'subscribersSignup'">
+                                <input type="text" placeholder="Signup On" class="form-control w100" #subscribersSignupField name="subscribersSignup" />
+                            </div>
+                        </th>
 
 
-                            <th>Subscribe on</th>
-                            <th>Subscribtion Id</th>
-                            <th>Plan</th>
-                            <th>No of Company</th>
-                            <th>Transction Limit </th>
-                            <th>Balance </th>
-                            <th>Total Amount </th>
-                            <th>Additional Transction</th>
-                            <th>Additional Charges</th>
-                            <th>Rate/Transction</th>
-                            <th>Expiry</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let subscription of subscriptionData">
-                            <td data-title="Signup On">{{subscription.userDetails.signUpOn}}</td>
-                            <td data-title="Subscribe on">{{subscription.startedAt}}</td>
-                            <td data-title="Subscribtion Id"><a href="javascript:void(0)" (click)="openModalWithClass(template)">{{subscription.subscriptionId}}</a></td>
-                            <td data-title="Plan">{{subscription.planDetails.name}}</td>
-                            <td data-title="No of Company">{{subscription?.totalCompanies}}/{{subscription?.planDetails?.companiesLimit}}</td>
-                            <td data-title="Transction Limit">{{subscription.planDetails.transactionLimit}}</td>
-                            <td data-title="Balance">{{subscription.balance}}</td>
-                            <td data-title="Total Amount">{{subscription.planDetails.amount}}/-</td>
-                            <td data-title="Additional Transction">{{subscription.additionalTransactions}}</td>
-                            <td data-title="Additional Charges">{{subscription.additionalCharges}}</td>
-                            <td data-title="Rate/Transction">{{subscription.planDetails.ratePerExtraTransaction}}</td>
-                            <td data-title="Expiry">{{subscription.expiry}}</td>
-                            <td data-title="Status">{{subscription.status}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </perfect-scrollbar>
-            <div *ngIf="subscriberRes && subscriberRes.totalItems>9" class="paginationWrapper">
-                <pagination [totalItems]="subscriberRes.totalItems" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true" [itemsPerPage]="10" [rotate]="false" previousText="&#9668;" nextText="&#9658;" (pageChanged)="pageChanged($event)"></pagination>
-            </div>
+                        <th class="table-search">
+                            <div [hidden]="inlineSearch == 'subscribOn'">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <span>Subscribe on</span>
+                                    <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('subscribOn')"></i>
+                                </div>
+                            </div>
+                            <div class="input-container" [hidden]="inlineSearch !== 'subscribOn'">
+                                <input type="text" placeholder="Subscribe on" class="form-control w100" #subscribOnField name="subscribOn" />
+                            </div>
+                        </th>
+
+                        <th class="table-search">
+                            <div [hidden]="inlineSearch == 'subscribId'">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <span>Subscribtion ID</span>
+                                    <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('subscribId')"></i>
+                                </div>
+                            </div>
+                            <div class="input-container" [hidden]="inlineSearch !== 'subscribId'">
+                                <input type="text" placeholder="Subscribtion ID" class="form-control w100" #subscribIdField name="subscribId" />
+                            </div>
+                        </th>
+
+                        <th>
+                            <div class="d-flex align-items-center justify-content-between">
+                                Plan <a href="javascript:void(0)" class="text-black"><i class="fa fa-angle-down"></i></a> </div>
+                        </th>
+                        <th>No of Company</th>
+
+                        <th>
+                            <div class="d-flex align-items-center justify-content-between">
+                                Transction Limit <a href="javascript:void(0)" class="text-black"><i class="fa fa-sort-numeric-asc"></i></a> </div>
+                        </th>
+
+                        <th>
+                            <div class="d-flex align-items-center justify-content-between">
+                                Balance <a href="javascript:void(0)" class="text-black"><i class="fa fa-sort-numeric-desc"></i></a> </div>
+                        </th>
+
+                        <th>
+                            <div class="d-flex align-items-center justify-content-between">
+                                Total Amount <a href="javascript:void(0)" class="text-black"><i class="fa fa-sort-numeric-asc"></i></a> </div>
+                        </th>
+                        <th>
+                            <div class="d-flex align-items-center justify-content-between">
+                                Additional Transction <a href="javascript:void(0)" class="text-black"><i class="fa fa-sort-numeric-asc"></i></a> </div>
+                        </th>
+                        <th>
+                            <div class="d-flex align-items-center justify-content-between">
+                                Additional Charges <a href="javascript:void(0)" class="text-black"><i class="fa fa-sort-numeric-desc"></i></a> </div>
+                        </th>
+                        <th>
+                            <div class="d-flex align-items-center justify-content-between">
+                                Rate/Transction <a href="javascript:void(0)" class="text-black"><i class="fa fa-sort-numeric-desc"></i></a> </div>
+                        </th>
+                        <th>
+                            <div class="d-flex align-items-center justify-content-between">
+                                Expiry <a href="javascript:void(0)" class="text-black"><i class="fa fa-calendar"></i></a> </div>
+                        </th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let subscription of subscriptionData">
+                        <td data-title="Signup On">{{subscription.userDetails.signUpOn}}</td>
+                        <td data-title="Subscribe on">{{subscription.startedAt}}</td>
+                        <td data-title="Subscribtion Id"><a href="javascript:void(0)" (click)="openSubscriptionModal(template, subscription.subscriptionId)">{{subscription.subscriptionId}}</a></td>
+                        <td data-title="Plan">{{subscription.planDetails.name}}</td>
+                        <td data-title="No of Company">{{subscription?.totalCompanies}}/{{subscription?.planDetails?.companiesLimit}}</td>
+                        <td data-title="Transction Limit">{{subscription.planDetails.transactionLimit}}</td>
+                        <td data-title="Balance">{{subscription.balance}}</td>
+                        <td data-title="Total Amount">{{subscription.planDetails.amount}}/-</td>
+                        <td data-title="Additional Transction">{{subscription.additionalTransactions}}</td>
+                        <td data-title="Additional Charges">{{subscription.additionalCharges}}</td>
+                        <td data-title="Rate/Transction">{{subscription.planDetails.ratePerExtraTransaction}}</td>
+                        <td data-title="Expiry">{{subscription.expiry}}</td>
+                        <td data-title="Status">{{subscription.status}}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
+
+
+        <a href="javascript:void(0)" (click)="openEditModal(editPlan)">Edit modal</a>
+
+
+        <div *ngIf="subscriberRes && subscriberRes.totalItems>49" class="paginationWrapper">
+            <pagination [totalItems]="subscriberRes.totalItems" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true" [itemsPerPage]="50" [rotate]="false" previousText="&#9668;" nextText="&#9658;" (pageChanged)="pageChanged($event)"></pagination>
+        </div>
+
+
 
         <div class="page-footer">
             <div class="row">
                 <div class="col-md-1 col-sm-3 wrap-row">
                     <div class="userNumber">
-                        <h4>90</h4>
+                        <h4>{{totalSubscriber?.total}}</h4>
                     </div>
                     <div class="aboutUser">
                         <p>Total User</p>
@@ -75,7 +129,7 @@
                 </div>
                 <div class="col-md-1 col-sm-3 wrap-row">
                     <div class="userNumber">
-                        <h4>75</h4>
+                        <h4>{{totalSubscriber?.active}}</h4>
                     </div>
                     <div class="aboutUser">
                         <p>Active User</p>
@@ -83,7 +137,7 @@
                 </div>
                 <div class="col-md-1 col-sm-3 wrap-row">
                     <div class="userNumber">
-                        <h4>15</h4>
+                        <h4>{{totalSubscriber?.inactive}}</h4>
                     </div>
                     <div class="aboutUser">
                         <p>Inactive User</p>
@@ -91,7 +145,7 @@
                 </div>
                 <div class="col-md-1 col-sm-3 wrap-row">
                     <div class="userNumber">
-                        <h4>10</h4>
+                        <h4>{{totalSubscriber?.trial}}</h4>
                     </div>
                     <div class="aboutUser">
                         <p>Trial</p>
@@ -100,21 +154,17 @@
             </div>
         </div>
     </div>
-</div> 
+</div>
 
-<!-- <div class="clearfix left-side-main" [ngClass]="rightToggle ? 'in': 'out'">
-    <app-advance-search></app-advance-search>
-</div> -->
 
 
 
 <ng-template #editPlan>
-  <app-editPlan-modal></app-editPlan-modal>
+    <app-editPlan-modal></app-editPlan-modal>
 </ng-template>
 
 <ng-template class="modal-ubscription" #template>
-  <app-suscription-modal></app-suscription-modal>
-  <button type="button" class="btn btn-primary" (click)="openEditModal(editPlan)">editPlan</button>
+    <app-subscription-modal [subscriptionId]="subscriptionId"></app-subscription-modal>
 </ng-template>
 
 

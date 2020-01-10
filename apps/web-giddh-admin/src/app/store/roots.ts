@@ -1,4 +1,4 @@
-import * as fromVerifyMobileReducer from './authentication/verifyMobile.reducer';
+import * as fromSubscriptions from './subscription/subscriptions.reducer';
 import * as fromRouter from '@ngrx/router-store';
 import * as fromGeneral from './General/general.reducer';
 import * as fromHome from './home/home.reducer';
@@ -29,14 +29,14 @@ import * as fromReceipt from './Invoice/Receipt/receipt.reducer';
 import * as fromEwaybill from './Invoice/ewaybill/eway-bill.reducer';
 import * as fromGstReconcile from './GstReconcile/GstReconcile.reducer';
 import * as fromGstR from './GstR/GstR.reducer';
-import * as fromSubscriptions from './userSubscriptions/subscriptions.reducer';
 import { ActionReducerMap } from '@ngrx/store';
 
 export interface AppState {
-  
-  
+  subscriptions: fromSubscriptions.SubscriptionsState;
+  router: fromRouter.RouterReducerState;
 }
 
 export const reducers: ActionReducerMap<AppState> = {
- 
+  subscriptions: fromSubscriptions.SubscriptionsReducer,
+  router: fromRouter.routerReducer,
 };

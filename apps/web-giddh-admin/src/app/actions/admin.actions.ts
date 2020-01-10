@@ -34,6 +34,8 @@ export class AdminActions {
       if (response.status === 'error') {
         // this.toasty.errorToast(response.message, response.code);
         return { type: 'EmptyAction' };
+      } else {
+        console.log('store get all GET_SUBCRIPTION_RESPONSE ', response);
       }
       // this.toasty.successToast('Due date range created successfully', 'Success');
       // set newly created company as active company
