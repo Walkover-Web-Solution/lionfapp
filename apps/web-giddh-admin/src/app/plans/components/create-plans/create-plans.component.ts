@@ -28,14 +28,20 @@ export class CreatePlansComponent implements OnInit {
         this.getCurrency();
     }
 
+    /**
+     * Initializes the component
+     *
+     * @memberof CreatePlansComponent
+     */
     ngOnInit() {
 
     }
 
-    public closePopup() {
-        this.hidePopup.emit();
-    }
-
+    /**
+     * This function is used to get all allowed onboarding countries
+     *
+     * @memberof CreatePlansComponent
+     */
     public getCountry() {
         this.plansService.getCountry().subscribe(res => {
             if (res.status === 'success') {
@@ -47,6 +53,11 @@ export class CreatePlansComponent implements OnInit {
         });
     }
 
+    /**
+     * This function is used to get all currencies
+     *
+     * @memberof CreatePlansComponent
+     */
     public getCurrency() {
         this.plansService.getCurrency().subscribe(res => {
             if (res.status === 'success') {
@@ -58,6 +69,12 @@ export class CreatePlansComponent implements OnInit {
         });
     }
 
+    /**
+     * This function is used to create plan
+     *
+     * @returns
+     * @memberof CreatePlansComponent
+     */
     public createPlan() {
         if (this.isLoading) {
             return false;
@@ -66,7 +83,9 @@ export class CreatePlansComponent implements OnInit {
         this.isLoading = true;
 
         this.plansService.createPlan(this.createPlanRequest).subscribe(res => {
+            this.isLoading = false;
             if (res.status === 'success') {
+                this.createPlanRequest = {};
                 this.toaster.successToast("Plan has been created successfully.");
                 this.closePopup();
             } else {
@@ -75,9 +94,43 @@ export class CreatePlansComponent implements OnInit {
         });
     }
 
+    /**
+     * This function is used to remove whitespaces from left/right
+     *
+     * @memberof CreatePlansComponent
+     */
     public validatePlanName() {
-        if(this.createPlanRequest.name) {
+        if (this.createPlanRequest.name) {
             this.createPlanRequest.name = this.createPlanRequest.name.trim();
         }
+    }
+
+    /**
+     * This function is used to restrict value to min range
+     *
+     * @memberof CreatePlansComponent
+     */
+    public validateMinValue() {
+        if (this.createPlanRequest.companiesLimit < 1) {
+            this.createPlanRequest.companiesLimit = 1;
+        }
+        if (this.createPlanRequest.transactionLimit < 1) {
+            this.createPlanRequest.transactionLimit = 1;
+        }
+        if (this.createPlanRequest.duration < 1) {
+            this.createPlanRequest.duration = 1;
+        }
+        if (this.createPlanRequest.ratePerExtraTransaction < 0) {
+            this.createPlanRequest.ratePerExtraTransaction = 0;
+        }
+    }
+
+    /**
+     * This function is used to emit close popup
+     *
+     * @memberof CreatePlansComponent
+     */
+    public closePopup() {
+        this.hidePopup.emit();
     }
 }
