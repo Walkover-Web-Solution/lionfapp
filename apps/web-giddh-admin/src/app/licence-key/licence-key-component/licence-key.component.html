@@ -18,7 +18,7 @@
                         <th (click)="sortBy('balance')">Balance <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-angle-down': getAllLicenceKeyRequest.sort === 'desc' && getAllLicenceKeyRequest.sortBy === 'balance', 'fa-angle-up': (getAllLicenceKeyRequest.sort === 'asc' && getAllLicenceKeyRequest.sortBy === 'balance') || getAllLicenceKeyRequest.sortBy !== 'balance'}"></i></th>
                         <th (click)="sortBy('transactionlimit')">Transaction Limit <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-angle-down': getAllLicenceKeyRequest.sort === 'desc' && getAllLicenceKeyRequest.sortBy === 'transactionlimit', 'fa-angle-up': (getAllLicenceKeyRequest.sort === 'asc' && getAllLicenceKeyRequest.sortBy === 'transactionlimit') || getAllLicenceKeyRequest.sortBy !== 'transactionlimit'}"></i></th>
                         <th>License Key </th>
-                        <th>Status</th>
+                        <th (click)="sortBy('status')">Status <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-angle-down': getAllLicenceKeyRequest.sort === 'desc' && getAllLicenceKeyRequest.sortBy === 'status', 'fa-angle-up': (getAllLicenceKeyRequest.sort === 'asc' && getAllLicenceKeyRequest.sortBy === 'status') || getAllLicenceKeyRequest.sortBy !== 'status'}"></i></th>
                         <th>Expiry</th>
                         <th>Total Amount</th>
                     </tr>
@@ -33,7 +33,7 @@
                         <td data-title="Transction Limit">{{item.balance}}</td>
                         <td data-title="Balance">{{item.transactionLimit}}</td>
                         <td data-title="License Key">{{item.licenceKey}}</td>
-                        <td data-title="Status"><a href="javascript:;" (click)="activateLicenseKey(item.licenceKey);" *ngIf="item.licenceKeyStatus === 'inactive'" class="btn btn-blue">Activate</a> <span *ngIf="item.licenceKeyStatus !== 'inactive'">{{item.licenceKeyStatus}}</span></td>
+                        <td data-title="Status">{{item.licenceKeyStatus}}</td>
                         <td data-title="Expiry">{{item.subExpiry}}</td>
                         <td data-title="Total Amount">{{item.amount}}</td>
                     </tr>
@@ -43,8 +43,8 @@
                 </tbody>
             </table>
         </div>
-        <div *ngIf="LicenceKeyRes && LicenceKeyRes.totalItems > 19" class="paginationWrapper">
-            <pagination [totalItems]="LicenceKeyRes.totalItems" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true" [itemsPerPage]="20" [rotate]="false" previousText="&#9668;" nextText="&#9658;" (pageChanged)="pageChanged($event)"></pagination>
+        <div *ngIf="LicenceKeyRes && LicenceKeyRes.totalItems > 50" class="paginationWrapper">
+            <pagination [totalItems]="LicenceKeyRes.totalItems" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true" [itemsPerPage]="50" [rotate]="false" previousText="&#9668;" nextText="&#9658;" (pageChanged)="pageChanged($event)"></pagination>
         </div>
     </div>
 </div>

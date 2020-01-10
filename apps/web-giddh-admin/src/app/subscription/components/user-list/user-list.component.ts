@@ -69,7 +69,7 @@ export class UserListComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.getUserListRequest.count = 20;
+        this.getUserListRequest.count = 50;
         this.getUserListRequest.page = 1;
         this.getUserListRequest.sortBy = 'User';
         this.getUserListRequest.sortType = 'asc';
