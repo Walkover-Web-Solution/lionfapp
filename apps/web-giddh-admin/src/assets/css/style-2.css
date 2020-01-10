@@ -903,6 +903,23 @@ bs-datepicker-container {
   color: #4847478c;
   cursor: pointer;
 }
+.page-footer {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  background-color: #fff;
+  padding: 15px 15px;
+  margin: 0 -15px;
+}
+.userNumber h4 {
+  color: #1b1f6d;
+  font-size: 30px;
+  margin: 0;
+}
+.textarea {
+  height: 100px !important;
+}
+
 
 @media (min-width: 992px) {
   .modal-lg {
@@ -999,5 +1016,8 @@ bs-datepicker-container {
     border: none;
     background-color: transparent;
     padding: 0;
-}
+  }
+  .userNumber h4 {
+    font-size: 14px;
+  }
 }

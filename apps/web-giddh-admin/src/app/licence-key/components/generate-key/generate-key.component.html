@@ -23,25 +23,35 @@
         </div>
 
         <div class="row">
-            <form name="form" #generateKeysForm="ngForm" novalidate="" autocomplete="off">
-                <div class="col-md-3">
-                    <input type="number" min="1" max="1000" placeholder="No. of keys" class="form-control" name="noOfKeys" [(ngModel)]="generateLicenseKeysRequest.noOfKeys" required>
+            <div class="col-md-5">
+              <form name="form" #generateKeysForm="ngForm" novalidate="" autocomplete="off">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <input type="number" min="1" max="1000" placeholder="No. of keys" class="form-control" name="noOfKeys" [(ngModel)]="generateLicenseKeysRequest.noOfKeys" required>
+                    </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="select-style">
+                <div class="col-md-6">
+                    <div class="select-style form-group">
                         <select [(ngModel)]="selectedPlan" name="selectedPlan" required>
                             <option selected [value]="''">Select Plan</option>
                             <option *ngFor="let plan of allPlans">{{plan.name}}</option>
                         </select>
                     </div>
+                </div>
+                </div>
 
+                <div class="clearBoth">
+                  <div class="form-group">
+                    <textarea name="comments" class="textarea form-control" [(ngModel)]="generateLicenseKeysRequest.comments" required></textarea>
+                  </div>
                     
-
-                </div>
-                <div class="col-md-3">
+                  <div class="clearfix">
                     <button type="button" class="btn-blue btn" [disabled]="generateKeysForm.invalid || isLoading" (click)="generateKeys()">Generate</button>
+                  </div>
                 </div>
-            </form>    
+              </form>
+            </div> 
         </div>
 
         <div class="selectAllList mt-5" *ngIf="generatedKeysAvailable">
