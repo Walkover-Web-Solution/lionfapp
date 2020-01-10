@@ -3,10 +3,10 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 import { SubscriptionService } from '../../../services/subscription.service';
 import { AppState } from '../../../store';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { AdminActions } from '../../../actions/admin.actions';
 import { takeUntil, take } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
 import { CommonPaginatedRequest, SubscriberList, TotalSubscribers } from '../../../modules/modules/api-modules/subscription';
 import { ToasterService } from '../../../services/toaster.service';
 
@@ -17,15 +17,16 @@ import { ToasterService } from '../../../services/toaster.service';
 })
 export class SuscriptionContainerComponent implements OnInit {
 
-  @ViewChild('SubscribersSignupField') public SubscribersSignupField;
-  @ViewChild('subscribOnField') public subscribOnField;
-  @ViewChild('subscribIdField') public subscribIdField;
+    @ViewChild('SubscribersSignupField') public SubscribersSignupField;
+    @ViewChild('subscribOnField') public subscribOnField;
+    @ViewChild('subscribIdField') public subscribIdField;
 
     public modalRef: BsModalRef;
     public modalRefEdit: BsModalRef;
     public subscriptionId: any = '';
 
-    private destroyed$: Observable<any>;
+
+    private destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
     public subscriberRes: SubscriberList = new SubscriberList();
     public subscriptionData = [];
     public rightToggle: boolean = false;
@@ -36,6 +37,8 @@ export class SuscriptionContainerComponent implements OnInit {
 
     constructor(private store: Store<AppState>, private adminActions: AdminActions, private toasty: ToasterService,
         private subscriptionService: SubscriptionService, private modalService: BsModalService) {
+
+
     }
 
     public openEditModal(editPlan: TemplateRef<any>) {
@@ -47,20 +50,32 @@ export class SuscriptionContainerComponent implements OnInit {
 
 
     public openSubscriptionModal(template: TemplateRef<any>, subscriptionId) {
-      this.subscriptionId = subscriptionId;
-      this.modalRef = this.modalService.show(
-          template,
-          Object.assign({}, { class: 'gray modal-lg' })
-      );
-  }
+        this.subscriptionId = subscriptionId;
+        this.modalRef = this.modalService.show(
+            template,
+            Object.assign({}, { class: 'gray modal-lg' })
+        );
+    }
 
     ngOnInit() {
-        this.subscriptionRequest.count = 10;
+        this.subscriptionRequest.count = 50;
         this.subscriptionRequest.page = 1;
         this.subscriptionRequest.sortBy = 'ADDITIONAL_TRANSACTIONS';
         this.subscriptionRequest.sortType = 'desc';
-        this.getSsubscriptionData();
+        this.getSubscriptionData();
         this.getAllSubscriptionTotalData();
+
+        this.store.pipe(select(s => s.subscriptions.allSubscriptions), takeUntil(this.destroyed$)).subscribe(res => {
+            console.log('sote component data sub', res);
+            if (res) {
+                if (res.status === 'success') {
+                    this.subscriberRes = res.body;
+                    this.subscriptionData = res.body.results;
+                } else {
+                    this.toasty.errorToast(res.message)
+                }
+            }
+        });
     }
 
     public focusOnColumnSearch(inlineSearch) {
@@ -79,18 +94,20 @@ export class SuscriptionContainerComponent implements OnInit {
     public pageChanged(event: any): void {
 
         this.subscriptionRequest.page = event.page;
-        this.getSsubscriptionData();
+        this.getSubscriptionData();
 
     }
-    public getSsubscriptionData() {
-        this.subscriptionService.getAllSubscriptions(this.subscriptionRequest).subscribe(res => {
-            if (res.status === 'success') {
-                this.subscriberRes = res.body;
-                this.subscriptionData = res.body.results;
-            } else {
-                this.toasty.errorToast(res.message)
-            }
-        });
+    public getSubscriptionData() {
+        this.store.dispatch(this.adminActions.getSubscription(this.subscriptionRequest));
+
+        // this.subscriptionService.getAllSubscriptions(this.subscriptionRequest).subscribe(res => {
+        //     if (res.status === 'success') {
+        //         this.subscriberRes = res.body;
+        //         this.subscriptionData = res.body.results;
+        //     } else {
+        //         this.toasty.errorToast(res.message)
+        //     }
+        // });
     }
     public getAllSubscriptionTotalData() {
         this.subscriptionService.getAllTotalSubscriptions().subscribe(res => {

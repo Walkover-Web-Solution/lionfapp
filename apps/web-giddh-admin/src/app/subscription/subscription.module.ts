@@ -13,10 +13,9 @@ import { BsDatepickerModule, PaginationModule } from 'ngx-bootstrap';
 import { AdvanceSearchComponent } from './components/advance-search/advance-search.component';
 import { SuscriptionModalComponent } from './components/suscription-modal/suscription-modal.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-
-import { EditPlanModalComponent } from './components/edit-plan/edit-plan.component';
 import { SubscriptionModalModule } from '../shared/subscription-modal/subscription-modal.module';
 import { ClickOutsideModule } from 'ng-click-outside';
+import { EditPlanModalComponent } from '../shared/edit-plan/edit-plan.component';
 
 @NgModule({
   declarations: [SubscriptionComponent, SuscriptionContainerComponent, UserListComponent, AdvanceSearchComponent, SuscriptionModalComponent, EditPlanModalComponent],

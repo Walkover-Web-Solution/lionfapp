@@ -73,3 +73,14 @@ export class TotalSubscribers {
     active: number;
     trial: number
 }
+export interface SubscriptionsRequest {
+    signUpOn_from: string;
+    signUpOn_to: string
+    startedAt_from: string;
+    startedAt_to: string;
+    subscriptionId: string;
+    status: string;
+    planName: string;
+    balance: string;
+    expiry: string;
+}
