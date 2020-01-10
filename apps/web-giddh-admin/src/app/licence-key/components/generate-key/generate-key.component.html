@@ -30,17 +30,15 @@
                     <div class="form-group">
                       <input type="number" min="1" max="1000" placeholder="No. of keys" class="form-control" name="noOfKeys" [(ngModel)]="generateLicenseKeysRequest.noOfKeys" required>
                     </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="select-style form-group">
-                      
-
+                  </div>
+                  <div class="col-md-6">
+                      <div class="select-style form-group">
                         <select [(ngModel)]="selectedPlan" name="selectedPlan" required>
                             <option selected [value]="''">Select Plan</option>
                             <option *ngFor="let plan of allPlans">{{plan.name}}</option>
                         </select>
-                    </div>
-                </div>
+                      </div>
+                  </div>
                 </div>
 
                 <div class="clearBoth">
