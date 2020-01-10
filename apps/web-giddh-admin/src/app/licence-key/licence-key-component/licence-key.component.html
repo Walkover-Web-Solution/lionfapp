@@ -3,7 +3,7 @@
         <div class="d-inline-flex">
             <h5 class="mb-0">License Key</h5>
         </div>
-        <a href="javascript:;" [routerLink]="['/admin/licence-key/generate']" class="pull-right btn btn-blue">Generate</a>
+        <a href="javascript:;" [routerLink]="['/admin/license-key/generate']" class="pull-right btn btn-blue">Generate</a>
     </div>
     <div class="page-content">
         <div class="table-responsive">
@@ -21,6 +21,7 @@
                         <th (click)="sortBy('status')">Status <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-angle-down': getAllLicenceKeyRequest.sort === 'desc' && getAllLicenceKeyRequest.sortBy === 'status', 'fa-angle-up': (getAllLicenceKeyRequest.sort === 'asc' && getAllLicenceKeyRequest.sortBy === 'status') || getAllLicenceKeyRequest.sortBy !== 'status'}"></i></th>
                         <th>Expiry</th>
                         <th>Total Amount</th>
+                        <th>Comments</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,9 +37,10 @@
                         <td data-title="Status">{{item.licenceKeyStatus}}</td>
                         <td data-title="Expiry">{{item.subExpiry}}</td>
                         <td data-title="Total Amount">{{item.amount}}</td>
+                        <td data-title="Comments">{{item.comments}}</td>
                     </tr>
                     <tr *ngIf="!items || items.length === 0">
-                        <td colspan="11" align="center">No records found.</td> 
+                        <td colspan="12" align="center">No records found.</td> 
                     </tr>
                 </tbody>
             </table>

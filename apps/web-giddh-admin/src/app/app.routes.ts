@@ -11,7 +11,7 @@ export const ROUTES: Routes = [
     path: 'admin', component: AdminComponent,
     children: [
       { path: 'subscription', loadChildren: './subscription/subscription.module#SubscriptionModule', canActivate: [UserAuthenticated] },
-      { path: 'licence-key', loadChildren: './licence-key/licence-key.module#LicenceKeyModule', canActivate: [UserAuthenticated] },
+      { path: 'license-key', loadChildren: './licence-key/licence-key.module#LicenceKeyModule', canActivate: [UserAuthenticated] },
       { path: 'plans', loadChildren: './plans/plans.module#PlansModule' },
       { path: '404', component: NotFoundComponent }
     ]

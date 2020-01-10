@@ -86,9 +86,11 @@ export class CreatePlansComponent implements OnInit {
             this.isLoading = false;
             if (res.status === 'success') {
                 this.createPlanRequest = {};
+                this.toaster.clearAllToaster();
                 this.toaster.successToast("Plan has been created successfully.");
                 this.closePopup();
             } else {
+                this.toaster.clearAllToaster();
                 this.toaster.errorToast(res.message);
             }
         });

@@ -8,7 +8,6 @@ import { PlansComponent } from './plans-component/plans.component';
 import { CreatePlansComponent } from './components/create-plans/create-plans.component';
 import { PlanDetailsComponent } from './components/plan-details/plan-details.component';
 import { ShSelectModule } from '../theme/ng-virtual-select/sh-select.module';
-import { MatSelectModule } from '@angular/material/select';
 import { ClickOutsideModule } from 'ng-click-outside';
 
 @NgModule({
@@ -21,7 +20,6 @@ import { ClickOutsideModule } from 'ng-click-outside';
         PaginationModule,
         FormsModule,
         ReactiveFormsModule,
-        MatSelectModule,
         ClickOutsideModule,
         ShSelectModule
     ]

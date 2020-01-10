@@ -4,6 +4,9 @@ import { CommonPaginatedRequest } from '../../../modules/modules/api-modules/sub
 import { NgForm } from '@angular/forms';
 import { LicenceService } from '../../../services/licence.service';
 import { ToasterService } from '../../../services/toaster.service';
+import { IOption } from '../../../theme/ng-select/ng-select';
+import { IForceClear } from '../../../theme/ng-virtual-select/sh-select.component';
+import { Observable, of as observableOf } from 'rxjs';
 
 @Component({
     selector: 'app-generate-key',
@@ -17,7 +20,7 @@ export class GenerateKeyComponent implements OnInit {
 
     public getAllPlansPostRequest: any = {};
     public getAllPlansRequest: CommonPaginatedRequest = new CommonPaginatedRequest();
-    public allPlans: any[] = [];
+    public allPlans: IOption[] = [];
     public generateLicenseKeysRequest: any = {
         planUniqueName: '',
         noOfKeys: 1
@@ -27,6 +30,7 @@ export class GenerateKeyComponent implements OnInit {
     public selectAllActive: boolean = null;
     public licenseStatistics: any;
     public generatedKeysAvailable: boolean = false;
+    public forceClear$: Observable<IForceClear> = observableOf({ status: false });
 
     constructor(private plansService: PlansService, private licenseService: LicenceService, private toaster: ToasterService) {
         this.getLicenseKeyStatistics();
@@ -54,8 +58,11 @@ export class GenerateKeyComponent implements OnInit {
         this.getAllPlansRequest.sortType = 'desc';
         this.plansService.getAllPlans(this.getAllPlansRequest, this.getAllPlansPostRequest).subscribe(res => {
             if (res.status === 'success') {
-                this.allPlans = res.body.results;
+                res.body.results.forEach(key => {
+                    this.allPlans.push({ label: key.name, value: key.uniqueName });
+                });
             } else {
+                this.toaster.clearAllToaster();
                 this.toaster.errorToast("Something went wrong in getting plans! Please try again.");
             }
         });
@@ -74,13 +81,17 @@ export class GenerateKeyComponent implements OnInit {
             this.isLoading = false;
             if (res.status === 'success') {
                 this.generateLicenseKeysRequest.planUniqueName = "";
+                this.generateLicenseKeysRequest.comments = "";
                 this.generateLicenseKeysRequest.noOfKeys = 1;
+                this.forceClear$ = observableOf({ status: true });
                 this.generatedKeysAvailable = true;
                 this.getLicenseKeyStatistics();
+                this.toaster.clearAllToaster();
                 this.toaster.successToast("License keys have been generated successfully.");
                 this.generatedKeys = res.body;
             } else {
                 this.generatedKeysAvailable = false;
+                this.toaster.clearAllToaster();
                 this.toaster.errorToast(res.message);
                 this.generatedKeys = [];
             }
@@ -119,6 +130,7 @@ export class GenerateKeyComponent implements OnInit {
         });
 
         if (!copiedKeys) {
+            this.toaster.clearAllToaster();
             this.toaster.warningToast("Please select atleast 1 key to copy!");
             return false;
         }
@@ -134,7 +146,7 @@ export class GenerateKeyComponent implements OnInit {
         selBox.select();
         document.execCommand('copy');
         document.body.removeChild(selBox);
-
+        this.toaster.clearAllToaster();
         this.toaster.infoToast("License keys have been copied successfully.");
     }
 
@@ -201,6 +213,7 @@ export class GenerateKeyComponent implements OnInit {
                 }
             });
         } else {
+            this.toaster.clearAllToaster();
             this.toaster.warningToast("Please select atleast 1 key to delete!");
         }
     }
