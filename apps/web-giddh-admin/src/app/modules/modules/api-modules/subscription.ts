@@ -73,14 +73,31 @@ export class TotalSubscribers {
     active: number;
     trial: number
 }
-export interface SubscriptionsRequest {
-    signUpOn_from: string;
-    signUpOn_to: string
-    startedAt_from: string;
-    startedAt_to: string;
+export class AdvanceSearchRequestSubscriptions {
+    signUpOnFrom: string;
+    signUpOnTo: string;
+    startedAtFrom: string;
+    balance: string;
+    expiry: string;
+    // subscriptionId: string;
+    // status: string;
+    // planName: string;
+    // userName: string;
+    // email: string;
+    // mobile: string;
+}
+export interface AdvanceSearchRequest {
+    // signUpOnFrom: string;
+    // signUpOnTo: string;
+    // startedAtFrom: string;
+    // startedAtTo: string;
+    // balance: string;
+    // expiry: string;
+    startedAtTo: string;
     subscriptionId: string;
     status: string;
     planName: string;
-    balance: string;
-    expiry: string;
+    userName: string;
+    email: string;
+    mobile: string;
 }

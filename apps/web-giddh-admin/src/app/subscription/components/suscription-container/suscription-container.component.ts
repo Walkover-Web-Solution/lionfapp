@@ -62,11 +62,18 @@ export class SuscriptionContainerComponent implements OnInit {
         this.subscriptionRequest.page = 1;
         this.subscriptionRequest.sortBy = 'ADDITIONAL_TRANSACTIONS';
         this.subscriptionRequest.sortType = 'desc';
-        this.getSubscriptionData();
+        this.getSubscriptionData(this.subscriptionRequest);
         this.getAllSubscriptionTotalData();
+        this.setAllSubscriberList();
+        this.store.pipe(select(s => s.subscriptions.isGetSubscriptionInprocess), takeUntil(this.destroyed$)).subscribe(res => {
+            if (res) {
+                this.hidePopup();
+            }
+        });
 
+    }
+    public setAllSubscriberList() {
         this.store.pipe(select(s => s.subscriptions.allSubscriptions), takeUntil(this.destroyed$)).subscribe(res => {
-            console.log('sote component data sub', res);
             if (res) {
                 if (res.status === 'success') {
                     this.subscriberRes = res.body;
@@ -94,27 +101,18 @@ export class SuscriptionContainerComponent implements OnInit {
     public pageChanged(event: any): void {
 
         this.subscriptionRequest.page = event.page;
-        this.getSubscriptionData();
+        this.getSubscriptionData(this.subscriptionRequest);
 
     }
-    public getSubscriptionData() {
-        this.store.dispatch(this.adminActions.getSubscription(this.subscriptionRequest));
-
-        // this.subscriptionService.getAllSubscriptions(this.subscriptionRequest).subscribe(res => {
-        //     if (res.status === 'success') {
-        //         this.subscriberRes = res.body;
-        //         this.subscriptionData = res.body.results;
-        //     } else {
-        //         this.toasty.errorToast(res.message)
-        //     }
-        // });
+    public getSubscriptionData(subscrieRequest) {
+        this.store.dispatch(this.adminActions.getSubscription(subscrieRequest));
     }
     public getAllSubscriptionTotalData() {
         this.subscriptionService.getAllTotalSubscriptions().subscribe(res => {
             if (res.status === 'success') {
                 this.totalSubscriber = res.body;
             } else {
-                this.toasty.errorToast(res.message)
+                //  this.toasty.errorToast(res.message)
             }
         });
     }

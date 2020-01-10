@@ -103,6 +103,9 @@
                         <td data-title="Expiry">{{subscription.expiry}}</td>
                         <td data-title="Status">{{subscription.status}}</td>
                     </tr>
+                    <tr *ngIf="!subscriptionData || subscriptionData.length === 0">
+                        <td colspan="13" align="center">No records found.</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
