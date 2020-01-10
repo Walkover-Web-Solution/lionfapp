@@ -48,6 +48,7 @@
                         <i
                             [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': getAllPlansRequest.sortType === 'desc' && getAllPlansRequest.sortBy === 'EXPIRY', 'fa-sort-numeric-asc': (getAllPlansRequest.sortType === 'asc' && getAllPlansRequest.sortBy === 'EXPIRY') || getAllPlansRequest.sortBy !== 'EXPIRY'}"></i>
                     </th>
+                    <th>Country</th>
                 </tr>
             </thead>
             <tbody *ngIf="plansData">
@@ -58,11 +59,12 @@
                     <td>{{plans.totalUsers}}</td>
                     <td>{{plans.amount}}</td>
                     <td>{{plans.expiry}}</td>
+                    <td>{{plans.countries}}</td>
                 </tr>
             </tbody>
             <tbody *ngIf="!plansData || !plansData.results || plansData.results.length === 0">
                 <tr>
-                    <td colspan="6" align="center">No records found.</td> 
+                    <td colspan="7" align="center">No records found.</td> 
                  </tr>
             </tbody>
         </table>
