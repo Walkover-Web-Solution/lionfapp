@@ -100,21 +100,15 @@
                         <td data-title="No. of Companies">{{userSubscription.totalCompanies}}</td>
                         <td data-title="Total Amount">{{userSubscription.totalAmount}}/- <a href="javascript:void(0)" *ngIf="userSubscription.subscriptions?.length > 1" (click)="userSubscription.showInner = !userSubscription.showInner" class="d-inline-block pull-right"><span class="fa fa-arrows-alt"></span></a></td>
                     </tr>
-                    <tr *ngIf="userSubscription.subscriptions?.length > 1 && userSubscription.showInner">
-                        <td colspan="8" width="100%">
-                            <table class="table table-bordered basic subscrib-list-table card-list-table" >
-                                <tr *ngFor="let userSubscriptionInner of userSubscription.subscriptions;">
-                                    <td data-title="Signup Date">&nbsp;</td>
-                                    <td data-title="Name">&nbsp;</td>
-                                    <td data-title="Email">&nbsp;</td>
-                                    <td data-title="Mobile">&nbsp;</td>
-                                    <td data-title="Subscription ID"><a href="javascript:void(0)" (click)="openSubscriptionModal(template, userSubscriptionInner.subscriptionId);" >{{userSubscriptionInner.subscriptionId}}</a></td>
-                                    <td data-title="Plan Name"><span>{{userSubscriptionInner.planDetails.name}}</span></td>
-                                    <td data-title="No. of Companies">{{userSubscriptionInner.companyCount}}</td>
-                                    <td data-title="Total Amount">{{userSubscriptionInner.planDetails.amount}}/-</td>
-                                </tr>
-                            </table>        
-                        </td>
+                    <tr [hidden]="userSubscription.subscriptions?.length === 1 || !userSubscription.showInner" *ngFor="let userSubscriptionInner of userSubscription.subscriptions;">
+                        <td data-title="Signup Date">&nbsp;</td>
+                        <td data-title="Name">&nbsp;</td>
+                        <td data-title="Email">&nbsp;</td>
+                        <td data-title="Mobile">&nbsp;</td>
+                        <td data-title="Subscription ID"><a href="javascript:void(0)" (click)="openSubscriptionModal(template, userSubscriptionInner.subscriptionId);" >{{userSubscriptionInner.subscriptionId}}</a></td>
+                        <td data-title="Plan Name"><span>{{userSubscriptionInner.planDetails.name}}</span></td>
+                        <td data-title="No. of Companies">{{userSubscriptionInner.companyCount}}</td>
+                        <td data-title="Total Amount">{{userSubscriptionInner.planDetails.amount}}/-</td>
                     </tr>
                 </tbody>
                 <tbody *ngIf="!userSubscriptionData || userSubscriptionData.length === 0">
@@ -134,6 +128,3 @@
 <ng-template class="modal-ubscription" #template>
     <app-subscription-modal [subscriptionId]="subscriptionId"></app-subscription-modal>
 </ng-template>
-<!-- <ng-template #editPlan>
-    <app-editPlan-modal></app-editPlan-modal>
-</ng-template> -->

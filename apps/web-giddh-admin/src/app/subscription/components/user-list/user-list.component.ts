@@ -80,7 +80,12 @@ export class UserListComponent implements OnInit {
         this.userService.getAllSubscriptionsByUser(this.getUserListRequest, this.getUserListPostRequest).subscribe(res => {
             if (res.status === 'success') {
                 this.userlistRes = res.body;
-                this.userSubscriptionData = res.body.results;
+
+                res.body.results.forEach(key => {
+                    let signUpDate = key.userDetails.signUpOn.split(" ");
+                    key.userDetails.signUpOn = signUpDate[0].replace(/-/g, "/");
+                    this.userSubscriptionData.push(key);
+                });
             }
         });
     }
