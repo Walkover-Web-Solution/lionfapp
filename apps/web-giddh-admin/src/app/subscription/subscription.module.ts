@@ -14,12 +14,11 @@ import { AdvanceSearchComponent } from './components/advance-search/advance-sear
 import { SuscriptionModalComponent } from './components/suscription-modal/suscription-modal.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 
-import { EditPlanModalComponent } from './components/edit-plan/edit-plan.component';
 import { SubscriptionModalModule } from '../shared/subscription-modal/subscription-modal.module';
 import { ClickOutsideModule } from 'ng-click-outside';
 
 @NgModule({
-  declarations: [SubscriptionComponent, SuscriptionContainerComponent, UserListComponent, AdvanceSearchComponent, SuscriptionModalComponent, EditPlanModalComponent],
+  declarations: [SubscriptionComponent, SuscriptionContainerComponent, UserListComponent, AdvanceSearchComponent, SuscriptionModalComponent],
   imports: [
     CommonModule,
     SubscriptionRoutingModule,
