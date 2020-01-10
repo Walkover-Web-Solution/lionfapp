@@ -80,6 +80,7 @@ export class UserListComponent implements OnInit {
         this.userService.getAllSubscriptionsByUser(this.getUserListRequest, this.getUserListPostRequest).subscribe(res => {
             if (res.status === 'success') {
                 this.userlistRes = res.body;
+                this.userSubscriptionData = [];
 
                 res.body.results.forEach(key => {
                     let signUpDate = key.userDetails.signUpOn.split(" ");
