@@ -110,8 +110,8 @@
                                     <td data-title="Mobile">&nbsp;</td>
                                     <td data-title="Subscription ID"><a href="javascript:void(0)" (click)="openSubscriptionModal(template, userSubscriptionInner.subscriptionId);" >{{userSubscriptionInner.subscriptionId}}</a></td>
                                     <td data-title="Plan Name"><span>{{userSubscriptionInner.planDetails.name}}</span></td>
-                                    <td data-title="No. of Companies">{{userSubscriptionInner.totalCompanies}}</td>
-                                    <td data-title="Total Amount">{{userSubscriptionInner.totalAmount}}/-</td>
+                                    <td data-title="No. of Companies">{{userSubscriptionInner.companyCount}}</td>
+                                    <td data-title="Total Amount">{{userSubscriptionInner.planDetails.amount}}/-</td>
                                 </tr>
                             </table>        
                         </td>

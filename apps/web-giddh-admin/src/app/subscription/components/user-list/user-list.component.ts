@@ -81,14 +81,11 @@ export class UserListComponent implements OnInit {
             if (res.status === 'success') {
                 this.userlistRes = res.body;
                 this.userSubscriptionData = res.body.results;
-                console.log(this.userSubscriptionData);
-                console.log(res.body.results);
             }
         });
     }
 
     public pageChanged(event: any): void {
-
         this.getUserListRequest.page = event.page;
         this.getAllUserData();
     }
