@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { PlansService } from '../../services/plan.service';
 import * as moment from 'moment/moment';
+import { Router } from '@angular/router';
+import { GeneralService } from '../../services/general.service';
 
 
 @Component({
@@ -25,11 +27,13 @@ export class PlansComponent implements OnInit {
     public bsValue: any = '';
     public defaultLoad: boolean = true;
 
-    constructor(private plansService: PlansService) {
+    constructor(private plansService: PlansService, private router: Router, private generalService: GeneralService) {
 
     }
 
     ngOnInit() {
+        let currentUrl = this.router.url;
+        this.generalService.setCurrentPageTitle(currentUrl);
         this.getAllPlansRequest.count = 50;
         this.getAllPlansRequest.page = 1;
         this.getAllPlansRequest.sortBy = 'TOTAL_AMOUNT';
