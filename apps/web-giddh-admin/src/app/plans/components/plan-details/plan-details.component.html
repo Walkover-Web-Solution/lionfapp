@@ -1,0 +1,41 @@
+<div class="bg-box" [ngClass]="rightToggle ? 'in': 'out'"></div>
+<div class="rightSlide kot-repring-sidebar" [ngClass]="rightToggle ? 'in': 'out'">
+    <div class="top-right-head">
+        <p class="bold text-18 text-white mb-0">Plan Details</p>
+        <a href="javascript:;" (click)="closePopup()" class="close"><i class="icon-cross"></i></a>
+    </div>
+    <div class="clearfix pr-2 pl-2 pt-2 plan-details" *ngIf="planDetails">
+        <div class="form-group">
+            <label>Plan name</label><br>
+            <span>{{planDetails.name}}</span>
+        </div>
+        <div class="form-group">
+            <label>Number of companies allowed</label><br>
+            <span>{{planDetails.companiesLimit}}</span>
+        </div>
+        <div class="form-group">
+            <label>Number of transactions</label><br>
+            <span>{{planDetails.transactionLimit}}</span>
+        </div>
+        <div class="form-group">
+            <label>Subscription price</label><br>
+            <span>{{planDetails.amount}}</span>
+        </div>
+        <div class="form-group">
+            <label>Country</label><br>
+            <span>{{planDetails.countries}}</span>
+        </div>
+        <!-- <div class="form-group">
+            <label>Currency</label><br>
+            <span>{{planDetails.currency}}</span>
+        </div> -->
+        <div class="form-group">
+            <label>Duration</label><br>
+            <span>{{planDetails.duration}} {{planDetails.durationUnit}}</span>
+        </div>
+        <div class="form-group">
+            <label>Rate per extra transaction</label><br>
+            <span>{{planDetails.ratePerExtraTransaction}}</span>
+        </div>
+    </div>
+</div>

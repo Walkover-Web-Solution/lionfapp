@@ -1,95 +1,81 @@
 <div class="clearfix">
-  <div class="pageHeader">
-    <div class="d-inline-flex">
-      <h5 class="mb-0">Subscribers List</h5>
-    </div>
-    <button class="pull-right btn btn-blue">Assign Plan</button>
-  </div>
-
-  <div class="page-content">
-    <div class="page-number mt-3 mb-4">
-      <div class="wrap-row">
-        <p>Total issued Keys</p>
-        <h4>100</h4>
-      </div>
-
-      <div class="wrap-row">
-        <p>Active keys</p>
-        <h4>88</h4>
-      </div>
-
-      <div class="wrap-row">
-        <p>Expired Keys</p>
-        <h4>12</h4>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-3">
-        <input type="text" placeholder="No. of keys" class="form-control">
-      </div>
-      <div class="col-md-3">
-        <div class="select-style">
-          <select name="">
-            <option selected disabled>Select Plan</option>
-            <option *ngFor="let selectPlan of selectPlans" value="">{{selectPlan.plan}}</option>
-          </select>
+    <div class="pageHeader">
+        <div class="d-inline-flex">
+            <h5 class="mb-0">Generate License Keys</h5>
         </div>
-      </div>
-
-      <div class="col-md-3">
-        <button type="button" class="btn-blue btn">Generate</button>
-      </div>
+        <a href="javascript:;" [routerLink]="['/admin/license-key']" class="pull-right btn btn-blue">License Keys</a>
     </div>
 
-    <div class="selectAllList mt-5 ">
-      <div class="row">
-        <div class="col-sm-4">
-          <label class="checkbox mr-3">
-            <input type="checkbox"> Select All
-          </label>
-
-          <button class="btn btn-blue mr-1">Copy</button>
-          <button class="btn btn-danger">Delete</button>
-
-          <div class="key-list">
-            <label class="checkbox mr-3">
-              <input type="checkbox"> Key098
-            </label>
-            <label class="checkbox mr-3">
-              <input type="checkbox"> Key098
-            </label>
-            <label class="checkbox mr-3">
-              <input type="checkbox"> Key098
-            </label>
-            <label class="checkbox mr-3">
-              <input type="checkbox"> Key098
-            </label>
-            <label class="checkbox mr-3">
-              <input type="checkbox"> Key098
-            </label>
-            <label class="checkbox mr-3">
-              <input type="checkbox"> Key098
-            </label>
-            <label class="checkbox mr-3">
-              <input type="checkbox"> Key098
-            </label>
-            <label class="checkbox mr-3">
-              <input type="checkbox"> Key098
-            </label>
-            <label class="checkbox mr-3">
-              <input type="checkbox"> Key098
-            </label>
-            <label class="checkbox mr-3">
-              <input type="checkbox"> Key098
-            </label>
-
-
-          </div>
+    <div class="page-content">
+        <div class="page-number mt-3 mb-4">
+            <div class="wrap-row">
+                <p>Total issued Keys</p>
+                <h4>{{licenseStatistics?.total}}</h4>
+            </div>
+            <div class="wrap-row">
+                <p>Active keys</p>
+                <h4>{{licenseStatistics?.active}}</h4>
+            </div>
+            <div class="wrap-row">
+                <p>Expired Keys</p>
+                <h4>{{licenseStatistics?.expired}}</h4>
+            </div>
         </div>
-      </div>
 
 
+        <form name="form" #generateKeysForm="ngForm" novalidate="" autocomplete="off">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="number" (blur)="validateLicenseKeys()" placeholder="No. of keys"
+                                class="form-control" name="noOfKeys" [(ngModel)]="generateLicenseKeysRequest.noOfKeys"
+                                required>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="select-style form-group">
+                                <sh-select placeholder="Select Plan" name="planUniqueName" autocomplete="false"
+                                    id="planUniqueName" [(ngModel)]="generateLicenseKeysRequest.planUniqueName"
+                                    [options]="allPlans" [isFilterEnabled]="true" [ItemHeight]="33" [forceClearReactive]="forceClear$ | async"></sh-select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="clearfix">
+                        <div class="clearBoth">
+                            <div class="form-group">
+                                <textarea name="comments" class="textarea form-control"
+                                    [(ngModel)]="generateLicenseKeysRequest.comments" placeholder="Comments" required></textarea>
+                            </div>
+                            <div class="clearfix">
+                                <button type="button" class="btn-blue btn"
+                                    [disabled]="generateKeysForm.invalid || isLoading"
+                                    (click)="generateKeys()">Generate</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
-  </div>
-</div>
+    <div class="selectAllList mt-5" *ngIf="generatedKeysAvailable">
+        <div class="row">
+            <div class="col-sm-4">
+                <label class="checkbox mr-3">
+                    <input type="checkbox" [attr.checked]="selectAllActive" (change)="selectAllKeys($event)"> Select All
+                </label>
+
+                <button class="btn btn-blue mr-1" (click)="copyKeys()">Copy</button>
+                <button class="btn btn-danger" (click)="deleteKeys()">Delete</button>
+
+                <div class="key-list">
+                    <span *ngFor="let key of generatedKeys;">
+                        <label class="checkbox mr-3" *ngIf="!key.deleted">
+                            <input type="checkbox" [attr.checked]="key.checked" (change)="selectLicenseKey(key)">
+                            {{key.key}}
+                        </label>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>

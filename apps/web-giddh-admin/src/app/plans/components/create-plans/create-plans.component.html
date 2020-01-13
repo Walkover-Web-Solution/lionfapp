@@ -1,27 +1,48 @@
 <div class="bg-box" [ngClass]="rightToggle ? 'in': 'out'"></div>
-  <div class="rightSlide kot-repring-sidebar" [ngClass]="rightToggle ? 'in': 'out'">
+<div class="rightSlide kot-repring-sidebar" [ngClass]="rightToggle ? 'in': 'out'">
     <div class="top-right-head">
-      <p class="bold text-18 text-white mb-0">Create Plan</p>
-      <a href="javascript:void(0)" class="close"><i class="icon-cross"></i></a>
+        <p class="bold text-18 text-white mb-0">Create Plan</p>
+        <a href="javascript:;" (click)="closePopup()" class="close"><i class="icon-cross"></i></a>
     </div>
-
-    <div class="clearfix pr-3 pl-3 pt-3">
-      <div class="form-group">
-        <label>Plan Name</label>
-        <input type="text" class="form-control">
-      </div>
-      <div class="form-group">
-        <label>Number of companies allowed</label>
-        <input type="text" class="form-control">
-      </div>
-      <div class="form-group">
-        <label>Number of transactions</label>
-        <input type="text" class="form-control">
-      </div>
-      <div class="form-group">
-        <label>Subscription Prices</label>
-        <input type="text" class="form-control">
-      </div>
-      <input type="button" value="Creat" class="btn-blue btn">
+    <div class="clearfix pr-2 pl-2 pt-2">
+        <form name="form" #createPlanForm="ngForm" novalidate="" autocomplete="off">
+            <div class="form-group">
+                <label>Plan name</label>
+                <input type="text" class="form-control" name="name" [(ngModel)]="createPlanRequest.name" required (blur)="validatePlanName()">
+            </div>
+            <div class="form-group">
+                <label>Number of companies allowed</label>
+                <input type="number" class="form-control" (blur)="validateMinValue()" name="companiesLimit" [(ngModel)]="createPlanRequest.companiesLimit" required>
+            </div>
+            <div class="form-group">
+                <label>Number of transactions</label>
+                <input type="number" class="form-control" (blur)="validateMinValue()" name="transactionLimit" [(ngModel)]="createPlanRequest.transactionLimit" required>
+            </div>
+            <div class="form-group">
+                <label>Subscription price</label>
+                <input type="number" class="form-control" name="amount" [(ngModel)]="createPlanRequest.amount" required>
+            </div>
+            <div class="form-group">
+                <label>Country</label>   
+                <sh-select [multiple]="true" placeholder="Select Countries" name="countries" autocomplete="false" id="countries" [(ngModel)]="createPlanRequest.countries" [options]="countries" [isFilterEnabled]="true" [ItemHeight]="33"></sh-select>
+            </div>
+            <!-- <div class="form-group">
+                <label>Currency</label>
+                <sh-select placeholder="Select Currency" name="currency" autocomplete="false" id="currency" [(ngModel)]="createPlanRequest.currency" [options]="currencies" [isFilterEnabled]="true" [ItemHeight]="33"></sh-select>
+            </div> -->
+            <div class="form-group">
+                <label>Duration</label>
+                <input type="number" class="form-control" (blur)="validateMinValue()" name="duration" [(ngModel)]="createPlanRequest.duration" required>
+            </div>
+            <div class="form-group">
+                <label>Duration unit</label>
+                <sh-select placeholder="Select Duration Unit" name="durationUnit" autocomplete="false" id="durationUnit" [(ngModel)]="createPlanRequest.durationUnit" [options]="durationUnits" [isFilterEnabled]="true" [ItemHeight]="33"></sh-select>   
+            </div>
+            <div class="form-group">
+                <label>Rate per extra transaction</label>
+                <input type="number" class="form-control" (blur)="validateMinValue()" name="ratePerExtraTransaction" [(ngModel)]="createPlanRequest.ratePerExtraTransaction" required>
+            </div>
+            <input type="button" value="Create" class="btn-blue btn" (click)="createPlan()" [disabled]="createPlanForm.invalid || isLoading">
+        </form>
     </div>
-  </div>
+</div>

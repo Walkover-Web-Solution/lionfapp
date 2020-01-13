@@ -17,7 +17,7 @@
         </ul>
       </li>
       <li>
-        <a (click)="onclick('user')" [routerLink]="['/admin/subscription']">Subscribe List
+        <a (click)="onclick('user')" [routerLink]="['/admin/subscription']">Subscribers
           <i class="fa fa-angle-down pull-right"></i>
         </a>
 
@@ -43,17 +43,12 @@
               <li><a href="#">One more separated link</a></li>
             </ul>
           </li> -->
-      <!-- <li>
-        <a (click)="onclick('licence')" [routerLink]="['/admin/licence-key']">Licence Key
+      <li>
+        <a (click)="onclick('licence')" [routerLink]="['/admin/license-key']">Licence Key
           <i class="fa fa-angle-down pull-right"></i>
         </a>
         <ul class="submenu" role="menu" *ngIf="activeMenu === 'licence' && isDropDownOpen">
-          <li>
-            <a [routerLink]="['/admin/licence-key/generate']">Generate</a>
-          </li>
-        </ul>
-      </li> -->
-
+          <li><a [routerLink]="['/admin/license-key/generate']">Generate</a></li>
       <li>
         <a [routerLink]="['/admin/licence-key']">Licence Key</a>
       </li>
@@ -74,10 +69,15 @@
 
   <!-- Page Content -->
   <div id="page-content-wrapper">
-    <nav class="navbar">
+    <nav class="navbar d-flex align-items-center">
       <button appSidebar #ref="appSidebar" type="button" class="hamburger is-closed" data-toggle="offcanvas">
         <i class="icon-bar" aria-hidden="true"></i>
       </button>
+
+      <!-- <div class="hamburger_menu">
+        <h4 class="mb-0">License Key</h4>
+      </div> -->
+
     </nav>
 
 

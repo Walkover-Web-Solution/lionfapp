@@ -10,7 +10,17 @@
   width: 200px;
 }
 .expan-icon{
-color: #36A1E9;
+  color: #36A1E9;
+}
+.table-search {
+  width: 12%;
+}
+.table>tbody+tbody {
+  border-top: 0px solid #ddd;
+}
+.table-height {
+  max-height: calc(100vh - 370px);
+  overflow-y: auto;
 }
 
 @media(max-width:1280px){
