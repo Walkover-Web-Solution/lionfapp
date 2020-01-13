@@ -3,33 +3,27 @@
 
     <!-- Sidebar -->
     <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
-
         <ul class="nav sidebar-nav">
             <li class="sidebar-brand" dropdown>
                 <a id="button-basic" dropdownToggle>
-                    <span class="admin-thumb mr-1">{{shortName}}</span>{{user?.name}}
-                    <i class="icon-dots-three-vertical" aria-hidden="true"></i>
+                    <span class="admin-thumb mr-1" style="float: left;">{{shortName}}</span><span class="loggedin-user">{{user?.name}}</span> <i class="icon-dots-three-vertical" aria-hidden="true"></i>
                 </a>
                 <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
-                    <li role="menuitem">
-                        <a class="dropdown-item" (click)="clearData()">Logout</a>
-                    </li>
+                    <li role="menuitem"><a class="dropdown-item" (click)="clearData()">Logout</a></li>
+
                 </ul>
             </li>
             <li>
-                <a (click)="onclick('user')" [routerLink]="['/admin/subscription']">Subscribers
-                    <i class="fa fa-angle-down pull-right"></i>
-                </a>
+                <a (click)="onclick('user')" [routerLink]="['/admin/subscription']">Subscription
+          <i class="fa fa-angle-down pull-right"></i>
+        </a>
 
                 <ul class="submenu" role="menu" *ngIf="activeMenu === 'user' && isDropDownOpen">
-                    <li>
-                        <a [routerLink]="['/admin/subscription/users']">User</a>
-                    </li>
+                    <li><a [routerLink]="['/admin/subscription/users']">User</a></li>
 
                 </ul>
             </li>
 
-            <!-- Pls not deleted comment code  -->
 
 
             <!-- <li class="dropdown">
@@ -44,28 +38,25 @@
             </ul>
           </li> -->
             <li>
-                <a (click)="onclick('licence')" [routerLink]="['/admin/license-key']">Licence Key
+                <a (click)="onclick('licence')" [routerLink]="['/admin/license-key']">License Key
                     <i class="fa fa-angle-down pull-right"></i>
                 </a>
                 <ul class="submenu" role="menu" *ngIf="activeMenu === 'licence' && isDropDownOpen">
                     <li><a [routerLink]="['/admin/license-key/generate']">Generate</a></li>
-                    <li>
-                        <a [routerLink]="['/admin/licence-key']">Licence Key</a>
-                    </li>
+                </ul>
+            </li>
 
-
-                    <li>
-                        <a href="javascript:void(0)" [routerLink]="['/admin/plans']">Plans</a>
-                    </li>
-                    <!-- <li>
+            <li>
+                <a href="javascript:void(0)" [routerLink]="['/admin/plans']">Plans</a>
+            </li>
+            <!-- <li>
         <a>Send SMS</a>
       </li>
       <li>
         <a>Reports</a>
       </li> -->
-                </ul>
-            </li>
-        </ul>        
+
+        </ul>
     </nav>
     <!-- /#sidebar-wrapper -->
 
@@ -73,8 +64,8 @@
     <div id="page-content-wrapper">
         <nav class="navbar d-flex align-items-center">
             <button appSidebar #ref="appSidebar" type="button" class="hamburger is-closed" data-toggle="offcanvas">
-                <i class="icon-bar" aria-hidden="true"></i>
-            </button>
+        <i class="icon-bar" aria-hidden="true">{{selectedpageheader}}</i>
+      </button>
 
             <!-- <div class="hamburger_menu">
         <h4 class="mb-0">License Key</h4>

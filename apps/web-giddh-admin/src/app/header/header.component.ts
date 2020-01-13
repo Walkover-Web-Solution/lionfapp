@@ -2,6 +2,8 @@ import { Component, OnInit, Directive, HostListener, HostBinding } from '@angula
 import { GeneralService } from '../services/general.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../theme/ng-social-login-module';
+import { GeneralActions } from '../actions/general/general.action';
+
 
 @Component({
     selector: 'app-header',
@@ -16,6 +18,7 @@ export class HeaderComponent implements OnInit {
     public activeMenu = "";
     public user;
     public shortName = "";
+    public selectedpageheader;
     public onclick(id: string) {
         this.activeMenu = id;
         this.isDropDownOpen = !this.isDropDownOpen;
@@ -40,6 +43,10 @@ export class HeaderComponent implements OnInit {
     ngOnInit() {
 
     }
+    public setCurrentPageTitle(url) {
+
+    }
+
 
     public clearData() {
         localStorage.removeItem('session');
