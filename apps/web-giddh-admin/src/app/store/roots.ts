@@ -1,6 +1,6 @@
 import * as fromSubscriptions from './subscription/subscriptions.reducer';
 import * as fromRouter from '@ngrx/router-store';
-import * as fromGeneral from './General/general.reducer';
+import * as fromGeneral from './General/General.reducer';
 import * as fromHome from './home/home.reducer';
 import * as fromPermission from './Permission/permission.reducer';
 import * as fromManufacturing from './Manufacturing/manufacturing.reducer';
