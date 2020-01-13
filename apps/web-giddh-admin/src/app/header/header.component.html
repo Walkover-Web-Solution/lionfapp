@@ -1,32 +1,30 @@
 <div id="wrapper" [ngClass]="ref.click === true? 'toggled' :''">
-  <div class="overlay" [ngStyle]="{disply:ref.click === true? 'block' :'none'}"></div>
+    <div class="overlay" [ngStyle]="{disply:ref.click === true? 'block' :'none'}"></div>
 
-  <!-- Sidebar -->
-  <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
-    <ul class="nav sidebar-nav">
-      <li class="sidebar-brand" dropdown>
-        <a id="button-basic" dropdownToggle>
-          <span class="admin-thumb mr-1">{{shortName}}</span>{{user?.name}} <i class="icon-dots-three-vertical" aria-hidden="true"></i>
-        </a>
-        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
-          <li role="menuitem"><a class="dropdown-item" (click)="clearData()">Logout</a></li>
+    <!-- Sidebar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
+        <ul class="nav sidebar-nav">
+            <li class="sidebar-brand" dropdown>
+                <a id="button-basic" dropdownToggle>
+                    <span class="admin-thumb mr-1" style="float: left;">{{shortName}}</span><span
+                        class="loggedin-user">{{user?.name}}</span> <i class="icon-dots-three-vertical"
+                        aria-hidden="true"></i>
+                </a>
+                <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+                    <li role="menuitem"><a class="dropdown-item" (click)="clearData()">Logout</a></li>
 
-        </ul>
-      </li>
-      <li>
-        <a (click)="onclick('user')" [routerLink]="['/admin/subscription']">Subscribers
-          <i class="fa fa-angle-down pull-right"></i>
-        </a>
+                </ul>
+            </li>
+            <li>
+                <a (click)="onclick('user')" [routerLink]="['/admin/subscription']">Subscribers
+                    <i class="fa fa-angle-down pull-right"></i>
+                </a>
 
-        <ul class="submenu" role="menu" *ngIf="activeMenu === 'user' && isDropDownOpen">
-          <li><a [routerLink]="['/admin/subscription/users']">User</a></li>
-
-        </ul>
-      </li>
-
-
-
-      <!-- <li class="dropdown">
+                <ul class="submenu" role="menu" *ngIf="activeMenu === 'user' && isDropDownOpen">
+                    <li><a [routerLink]="['/admin/subscription/users']">User</a></li>
+                </ul>
+            </li>
+            <!-- <li class="dropdown">
             <a class="dropdown-toggle" (click)="dropdownSidebar=!dropdownSidebar">Works
               <i class="fa fa-angle-down pull-right"></i></a>
             <ul class="dropdown-menu" role="menu" *ngIf="dropdownSidebar">
@@ -37,51 +35,49 @@
               <li><a href="#">One more separated link</a></li>
             </ul>
           </li> -->
-      <li>
-        <a (click)="onclick('licence')" [routerLink]="['/admin/license-key']">Licence Key
-          <i class="fa fa-angle-down pull-right"></i>
-        </a>
-        <ul class="submenu" role="menu" *ngIf="activeMenu === 'licence' && isDropDownOpen">
-          <li><a [routerLink]="['/admin/license-key/generate']">Generate</a></li>
+            <li>
+                <a (click)="onclick('licence')" [routerLink]="['/admin/license-key']">Licence Key
+                    <i class="fa fa-angle-down pull-right"></i>
+                </a>
+                <ul class="submenu" role="menu" *ngIf="activeMenu === 'licence' && isDropDownOpen">
+                    <li><a [routerLink]="['/admin/license-key/generate']">Generate</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:void(0)" [routerLink]="['/admin/plans']">Plans</a>
+            </li>
+            <li>
+                <a>Send SMS</a>
+            </li>
+            <li>
+                <a>Reports</a>
+            </li>
         </ul>
-      </li>
+    </nav>
+    <!-- /#sidebar-wrapper -->
 
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <nav class="navbar d-flex align-items-center">
+            <button appSidebar #ref="appSidebar" type="button" class="hamburger is-closed" data-toggle="offcanvas">
+                <i class="icon-bar" aria-hidden="true"></i>
+            </button>
 
-      <li>
-        <a href="javascript:void(0)" [routerLink]="['/admin/plans']">Plans</a>
-      </li>
-      <li>
-        <a>Send SMS</a>
-      </li>
-      <li>
-        <a>Reports</a>
-      </li>
-    </ul>
-  </nav>
-  <!-- /#sidebar-wrapper -->
-
-  <!-- Page Content -->
-  <div id="page-content-wrapper">
-    <nav class="navbar d-flex align-items-center">
-      <button appSidebar #ref="appSidebar" type="button" class="hamburger is-closed" data-toggle="offcanvas">
-        <i class="icon-bar" aria-hidden="true"></i>
-      </button>
-
-      <!-- <div class="hamburger_menu">
+            <!-- <div class="hamburger_menu">
         <h4 class="mb-0">License Key</h4>
       </div> -->
 
-    </nav>
+        </nav>
 
 
-    <div class=" rightSideContent">
+        <div class=" rightSideContent">
 
-      <router-outlet>
+            <router-outlet>
 
-      </router-outlet>
+            </router-outlet>
 
+        </div>
     </div>
-  </div>
-  <!-- /#page-content-wrapper -->
+    <!-- /#page-content-wrapper -->
 
 </div>
