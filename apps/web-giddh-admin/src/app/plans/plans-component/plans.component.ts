@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { PlansService } from '../../services/plan.service';
-import { moment } from 'ngx-bootstrap/chronos/test/chain';
+import * as moment from 'moment/moment';
+
 
 @Component({
     selector: 'app-plans',

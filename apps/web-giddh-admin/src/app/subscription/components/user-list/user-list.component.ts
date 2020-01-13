@@ -7,7 +7,8 @@ import { UserService } from '../../../services/user.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { AppState } from '../../../store';
 import { CommonPaginatedRequest, SubscriberList } from '../../../modules/modules/api-modules/subscription';
-import { moment } from 'ngx-bootstrap/chronos/test/chain';
+import * as moment from 'moment/moment';
+
 
 @Component({
     selector: 'app-user-list',
