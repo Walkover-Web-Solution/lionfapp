@@ -24,7 +24,7 @@ export class HeaderComponent implements OnInit {
         this.isDropDownOpen = !this.isDropDownOpen;
     }
 
-    constructor(private generalService: GeneralService, private generalAction: GeneralActions, private router: Router, private authService: AuthService) {
+    constructor(private generalService: GeneralService, private router: Router, private authService: AuthService) {
         let session = null;
 
         if (JSON.parse(localStorage.getItem('session'))) {
