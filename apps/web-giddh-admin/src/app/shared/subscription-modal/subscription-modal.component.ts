@@ -39,4 +39,7 @@ export class SubscriptionModalComponent implements OnInit {
     hideModal() {
         this.modalRef.hide();
     }
+    public openEditModal(e) {
+        //
+    }
 }

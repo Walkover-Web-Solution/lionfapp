@@ -16,14 +16,18 @@
                 </ul>
             </li>
             <li>
-                <a (click)="onclick('user')" [routerLink]="['/admin/subscription']">Subscribers
-                    <i class="fa fa-angle-down pull-right"></i>
-                </a>
+                <a (click)="onclick('user')" [routerLink]="['/admin/subscription']">Subscription
+          <i class="fa fa-angle-down pull-right"></i>
+        </a>
 
                 <ul class="submenu" role="menu" *ngIf="activeMenu === 'user' && isDropDownOpen">
                     <li><a [routerLink]="['/admin/subscription/users']">User</a></li>
+
                 </ul>
             </li>
+
+
+
             <!-- <li class="dropdown">
             <a class="dropdown-toggle" (click)="dropdownSidebar=!dropdownSidebar">Works
               <i class="fa fa-angle-down pull-right"></i></a>
@@ -37,12 +41,14 @@
           </li> -->
             <li>
                 <a (click)="onclick('licence')" [routerLink]="['/admin/license-key']">Licence Key
-                    <i class="fa fa-angle-down pull-right"></i>
-                </a>
+          <i class="fa fa-angle-down pull-right"></i>
+        </a>
                 <ul class="submenu" role="menu" *ngIf="activeMenu === 'licence' && isDropDownOpen">
                     <li><a [routerLink]="['/admin/license-key/generate']">Generate</a></li>
                 </ul>
             </li>
+
+
             <li>
                 <a href="javascript:void(0)" [routerLink]="['/admin/plans']">Plans</a>
             </li>
@@ -60,8 +66,8 @@
     <div id="page-content-wrapper">
         <nav class="navbar d-flex align-items-center">
             <button appSidebar #ref="appSidebar" type="button" class="hamburger is-closed" data-toggle="offcanvas">
-                <i class="icon-bar" aria-hidden="true"></i>
-            </button>
+        <i class="icon-bar" aria-hidden="true">{{selectedpageheader}}</i>
+      </button>
 
             <!-- <div class="hamburger_menu">
         <h4 class="mb-0">License Key</h4>
