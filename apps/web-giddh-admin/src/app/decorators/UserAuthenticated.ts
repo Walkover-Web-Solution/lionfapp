@@ -9,7 +9,9 @@ import { GeneralService } from '../services/general.service';
 
 @Injectable()
 export class UserAuthenticated implements CanActivate {
+
     constructor(public _router: Router, private store: Store<AppState>, private generalService: GeneralService) {
+        
     }
 
     public canActivate(route: ActivatedRouteSnapshot) {
@@ -17,7 +19,7 @@ export class UserAuthenticated implements CanActivate {
         let session = null;
 
         if (JSON.parse(localStorage.getItem('session'))) {
-            session = JSON.parse(localStorage.getItem('session')).user.session;
+            session = JSON.parse(localStorage.getItem('session')).session;
         }
 
         if (session && session.id) {

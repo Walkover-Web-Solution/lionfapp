@@ -12,7 +12,8 @@ export class PlansComponent implements OnInit {
 
     @ViewChild('planNameField') public planNameField;
 
-    public plansData = [];
+    public plansData: any;
+    public plansDataResults: any;
     public getAllPlansRequest: any = {};
     public getAllPlansPostRequest: any = {};
     public togglePanelBool: boolean;
@@ -39,6 +40,13 @@ export class PlansComponent implements OnInit {
         this.plansService.getAllPlans(this.getAllPlansRequest, this.getAllPlansPostRequest).subscribe(res => {
             if (res.status === 'success') {
                 this.plansData = res.body;
+                this.plansDataResults = [];
+
+                res.body.results.forEach(key => {
+                    let createdAt = key.createdAt.split(" ");
+                    key.createdAt = createdAt[0].replace(/-/g, "/");
+                    this.plansDataResults.push(key);
+                });
             }
         });
     }
