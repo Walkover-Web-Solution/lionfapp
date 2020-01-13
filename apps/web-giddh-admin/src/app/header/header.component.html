@@ -6,7 +6,9 @@
         <ul class="nav sidebar-nav">
             <li class="sidebar-brand" dropdown>
                 <a id="button-basic" dropdownToggle>
-                    <span class="admin-thumb mr-1">{{shortName}}</span>{{user?.name}} <i class="icon-dots-three-vertical" aria-hidden="true"></i>
+                    <span class="admin-thumb mr-1" style="float: left;">{{shortName}}</span><span
+                        class="loggedin-user">{{user?.name}}</span> <i class="icon-dots-three-vertical"
+                        aria-hidden="true"></i>
                 </a>
                 <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
                     <li role="menuitem"><a class="dropdown-item" (click)="clearData()">Logout</a></li>
