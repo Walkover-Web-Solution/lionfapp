@@ -16,10 +16,10 @@ html { height: 100%;}
 
 #wrapper {
   padding-left: 0;
-  -webkit-transition: all 0.5s ease;
-  -moz-transition: all 0.5s ease;
-  -o-transition: all 0.5s ease;
-  transition: all 0.5s ease;
+  // -webkit-transition: all 0.5s ease;
+  // -moz-transition: all 0.5s ease;
+  // -o-transition: all 0.5s ease;
+  // transition: all 0.5s ease;
 }
 
 #wrapper.toggled {
@@ -65,8 +65,6 @@ display: none;
 
 #page-content-wrapper {
   width:calc(100% - 215px);
-
-
   margin-left:215px;
 }
 
@@ -98,8 +96,6 @@ display: none;
   display: inline-block;
   width: 100%;
 }
-
-
 
 .sidebar-nav li a {
   display: block;
@@ -220,4 +216,47 @@ i.fa.fa-bars {
   background-color: #f7f8fa;
     min-height: 92vh;
     padding-right: 15px;
+}
+
+
+#page-content-wrapper {
+  width:calc(100% - 215px);
+  margin-left:215px;
+}
+
+@media screen and (max-width: 1366px) {
+  #page-content-wrapper {
+    width: 100%;
+    margin-left:0px;
+  }
+  #sidebar-wrapper {
+    left: 0;
+  }
+  #wrapper.toggled #sidebar-wrapper {
+    width: 215px;
+    left: 215px;
+  }
+  #wrapper.toggled #page-content-wrapper {
+
+  }
+  button.hamburger.is-closed.is-open {
+    z-index: 9999;
+    left: 225px;
+  }
+  // .mobile-humburger {
+  //   position: absolute;
+  //   right: 0;
+  //   left: 185px;
+  //   top: 0px;
+  //   color: #fff;
+  // }
+
+
+  .page-footer {
+    position: relative;
+    width: 100%;
+    margin: 0;
+  }
+
+
 }

@@ -3,14 +3,17 @@
 
   <!-- Sidebar -->
   <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
+
     <ul class="nav sidebar-nav">
       <li class="sidebar-brand" dropdown>
         <a id="button-basic" dropdownToggle>
-          <span class="admin-thumb mr-1">{{shortName}}</span>{{user?.name}} <i class="icon-dots-three-vertical" aria-hidden="true"></i>
+          <span class="admin-thumb mr-1">{{shortName}}</span>{{user?.name}}
+          <i class="icon-dots-three-vertical" aria-hidden="true"></i>
         </a>
         <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
-          <li role="menuitem"><a class="dropdown-item" (click)="clearData()">Logout</a></li>
-
+          <li role="menuitem">
+            <a class="dropdown-item" (click)="clearData()">Logout</a>
+          </li>
         </ul>
       </li>
       <li>
@@ -19,11 +22,14 @@
         </a>
 
         <ul class="submenu" role="menu" *ngIf="activeMenu === 'user' && isDropDownOpen">
-          <li><a [routerLink]="['/admin/subscription/users']">User</a></li>
+          <li>
+            <a [routerLink]="['/admin/subscription/users']">User</a>
+          </li>
 
         </ul>
       </li>
 
+      <!-- Pls not deleted comment code  -->
 
 
       <!-- <li class="dropdown">
@@ -43,19 +49,20 @@
         </a>
         <ul class="submenu" role="menu" *ngIf="activeMenu === 'licence' && isDropDownOpen">
           <li><a [routerLink]="['/admin/license-key/generate']">Generate</a></li>
-        </ul>
+      <li>
+        <a [routerLink]="['/admin/licence-key']">Licence Key</a>
       </li>
 
 
       <li>
         <a href="javascript:void(0)" [routerLink]="['/admin/plans']">Plans</a>
       </li>
-      <li>
+      <!-- <li>
         <a>Send SMS</a>
       </li>
       <li>
         <a>Reports</a>
-      </li>
+      </li> -->
     </ul>
   </nav>
   <!-- /#sidebar-wrapper -->
