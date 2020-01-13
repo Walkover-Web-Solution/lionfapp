@@ -74,30 +74,16 @@ export class TotalSubscribers {
     trial: number
 }
 export class AdvanceSearchRequestSubscriptions {
-    signUpOnFrom: string;
-    signUpOnTo: string;
-    startedAtFrom: string;
-    balance: string;
-    expiry: string;
-    // subscriptionId: string;
-    // status: string;
-    // planName: string;
-    // userName: string;
-    // email: string;
-    // mobile: string;
-}
-export interface AdvanceSearchRequest {
-    // signUpOnFrom: string;
-    // signUpOnTo: string;
-    // startedAtFrom: string;
-    // startedAtTo: string;
-    // balance: string;
-    // expiry: string;
-    startedAtTo: string;
-    subscriptionId: string;
-    status: string;
-    planName: string;
-    userName: string;
-    email: string;
-    mobile: string;
+    signUpOnFrom?: string;
+    signUpOnTo?: string;
+    startedAtFrom?: string;
+    balance?: string;
+    expiry?: string;
+    startedAtTo?: string;
+    subscriptionId?: string;
+    status?: string;
+    planName?: string;
+    userName?: string;
+    email?: string;
+    mobile?: string;
 }
