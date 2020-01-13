@@ -13,7 +13,7 @@ const initialState: GeneralState = {
   currentPage: null
 };
 
-export function GeneRalReducer(state: GeneralState = initialState, action: CustomActions): GeneralState {
+export function GeneralReducer(state: GeneralState = initialState, action: CustomActions): GeneralState {
   switch (action.type) {
     case GENERAL_ACTIONS.SET_PAGE_HEADER_TITLE: {
       return {

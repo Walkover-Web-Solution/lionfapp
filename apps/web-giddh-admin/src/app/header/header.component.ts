@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../theme/ng-social-login-module';
 import { GeneralActions } from '../actions/general/general.action';
 
+
 @Component({
     selector: 'app-header',
     templateUrl: './header.component.html',
@@ -23,7 +24,7 @@ export class HeaderComponent implements OnInit {
         this.isDropDownOpen = !this.isDropDownOpen;
     }
 
-    constructor(private generalService: GeneralService, private generalAction: GeneralActions, private router: Router, private authService: AuthService) {
+    constructor(private generalService: GeneralService, private router: Router, private authService: AuthService) {
         let session = null;
 
         if (JSON.parse(localStorage.getItem('session'))) {

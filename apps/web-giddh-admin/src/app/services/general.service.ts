@@ -24,7 +24,7 @@ export class GeneralService {
   }
   public setCurrentPageTitle(url) {
     if (url) {
-      let head = url.splt('/admin/');
+      let head = url.split('/admin/');
       console.log(head);
       this.pageTitle = head[1];
     }

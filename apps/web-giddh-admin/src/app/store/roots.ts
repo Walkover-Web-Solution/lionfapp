@@ -34,11 +34,11 @@ import { ActionReducerMap } from '@ngrx/store';
 export interface AppState {
   subscriptions: fromSubscriptions.SubscriptionsState;
   router: fromRouter.RouterReducerState;
-  general: fromGeneral.GeneralState;
+  general: fromGeneral.GeneralState
 }
 
 export const reducers: ActionReducerMap<AppState> = {
   subscriptions: fromSubscriptions.SubscriptionsReducer,
   router: fromRouter.routerReducer,
-  general: fromGeneral.GeneRalReducer
+  general: fromGeneral.GeneralReducer
 };
