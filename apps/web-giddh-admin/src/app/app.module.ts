@@ -39,12 +39,12 @@ import { environment } from '../environments/environment';
 import { ServiceModule } from './services/service.module';
 import { ServiceConfig } from './services/service.config';
 import { HeaderComponent } from './header/header.component';
-import { SidebarDirective } from './shared/directive/sidebar.directive';
 import { LoaderComponent } from './loader/loader.component';
 import { LoginModule } from './login/login.module';
 import { AdminComponent } from './admin.component';
 import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider } from './theme/ng-social-login-module';
-import {DecoratorsModule} from './decorators/decorators.module'
+import { DecoratorsModule } from './decorators/decorators.module'
+import { SidebarDirective } from './shared/directive/sidebardirective/sidebar.directive';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -98,7 +98,7 @@ const SOCIAL_CONFIG = isElectron ? null : new AuthServiceConfig([
   }
 ], false);
 export function provideConfig() {
-  return SOCIAL_CONFIG || {id: null, providers: []};
+  return SOCIAL_CONFIG || { id: null, providers: [] };
 }
 /**
  * `AppModule` is the main entry point into Angular2's bootstraping process
