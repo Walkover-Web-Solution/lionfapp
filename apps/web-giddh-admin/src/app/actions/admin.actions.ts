@@ -38,7 +38,7 @@ export class AdminActions {
         // this.toasty.errorToast(response.message, response.code);
         return { type: 'EmptyAction' };
       } else {
-        console.log('store get all GET_SUBCRIPTION_RESPONSE ', response);
+        //  
       }
       // set newly created company as active company
       return { type: 'EmptyAction' };
