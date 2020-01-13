@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../theme/ng-social-login-module';
 import { GeneralActions } from '../actions/general/general.action';
 
+
 @Component({
     selector: 'app-header',
     templateUrl: './header.component.html',
