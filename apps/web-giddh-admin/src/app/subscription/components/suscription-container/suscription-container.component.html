@@ -110,8 +110,8 @@
             </table>
         </div>
 
-
-        <a href="javascript:void(0)" (click)="openEditModal(editPlan)">Edit modal</a>
+        <!-- user to open edit model -->
+        <!-- <a href="javascript:void(0)" (click)="openEditModal(editPlan)">Edit modal</a> -->
 
 
         <div *ngIf="subscriberRes && subscriberRes.totalItems>49" class="paginationWrapper">
@@ -121,40 +121,40 @@
 
 
         <div class="page-footer">
-          <div class="row">
-              <div class="col-md-1 col-sm-3 wrap-row">
-                  <div class="userNumber">
-                      <h4>{{totalSubscriber?.total}}</h4>
-                  </div>
-                  <div class="aboutUser">
-                      <p>Total User</p>
-                  </div>
-              </div>
-              <div class="col-md-1 col-sm-3 wrap-row">
-                  <div class="userNumber">
-                      <h4>{{totalSubscriber?.active}}</h4>
-                  </div>
-                  <div class="aboutUser">
-                      <p>Active User</p>
-                  </div>
-              </div>
-              <div class="col-md-1 col-sm-3 wrap-row">
-                  <div class="userNumber">
-                      <h4>{{totalSubscriber?.inactive}}</h4>
-                  </div>
-                  <div class="aboutUser">
-                      <p>Inactive User</p>
-                  </div>
-              </div>
-              <div class="col-md-1 col-sm-3 wrap-row">
-                  <div class="userNumber">
-                      <h4>{{totalSubscriber?.trial}}</h4>
-                  </div>
-                  <div class="aboutUser">
-                      <p>Trial</p>
-                  </div>
-              </div>
-          </div>
+            <div class="row">
+                <div class="col-md-1 col-sm-3 wrap-row">
+                    <div class="userNumber">
+                        <h4>{{totalSubscriber?.total}}</h4>
+                    </div>
+                    <div class="aboutUser">
+                        <p>Total User</p>
+                    </div>
+                </div>
+                <div class="col-md-1 col-sm-3 wrap-row">
+                    <div class="userNumber">
+                        <h4>{{totalSubscriber?.active}}</h4>
+                    </div>
+                    <div class="aboutUser">
+                        <p>Active User</p>
+                    </div>
+                </div>
+                <div class="col-md-1 col-sm-3 wrap-row">
+                    <div class="userNumber">
+                        <h4>{{totalSubscriber?.inactive}}</h4>
+                    </div>
+                    <div class="aboutUser">
+                        <p>Inactive User</p>
+                    </div>
+                </div>
+                <div class="col-md-1 col-sm-3 wrap-row">
+                    <div class="userNumber">
+                        <h4>{{totalSubscriber?.trial}}</h4>
+                    </div>
+                    <div class="aboutUser">
+                        <p>Trial</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

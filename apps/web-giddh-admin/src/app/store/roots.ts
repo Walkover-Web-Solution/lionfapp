@@ -1,6 +1,6 @@
 import * as fromSubscriptions from './subscription/subscriptions.reducer';
 import * as fromRouter from '@ngrx/router-store';
-import * as fromGeneral from './General/general.reducer';
+import * as fromGeneral from './general/general.reducer';
 import * as fromHome from './home/home.reducer';
 import * as fromPermission from './Permission/permission.reducer';
 import * as fromManufacturing from './Manufacturing/manufacturing.reducer';
@@ -34,9 +34,11 @@ import { ActionReducerMap } from '@ngrx/store';
 export interface AppState {
   subscriptions: fromSubscriptions.SubscriptionsState;
   router: fromRouter.RouterReducerState;
+  general: fromGeneral.GeneralState
 }
 
 export const reducers: ActionReducerMap<AppState> = {
   subscriptions: fromSubscriptions.SubscriptionsReducer,
   router: fromRouter.routerReducer,
+  general: fromGeneral.GeneralReducer
 };
