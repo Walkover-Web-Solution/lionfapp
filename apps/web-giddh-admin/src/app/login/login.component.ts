@@ -63,6 +63,7 @@ export class LoginComponent implements OnInit {
                 this.authenticationService.LoginWithGoogle(user.token).subscribe(res => {
                     if (res.status === 'success') {
                         let session = res.body.session;
+                        localStorage.setItem('session', JSON.stringify(res.body));
                         this.generalService.sessionId = session.id;
                         this.generalService.user = res.body.user;
                         this.router.navigate(['admin/subscription']);
@@ -75,6 +76,7 @@ export class LoginComponent implements OnInit {
             }
         });
     }
+
     public async signInWithProviders(provider: string) {
         if (provider === "google") {
             this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
@@ -82,7 +84,6 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit() {
+
     }
-
-
 }
