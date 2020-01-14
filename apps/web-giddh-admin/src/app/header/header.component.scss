@@ -124,27 +124,32 @@ span.admin-thumb {
 .sidebar-nav li a:focus,
 .sidebar-nav li.open a:hover,
 .sidebar-nav li.open a:active,
-.sidebar-nav li.open a:focus {
-    color: #01a9f4;
-    text-decoration: none;
-    background-color: transparent;
-    transition: .5s all ease;
+.sidebar-nav li.open a:focus{
+  color: #01a9f4;
+  text-decoration: none;
+  background-color: transparent;
+  transition: .5s all ease;
 }
 
-.sidebar-nav>.sidebar-brand {
-    font-size: 20px;
-    background: #1A2482;
-    color: #fff;
-    margin-bottom: 15px;
+.sidebar-nav > .sidebar-brand {
+  font-size: 20px;
+  background: #1A2482;
+  color: #fff;
+  margin-bottom: 15px;
 }
+.sidebar-nav { 
+  .sidebar-brand {
+    a {
+      color: #fff;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
 
-.sidebar-nav {
-    .sidebar-brand {
-        a {
-            color: #fff;
-            font-size: 16px;
-        }
+      &:hover {
+        color: #fff;
+      }
     }
+}
 }
 
 .sidebar-nav .dropdown-menu {

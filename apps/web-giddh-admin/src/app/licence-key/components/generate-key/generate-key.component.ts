@@ -7,6 +7,8 @@ import { ToasterService } from '../../../services/toaster.service';
 import { IOption } from '../../../theme/ng-select/ng-select';
 import { IForceClear } from '../../../theme/ng-virtual-select/sh-select.component';
 import { Observable, of as observableOf } from 'rxjs';
+import { Router } from '@angular/router';
+import { GeneralService } from '../../../services/general.service';
 
 @Component({
     selector: 'app-generate-key',
@@ -32,7 +34,7 @@ export class GenerateKeyComponent implements OnInit {
     public generatedKeysAvailable: boolean = false;
     public forceClear$: Observable<IForceClear> = observableOf({ status: false });
 
-    constructor(private plansService: PlansService, private licenseService: LicenceService, private toaster: ToasterService) {
+    constructor(private plansService: PlansService, private licenseService: LicenceService, private generalService: GeneralService, private toaster: ToasterService) {
         this.getLicenseKeyStatistics();
         this.getAllPlans();
     }
@@ -43,7 +45,7 @@ export class GenerateKeyComponent implements OnInit {
      * @memberof GenerateKeyComponent
      */
     ngOnInit(): void {
-
+        this.generalService.setCurrentPageTitle("License Keys > Generate");
     }
 
     /**
