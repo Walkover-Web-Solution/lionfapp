@@ -71,7 +71,7 @@
                             </div>
                         </th>
 
-                        <th (click)="sortBy('planName')">Plan Name <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-angle-down': getUserListRequest.sort === 'desc' && getUserListRequest.sortBy === 'planName', 'fa-angle-up': (getUserListRequest.sort === 'asc' && getUserListRequest.sortBy === 'planName') || getUserListRequest.sortBy !== 'planName'}"></i>
+                        <th (click)="sortBy('planName')">Plan Name <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-angle-down': getUserListRequest.sortType === 'desc' && getUserListRequest.sortBy === 'planName', 'fa-angle-up': (getUserListRequest.sortType === 'asc' && getUserListRequest.sortBy === 'planName') || getUserListRequest.sortBy !== 'planName'}"></i>
                         </th>
                         <th (click)="sortBy('NO_OF_COMPANIES')"> <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': getUserListRequest.sortType === 'desc' && getUserListRequest.sortBy === 'NO_OF_COMPANIES', 'fa-sort-numeric-asc': (getUserListRequest.sortType === 'asc' && getUserListRequest.sortBy === 'NO_OF_COMPANIES') || getUserListRequest.sortBy !== 'NO_OF_COMPANIES'}"></i>                            No. of Companies </th>
                         <th (click)="sortBy('TOTAL_AMOUNT')">Total Amount <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': getUserListRequest.sortType === 'desc' && getUserListRequest.sortBy === 'TOTAL_AMOUNT', 'fa-sort-numeric-asc': (getUserListRequest.sortType === 'asc' && getUserListRequest.sortBy === 'TOTAL_AMOUNT') || getUserListRequest.sortBy !== 'TOTAL_AMOUNT'}"></i>

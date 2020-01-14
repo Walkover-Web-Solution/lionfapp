@@ -28,6 +28,11 @@ export class PlansComponent implements OnInit {
 
     }
 
+    /**
+     * Initializes the component
+     *
+     * @memberof PlansComponent
+     */
     ngOnInit() {
         this.getAllPlansRequest.count = 50;
         this.getAllPlansRequest.page = 1;
@@ -36,6 +41,11 @@ export class PlansComponent implements OnInit {
         this.getAllPlans();
     }
 
+    /**
+     * This function is used to get all plans list
+     *
+     * @memberof PlansComponent
+     */
     public getAllPlans() {
         this.plansService.getAllPlans(this.getAllPlansRequest, this.getAllPlansPostRequest).subscribe(res => {
             if (res.status === 'success') {
@@ -51,12 +61,23 @@ export class PlansComponent implements OnInit {
         });
     }
 
+    /**
+     * This function is used to change page
+     *
+     * @param {*} event
+     * @memberof PlansComponent
+     */
     public pageChanged(event: any): void {
         this.getAllPlansRequest.page = event.page;
         this.getAllPlans();
 
     }
 
+    /**
+     * This function is used to toggle aside popup
+     *
+     * @memberof PlansComponent
+     */
     public togglePanel() {
         if (this.togglePanelBool) {
             this.togglePanelBool = false;
@@ -65,6 +86,12 @@ export class PlansComponent implements OnInit {
         }
     }
 
+    /**
+     * This function is used to apply sorting on columns
+     *
+     * @param {*} column
+     * @memberof PlansComponent
+     */
     public sortBy(column) {
         if (column === this.getAllPlansRequest.sortBy) {
             this.getAllPlansRequest.sortType = (this.getAllPlansRequest.sortType === "asc") ? "desc" : "asc";
@@ -72,10 +99,18 @@ export class PlansComponent implements OnInit {
             this.getAllPlansRequest.sortType = "asc";
         }
 
+        this.plansData.totalItems = 0;
+        this.getAllPlansRequest.page = 1;
         this.getAllPlansRequest.sortBy = column;
         this.getAllPlans();
     }
 
+    /**
+     * This function is used to filter by date
+     *
+     * @param {*} dates
+     * @memberof PlansComponent
+     */
     public onChangeFilterDate(dates: any) {
         if (dates !== null && !this.defaultLoad) {
             this.getAllPlansPostRequest.createdAtFrom = moment(dates[0]).format("DD-MM-YYYY");
@@ -88,6 +123,12 @@ export class PlansComponent implements OnInit {
         }
     }
 
+    /**
+     * This function is used to put focus on column search
+     *
+     * @param {*} inlineSearch
+     * @memberof PlansComponent
+     */
     public focusOnColumnSearch(inlineSearch) {
         this.inlineSearch = inlineSearch;
 
@@ -98,6 +139,11 @@ export class PlansComponent implements OnInit {
         }, 200);
     }
 
+    /**
+     * This function is used to get plans by search
+     *
+     * @memberof PlansComponent
+     */
     public columnSearch(): void {
         if (this.timeout) {
             clearTimeout(this.timeout);
@@ -109,17 +155,32 @@ export class PlansComponent implements OnInit {
         }, 700);
     }
 
+    /**
+     * This function is used to hide aside popup
+     *
+     * @memberof PlansComponent
+     */
     public hidePopup() {
         this.togglePanelBool = false;
         this.getAllPlansRequest.page = 1;
         this.getAllPlans();
     }
 
+    /**
+     * This function is used to close plan details aside popup
+     *
+     * @memberof PlansComponent
+     */
     public hidePlanDetailsPopup() {
         this.selectedPlan = '';
         this.togglePlanDetailsPanelBool = false;
     }
 
+    /**
+     * This function is used to reset filters
+     *
+     * @memberof PlansComponent
+     */
     public resetFilters() {
         this.bsValue = null;
         this.getAllPlansPostRequest.createdAtFrom = '';
@@ -127,6 +188,12 @@ export class PlansComponent implements OnInit {
         this.getAllPlans();
     }
 
+    /**
+     * This function is used to open plan details popup
+     *
+     * @param {*} uniqueName
+     * @memberof PlansComponent
+     */
     public showPlanDetails(uniqueName) {
         this.selectedPlan = uniqueName;
         this.togglePlanDetailsPanelBool = true;

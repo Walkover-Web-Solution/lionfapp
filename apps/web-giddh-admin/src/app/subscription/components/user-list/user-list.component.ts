@@ -58,7 +58,7 @@ export class UserListComponent implements OnInit {
         this.getUserListRequest.count = 50;
         this.getUserListRequest.page = 1;
         this.getUserListRequest.sortBy = 'User';
-        this.getUserListRequest.sortType = 'asc';
+        this.getUserListRequest.sortType = 'desc';
         this.getAllUserData();
     }
 
@@ -131,6 +131,8 @@ export class UserListComponent implements OnInit {
             this.getUserListRequest.sortType = "asc";
         }
 
+        this.userlistRes.totalItems = 0;
+        this.getUserListRequest.page = 1;
         this.getUserListRequest.sortBy = column;
         this.getAllUserData();
     }
