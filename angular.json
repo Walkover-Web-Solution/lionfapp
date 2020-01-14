@@ -152,7 +152,7 @@
             "stage": {
               "outputPath": "dist/apps/web-giddh-admin-stage",
               "extraWebpackConfig": "./webpack.stage.partial.js",
-              "baseHref": "http://vtest.giddh.com/",
+              "baseHref": "https://vtest.giddh.com/",
               "baseUrl": "vtest.giddh.com",
               "fileReplacements": [
                 {
