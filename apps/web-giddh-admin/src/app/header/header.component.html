@@ -6,9 +6,7 @@
         <ul class="nav sidebar-nav">
             <li class="sidebar-brand" dropdown>
                 <a id="button-basic" dropdownToggle>
-                    <span class="admin-thumb mr-1" style="float: left;">{{shortName}}</span><span
-                        class="loggedin-user">{{user?.name}}</span> <i class="icon-dots-three-vertical"
-                        aria-hidden="true"></i>
+                    <span class="admin-thumb mr-1" style="float: left;">{{shortName}}</span><span class="loggedin-user">{{user?.name}}</span> <i class="icon-dots-three-vertical" aria-hidden="true"></i>
                 </a>
                 <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
                     <li role="menuitem"><a class="dropdown-item" (click)="clearData()">Logout</a></li>
@@ -52,12 +50,12 @@
             <li>
                 <a href="javascript:void(0)" [routerLink]="['/admin/plans']">Plans</a>
             </li>
-            <li>
+            <!-- <li>
                 <a>Send SMS</a>
             </li>
             <li>
                 <a>Reports</a>
-            </li>
+            </li> -->
         </ul>
     </nav>
     <!-- /#sidebar-wrapper -->
@@ -66,7 +64,7 @@
     <div id="page-content-wrapper">
         <nav class="navbar d-flex align-items-center">
             <button appSidebar #ref="appSidebar" type="button" class="hamburger is-closed" data-toggle="offcanvas">
-        <i class="icon-bar" aria-hidden="true">{{selectedpageheader}}</i>
+        <h4  class="inline  icon-bar text-capitalize" aria-hidden="true">{{selectedPage}}</h4>
       </button>
 
             <!-- <div class="hamburger_menu">

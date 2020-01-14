@@ -7,7 +7,10 @@ import { UserService } from '../../../services/user.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { AppState } from '../../../store';
 import { CommonPaginatedRequest, SubscriberList } from '../../../modules/modules/api-modules/subscription';
-import { moment } from 'ngx-bootstrap/chronos/test/chain';
+import * as moment from 'moment/moment';
+import { Router } from '@angular/router';
+import { GeneralService } from '../../../services/general.service';
+
 
 @Component({
     selector: 'app-user-list',
@@ -45,7 +48,7 @@ export class UserListComponent implements OnInit {
         this.expandList = !this.expandList;
     }
 
-    constructor(private store: Store<AppState>, private adminActions: AdminActions, private userService: UserService, private modalService: BsModalService) {
+    constructor(private store: Store<AppState>, private adminActions: AdminActions, private generalService: GeneralService, private userService: UserService, private modalService: BsModalService, private router: Router) {
 
     }
 
@@ -55,6 +58,8 @@ export class UserListComponent implements OnInit {
      * @memberof UserListComponent
      */
     ngOnInit() {
+        let currentUrl = this.router.url;
+        this.generalService.setCurrentPageTitle(currentUrl);
         this.getUserListRequest.count = 50;
         this.getUserListRequest.page = 1;
         this.getUserListRequest.sortBy = 'User';

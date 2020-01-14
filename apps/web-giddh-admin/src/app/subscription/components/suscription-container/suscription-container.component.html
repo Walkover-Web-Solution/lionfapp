@@ -12,7 +12,7 @@
         <div class="table-responsive table-height">
             <table class="table table-bordered basic subscrib-list-table card-list-table">
                 <thead>
-                    <tr>
+                    <tr (clickOutside)="hideOpenedSearchBox()">
                         <th class="table-search">
                             <div [hidden]="inlineSearch == 'subscribersSignup'">
                                 <div class="d-flex align-items-center justify-content-between">
@@ -21,7 +21,7 @@
                                 </div>
                             </div>
                             <div class="input-container" [hidden]="inlineSearch !== 'subscribersSignup'">
-                                <input type="text" placeholder="Signup On" class="form-control w100" #subscribersSignupField [(ngModel)]="advanceSearchRequest.signUpOnFrom" [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }" (ngModelChange)="searchViaAdvanceSearch()" bsDatepicker name="signUpOnFrom"
+                                <input type="text" placeholder="Signup on" class="form-control w100" #subscribersSignupField [(ngModel)]="advanceSearchRequest.signUpOnFrom" [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }" (ngModelChange)="searchViaAdvanceSearch()" bsDatepicker name="signUpOnFrom"
                                 />
                             </div>
                         </th>

@@ -11,6 +11,8 @@ import { CommonPaginatedRequest, SubscriberList, TotalSubscribers, AdvanceSearch
 import { ToasterService } from '../../../services/toaster.service';
 import * as moment from 'moment/moment';
 import { GIDDH_DATE_FORMAT } from '../../../shared/defalutformatter/defaultDateFormat';
+import { Router } from '@angular/router';
+import { GeneralService } from '../../../services/general.service';
 
 
 @Component({
@@ -47,7 +49,7 @@ export class SuscriptionContainerComponent implements OnInit {
     };
 
     constructor(private store: Store<AppState>, private adminActions: AdminActions, private toasty: ToasterService,
-        private subscriptionService: SubscriptionService, private modalService: BsModalService) {
+        private subscriptionService: SubscriptionService, private modalService: BsModalService, private router: Router, private generalService: GeneralService) {
 
 
     }
@@ -69,6 +71,8 @@ export class SuscriptionContainerComponent implements OnInit {
     }
 
     ngOnInit() {
+        let currentUrl = this.router.url;
+        this.generalService.setCurrentPageTitle(currentUrl);
         this.setDefaultrequest();
         this.getSubscriptionData(this.subscriptionRequest);
         this.getAllSubscriptionTotalData();
@@ -85,6 +89,7 @@ export class SuscriptionContainerComponent implements OnInit {
             this.advanceSearchRequest.subscriptionId = term;
             this.getAdvancedSearchedSubscriptions(this.advanceSearchRequest);
         });
+
     }
     public resetAdvanceSearch() {
         this.advanceSearchRequest.signUpOnFrom = '';
@@ -186,6 +191,11 @@ export class SuscriptionContainerComponent implements OnInit {
 
         this.subscriptionRequest.sortBy = column;
         this.getSubscriptionData(this.subscriptionRequest);
+    }
+    public hideOpenedSearchBox() {
+        if (this.inlineSearch) {
+            this.inlineSearch = null;
+        }
     }
 
 }

@@ -3,6 +3,11 @@ import { GeneralService } from '../services/general.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../theme/ng-social-login-module';
 import { GeneralActions } from '../actions/general/general.action';
+import { Store, select } from '@ngrx/store';
+import { AppState } from '../store';
+import { takeUntil } from 'rxjs/operators';
+import { ReplaySubject } from 'rxjs';
+import { CurrentPage } from '../modules/common';
 
 
 @Component({
@@ -19,14 +24,15 @@ export class HeaderComponent implements OnInit {
     public user;
     public shortName = "";
     public selectedpageheader;
+    public selectedPage: string
+    public destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
     public onclick(id: string) {
         this.activeMenu = id;
         this.isDropDownOpen = !this.isDropDownOpen;
     }
 
-    constructor(private generalService: GeneralService, private router: Router, private authService: AuthService) {
+    constructor(private store: Store<AppState>, private generalService: GeneralService, private _generalActions: GeneralActions, private router: Router, private authService: AuthService) {
         let session = null;
-
         if (JSON.parse(localStorage.getItem('session'))) {
             session = JSON.parse(localStorage.getItem('session'));
             this.generalService.user = session.user;
@@ -41,12 +47,15 @@ export class HeaderComponent implements OnInit {
     }
 
     ngOnInit() {
-
+        let currentUrl = this.router.url;
+        this.generalService.setCurrentPageTitle(currentUrl);
+        this.store.pipe(select(s => s.general.currentPage), takeUntil(this.destroyed$)).subscribe(response => {
+            let currentPageResponse = _.clone(response);
+            if (currentPageResponse) {
+                this.selectedPage = currentPageResponse.currentPageObj.name;
+            }
+        });
     }
-    public setCurrentPageTitle(url) {
-
-    }
-
 
     public clearData() {
         localStorage.removeItem('session');
