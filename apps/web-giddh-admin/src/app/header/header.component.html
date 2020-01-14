@@ -63,13 +63,11 @@
     <!-- Page Content -->
     <div id="page-content-wrapper">
         <nav class="navbar d-flex align-items-center">
-            <button appSidebar #ref="appSidebar" type="button" class="hamburger is-closed" data-toggle="offcanvas">
-        <h4  class="inline  icon-bar text-capitalize" aria-hidden="true">{{selectedPage}}</h4>
-      </button>
+            <button appSidebar #ref="appSidebar" type="button" class="hamburger is-closed" data-toggle="offcanvas"><i class="icon-bar"></i></button>
 
-            <!-- <div class="hamburger_menu">
-        <h4 class="mb-0">License Key</h4>
-      </div> -->
+            <div class="hamburger_menu">
+              <h4 class="mb-0">{{selectedPage}}</h4>
+            </div>
 
         </nav>
 

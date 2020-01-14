@@ -1,11 +1,12 @@
 <div class="">
     <div class="pageHeader">
         <div class="inline-flex-subscription">
-            <h5 class="mb-0">Subscribers List</h5>
-            <a class=" btn-link ml-2" href="javascript:void(0)_" (click)="togglePanel()">Advance Search</a>
+            <a class="pull-right btn btn-blue" href="javascript:void(0)_" (click)="togglePanel()">Advance Search</a>
+
+            <button class="ml-1 btn-link" (click)="resetFilters();"><i class="icon icon-loop2
+              "></i> Clear Filter</button>
         </div>
-        <button class=" btn-link" (click)="resetFilters();"><i class="icon icon-loop2
-      "></i> Clear Filter</button>
+        
         <button class="pull-right btn btn-blue">Assign Plan</button>
     </div>
     <div class="page-content">
@@ -143,7 +144,10 @@
         </div>
 
 
-        <a href="javascript:void(0)" (click)="openEditModal(editPlan)">Edit modal</a>
+        <!-- 
+          ================== EDIT MODAL WE WILL USE LATER ==================
+          <a href="javascript:void(0)" (click)="openEditModal(editPlan)">Edit modal</a>
+        -->
 
 
         <div *ngIf="subscriberRes && subscriberRes.totalItems>49" class="paginationWrapper">
