@@ -28,7 +28,6 @@ export class LicenceKeyComponent implements OnInit {
     ngOnInit() {
         this.getAllLicenceKeyRequest.count = 50;
         this.getAllLicenceKeyRequest.page = 1;
-        this.getAllLicenceKeyRequest.sort = "asc";
         this.getAllLicenceKey();
     }
 
@@ -76,6 +75,8 @@ export class LicenceKeyComponent implements OnInit {
             this.getAllLicenceKeyRequest.sort = "asc";
         }
 
+        this.LicenceKeyRes.totalItems = 0;
+        this.getAllLicenceKeyRequest.page = 1;
         this.getAllLicenceKeyRequest.sortBy = column;
         this.getAllLicenceKey();
     }
