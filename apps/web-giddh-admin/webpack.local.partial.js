@@ -7,7 +7,7 @@ module.exports = {
             'isElectron': JSON.stringify(false),
             'errlyticsNeeded': JSON.stringify(false),
             'errlyticsKey': JSON.stringify(''),
-            'AppUrl': JSON.stringify('http://localapp.giddh.com:3000/'),
+            'AppUrl': JSON.stringify('http://localhost:3000/'),
             'ApiUrl': JSON.stringify('http://apitest.giddh.com/'),
             'APP_FOLDER': JSON.stringify(''),
             'process.env.ENV': 'development',
@@ -15,7 +15,7 @@ module.exports = {
             'process.env.isElectron': JSON.stringify(false),
             'process.env.errlyticsNeeded': JSON.stringify(false),
             'process.env.errlyticsKey': JSON.stringify(''),
-            'process.env.AppUrl': JSON.stringify('http://localapp.giddh.com:3000/'),
+            'process.env.AppUrl': JSON.stringify('http://localhost:3000/'),
             'process.env.ApiUrl': JSON.stringify('http://apitest.giddh.com/'),
             'process.env.APP_FOLDER': JSON.stringify('')
         }),
