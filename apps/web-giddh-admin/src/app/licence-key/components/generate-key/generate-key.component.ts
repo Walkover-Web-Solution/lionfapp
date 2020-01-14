@@ -34,7 +34,7 @@ export class GenerateKeyComponent implements OnInit {
     public generatedKeysAvailable: boolean = false;
     public forceClear$: Observable<IForceClear> = observableOf({ status: false });
 
-    constructor(private plansService: PlansService, private licenseService: LicenceService, private generalService: GeneralService, private toaster: ToasterService, private router: Router) {
+    constructor(private plansService: PlansService, private licenseService: LicenceService, private generalService: GeneralService, private toaster: ToasterService) {
         this.getLicenseKeyStatistics();
         this.getAllPlans();
     }
@@ -45,8 +45,7 @@ export class GenerateKeyComponent implements OnInit {
      * @memberof GenerateKeyComponent
      */
     ngOnInit(): void {
-        let currentUrl = this.router.url;
-        this.generalService.setCurrentPageTitle(currentUrl);
+        this.generalService.setCurrentPageTitle("License Keys > Generate");
     }
 
     /**

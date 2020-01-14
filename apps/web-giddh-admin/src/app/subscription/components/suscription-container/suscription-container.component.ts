@@ -71,8 +71,7 @@ export class SuscriptionContainerComponent implements OnInit {
     }
 
     ngOnInit() {
-        let currentUrl = this.router.url;
-        this.generalService.setCurrentPageTitle(currentUrl);
+        this.generalService.setCurrentPageTitle("Subscriptions");
         this.setDefaultrequest();
         this.getSubscriptionData(this.subscriptionRequest);
         this.getAllSubscriptionTotalData();
