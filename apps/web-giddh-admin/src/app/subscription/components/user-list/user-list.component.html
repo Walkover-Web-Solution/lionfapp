@@ -1,7 +1,4 @@
 <div class="">
-  <div class="pageHeader">
-    <h5 class="mb-0">User List</h5>
-  </div>
     <div class="pageHeader">
         <div class="form-group">
           <div class="d-flex align-items-center">
@@ -82,8 +79,12 @@
                             </div>
                         </th>
 
+<<<<<<< HEAD
                         <th (click)="sortBy('planName')">Plan Name <i
                                 [ngClass]="{'fa pull-right': 1 === 1, 'fa-angle-down': getUserListRequest.sort === 'desc' && getUserListRequest.sortBy === 'planName', 'fa-angle-up': (getUserListRequest.sort === 'asc' && getUserListRequest.sortBy === 'planName') || getUserListRequest.sortBy !== 'planName'}"></i>
+=======
+                        <th (click)="sortBy('planName')">Plan Name <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-angle-down': getUserListRequest.sortType === 'desc' && getUserListRequest.sortBy === 'planName', 'fa-angle-up': (getUserListRequest.sortType === 'asc' && getUserListRequest.sortBy === 'planName') || getUserListRequest.sortBy !== 'planName'}"></i>
+>>>>>>> master
                         </th>
                         <th (click)="sortBy('NO_OF_COMPANIES')"> <i
                                 [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': getUserListRequest.sortType === 'desc' && getUserListRequest.sortBy === 'NO_OF_COMPANIES', 'fa-sort-numeric-asc': (getUserListRequest.sortType === 'asc' && getUserListRequest.sortBy === 'NO_OF_COMPANIES') || getUserListRequest.sortBy !== 'NO_OF_COMPANIES'}"></i>

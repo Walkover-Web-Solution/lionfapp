@@ -1,14 +1,10 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { takeUntil } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { AdminActions } from '../../../actions/admin.actions';
 import { UserService } from '../../../services/user.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { AppState } from '../../../store';
-import { CommonPaginatedRequest, SubscriberList } from '../../../modules/modules/api-modules/subscription';
+import { SubscriberList } from '../../../modules/modules/api-modules/subscription';
 import * as moment from 'moment/moment';
-
+import { GeneralService } from '../../../services/general.service';
 
 @Component({
     selector: 'app-user-list',
@@ -23,7 +19,6 @@ export class UserListComponent implements OnInit {
     @ViewChild('userSubscriptionField') public userSubscriptionField;
 
     public modalRef: BsModalRef;
-    // modalRefEdit: BsModalRef;
     public expandList = false;
     public openExpanList = '';
     public displayMonths = 2;
@@ -46,7 +41,7 @@ export class UserListComponent implements OnInit {
         this.expandList = !this.expandList;
     }
 
-    constructor(private store: Store<AppState>, private adminActions: AdminActions, private userService: UserService, private modalService: BsModalService) {
+    constructor(private generalService: GeneralService, private userService: UserService, private modalService: BsModalService) {
 
     }
 
@@ -56,10 +51,11 @@ export class UserListComponent implements OnInit {
      * @memberof UserListComponent
      */
     ngOnInit() {
+        this.generalService.setCurrentPageTitle("Users");
         this.getUserListRequest.count = 50;
         this.getUserListRequest.page = 1;
         this.getUserListRequest.sortBy = 'User';
-        this.getUserListRequest.sortType = 'asc';
+        this.getUserListRequest.sortType = 'desc';
         this.getAllUserData();
     }
 
@@ -132,6 +128,8 @@ export class UserListComponent implements OnInit {
             this.getUserListRequest.sortType = "asc";
         }
 
+        this.userlistRes.totalItems = 0;
+        this.getUserListRequest.page = 1;
         this.getUserListRequest.sortBy = column;
         this.getAllUserData();
     }

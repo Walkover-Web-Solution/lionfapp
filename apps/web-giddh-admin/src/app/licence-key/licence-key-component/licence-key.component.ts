@@ -2,6 +2,7 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { LicenceService } from '../../services/licence.service';
 import { SubscriberList } from '../../modules/modules/api-modules/subscription';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap';
+import { GeneralService } from '../../services/general.service';
 
 @Component({
     selector: 'app-licence-key',
@@ -16,7 +17,7 @@ export class LicenceKeyComponent implements OnInit {
     public modalRef: BsModalRef;
     public subscriptionId: any = '';
 
-    constructor(private licenseService: LicenceService, private modalService: BsModalService) {
+    constructor(private licenseService: LicenceService, private modalService: BsModalService, private generalService: GeneralService) {
 
     }
 
@@ -26,9 +27,9 @@ export class LicenceKeyComponent implements OnInit {
      * @memberof LicenceKeyComponent
      */
     ngOnInit() {
+        this.generalService.setCurrentPageTitle("License Keys");
         this.getAllLicenceKeyRequest.count = 50;
         this.getAllLicenceKeyRequest.page = 1;
-        this.getAllLicenceKeyRequest.sort = "asc";
         this.getAllLicenceKey();
     }
 
@@ -76,6 +77,8 @@ export class LicenceKeyComponent implements OnInit {
             this.getAllLicenceKeyRequest.sort = "asc";
         }
 
+        this.LicenceKeyRes.totalItems = 0;
+        this.getAllLicenceKeyRequest.page = 1;
         this.getAllLicenceKeyRequest.sortBy = column;
         this.getAllLicenceKey();
     }
