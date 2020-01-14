@@ -1,21 +1,22 @@
 <div class="">
     <div class="pageHeader">
         <div class="form-group">
-          <div class="d-flex align-items-center">
-            <div class="input-group input-date">
-                <span class="input-group-addon" id="sizing-addon2"><i class="fa fa-calendar pull-right"></i></span>
-                <input type="text" class="form-control date-range-picker" readonly [(bsValue)]="bsValue" placeholder="Select Date"
-                    (bsValueChange)="onChangeFilterDate($event)" bsDaterangepicker>
-            </div>
-            <button class=" btn-link" *ngIf="getUserListPostRequest.signUpOnFrom" (click)="resetFilters();"><i class="icon icon-loop2
+            <div class="d-flex align-items-center">
+                <div class="input-group input-date">
+                    <span class="input-group-addon" id="sizing-addon2"><i class="fa fa-calendar pull-right"></i></span>
+                    <input type="text" class="form-control date-range-picker" readonly [(bsValue)]="bsValue"
+                        placeholder="Select Date" (bsValueChange)="onChangeFilterDate($event)" bsDaterangepicker>
+                </div>
+                <button class=" btn-link" *ngIf="getUserListPostRequest.signUpOnFrom" (click)="resetFilters();"><i
+                        class="icon icon-loop2
               "></i> Clear Filter</button>
-          </div>
+            </div>
 
         </div>
     </div>
     <div class="page-content">
-        
-      <div class="table-responsive table-height">
+
+        <div class="table-responsive table-height">
             <table class="table table-bordered basic subscrib-list-table card-list-table">
                 <thead>
                     <tr (clickOutside)="inlineSearch = null">
@@ -79,12 +80,8 @@
                             </div>
                         </th>
 
-<<<<<<< HEAD
                         <th (click)="sortBy('planName')">Plan Name <i
-                                [ngClass]="{'fa pull-right': 1 === 1, 'fa-angle-down': getUserListRequest.sort === 'desc' && getUserListRequest.sortBy === 'planName', 'fa-angle-up': (getUserListRequest.sort === 'asc' && getUserListRequest.sortBy === 'planName') || getUserListRequest.sortBy !== 'planName'}"></i>
-=======
-                        <th (click)="sortBy('planName')">Plan Name <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-angle-down': getUserListRequest.sortType === 'desc' && getUserListRequest.sortBy === 'planName', 'fa-angle-up': (getUserListRequest.sortType === 'asc' && getUserListRequest.sortBy === 'planName') || getUserListRequest.sortBy !== 'planName'}"></i>
->>>>>>> master
+                                [ngClass]="{'fa pull-right': 1 === 1, 'fa-angle-down': getUserListRequest.sortType === 'desc' && getUserListRequest.sortBy === 'planName', 'fa-angle-up': (getUserListRequest.sortType === 'asc' && getUserListRequest.sortBy === 'planName') || getUserListRequest.sortBy !== 'planName'}"></i>
                         </th>
                         <th (click)="sortBy('NO_OF_COMPANIES')"> <i
                                 [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': getUserListRequest.sortType === 'desc' && getUserListRequest.sortBy === 'NO_OF_COMPANIES', 'fa-sort-numeric-asc': (getUserListRequest.sortType === 'asc' && getUserListRequest.sortBy === 'NO_OF_COMPANIES') || getUserListRequest.sortBy !== 'NO_OF_COMPANIES'}"></i>
@@ -100,17 +97,30 @@
                         <td data-title="Name">{{userSubscription.userDetails.name}}</td>
                         <td data-title="Email">{{userSubscription.userDetails.email}}</td>
                         <td data-title="Mobile">{{userSubscription.userDetails.mobileno}}</td>
-                        <td data-title="Subscription ID"><a href="javascript:void(0)" (click)="openSubscriptionModal(template, userSubscription.subscriptions[0].subscriptionId);" *ngIf="userSubscription.subscriptions?.length > 0">{{ userSubscription.subscriptions.length > 1 ? 'Multiple' : userSubscription.subscriptions[0].subscriptionId}}</a></td>
-                        <td data-title="Plan Name"><span *ngIf="userSubscription.subscriptions?.length > 0">{{userSubscription.subscriptions[0].planDetails.name}}</span></td>
+                        <td data-title="Subscription ID"><a href="javascript:void(0)"
+                                (click)="openSubscriptionModal(template, userSubscription.subscriptions[0].subscriptionId);"
+                                *ngIf="userSubscription.subscriptions?.length > 0">{{ userSubscription.subscriptions.length > 1 ? 'Multiple' : userSubscription.subscriptions[0].subscriptionId}}</a>
+                        </td>
+                        <td data-title="Plan Name"><span
+                                *ngIf="userSubscription.subscriptions?.length > 0">{{userSubscription.subscriptions[0].planDetails.name}}</span>
+                        </td>
                         <td data-title="No. of Companies">{{userSubscription.totalCompanies}}</td>
-                        <td data-title="Total Amount">{{userSubscription.totalAmount}}/- <a href="javascript:void(0)" *ngIf="userSubscription.subscriptions?.length > 1" (click)="userSubscription.showInner = !userSubscription.showInner" class="d-inline-block pull-right"><span [ngClass]="{'fa': 1 === 1, 'fa-arrows-alt': !userSubscription.showInner, 'fa-expand': userSubscription.showInner}"></span></a></td>
+                        <td data-title="Total Amount">{{userSubscription.totalAmount}}/- <a href="javascript:void(0)"
+                                *ngIf="userSubscription.subscriptions?.length > 1"
+                                (click)="userSubscription.showInner = !userSubscription.showInner"
+                                class="d-inline-block pull-right"><span
+                                    [ngClass]="{'fa': 1 === 1, 'fa-arrows-alt': !userSubscription.showInner, 'fa-expand': userSubscription.showInner}"></span></a>
+                        </td>
                     </tr>
-                    <tr [hidden]="userSubscription.subscriptions?.length === 1 || !userSubscription.showInner" *ngFor="let userSubscriptionInner of userSubscription.subscriptions;">
+                    <tr [hidden]="userSubscription.subscriptions?.length === 1 || !userSubscription.showInner"
+                        *ngFor="let userSubscriptionInner of userSubscription.subscriptions;">
                         <td data-title="Signup Date">&nbsp;</td>
                         <td data-title="Name">&nbsp;</td>
                         <td data-title="Email">&nbsp;</td>
                         <td data-title="Mobile">&nbsp;</td>
-                        <td data-title="Subscription ID"><a href="javascript:void(0)" (click)="openSubscriptionModal(template, userSubscriptionInner.subscriptionId);" >{{userSubscriptionInner.subscriptionId}}</a></td>
+                        <td data-title="Subscription ID"><a href="javascript:void(0)"
+                                (click)="openSubscriptionModal(template, userSubscriptionInner.subscriptionId);">{{userSubscriptionInner.subscriptionId}}</a>
+                        </td>
                         <td data-title="Plan Name"><span>{{userSubscriptionInner.planDetails.name}}</span></td>
                         <td data-title="No. of Companies">{{userSubscriptionInner.companyCount}}</td>
                         <td data-title="Total Amount">{{userSubscriptionInner.planDetails.amount}}/-</td>
@@ -118,53 +128,53 @@
                 </tbody>
                 <tbody *ngIf="!userSubscriptionData || userSubscriptionData.length === 0">
                     <tr>
-                       <td colspan="8" align="center">No records found.</td> 
+                        <td colspan="8" align="center">No records found.</td>
                     </tr>
                 </tbody>
             </table>
-          </div>
+        </div>
         <div *ngIf="userSubscriptionData && userlistRes && userlistRes.totalItems > 50" class="paginationWrapper">
             <pagination [totalItems]="userlistRes.totalItems" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true"
                 [itemsPerPage]="50" [rotate]="false" previousText="&#9668;" nextText="&#9658;"
                 (pageChanged)="pageChanged($event)"></pagination>
         </div>
 
-      <div class="page-footer">
-        <div class="row">
-            <div class="col-md-1 col-sm-3 wrap-row">
-                <div class="userNumber">
-                    <h4>52</h4>
+        <!-- <div class="page-footer">
+            <div class="row">
+                <div class="col-md-1 col-sm-3 wrap-row">
+                    <div class="userNumber">
+                        <h4>52</h4>
+                    </div>
+                    <div class="aboutUser">
+                        <p>Total User</p>
+                    </div>
                 </div>
-                <div class="aboutUser">
-                    <p>Total User</p>
+                <div class="col-md-1 col-sm-3 wrap-row">
+                    <div class="userNumber">
+                        <h4>9</h4>
+                    </div>
+                    <div class="aboutUser">
+                        <p>Active User</p>
+                    </div>
+                </div>
+                <div class="col-md-1 col-sm-3 wrap-row">
+                    <div class="userNumber">
+                        <h4>0</h4>
+                    </div>
+                    <div class="aboutUser">
+                        <p>Inactive User</p>
+                    </div>
+                </div>
+                <div class="col-md-1 col-sm-3 wrap-row">
+                    <div class="userNumber">
+                        <h4>43</h4>
+                    </div>
+                    <div class="aboutUser">
+                        <p>Trial</p>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-1 col-sm-3 wrap-row">
-                <div class="userNumber">
-                    <h4>9</h4>
-                </div>
-                <div class="aboutUser">
-                    <p>Active User</p>
-                </div>
-            </div>
-            <div class="col-md-1 col-sm-3 wrap-row">
-                <div class="userNumber">
-                    <h4>0</h4>
-                </div>
-                <div class="aboutUser">
-                    <p>Inactive User</p>
-                </div>
-            </div>
-            <div class="col-md-1 col-sm-3 wrap-row">
-                <div class="userNumber">
-                    <h4>43</h4>
-                </div>
-                <div class="aboutUser">
-                    <p>Trial</p>
-                </div>
-            </div>
-        </div>
-    </div>
+        </div> -->
 
 
     </div>
