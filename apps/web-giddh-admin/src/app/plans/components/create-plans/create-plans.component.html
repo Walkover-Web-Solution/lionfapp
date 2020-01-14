@@ -42,6 +42,10 @@
                 <label>Rate per extra transaction</label>
                 <input type="number" class="form-control" (blur)="validateMinValue()" name="ratePerExtraTransaction" [(ngModel)]="createPlanRequest.ratePerExtraTransaction" required>
             </div>
+            <div class="form-group">
+                <label>Is Common Plan</label>
+                <input type="checkbox" class="form-control" name="isCommonPlan" [(ngModel)]="createPlanRequest.isCommonPlan" value="1">
+            </div>
             <input type="button" value="Create" class="btn-blue btn" (click)="createPlan()" [disabled]="createPlanForm.invalid || isLoading">
         </form>
     </div>

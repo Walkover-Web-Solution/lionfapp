@@ -33,7 +33,7 @@
                             <div class="select-style form-group">
                                 <sh-select placeholder="Select Plan" name="planUniqueName" autocomplete="false"
                                     id="planUniqueName" [(ngModel)]="generateLicenseKeysRequest.planUniqueName"
-                                    [options]="allPlans" [isFilterEnabled]="true" [ItemHeight]="33" [forceClearReactive]="forceClear$ | async"></sh-select>
+                                    [options]="allPlans" [isFilterEnabled]="true" [ItemHeight]="33" [forceClearReactive]="forceClear$ | async" required></sh-select>
                             </div>
                         </div>
                     </div>
