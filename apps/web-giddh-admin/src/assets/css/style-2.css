@@ -278,6 +278,7 @@ a {
 
 .btn-link {
     color: #36A1E9;
+    white-space: nowrap;
 }
 
 .btn-success {
@@ -921,6 +922,9 @@ bs-datepicker-container {
 }
 .btn-link:focus, .btn-link:hover, .btn,.btn:focus {
   outline: none;
+}
+.justify-flex-end {
+  justify-content: flex-end;
 }
 
 
