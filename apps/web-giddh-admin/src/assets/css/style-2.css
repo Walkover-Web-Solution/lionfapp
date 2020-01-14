@@ -663,7 +663,7 @@ input[type="checkbox"]:after {
     display: inherit;
 }
 
-.advance-search li input[type="text"] {
+.advance-search li input[type="text"], .advance-search li input[type="number"] {
     width: 125px;
     border: 1px solid #ccc;
     display: inline-block;
@@ -673,7 +673,7 @@ input[type="checkbox"]:after {
     border-radius: 3px;
     margin: 0 10px;
 }
-.advance-search li input[type="text"]:focus {
+.advance-search li input[type="text"]:focus, .advance-search li input[type="number"]:focus {
   outline: none;
 }
 
@@ -873,7 +873,7 @@ bs-datepicker-container {
   z-index: 9999;
 }
 .top-right-head {
-  background: #333333;
+  background: #1A2482;
   padding: 15px;
   position: relative;
 }
@@ -919,6 +919,10 @@ bs-datepicker-container {
 .textarea {
   height: 100px !important;
 }
+.btn-link:focus, .btn-link:hover, .btn,.btn:focus {
+  outline: none;
+}
+    outline: none;
 
 
 @media (min-width: 992px) {
