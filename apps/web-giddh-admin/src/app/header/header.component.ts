@@ -47,8 +47,6 @@ export class HeaderComponent implements OnInit {
     }
 
     ngOnInit() {
-        let currentUrl = this.router.url;
-        this.generalService.setCurrentPageTitle(currentUrl);
         this.store.pipe(select(s => s.general.currentPage), takeUntil(this.destroyed$)).subscribe(response => {
             let currentPageResponse = _.clone(response);
             if (currentPageResponse) {

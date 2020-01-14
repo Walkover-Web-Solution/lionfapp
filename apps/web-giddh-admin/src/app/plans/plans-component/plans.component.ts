@@ -27,7 +27,7 @@ export class PlansComponent implements OnInit {
     public bsValue: any = '';
     public defaultLoad: boolean = true;
 
-    constructor(private plansService: PlansService, private router: Router, private generalService: GeneralService) {
+    constructor(private plansService: PlansService, private generalService: GeneralService) {
 
     }
 
@@ -37,8 +37,7 @@ export class PlansComponent implements OnInit {
      * @memberof PlansComponent
      */
     ngOnInit() {
-        let currentUrl = this.router.url;
-        this.generalService.setCurrentPageTitle(currentUrl);
+        this.generalService.setCurrentPageTitle("Plans");
         this.getAllPlansRequest.count = 50;
         this.getAllPlansRequest.page = 1;
         this.getAllPlansRequest.sortBy = 'TOTAL_AMOUNT';
