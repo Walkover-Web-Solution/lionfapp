@@ -1,35 +1,35 @@
 <div class="pageHeader">
     <div class="d-flex align-items-center">
-      <div class="input-group input-date">
-        <span class="input-group-addon">
-            <i class="fa fa-calendar pull-right"></i>
-        </span>
-        <input type="text" placeholder="Select Date" readonly [(bsValue)]="bsValue" (bsValueChange)="onChangeFilterDate($event)"
-            class="form-control date-range-picker" bsDaterangepicker>
-    </div>
+        <div class="input-group input-date">
+            <span class="input-group-addon">
+                <i class="fa fa-calendar pull-right"></i>
+            </span>
+            <input type="text" placeholder="Select Date" readonly [(bsValue)]="bsValue"
+                (bsValueChange)="onChangeFilterDate($event)" class="form-control date-range-picker" bsDaterangepicker>
+        </div>
 
-    <button class=" btn-link" *ngIf="getAllPlansPostRequest.createdAtFrom" (click)="resetFilters();"><i class="icon icon-loop2
+        <button class=" btn-link" *ngIf="getAllPlansPostRequest.createdAtFrom" (click)="resetFilters();"><i class="icon icon-loop2
       "></i> Clear Filter</button>
     </div>
 
     <button type="button" class="btn btn-blue" (click)="togglePanel()">+ New Plan</button>
 </div>
 <div class="page-content">
-  <div class="table-responsive table-height">
+    <div class="table-responsive table-height">
         <table class="table table-bordered basic subscrib-list-table card-list-table">
             <thead>
                 <tr (clickOutside)="inlineSearch = null">
                     <th class="table-search">
                         <div [hidden]="inlineSearch == 'planName'">
-                          <div class="d-flex align-items-center justify-content-between">
-                            <span>Plan Name</span>
-                            <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('planName')"></i>
-                          </div>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <span>Plan Name</span>
+                                <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('planName')"></i>
+                            </div>
                         </div>
                         <div class="input-container" [hidden]="inlineSearch !== 'planName'">
-                            <input type="text" placeholder="Plan Name" class="form-control w100" #planNameField name="planName"
-                                [(ngModel)]="getAllPlansPostRequest.planName" (keypress)="columnSearch()"
-                                (keydown)="columnSearch()" />
+                            <input type="text" placeholder="Plan Name" class="form-control w100" #planNameField
+                                name="planName" [(ngModel)]="getAllPlansPostRequest.planName"
+                                (keypress)="columnSearch()" (keydown)="columnSearch()" />
                         </div>
                     </th>
                     <th>Created on</th>
@@ -64,13 +64,13 @@
             </tbody>
             <tbody *ngIf="!plansData || !plansDataResults || plansDataResults.length === 0">
                 <tr>
-                    <td colspan="7" align="center">No records found.</td> 
-                 </tr>
+                    <td colspan="7" align="center">No records found.</td>
+                </tr>
             </tbody>
         </table>
     </div>
 
-    <div class="page-footer">
+    <!-- <div class="page-footer">
       <div class="row">
           <div class="col-md-1 col-sm-3 wrap-row">
               <div class="userNumber">
@@ -105,13 +105,15 @@
               </div>
           </div>
       </div>
-  </div>
+  </div> -->
 
     <div *ngIf="plansData && plansData.totalItems > 50" class="paginationWrapper">
-        <pagination [totalItems]="plansData.totalItems" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true" [itemsPerPage]="50"
-            [rotate]="false" previousText="&#9668;" nextText="&#9658;" (pageChanged)="pageChanged($event)"></pagination>
+        <pagination [totalItems]="plansData.totalItems" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true"
+            [itemsPerPage]="50" [rotate]="false" previousText="&#9668;" nextText="&#9658;"
+            (pageChanged)="pageChanged($event)"></pagination>
     </div>
 </div>
 
 <app-create-plans *ngIf="togglePanelBool" [rightToggle]="togglePanelBool" (hidePopup)="hidePopup()"></app-create-plans>
-<app-plan-details *ngIf="togglePlanDetailsPanelBool" [planUniqueName]="selectedPlan" [rightToggle]="togglePlanDetailsPanelBool" (hidePopup)="hidePlanDetailsPopup()"></app-plan-details>
+<app-plan-details *ngIf="togglePlanDetailsPanelBool" [planUniqueName]="selectedPlan"
+    [rightToggle]="togglePlanDetailsPanelBool" (hidePopup)="hidePlanDetailsPopup()"></app-plan-details>
