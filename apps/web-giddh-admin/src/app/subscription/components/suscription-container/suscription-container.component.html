@@ -6,7 +6,7 @@
             <button class="ml-1 btn-link" (click)="resetFilters();"><i class="icon icon-loop2
               "></i> Clear Filter</button>
         </div>
-        
+
         <button class="pull-right btn btn-blue">Assign Plan</button>
     </div>
     <div class="page-content">
@@ -124,7 +124,7 @@
                     <tr *ngFor="let subscription of subscriptionData">
                         <td data-title="Signup On">{{subscription.userDetails.signUpOn}}</td>
                         <td data-title="Subscribe on">{{subscription.startedAt}}</td>
-                        <td data-title="Subscribtion Id"><a href="javascript:void(0)" (click)="openSubscriptionModal(template, subscription.subscriptionId)">{{subscription.subscriptionId}}</a></td>
+                        <td data-title="Subscribtion Id"><a href="javascript:void(0)" (click)="openEditSubscription( subscription.subscriptionId)">{{subscription.subscriptionId}}</a></td>
                         <td data-title="Plan">{{subscription.planDetails.name}}</td>
                         <td data-title="No of Company">{{subscription?.totalCompanies}}/{{subscription?.planDetails?.companiesLimit}}</td>
                         <td data-title="Transction Limit">{{subscription.planDetails.transactionLimit}}</td>
@@ -142,13 +142,6 @@
                 </tbody>
             </table>
         </div>
-
-
-        <!-- 
-          ================== EDIT MODAL WE WILL USE LATER ==================
-          <a href="javascript:void(0)" (click)="openEditModal(editPlan)">Edit modal</a>
-        -->
-
 
         <div *ngIf="subscriberRes && subscriberRes.totalItems>49" class="paginationWrapper">
             <pagination [totalItems]="subscriberRes.totalItems" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true" [itemsPerPage]="50" [rotate]="false" previousText="&#9668;" nextText="&#9658;" (pageChanged)="pageChanged($event)"></pagination>

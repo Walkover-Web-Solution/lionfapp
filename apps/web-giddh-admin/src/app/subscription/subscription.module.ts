@@ -17,9 +17,10 @@ import { SubscriptionModalModule } from '../shared/subscription-modal/subscripti
 import { ClickOutsideModule } from 'ng-click-outside';
 import { EditPlanModalComponent } from '../shared/edit-plan/edit-plan.component';
 import { DigitsOnlyModule } from '../shared/directive/digitonly/digitsOnly.module';
+import { EditSubscriptionsComponent } from './components/edit-subscriptions/edit-subscriptions.component';
 
 @NgModule({
-  declarations: [SubscriptionComponent, SuscriptionContainerComponent, UserListComponent, AdvanceSearchComponent, SuscriptionModalComponent, EditPlanModalComponent],
+  declarations: [SubscriptionComponent, SuscriptionContainerComponent, UserListComponent, AdvanceSearchComponent, SuscriptionModalComponent, EditPlanModalComponent, EditSubscriptionsComponent],
   imports: [
     CommonModule,
     SubscriptionRoutingModule,
