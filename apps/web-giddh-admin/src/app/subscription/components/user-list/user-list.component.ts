@@ -5,6 +5,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { SubscriberList } from '../../../modules/modules/api-modules/subscription';
 import * as moment from 'moment/moment';
 import { GeneralService } from '../../../services/general.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-user-list',
@@ -41,7 +42,7 @@ export class UserListComponent implements OnInit {
         this.expandList = !this.expandList;
     }
 
-    constructor(private generalService: GeneralService, private userService: UserService, private modalService: BsModalService) {
+    constructor(private generalService: GeneralService, private userService: UserService, private modalService: BsModalService, private router: Router) {
 
     }
 
@@ -175,12 +176,9 @@ export class UserListComponent implements OnInit {
      * @param {*} subscriptionId
      * @memberof UserListComponent
      */
-    public openSubscriptionModal(template: TemplateRef<any>, subscriptionId) {
+    public openEditSubscription(subscriptionId) {
         this.subscriptionId = subscriptionId;
-        this.modalRef = this.modalService.show(
-            template,
-            Object.assign({}, { class: 'gray modal-lg' })
-        );
+        this.router.navigate([`admin/subscription/edit/${subscriptionId}`]);
     }
 
     /**

@@ -62,12 +62,9 @@ export class SuscriptionContainerComponent implements OnInit {
     }
 
 
-    public openSubscriptionModal(template: TemplateRef<any>, subscriptionId) {
+    public openEditSubscription(subscriptionId) {
         this.subscriptionId = subscriptionId;
-        this.modalRef = this.modalService.show(
-            template,
-            Object.assign({}, { class: 'gray modal-lg' })
-        );
+        this.router.navigate([`admin/subscription/edit/${subscriptionId}`]);
     }
 
     ngOnInit() {
@@ -90,13 +87,23 @@ export class SuscriptionContainerComponent implements OnInit {
         });
 
     }
+    /**
+     * To reset Advance search request component
+     *
+     * @memberof SuscriptionContainerComponent
+     */
     public resetAdvanceSearch() {
         this.advanceSearchRequest.signUpOnFrom = '';
         this.advanceSearchRequest.startedAtFrom = '';
         this.advanceSearchRequest.subscriptionId = '';
 
     }
-
+    /**
+     * dispatched advance search to get subscriptions
+     *
+     * @param {*} advanceSearchRequest
+     * @memberof SuscriptionContainerComponent
+     */
     public getAdvancedSearchedSubscriptions(advanceSearchRequest) {
         this.store.dispatch(this.adminActions.getSubscriptionAdvancedSearch(advanceSearchRequest));
     }
@@ -107,7 +114,11 @@ export class SuscriptionContainerComponent implements OnInit {
         this.subscriptionRequest.sortBy = 'ADDITIONAL_TRANSACTIONS';
         this.subscriptionRequest.sortType = 'desc';
     }
-
+    /**
+     * set subscriptions data
+     *
+     * @memberof SuscriptionContainerComponent
+     */
     public setAllSubscriberList() {
         this.store.pipe(select(s => s.subscriptions.allSubscriptions), takeUntil(this.destroyed$)).subscribe(res => {
             if (res) {
