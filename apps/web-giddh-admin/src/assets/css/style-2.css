@@ -430,7 +430,8 @@ input[type=checkbox], input[type=radio] {
   margin: 0 6px 0 0 !important;
   cursor: pointer !important;
   left: 0px !important;
-  height: 19px !important
+  height: 19px !important;
+  width: 19px !important;
 }
 
 input[type="checkbox"]:checked:before {
