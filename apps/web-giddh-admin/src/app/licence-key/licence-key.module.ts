@@ -6,7 +6,6 @@ import { BsDatepickerModule, PaginationModule } from 'ngx-bootstrap';
 import { LicenceKeyRoutingModule } from './licence-key-routing.module';
 import { LicenceKeyComponent } from './licence-key-component/licence-key.component';
 import { GenerateKeyComponent } from './components/generate-key/generate-key.component';
-import { SubscriptionModalModule } from '../shared/subscription-modal/subscription-modal.module';
 import { ShSelectModule } from '../theme/ng-virtual-select/sh-select.module';
 
 @NgModule({
@@ -19,7 +18,6 @@ import { ShSelectModule } from '../theme/ng-virtual-select/sh-select.module';
         PaginationModule,
         FormsModule,
         ReactiveFormsModule,
-        SubscriptionModalModule,
         ShSelectModule
     ]
 })
