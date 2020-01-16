@@ -5,7 +5,9 @@ body {
     margin: 0;
     padding: 0;
 }
-
+.nowrap {
+  white-space: nowrap;
+}
 .pd-1 {
     padding: 10px !important;
 }
@@ -332,6 +334,7 @@ a {
   font-weight: 600;
   text-transform: capitalize;
   border-right:1px solid #c6c4c4;
+  white-space: nowrap;
 }
 
 .basic>tbody>tr:hover td {
@@ -926,6 +929,12 @@ bs-datepicker-container {
 }
 .justify-flex-end {
   justify-content: flex-end;
+}
+
+@media(max-width:1600px) {
+  .basic>thead>tr>th {
+    min-width: 200px;
+  }
 }
 
 
