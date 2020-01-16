@@ -24,7 +24,8 @@ export class EditSubscriptionsComponent implements OnInit {
   public companiesData = [];
   public plansData = [];
   public modalRefEdit: BsModalRef;
-  public companiesAllRes: SubscriberList = new SubscriberList()
+  public companiesAllRes: SubscriberList = new SubscriberList();
+  public subscriptionsAuditLogs = [];
 
   constructor(private store: Store<AppState>, private modalService: BsModalService, private generalActions: GeneralActions, private toasty: ToasterService, private adminActions: AdminActions, private subscriptionService: SubscriptionService, private router: Router, private generalService: GeneralService, private activateRoute: ActivatedRoute) {
     this.paginationRequest.from = '';
@@ -39,7 +40,7 @@ export class EditSubscriptionsComponent implements OnInit {
       this.generalService.setCurrentPageTitle(`Edit Subscription > ${this.subscriptionId}`);
     });
     this.getAllCopaniesBuSubscriptionId();
-    // this.getAuditLogs();
+    this.getAuditLogs();
   }
   public getAllCopaniesBuSubscriptionId() {
     if (this.subscriptionId) {
@@ -60,11 +61,10 @@ export class EditSubscriptionsComponent implements OnInit {
     }
   }
   public getAuditLogs() {
-    this.subscriptionService.getAuditLog().subscribe(resp => {
+    this.subscriptionService.getAuditLog(this.subscriptionId).subscribe(resp => {
       if (resp) {
-        console.log('resp audit log', resp);
         if (resp.status === 'success') {
-
+          this.subscriptionsAuditLogs = resp.body.versions;
         } else {
           this.toasty.errorToast(resp.message)
         }

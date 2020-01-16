@@ -31,7 +31,7 @@ export class SuscriptionContainerComponent implements OnInit {
     public subscriptionId: any = '';
     public searchViaSubscriptionId$ = new Subject<string>();
     public searchViaSubscriptionId: string;
-
+    public isFromAdvanceSearchRes: boolean = false;
 
     private destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
     public subscriberRes: SubscriberList = new SubscriberList();
@@ -53,15 +53,12 @@ export class SuscriptionContainerComponent implements OnInit {
 
 
     }
-
-    public openEditModal(editPlan: TemplateRef<any>) {
-        this.modalRefEdit = this.modalService.show(
-            editPlan,
-            Object.assign({}, { class: 'gray modal-lg' })
-        );
-    }
-
-
+    /**
+     *To navigate edit subscription 
+     *
+     * @param {*} subscriptionId
+     * @memberof SuscriptionContainerComponent
+     */
     public openEditSubscription(subscriptionId) {
         this.subscriptionId = subscriptionId;
         this.router.navigate([`admin/subscription/edit/${subscriptionId}`]);
@@ -122,6 +119,7 @@ export class SuscriptionContainerComponent implements OnInit {
     public setAllSubscriberList() {
         this.store.pipe(select(s => s.subscriptions.allSubscriptions), takeUntil(this.destroyed$)).subscribe(res => {
             if (res) {
+                this.isFromAdvanceSearchRes = res.fromAdvanceSearch;
                 if (res.status === 'success') {
                     this.subscriberRes = res.body;
                     this.subscriptionData = [];
@@ -157,8 +155,13 @@ export class SuscriptionContainerComponent implements OnInit {
     public RightSlide() {
         this.rightToggle = !this.rightToggle;
     }
+    /**
+     *Pagination 
+     *
+     * @param {*} event page no
+     * @memberof SuscriptionContainerComponent
+     */
     public pageChanged(event: any): void {
-
         this.subscriptionRequest.page = event.page;
         this.getSubscriptionData(this.subscriptionRequest);
 
@@ -186,12 +189,22 @@ export class SuscriptionContainerComponent implements OnInit {
     public hidePopup() {
         this.togglePanelBool = false;
     }
+    /**
+     *Hard reset all applied filters
+     *
+     * @memberof SuscriptionContainerComponent
+     */
     public resetFilters() {
         this.setDefaultrequest();
         this.resetAdvanceSearch();
         this.getSubscriptionData(this.subscriptionRequest);
     }
-
+    /**
+     *to sort table 
+     *
+     * @param {*} column  search params
+     * @memberof SuscriptionContainerComponent
+     */
     public sortBy(column) {
         if (column === this.subscriptionRequest.sortBy) {
             this.subscriptionRequest.sortType = (this.subscriptionRequest.sortType === "asc") ? "desc" : "asc";
@@ -202,6 +215,11 @@ export class SuscriptionContainerComponent implements OnInit {
         this.subscriptionRequest.sortBy = column;
         this.getSubscriptionData(this.subscriptionRequest);
     }
+    /**
+     * To search input box closed
+     *
+     * @memberof SuscriptionContainerComponent
+     */
     public hideOpenedSearchBox() {
         if (this.inlineSearch) {
             this.inlineSearch = null;

@@ -7,7 +7,7 @@
     </button>
 </div> -->
 <div class="modal-body">
-    <div class="row">
+    <div class="row" *ngIf="plansData?.subscription">
         <div class="col-sm-6 font-14">
             <p class="mb-0">{{plansData?.subscription?.userDetails?.name}}</p>
             <p class="mb-0">{{plansData?.subscription?.userDetails?.email}}</p>
@@ -16,11 +16,11 @@
         <div class="col-sm-6 text-right xs-left">
             <!-- <a href="javascript:void(0)" class="btn btn-blue mr-1">Email</a>
             <a href="javascript:void(0)" class="btn btn-blue mr-1">SMS</a> -->
-            <a class="btn btn-blue mr-1" (click)="openEditModal(editPlan)">Edit</a>
+            <!-- <a class="btn btn-blue mr-1" (click)="openEditModal(editPlan)">Edit</a> -->
         </div>
     </div>
 
-    <div class="row mt-2 mb-2">
+    <div class="row mt-2 mb-2" *ngIf="plansData?.subscription">
         <div class="col-sm-3 col-xs-4">
             <p class="text-gray">Plan Name</p>
             <h3 class="text-orange">{{plansData?.subscription?.planDetails?.name}}</h3>
@@ -43,10 +43,10 @@
                         <thead>
                             <tr>
                                 <th>Company Name</th>
-                                <th>Subscribeon</th>
-                                <th>SubcriptionID</th>
+                                <th>Subscribed On</th>
+                                <th>Subcription ID</th>
                                 <th>Balance</th>
-                                <th>Tranaction Limit</th>
+                                <th>Transaction Limit</th>
                                 <th>Total Amount</th>
                                 <th>Additional Transaction</th>
                                 <th>Additional Charges</th>
@@ -76,12 +76,11 @@
                     </table>
                 </div>
             </tab>
-            <tab heading="Log" disabled>
+            <tab heading="Log" disabled *ngIf="subscriptionsAuditLogs.length>0">
                 <ul class="log-items mt-3 mb-3">
-                    <li>Renew plan 2 on 05/05/2019</li>
-                    <li>Additional transactions 1000 added to the plan 2 on 01/05/2019</li>
-                    <li>Subscribed plan 2 on 05/04/2019</li>
-                    <li>signup on 01/04/2019</li>
+                    <ng-container *ngFor="let item of subscriptionsAuditLogs">
+                        <li>{{item.message}}</li>
+                    </ng-container>
                 </ul>
             </tab>
         </tabset>

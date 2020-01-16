@@ -3,7 +3,7 @@
         <div class="inline-flex-subscription">
             <a class="pull-right btn btn-blue" href="javascript:void(0)_" (click)="togglePanel()">Advance Search</a>
 
-            <button class="ml-1 btn-link" (click)="resetFilters();"><i class="icon icon-loop2
+            <button class="ml-1 btn-link" *ngIf="isFromAdvanceSearchRes" (click)="resetFilters();"><i class="icon icon-loop2
               "></i> Clear Filter</button>
         </div>
 
@@ -26,12 +26,10 @@
                                 />
                             </div>
                         </th>
-
-
                         <th class="table-search">
                             <div [hidden]="inlineSearch == 'subscribOn'">
                                 <div class="d-flex align-items-center justify-content-between">
-                                    <span>Subscribe on</span>
+                                    <span>Subscribe On</span>
                                     <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('subscribOn')"></i>
                                 </div>
                             </div>
@@ -55,13 +53,17 @@
 
                         <th>
                             <div class="d-flex align-items-center justify-content-between">
-                                Plan <a href="javascript:void(0)" class="text-black"><i class="fa fa-angle-down"></i></a> </div>
+                                Plan
+                                <a href="javascript:void(0)" class="text-black">
+                                    <!-- <i class="fa fa-angle-down"></i> -->
+                                </a>
+                            </div>
                         </th>
                         <th>No of Company</th>
 
                         <th>
                             <div class="d-flex align-items-center justify-content-between">
-                                Transction Limit
+                                Transaction Limit
                                 <a (click)="sortBy('TRANSACTION_LIMIT')" class="text-black">
                                     <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': subscriptionRequest.sortType === 'desc' && subscriptionRequest.sortBy === 'TRANSACTION_LIMIT', 'fa-sort-numeric-asc': (subscriptionRequest.sortType === 'asc' && subscriptionRequest.sortBy === 'TRANSACTION_LIMIT') || subscriptionRequest.sortBy !== 'TRANSACTION_LIMIT'}"></i>
                                 </a>
@@ -87,7 +89,7 @@
                         </th>
                         <th>
                             <div class="d-flex align-items-center justify-content-between">
-                                Additional Transction
+                                Additional Transaction
                                 <a (click)="sortBy('ADDITIONAL_TRANSACTIONS')" class="text-black">
                                     <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': subscriptionRequest.sortType === 'desc' && subscriptionRequest.sortBy === 'ADDITIONAL_TRANSACTIONS', 'fa-sort-numeric-asc': (subscriptionRequest.sortType === 'asc' && subscriptionRequest.sortBy === 'ADDITIONAL_TRANSACTIONS') || subscriptionRequest.sortBy !== 'ADDITIONAL_TRANSACTIONS'}"></i>
                                 </a>
@@ -103,7 +105,7 @@
                         </th>
                         <th>
                             <div class="d-flex align-items-center justify-content-between">
-                                Rate/Transction
+                                Rate/Transaction
                                 <a (click)="sortBy('RATE_PER_EXTRA_TRANSACTION')" class="text-black">
                                     <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': subscriptionRequest.sortType === 'desc' && subscriptionRequest.sortBy === 'RATE_PER_EXTRA_TRANSACTION', 'fa-sort-numeric-asc': (subscriptionRequest.sortType === 'asc' && subscriptionRequest.sortBy === 'RATE_PER_EXTRA_TRANSACTION') || subscriptionRequest.sortBy !== 'RATE_PER_EXTRA_TRANSACTION'}"></i>
                                 </a>

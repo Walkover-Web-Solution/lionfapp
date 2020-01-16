@@ -35,18 +35,26 @@ export function SubscriptionsReducer(state: SubscriptionsState = initialState, a
         isGetSubscriptionSuccess: false
       });
     case AdminActions.GET_SUBCRIPTION_RESPONSE:
-      return Object.assign({}, state, {
-        allSubscriptions: action.payload,
-        isGetSubscriptionInprocess: false,
-        isGetSubscriptionSuccess: true
-      });
+      {
+        let allSubscription = action.payload;
+        allSubscription.fromAdvanceSearch = false;
+        return Object.assign({}, state, {
+          allSubscriptions: allSubscription,
+          isGetSubscriptionInprocess: false,
+          isGetSubscriptionSuccess: true
+        });
+      }
 
     case AdminActions.GET_SUBCRIPTION_AVANCEDSEARCH_RESPONSE:
-      return Object.assign({}, state, {
-        allSubscriptions: action.payload,
-        isGetSubscriptionInprocess: false,
-        isGetSubscriptionSuccess: true
-      });
+      {
+        let allSubscrp = action.payload;
+        allSubscrp.fromAdvanceSearch = true;
+        return Object.assign({}, state, {
+          allSubscriptions: allSubscrp,
+          isGetSubscriptionInprocess: false,
+          isGetSubscriptionSuccess: true
+        });
+      }
     default:
       return state;
   }

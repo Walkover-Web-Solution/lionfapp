@@ -58,8 +58,8 @@ export class SubscriptionService {
                     this.errorHandler.HandleCatch(e)));
     }
 
-    public getAuditLog() {
-        return this.http.get(this.config.apiUrl + SUBSCRIPTION_API.GET_AUDIT_LOGS)
+    public getAuditLog(subscriptioId) {
+        return this.http.get(this.config.apiUrl + SUBSCRIPTION_API.GET_AUDIT_LOGS.replace(':subscriptionId', subscriptioId))
             .pipe(
                 map((resp) => {
                     return resp;
