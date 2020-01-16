@@ -91,7 +91,7 @@ export class LicenceKeyComponent implements OnInit {
      * @param {*} subscriptionId
      * @memberof LicenceKeyComponent
      */
-    public openEditSubscription(template: TemplateRef<any>, subscriptionId) {
+    public openEditSubscription(subscriptionId) {
         this.subscriptionId = subscriptionId;
         this.router.navigate([`admin/subscription/edit/${subscriptionId}`]);
     }

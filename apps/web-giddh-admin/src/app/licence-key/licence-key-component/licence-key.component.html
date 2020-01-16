@@ -26,7 +26,7 @@
                 <tbody>
                     <tr *ngFor="let item of items">
                         <td data-title="Sub. on">{{item.subOn}}</td>
-                        <td data-title="Sub ID"><a href="javascript:void(0)" (click)="openEditSubscription(template, item.subscriptionId)">{{item.subscriptionId}}</a></td>
+                        <td data-title="Sub ID"><a href="javascript:void(0)" (click)="openEditSubscription( item.subscriptionId)">{{item.subscriptionId}}</a></td>
                         <td data-title="User Name">{{item.user?.name}}</td>
                         <td data-title="Plan">{{item.planName}}</td>
                         <td data-title="No of Company">{{item.currentCompanyCount}}</td>
@@ -51,6 +51,3 @@
         </div>
     </div>
 </div>
-<ng-template class="modal-ubscription" #template>
-    <app-subscription-modal [subscriptionId]="subscriptionId"></app-subscription-modal>
-</ng-template>
