@@ -36,7 +36,9 @@ export class EditSubscriptionsComponent implements OnInit {
       if (params['subscriptionId']) {
         this.subscriptionId = params['subscriptionId'];
       }
-      this.generalService.setCurrentPageTitle(`Edit Subscription > ${this.subscriptionId}`);
+      this.generalService.setCurrentPageTitle("view subscription detail");
+
+
     });
     this.getAllCopaniesBuSubscriptionId();
     // this.getAuditLogs();
