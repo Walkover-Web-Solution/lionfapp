@@ -59,7 +59,7 @@
                                 </a>
                             </div>
                         </th>
-                        <th>No of Company</th>
+                        <th class="transform-none">No of Company</th>
 
                         <th>
                             <div class="d-flex align-items-center justify-content-between">
@@ -200,10 +200,5 @@
 <ng-template #editPlan>
     <app-editPlan-modal></app-editPlan-modal>
 </ng-template>
-
-<ng-template class="modal-ubscription" #template>
-    <app-subscription-modal [subscriptionId]="subscriptionId"></app-subscription-modal>
-</ng-template>
-
 
 <app-advance-search *ngIf="togglePanelBool" [rightToggle]="togglePanelBool" (hidePopup)="hidePopup()"></app-advance-search>

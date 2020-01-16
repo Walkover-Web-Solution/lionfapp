@@ -33,7 +33,7 @@
                         </div>
                     </th>
                     <th>Created on</th>
-                    <th (click)="sortBy('NO_OF_COMPANIES')">No of Company <i
+                    <th class="transform-none" (click)="sortBy('NO_OF_COMPANIES')">No of Company <i
                             [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': getAllPlansRequest.sortType === 'desc' && getAllPlansRequest.sortBy === 'NO_OF_COMPANIES', 'fa-sort-numeric-asc': (getAllPlansRequest.sortType === 'asc' && getAllPlansRequest.sortBy === 'NO_OF_COMPANIES') || getAllPlansRequest.sortBy !== 'NO_OF_COMPANIES'}"></i>
                     </th>
                     <th (click)="sortBy('TOTAL_USERS')">Total User
@@ -74,7 +74,7 @@
         <div class="row">
             <div class="col-md-1 col-sm-3 wrap-row">
                 <div class="userNumber">
-                    <h4>{{planStats.commonPlans}}</h4>
+                    <h4>{{planStats?.commonPlans}}</h4>
                 </div>
                 <div class="aboutUser">
                     <p>Common Plans</p>
@@ -82,7 +82,7 @@
             </div>
             <div class="col-md-1 col-sm-3 wrap-row">
                 <div class="userNumber">
-                    <h4>{{planStats.adminPlans}}</h4>
+                    <h4>{{planStats?.adminPlans}}</h4>
                 </div>
                 <div class="aboutUser">
                     <p>Admin Plans</p>
@@ -90,7 +90,7 @@
             </div>
             <div class="col-md-1 col-sm-3 wrap-row">
                 <div class="userNumber">
-                    <h4>{{planStats.totalPlans}}</h4>
+                    <h4>{{planStats?.totalPlans}}</h4>
                 </div>
                 <div class="aboutUser">
                     <p>Total Plans</p>
@@ -98,7 +98,7 @@
             </div>
             <div class="col-md-1 col-sm-3 wrap-row">
                 <div class="userNumber">
-                    <h4>{{planStats.paidPlans}}</h4>
+                    <h4>{{planStats?.paidPlans}}</h4>
                 </div>
                 <div class="aboutUser">
                     <p>Paid Plans</p>
@@ -106,7 +106,7 @@
             </div>
             <div class="col-md-1 col-sm-3 wrap-row">
                 <div class="userNumber">
-                    <h4>{{planStats.trialPlans}}</h4>
+                    <h4>{{planStats?.trialPlans}}</h4>
                 </div>
                 <div class="aboutUser">
                     <p>Trial Plans</p>

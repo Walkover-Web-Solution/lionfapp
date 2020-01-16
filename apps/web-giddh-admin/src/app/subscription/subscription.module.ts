@@ -10,7 +10,6 @@ import { BsDatepickerModule, PaginationModule } from 'ngx-bootstrap';
 
 import { AdvanceSearchComponent } from './components/advance-search/advance-search.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import { SubscriptionModalModule } from '../shared/subscription-modal/subscription-modal.module';
 import { ClickOutsideModule } from 'ng-click-outside';
 import { EditPlanModalComponent } from '../shared/edit-plan/edit-plan.component';
 import { DigitsOnlyModule } from '../shared/directive/digitonly/digitsOnly.module';
@@ -30,7 +29,6 @@ import { SubscriptionContainerComponent } from './components/suscription-contain
     FormsModule,
     ReactiveFormsModule,
     ClickOutsideModule,
-    SubscriptionModalModule,
     DigitsOnlyModule
   ]
 })
