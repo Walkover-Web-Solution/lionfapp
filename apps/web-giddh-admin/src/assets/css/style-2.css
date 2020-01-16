@@ -402,6 +402,9 @@ select:hover {
 body {
     font-size: 14px !important;
 }
+.transform-none {
+  text-transform: initial !important;
+}
 
 ​ ​
 /* checkbox css start */

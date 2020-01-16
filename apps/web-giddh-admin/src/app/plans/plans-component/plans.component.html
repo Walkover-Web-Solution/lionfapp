@@ -33,7 +33,7 @@
                         </div>
                     </th>
                     <th>Created on</th>
-                    <th (click)="sortBy('NO_OF_COMPANIES')">No of Company <i
+                    <th class="transform-none" (click)="sortBy('NO_OF_COMPANIES')">No of Company <i
                             [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': getAllPlansRequest.sortType === 'desc' && getAllPlansRequest.sortBy === 'NO_OF_COMPANIES', 'fa-sort-numeric-asc': (getAllPlansRequest.sortType === 'asc' && getAllPlansRequest.sortBy === 'NO_OF_COMPANIES') || getAllPlansRequest.sortBy !== 'NO_OF_COMPANIES'}"></i>
                     </th>
                     <th (click)="sortBy('TOTAL_USERS')">Total User
