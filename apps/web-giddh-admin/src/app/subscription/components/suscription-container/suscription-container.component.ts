@@ -31,6 +31,8 @@ export class SuscriptionContainerComponent implements OnInit {
     public subscriptionId: any = '';
     public searchViaSubscriptionId$ = new Subject<string>();
     public searchViaSubscriptionId: string;
+    public togglePlanDetailsPanelBool: boolean;
+
 
 
     private destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
@@ -182,9 +184,11 @@ export class SuscriptionContainerComponent implements OnInit {
         } else {
             this.togglePanelBool = true;
         }
+        this.toggleBodyClass();
     }
     public hidePopup() {
         this.togglePanelBool = false;
+        this.toggleBodyClass();
     }
     public resetFilters() {
         this.setDefaultrequest();
@@ -207,5 +211,19 @@ export class SuscriptionContainerComponent implements OnInit {
             this.inlineSearch = null;
         }
     }
+   
+   
+    /**
+     * This function is used to add fixed class to body to remove veritical scrolling on page
+     *
+     * @memberof PlansComponent
+     */
+    public toggleBodyClass() {
+      if (this.togglePlanDetailsPanelBool || this.togglePanelBool) {
+          document.querySelector('body').classList.add('fixed');
+      } else {
+          document.querySelector('body').classList.remove('fixed');
+      }
+  }
 
 }
