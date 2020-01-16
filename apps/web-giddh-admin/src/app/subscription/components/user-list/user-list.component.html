@@ -16,7 +16,12 @@
             <table class="table table-bordered basic subscrib-list-table card-list-table">
                 <thead>
                     <tr (clickOutside)="inlineSearch = null">
-                        <th>Signup Date</th>
+                        <th>
+                          <div class="d-flex align-items-center justify-content-between">
+                            Signup Date
+                            <i class="fa fa-calendar"></i>
+                          </div>
+                        </th>
 
                         <th class="table-search">
                             <div [hidden]="inlineSearch == 'userName'">

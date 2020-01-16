@@ -5,6 +5,10 @@ body {
     margin: 0;
     padding: 0;
 }
+body.unresponsive.fixed {
+  position: fixed;
+  overflow: hidden;
+}
 .nowrap {
   white-space: nowrap;
 }
@@ -351,7 +355,9 @@ a {
     font-size: 14px;
     word-break: initial;
 }
-
+.basic>tbody>tr>td {
+  word-break: break-all;
+}
 
 /* table end */
 
@@ -395,6 +401,9 @@ select:hover {
 
 body {
     font-size: 14px !important;
+}
+.transform-none {
+  text-transform: initial !important;
 }
 
 ​ ​
@@ -929,6 +938,9 @@ bs-datepicker-container {
 }
 .justify-flex-end {
   justify-content: flex-end;
+}
+.basic>thead>tr>th {
+  min-width: 150px;
 }
 
 @media(max-width:1600px) {
