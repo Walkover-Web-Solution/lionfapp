@@ -26,6 +26,7 @@ export class PlansComponent implements OnInit {
     public timeout: any;
     public bsValue: any = '';
     public defaultLoad: boolean = true;
+    public planStats: any[] = [];
 
     constructor(private plansService: PlansService, private generalService: GeneralService) {
 
@@ -42,6 +43,7 @@ export class PlansComponent implements OnInit {
         this.getAllPlansRequest.page = 1;
         this.getAllPlansRequest.sortBy = 'TOTAL_AMOUNT';
         this.getAllPlansRequest.sortType = 'desc';
+        this.getPlansStats();
         this.getAllPlans();
     }
 
@@ -168,6 +170,7 @@ export class PlansComponent implements OnInit {
     public hidePopup() {
         this.togglePanelBool = false;
         this.getAllPlansRequest.page = 1;
+        this.getPlansStats();
         this.getAllPlans();
         this.toggleBodyClass();
     }
@@ -219,5 +222,18 @@ export class PlansComponent implements OnInit {
         } else {
             document.querySelector('body').classList.remove('fixed');
         }
+    }
+
+    /**
+     * This function is used to get plans stats
+     *
+     * @memberof PlansComponent
+     */
+    public getPlansStats() {
+        this.plansService.getPlansStats().subscribe(res => {
+            if (res.status === 'success') {
+                this.planStats = res.body;
+            }
+        });
     }
 }
