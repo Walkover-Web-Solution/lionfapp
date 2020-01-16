@@ -58,8 +58,8 @@ export class SubscriptionService {
                     this.errorHandler.HandleCatch(e)));
     }
 
-    public getAuditLog(subscriptioId) {
-        return this.http.get(this.config.apiUrl + SUBSCRIPTION_API.GET_AUDIT_LOGS.replace(':subscriptionId', subscriptioId))
+    public getAuditLog(subscriptionId) {
+        return this.http.get(this.config.apiUrl + SUBSCRIPTION_API.GET_AUDIT_LOGS.replace(':subscriptionId', subscriptionId))
             .pipe(
                 map((resp) => {
                     return resp;
@@ -67,8 +67,8 @@ export class SubscriptionService {
                 catchError((e) =>
                     this.errorHandler.HandleCatch(e)));
     }
-    public updateSubscription(subscriptioId: string, model: UpdateSubscriptionModel) {
-        return this.http.patch(this.config.apiUrl + SUBSCRIPTION_API.UPDATE_SUBSCRIPTION.replace(':subscriptionId', subscriptioId), model)
+    public updateSubscription(subscriptionId: string, model: UpdateSubscriptionModel) {
+        return this.http.patch(this.config.apiUrl + SUBSCRIPTION_API.UPDATE_SUBSCRIPTION.replace(':subscriptionId', subscriptionId), model)
             .pipe(
                 map((resp) => {
                     return resp;

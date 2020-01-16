@@ -17,10 +17,10 @@ import { GeneralService } from '../../../services/general.service';
 
 @Component({
     selector: 'app-suscription-container',
-    templateUrl: './suscription-container.component.html',
-    styleUrls: ['./suscription-container.component.scss']
+    templateUrl: './subscription-container.component.html',
+    styleUrls: ['./subscription-container.component.scss']
 })
-export class SuscriptionContainerComponent implements OnInit {
+export class SubscriptionContainerComponent implements OnInit {
 
     @ViewChild('SubscribersSignupField') public SubscribersSignupField;
     @ViewChild('subscribOnField') public subscribOnField;
@@ -57,7 +57,7 @@ export class SuscriptionContainerComponent implements OnInit {
      *To navigate edit subscription 
      *
      * @param {*} subscriptionId
-     * @memberof SuscriptionContainerComponent
+     * @memberof SubscriptionContainerComponent
      */
     public openEditSubscription(subscriptionId) {
         this.subscriptionId = subscriptionId;
@@ -87,7 +87,7 @@ export class SuscriptionContainerComponent implements OnInit {
     /**
      * To reset Advance search request component
      *
-     * @memberof SuscriptionContainerComponent
+     * @memberof SubscriptionContainerComponent
      */
     public resetAdvanceSearch() {
         this.advanceSearchRequest.signUpOnFrom = '';
@@ -99,7 +99,7 @@ export class SuscriptionContainerComponent implements OnInit {
      * dispatched advance search to get subscriptions
      *
      * @param {*} advanceSearchRequest
-     * @memberof SuscriptionContainerComponent
+     * @memberof SubscriptionContainerComponent
      */
     public getAdvancedSearchedSubscriptions(advanceSearchRequest) {
         this.store.dispatch(this.adminActions.getSubscriptionAdvancedSearch(advanceSearchRequest));
@@ -114,7 +114,7 @@ export class SuscriptionContainerComponent implements OnInit {
     /**
      * set subscriptions data
      *
-     * @memberof SuscriptionContainerComponent
+     * @memberof SubscriptionContainerComponent
      */
     public setAllSubscriberList() {
         this.store.pipe(select(s => s.subscriptions.allSubscriptions), takeUntil(this.destroyed$)).subscribe(res => {
@@ -151,15 +151,11 @@ export class SuscriptionContainerComponent implements OnInit {
         this.getAdvancedSearchedSubscriptions(this.advanceSearchRequest);
 
     }
-
-    public RightSlide() {
-        this.rightToggle = !this.rightToggle;
-    }
     /**
      *Pagination 
      *
      * @param {*} event page no
-     * @memberof SuscriptionContainerComponent
+     * @memberof SubscriptionContainerComponent
      */
     public pageChanged(event: any): void {
         this.subscriptionRequest.page = event.page;
@@ -192,7 +188,7 @@ export class SuscriptionContainerComponent implements OnInit {
     /**
      *Hard reset all applied filters
      *
-     * @memberof SuscriptionContainerComponent
+     * @memberof SubscriptionContainerComponent
      */
     public resetFilters() {
         this.setDefaultrequest();
@@ -203,7 +199,7 @@ export class SuscriptionContainerComponent implements OnInit {
      *to sort table 
      *
      * @param {*} column  search params
-     * @memberof SuscriptionContainerComponent
+     * @memberof SubscriptionContainerComponent
      */
     public sortBy(column) {
         if (column === this.subscriptionRequest.sortBy) {
@@ -218,7 +214,7 @@ export class SuscriptionContainerComponent implements OnInit {
     /**
      * To search input box closed
      *
-     * @memberof SuscriptionContainerComponent
+     * @memberof SubscriptionContainerComponent
      */
     public hideOpenedSearchBox() {
         if (this.inlineSearch) {

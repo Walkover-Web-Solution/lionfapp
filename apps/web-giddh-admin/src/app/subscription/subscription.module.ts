@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SubscriptionRoutingModule } from './subscription-routing.module';
 import { SubscriptionComponent } from './subscription-component/subscription.component';
 
-import { SuscriptionContainerComponent } from './components/suscription-container/suscription-container.component';
+import { SubscriptionContainerComponent } from './components/suscription-container/suscription-container.component';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { BsDatepickerModule, PaginationModule } from 'ngx-bootstrap';
@@ -20,7 +20,7 @@ import { DigitsOnlyModule } from '../shared/directive/digitonly/digitsOnly.modul
 import { EditSubscriptionsComponent } from './components/edit-subscriptions/edit-subscriptions.component';
 
 @NgModule({
-  declarations: [SubscriptionComponent, SuscriptionContainerComponent, UserListComponent, AdvanceSearchComponent, SuscriptionModalComponent, EditPlanModalComponent, EditSubscriptionsComponent],
+  declarations: [SubscriptionComponent, SubscriptionContainerComponent, UserListComponent, AdvanceSearchComponent, SuscriptionModalComponent, EditPlanModalComponent, EditSubscriptionsComponent],
   imports: [
     CommonModule,
     SubscriptionRoutingModule,
