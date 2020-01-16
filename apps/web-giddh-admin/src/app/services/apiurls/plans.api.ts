@@ -3,5 +3,6 @@ export const PLANS_API = {
     GET_COUNTRIES: 'country?refresh=false&formName=onboarding',
     CREATE_PLAN: 'v2/admin/plans',
     GET_CURRENCIES: 'currency',
-    GET_PLAN_DETAILS: 'v2/admin/plans?uniqueName=:uniqueName'
+    GET_PLAN_DETAILS: 'v2/admin/plans?uniqueName=:uniqueName',
+    GET_PLAN_STATS: 'v2/admin/plan-total'
 };
