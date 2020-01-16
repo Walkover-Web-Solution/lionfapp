@@ -190,6 +190,13 @@ export class UserListComponent implements OnInit {
         this.bsValue = null;
         this.getUserListPostRequest.signUpOnFrom = '';
         this.getUserListPostRequest.signUpOnTo = '';
+        this.getUserListPostRequest.userName = '';
+        this.getUserListPostRequest.email = '';
+        this.getUserListPostRequest.mobile = '';
+        this.getUserListPostRequest.subscriptionId = '';
+        this.getUserListRequest.sortBy = 'User';
+        this.getUserListRequest.sortType = 'desc';
+        this.inlineSearch = null;
         this.getAllUserData();
     }
 }

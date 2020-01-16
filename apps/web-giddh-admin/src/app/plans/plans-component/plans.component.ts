@@ -88,6 +88,7 @@ export class PlansComponent implements OnInit {
         } else {
             this.togglePanelBool = true;
         }
+        this.toggleBodyClass();
     }
 
     /**
@@ -168,6 +169,7 @@ export class PlansComponent implements OnInit {
         this.togglePanelBool = false;
         this.getAllPlansRequest.page = 1;
         this.getAllPlans();
+        this.toggleBodyClass();
     }
 
     /**
@@ -178,6 +180,7 @@ export class PlansComponent implements OnInit {
     public hidePlanDetailsPopup() {
         this.selectedPlan = '';
         this.togglePlanDetailsPanelBool = false;
+        this.toggleBodyClass();
     }
 
     /**
@@ -201,5 +204,20 @@ export class PlansComponent implements OnInit {
     public showPlanDetails(uniqueName) {
         this.selectedPlan = uniqueName;
         this.togglePlanDetailsPanelBool = true;
+
+        this.toggleBodyClass();
+    }
+
+    /**
+     * This function is used to add fixed class to body to remove veritical scrolling on page
+     *
+     * @memberof PlansComponent
+     */
+    public toggleBodyClass() {
+        if (this.togglePlanDetailsPanelBool || this.togglePanelBool) {
+            document.querySelector('body').classList.add('fixed');
+        } else {
+            document.querySelector('body').classList.remove('fixed');
+        }
     }
 }
