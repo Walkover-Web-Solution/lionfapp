@@ -80,7 +80,7 @@
                         <td data-title="Signup Date">{{userSubscription.userDetails.signUpOn}}</td>
                         <td data-title="Name">{{userSubscription.userDetails.name}}</td>
                         <td data-title="Email">{{userSubscription.userDetails.email}}</td>
-                        <td data-title="Mobile">{{userSubscription.userDetails.mobileno}}</td>
+                        <td data-title="Mobile" class="nowrap">{{userSubscription.userDetails.mobileno}}</td>
                         <td data-title="Subscription ID"><a href="javascript:void(0)" (click)="openEditSubscription(userSubscription.subscriptions[0].subscriptionId);" *ngIf="userSubscription.subscriptions?.length > 0">{{ userSubscription.subscriptions.length > 1 ? 'Multiple' : userSubscription.subscriptions[0].subscriptionId}}</a></td>
                         <td data-title="Plan Name"><span *ngIf="userSubscription.subscriptions?.length > 0">{{userSubscription.subscriptions[0].planDetails.name}}</span></td>
                         <td data-title="No. of Companies">{{userSubscription.totalCompanies}}</td>

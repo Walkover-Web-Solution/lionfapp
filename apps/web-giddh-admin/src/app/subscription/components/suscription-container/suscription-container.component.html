@@ -124,7 +124,7 @@
                     <tr *ngFor="let subscription of subscriptionData">
                         <td data-title="Signup On">{{subscription.userDetails.signUpOn}}</td>
                         <td data-title="Subscribe on">{{subscription.startedAt}}</td>
-                        <td data-title="Subscribtion Id"><a href="javascript:void(0)" (click)="openEditSubscription( subscription.subscriptionId)">{{subscription.subscriptionId}}</a></td>
+                        <td data-title="Subscribtion Id" class="nowrap"><a href="javascript:void(0)" (click)="openEditSubscription( subscription.subscriptionId)">{{subscription.subscriptionId}}</a></td>
                         <td data-title="Plan">{{subscription.planDetails.name}}</td>
                         <td data-title="No of Company">{{subscription?.totalCompanies}}/{{subscription?.planDetails?.companiesLimit}}</td>
                         <td data-title="Transction Limit">{{subscription.planDetails.transactionLimit}}</td>
@@ -133,7 +133,7 @@
                         <td data-title="Additional Transction">{{subscription.additionalTransactions}}</td>
                         <td data-title="Additional Charges">{{subscription.additionalCharges}}</td>
                         <td data-title="Rate/Transction">{{subscription.planDetails.ratePerExtraTransaction}}</td>
-                        <td data-title="Expiry">{{subscription.expiry}}</td>
+                        <td data-title="Expiry" class="nowrap">{{subscription.expiry}}</td>
                         <td data-title="Status">{{subscription.status}}</td>
                     </tr>
                     <tr *ngIf="!subscriptionData || subscriptionData.length === 0">
@@ -146,6 +146,10 @@
         <div *ngIf="subscriberRes && subscriberRes.totalItems>49" class="paginationWrapper">
             <pagination [totalItems]="subscriberRes.totalItems" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true" [itemsPerPage]="50" [rotate]="false" previousText="&#9668;" nextText="&#9658;" (pageChanged)="pageChanged($event)"></pagination>
         </div>
+
+        <!-- <pagination [totalItems]="30"></pagination> -->
+
+
 
 
 
