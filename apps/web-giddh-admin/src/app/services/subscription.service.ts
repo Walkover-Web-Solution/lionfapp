@@ -40,8 +40,8 @@ export class SubscriptionService {
                 catchError((e) => this.errorHandler.HandleCatch(e)));
     }
 
-    public getAllSubscriptionsViaAdvancedSearch(model: AdvanceSearchRequestSubscriptions) {
-        return this.http.post(this.config.apiUrl + SUBSCRIPTION_API.GET_SUBSCRIPTION, model)
+    public getAllSubscriptionsViaAdvancedSearch(model: AdvanceSearchRequestSubscriptions, filter: CommonPaginatedRequest) {
+        return this.http.post(this.config.apiUrl + SUBSCRIPTION_API.GET_SUBSCRIPTION_BY_POST.replace(':count', filter.count).replace(':page', filter.page), model)
             .pipe(
                 map((res) => {
                     return res;

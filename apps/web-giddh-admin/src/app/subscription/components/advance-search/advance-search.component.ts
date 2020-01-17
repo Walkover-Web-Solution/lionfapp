@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AdvanceSearchRequestSubscriptions } from '../../../modules/modules/api-modules/subscription';
+import { AdvanceSearchRequestSubscriptions, CommonPaginatedRequest } from '../../../modules/modules/api-modules/subscription';
 import { AppState } from '../../../store';
 import { Store } from '@ngrx/store';
 import { AdminActions } from '../../../actions/admin.actions';
@@ -20,13 +20,14 @@ export class AdvanceSearchComponent implements OnInit {
   public advanceSearchForm: FormGroup;
   @Input() public rightToggle: boolean = false;
   @Output() public hidePopup: EventEmitter<boolean> = new EventEmitter(true);
+  public advanceSearchFilter: CommonPaginatedRequest = new CommonPaginatedRequest();
   public advanceSearchRequest: AdvanceSearchRequestSubscriptions = {
     signUpOnFrom: '',
     signUpOnTo: '',
     startedAtFrom: '',
     balance: '',
     expiry: ''
-    // startedAtTo: '',
+    // startedAtTo: '', 
     // subscriptionId: '',
     // status: '',
     // planName: '',
@@ -42,7 +43,8 @@ export class AdvanceSearchComponent implements OnInit {
   constructor(private fb: FormBuilder, private store: Store<AppState>, private adminActions: AdminActions, private toasty: ToasterService) { }
 
   ngOnInit() {
-
+    this.advanceSearchFilter.count = 50;
+    this.advanceSearchFilter.page = 1;
     this.setAdvanceSearch();
 
   }
@@ -58,7 +60,7 @@ export class AdvanceSearchComponent implements OnInit {
   }
 
   public getAdvancedSearchedSubscriptions(advanceSearchRequest) {
-    this.store.dispatch(this.adminActions.getSubscriptionAdvancedSearch(advanceSearchRequest));
+    this.store.dispatch(this.adminActions.getSubscriptionAdvancedSearch(advanceSearchRequest, this.advanceSearchFilter));
   }
 
   public setAdvanceSearch() {
