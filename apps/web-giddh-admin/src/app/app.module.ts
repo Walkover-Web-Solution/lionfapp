@@ -48,135 +48,135 @@ import { SidebarDirective } from './shared/directive/sidebardirective/sidebar.di
 
 // Application wide providers
 const APP_PROVIDERS = [
-  ...APP_RESOLVER_PROVIDERS,
-  { provide: APP_BASE_HREF, useValue: IS_ELECTRON_WA ? './' : AppUrl + APP_FOLDER }
-  // { provide: APP_BASE_HREF, useValue: './' }
+    ...APP_RESOLVER_PROVIDERS,
+    { provide: APP_BASE_HREF, useValue: IS_ELECTRON_WA ? './' : AppUrl + APP_FOLDER }
+    // { provide: APP_BASE_HREF, useValue: './' }
 ];
 
 interface InternalStateType {
-  [key: string]: any;
+    [key: string]: any;
 }
 const getGoogleCredentials = (baseHref: string) => {
-  if (baseHref === 'https://giddh.com/' || isElectron) {
-    return {
-      GOOGLE_CLIENT_ID: '641015054140-3cl9c3kh18vctdjlrt9c8v0vs85dorv2.apps.googleusercontent.com'
-    };
-  } else {
-    return {
-      GOOGLE_CLIENT_ID: '641015054140-uj0d996itggsesgn4okg09jtn8mp0omu.apps.googleusercontent.com'
-    };
-  }
+    if (baseHref === 'https://vulture.giddh.com/' || isElectron) {
+        return {
+            GOOGLE_CLIENT_ID: '641015054140-3cl9c3kh18vctdjlrt9c8v0vs85dorv2.apps.googleusercontent.com'
+        };
+    } else {
+        return {
+            GOOGLE_CLIENT_ID: '641015054140-uj0d996itggsesgn4okg09jtn8mp0omu.apps.googleusercontent.com'
+        };
+    }
 };
 
 // tslint:disable-next-line:prefer-const
 let CONDITIONAL_IMPORTS = [];
 
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
-  // return localStorageSync({ keys: ['session', 'permission'], rehydrate: true, storage: IS_ELECTRON_WA ? sessionStorage : localStorage })(reducer);
-  return localStorageSync({ keys: ['session', 'permission'], rehydrate: true, storage: localStorage })(reducer);
-  // return localStorageSync({ keys: ['session', 'permission'], rehydrate: true, storage: sessionStorage })(reducer);
+    // return localStorageSync({ keys: ['session', 'permission'], rehydrate: true, storage: IS_ELECTRON_WA ? sessionStorage : localStorage })(reducer);
+    return localStorageSync({ keys: ['session', 'permission'], rehydrate: true, storage: localStorage })(reducer);
+    // return localStorageSync({ keys: ['session', 'permission'], rehydrate: true, storage: sessionStorage })(reducer);
 }
 
 let metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
 if (!environment.production) {
-  console.log('loading react devtools ' + ENV);
-  // metaReducers.push(storeFreeze);
-  CONDITIONAL_IMPORTS.push(StoreDevtoolsModule.instrument({ maxAge: 50 }));
-  console.log(CONDITIONAL_IMPORTS);
+    console.log('loading react devtools ' + ENV);
+    // metaReducers.push(storeFreeze);
+    CONDITIONAL_IMPORTS.push(StoreDevtoolsModule.instrument({ maxAge: 50 }));
+    console.log(CONDITIONAL_IMPORTS);
 } else {
-  console.log('loading react devtools production');
-  console.log(CONDITIONAL_IMPORTS);
+    console.log('loading react devtools production');
+    console.log(CONDITIONAL_IMPORTS);
 }
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
-  suppressScrollX: true
+    suppressScrollX: true
 };
 const SOCIAL_CONFIG = isElectron ? null : new AuthServiceConfig([
-  {
-    id: GoogleLoginProvider.PROVIDER_ID,
-    // provider: new GoogleLoginProvider('641015054140-3cl9c3kh18vctdjlrt9c8v0vs85dorv2.apps.googleusercontent.com')
-    provider: new GoogleLoginProvider(getGoogleCredentials(AppUrl).GOOGLE_CLIENT_ID)
-  }
+    {
+        id: GoogleLoginProvider.PROVIDER_ID,
+        // provider: new GoogleLoginProvider('641015054140-3cl9c3kh18vctdjlrt9c8v0vs85dorv2.apps.googleusercontent.com')
+        provider: new GoogleLoginProvider(getGoogleCredentials(AppUrl).GOOGLE_CLIENT_ID)
+    }
 ], false);
 export function provideConfig() {
-  return SOCIAL_CONFIG || { id: null, providers: [] };
+    return SOCIAL_CONFIG || { id: null, providers: [] };
 }
 /**
  * `AppModule` is the main entry point into Angular2's bootstraping process
  */
 @NgModule({
-  bootstrap: [AppComponent],
-  declarations: [
-    AppComponent,
-    NotFoundComponent,
-    HeaderComponent,
-    SidebarDirective,
-    LoaderComponent,
-    AdminComponent
+    bootstrap: [AppComponent],
+    declarations: [
+        AppComponent,
+        NotFoundComponent,
+        HeaderComponent,
+        SidebarDirective,
+        LoaderComponent,
+        AdminComponent
 
-    // SignupComponent
-  ],
-  /**
-   * Import Angular's modules.
-   */
-  imports: [
-    LoginModule,
-    BrowserModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    LaddaModule.forRoot({
-      style: 'slide-left',
-      spinnerSize: 30
-    }),
-    ServiceModule.forRoot(),
-    PaginationModule.forRoot(),
-    CollapseModule.forRoot(),
-    TooltipModule.forRoot(),
-    BsDatepickerModule.forRoot(),
-    ModalModule.forRoot(),
-    PopoverModule.forRoot(),
-    NgbTypeaheadModule.forRoot(),
-    BsDropdownModule.forRoot(),
-    TabsModule.forRoot(),
-    TooltipModule.forRoot(),
-    DatepickerModule.forRoot(),
-    ActionModule.forRoot(),
-    DecoratorsModule.forRoot(),
-    ToastrModule.forRoot({ preventDuplicates: true, maxOpened: 3 }),
-    StoreModule.forRoot(reducers, { metaReducers }),
-    PerfectScrollbarModule,
-    RouterModule.forRoot(ROUTES, { useHash: IS_ELECTRON_WA }),
-    StoreRouterConnectingModule,
-    SocialLoginModule,
-    ...CONDITIONAL_IMPORTS,
+        // SignupComponent
+    ],
     /**
-     * This section will import the `DevModuleModule` only in certain build types.
-     * When the module is not imported it will get tree shaked.
-     * This is a simple example, a big app should probably implement some logic
+     * Import Angular's modules.
      */
-    // ...environment.showDevModule ? [DevModuleModule] : [],
-  ],
-  /**
-   * Expose our Services and Providers into Angular's dependency injection.
-   * enableTracing: true,
-   */
-  providers: [
-    environment.ENV_PROVIDERS,
-    {
-      provide: AuthServiceConfig,
-      useFactory: provideConfig
-    },
-    APP_PROVIDERS,
-    {
-      provide: PERFECT_SCROLLBAR_CONFIG,
-      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
-    },
-    {
-      provide: ServiceConfig,
-      useValue: { apiUrl: Configuration.ApiUrl, appUrl: Configuration.AppUrl, _ }
-    }
-  ]
+    imports: [
+        LoginModule,
+        BrowserModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        LaddaModule.forRoot({
+            style: 'slide-left',
+            spinnerSize: 30
+        }),
+        ServiceModule.forRoot(),
+        PaginationModule.forRoot(),
+        CollapseModule.forRoot(),
+        TooltipModule.forRoot(),
+        BsDatepickerModule.forRoot(),
+        ModalModule.forRoot(),
+        PopoverModule.forRoot(),
+        NgbTypeaheadModule.forRoot(),
+        BsDropdownModule.forRoot(),
+        TabsModule.forRoot(),
+        TooltipModule.forRoot(),
+        DatepickerModule.forRoot(),
+        ActionModule.forRoot(),
+        DecoratorsModule.forRoot(),
+        ToastrModule.forRoot({ preventDuplicates: true, maxOpened: 3 }),
+        StoreModule.forRoot(reducers, { metaReducers }),
+        PerfectScrollbarModule,
+        RouterModule.forRoot(ROUTES, { useHash: IS_ELECTRON_WA }),
+        StoreRouterConnectingModule,
+        SocialLoginModule,
+        ...CONDITIONAL_IMPORTS,
+        /**
+         * This section will import the `DevModuleModule` only in certain build types.
+         * When the module is not imported it will get tree shaked.
+         * This is a simple example, a big app should probably implement some logic
+         */
+        // ...environment.showDevModule ? [DevModuleModule] : [],
+    ],
+    /**
+     * Expose our Services and Providers into Angular's dependency injection.
+     * enableTracing: true,
+     */
+    providers: [
+        environment.ENV_PROVIDERS,
+        {
+            provide: AuthServiceConfig,
+            useFactory: provideConfig
+        },
+        APP_PROVIDERS,
+        {
+            provide: PERFECT_SCROLLBAR_CONFIG,
+            useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+        },
+        {
+            provide: ServiceConfig,
+            useValue: { apiUrl: Configuration.ApiUrl, appUrl: Configuration.AppUrl, _ }
+        }
+    ]
 })
 export class AppModule {
 }
