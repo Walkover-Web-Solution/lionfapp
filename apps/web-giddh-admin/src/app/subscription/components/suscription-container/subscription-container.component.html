@@ -22,7 +22,7 @@
                                 </div>
                             </div>
                             <div class="input-container" [hidden]="inlineSearch !== 'subscribersSignup'">
-                                <input type="text" placeholder="Signup on" class="form-control w100" #subscribersSignupField [(ngModel)]="advanceSearchRequest.signUpOnFrom" [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }" (ngModelChange)="searchViaAdvanceSearch()" bsDatepicker name="signUpOnFrom"
+                                <input type="text" placement="bottom" placeholder="Signup on" class="form-control w100" #subscribersSignupField [(ngModel)]="advanceSearchRequest.signUpOnFrom" [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }" (ngModelChange)="searchViaAdvanceSearch()" bsDatepicker name="signUpOnFrom"
                                 />
                             </div>
                         </th>
@@ -33,7 +33,7 @@
                                     <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('subscribOn')"></i>
                                 </div>
                             </div>
-                            <div class="input-container" [hidden]="inlineSearch !== 'subscribOn'">
+                            <div class="input-container" placement="bottom" [hidden]="inlineSearch !== 'subscribOn'">
                                 <input type="text" placeholder="Subscribe on" class="form-control w100" #subscribOnField [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }" bsDatepicker [(ngModel)]="advanceSearchRequest.startedAtFrom" (ngModelChange)="searchViaAdvanceSearch()" name="startedAtFrom"
                                 />
                             </div>
