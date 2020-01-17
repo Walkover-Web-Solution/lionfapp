@@ -1,8 +1,8 @@
 export class CommonPaginatedRequest {
     public from?: string;
     public to?: string;
-    public count?: number;
-    public page?: number;
+    public count?: any;
+    public page?: any;
     public sortType?: string;
     public sortBy?: string;
     public id?: string;
@@ -80,6 +80,7 @@ export class AdvanceSearchRequestSubscriptions {
     startedAtFrom?: string;
     balance?: string;
     expiry?: string;
+    startedAtBefore?: string;
     startedAtTo?: string;
     subscriptionId?: string;
     status?: string;
@@ -91,5 +92,15 @@ export class AdvanceSearchRequestSubscriptions {
 export class UpdateSubscriptionModel {
     public planUniqueName?: string;
     public status?: string; // active || inactive || expired
+
+}
+export class AuditLogsRequest {
+    entity: string; // for type like subscription plan etc.
+    sort?: string;
+    from?: string;
+    to?: string;
+    page?: any;
+    count?: any;
+    entityIdentifier: string;  // For ID of subscription or plan or etc.
 
 }

@@ -22,8 +22,8 @@
                                 </div>
                             </div>
                             <div class="input-container" [hidden]="inlineSearch !== 'subscribersSignup'">
-                                <input type="text" placeholder="Signup on" class="form-control w100" #subscribersSignupField [(ngModel)]="advanceSearchRequest.signUpOnFrom" [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }" (ngModelChange)="searchViaAdvanceSearch()" bsDatepicker name="signUpOnFrom"
-                                />
+                                <input type="text" placement="bottom" placeholder="Signup on" readonly class="form-control w100" #subscribersSignupField [(ngModel)]="advanceSearchRequest.signUpOnFrom" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" (ngModelChange)="searchViaAdvanceSearch()"
+                                    bsDatepicker name="signUpOnFrom" />
                             </div>
                         </th>
                         <th class="table-search">
@@ -33,8 +33,8 @@
                                     <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('subscribOn')"></i>
                                 </div>
                             </div>
-                            <div class="input-container" [hidden]="inlineSearch !== 'subscribOn'">
-                                <input type="text" placeholder="Subscribe on" class="form-control w100" #subscribOnField [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }" bsDatepicker [(ngModel)]="advanceSearchRequest.startedAtFrom" (ngModelChange)="searchViaAdvanceSearch()" name="startedAtFrom"
+                            <div class="input-container" placement="bottom" [hidden]="inlineSearch !== 'subscribOn'">
+                                <input type="text" placeholder="Subscribe on" class="form-control w100" #subscribOnField readonly [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker [(ngModel)]="advanceSearchRequest.startedAtFrom" (ngModelChange)="searchViaAdvanceSearch()" name="startedAtFrom"
                                 />
                             </div>
                         </th>
@@ -47,7 +47,7 @@
                                 </div>
                             </div>
                             <div class="input-container" [hidden]="inlineSearch !== 'subscribId'">
-                                <input type="text" placeholder="Subscribtion ID" class="form-control w100" #subscribIdField name="subscriptionId" [(ngModel)]="advanceSearchRequest.subscriptionId" (ngModelChange)="searchViaSubscriptionId$.next($event)" />
+                                <input type="text" placeholder="Subscribtion ID" class="form-control w100" #subscribIdField name="subscribId" />
                             </div>
                         </th>
 
@@ -72,20 +72,12 @@
 
                         <th>
                             <div class="d-flex align-items-center justify-content-between">
-                                Balance
-                                <a (click)="sortBy('BALANCE')" class="text-black">
-                                    <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': subscriptionRequest.sortType === 'desc' && subscriptionRequest.sortBy === 'BALANCE', 'fa-sort-numeric-asc': (subscriptionRequest.sortType === 'asc' && subscriptionRequest.sortBy === 'BALANCE') || subscriptionRequest.sortBy !== 'BALANCE'}"></i>
-                                </a>
-                            </div>
+                                Balance <a href="javascript:void(0)" class="text-black"><i class="fa fa-sort-numeric-desc"></i></a> </div>
                         </th>
 
                         <th>
                             <div class="d-flex align-items-center justify-content-between">
-                                Total Amount
-                                <a (click)="sortBy('TOTAL_AMOUNT')" class="text-black">
-                                    <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': subscriptionRequest.sortType === 'desc' && subscriptionRequest.sortBy === 'TOTAL_AMOUNT', 'fa-sort-numeric-asc': (subscriptionRequest.sortType === 'asc' && subscriptionRequest.sortBy === 'TOTAL_AMOUNT') || subscriptionRequest.sortBy !== 'TOTAL_AMOUNT'}"></i>
-                                </a>
-                            </div>
+                                Total Amount <a href="javascript:void(0)" class="text-black"><i class="fa fa-sort-numeric-asc"></i></a> </div>
                         </th>
                         <th>
                             <div class="d-flex align-items-center justify-content-between">
@@ -97,11 +89,7 @@
                         </th>
                         <th>
                             <div class="d-flex align-items-center justify-content-between">
-                                Additional Charges
-                                <a (click)="sortBy('ADDITIONAL_CHARGES')" class="text-black">
-                                    <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': subscriptionRequest.sortType === 'desc' && subscriptionRequest.sortBy === 'ADDITIONAL_CHARGES', 'fa-sort-numeric-asc': (subscriptionRequest.sortType === 'asc' && subscriptionRequest.sortBy === 'ADDITIONAL_CHARGES') || subscriptionRequest.sortBy !== 'ADDITIONAL_CHARGES'}"></i>
-                                </a>
-                            </div>
+                                Additional Charges <a href="javascript:void(0)" class="text-black"><i class="fa fa-sort-numeric-desc"></i></a> </div>
                         </th>
                         <th>
                             <div class="d-flex align-items-center justify-content-between">
@@ -113,11 +101,7 @@
                         </th>
                         <th>
                             <div class="d-flex align-items-center justify-content-between">
-                                Expiry
-                                <a (click)="sortBy('EXPIRY')" class="text-black">
-                                    <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': subscriptionRequest.sortType === 'desc' && subscriptionRequest.sortBy === 'EXPIRY', 'fa-sort-numeric-asc': (subscriptionRequest.sortType === 'asc' && subscriptionRequest.sortBy === 'EXPIRY') || subscriptionRequest.sortBy !== 'EXPIRY'}"></i>
-                                </a>
-                            </div>
+                                Expiry <a href="javascript:void(0)" class="text-black"><i class="fa fa-calendar"></i></a> </div>
                         </th>
                         <th>Status</th>
                     </tr>
@@ -201,4 +185,4 @@
     <app-editPlan-modal></app-editPlan-modal>
 </ng-template>
 
-<app-advance-search *ngIf="togglePanelBool" [rightToggle]="togglePanelBool" (hidePopup)="hidePopup()"></app-advance-search>
+<app-advance-search *ngIf="togglePanelBool" [rightToggle]="togglePanelBool" (advanceSearchRequestEmitter)="advanceSearchRequestEmitter($event)" (hidePopup)="hidePopup()"></app-advance-search>
