@@ -201,4 +201,4 @@
     <app-editPlan-modal></app-editPlan-modal>
 </ng-template>
 
-<app-advance-search *ngIf="togglePanelBool" [rightToggle]="togglePanelBool" (hidePopup)="hidePopup()"></app-advance-search>
+<app-advance-search *ngIf="togglePanelBool" [rightToggle]="togglePanelBool" (advanceSearchRequestEmitter)="advanceSearchRequestEmitter($event)" (hidePopup)="hidePopup()"></app-advance-search>

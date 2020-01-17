@@ -20,6 +20,8 @@ export class AdvanceSearchComponent implements OnInit {
   public advanceSearchForm: FormGroup;
   @Input() public rightToggle: boolean = false;
   @Output() public hidePopup: EventEmitter<boolean> = new EventEmitter(true);
+  @Output() public advanceSearchRequestEmitter: EventEmitter<AdvanceSearchRequestSubscriptions> = new EventEmitter();
+
   public advanceSearchFilter: CommonPaginatedRequest = new CommonPaginatedRequest();
   public advanceSearchRequest: AdvanceSearchRequestSubscriptions = {
     signUpOnFrom: '',
@@ -55,7 +57,7 @@ export class AdvanceSearchComponent implements OnInit {
     dataToSend.signUpOnFrom = dataToSend.signUpOnFrom ? moment(dataToSend.signUpOnFrom).format(GIDDH_DATE_FORMAT) : '';
     dataToSend.signUpOnTo = dataToSend.signUpOnTo ? moment(dataToSend.signUpOnTo).format(GIDDH_DATE_FORMAT) : '';
 
-
+    this.advanceSearchRequestEmitter.emit(dataToSend);
     this.getAdvancedSearchedSubscriptions(dataToSend)
   }
 
