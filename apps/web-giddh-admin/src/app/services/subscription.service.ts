@@ -40,8 +40,8 @@ export class SubscriptionService {
                 catchError((e) => this.errorHandler.HandleCatch(e)));
     }
 
-    public getAllSubscriptionsViaAdvancedSearch(model: AdvanceSearchRequestSubscriptions) {
-        return this.http.post(this.config.apiUrl + SUBSCRIPTION_API.GET_SUBSCRIPTION, model)
+    public getAllSubscriptionsViaAdvancedSearch(model: AdvanceSearchRequestSubscriptions, filter: CommonPaginatedRequest) {
+        return this.http.post(this.config.apiUrl + SUBSCRIPTION_API.GET_SUBSCRIPTION_BY_POST.replace(':count', filter.count).replace(':page', filter.page).replace(':sortBy', filter.sortBy).replace(':sortType', filter.sortType), model)
             .pipe(
                 map((res) => {
                     return res;
@@ -58,8 +58,8 @@ export class SubscriptionService {
                     this.errorHandler.HandleCatch(e)));
     }
 
-    public getAuditLog(subscriptionId) {
-        return this.http.get(this.config.apiUrl + SUBSCRIPTION_API.GET_AUDIT_LOGS.replace(':subscriptionId', subscriptionId))
+    public getAuditLog(model) {
+        return this.http.get(this.config.apiUrl + SUBSCRIPTION_API.GET_AUDIT_LOGS, model)
             .pipe(
                 map((resp) => {
                     return resp;
