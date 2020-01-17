@@ -49,7 +49,7 @@ export class AdminActions {
   @Effect()
   public getSubscriptionAdvancedSearch$: Observable<Action> = this.action$.pipe(ofType(AdminActions.GET_SUBCRIPTION_ADVANCEDSEARCH),
     switchMap((action: CustomActions) => {
-      return this.subscriptionService.getAllSubscriptionsViaAdvancedSearch(action.payload).pipe(
+      return this.subscriptionService.getAllSubscriptionsViaAdvancedSearch(action.payload.model, action.payload.filter).pipe(
         map((response) => {
           return {
             type: AdminActions.GET_SUBCRIPTION_AVANCEDSEARCH_RESPONSE,
@@ -117,10 +117,10 @@ export class AdminActions {
       payload: value
     };
   }
-  public getSubscriptionAdvancedSearch(filer: AdvanceSearchRequestSubscriptions): CustomActions {
+  public getSubscriptionAdvancedSearch(model: AdvanceSearchRequestSubscriptions, filter: CommonPaginatedRequest): CustomActions {
     return {
       type: AdminActions.GET_SUBCRIPTION_ADVANCEDSEARCH,
-      payload: filer
+      payload: { model, filter }
     };
   }
 

@@ -105,7 +105,7 @@ export class SubscriptionContainerComponent implements OnInit {
      * @memberof SubscriptionContainerComponent
      */
     public getAdvancedSearchedSubscriptions(advanceSearchRequest) {
-        this.store.dispatch(this.adminActions.getSubscriptionAdvancedSearch(advanceSearchRequest));
+        this.store.dispatch(this.adminActions.getSubscriptionAdvancedSearch(advanceSearchRequest, this.subscriptionRequest));
     }
 
     public setDefaultrequest() {

@@ -1,8 +1,8 @@
 export class CommonPaginatedRequest {
     public from?: string;
     public to?: string;
-    public count?: number;
-    public page?: number;
+    public count?: any;
+    public page?: any;
     public sortType?: string;
     public sortBy?: string;
     public id?: string;
