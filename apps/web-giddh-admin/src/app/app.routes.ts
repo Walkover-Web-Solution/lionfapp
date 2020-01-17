@@ -12,7 +12,7 @@ export const ROUTES: Routes = [
     children: [
       { path: 'subscription', loadChildren: './subscription/subscription.module#SubscriptionModule', canActivate: [UserAuthenticated] },
       { path: 'license-key', loadChildren: './licence-key/licence-key.module#LicenceKeyModule', canActivate: [UserAuthenticated] },
-      { path: 'plans', loadChildren: './plans/plans.module#PlansModule' },
+      { path: 'plans', loadChildren: './plans/plans.module#PlansModule', canActivate: [UserAuthenticated] },
       { path: '404', component: NotFoundComponent }
     ]
   },
