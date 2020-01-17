@@ -47,7 +47,7 @@
             </li>
 
             <li>
-                <a href="javascript:void(0)" [routerLink]="['/admin/plans']">Plans</a>
+                <a [routerLink]="['/admin/plans']">Plans</a>
             </li>
             <!-- <li>
                 <a>Send SMS</a>
@@ -65,7 +65,7 @@
             <button appSidebar #ref="appSidebar" type="button" class="hamburger is-closed" data-toggle="offcanvas"><i class="icon-bar"></i></button>
 
             <div class="hamburger_menu">
-              <h4 class="mb-0">{{selectedPage}}</h4>
+                <h4 class="mb-0">{{selectedPage}}</h4>
             </div>
 
         </nav>
