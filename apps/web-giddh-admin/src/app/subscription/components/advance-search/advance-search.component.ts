@@ -24,7 +24,7 @@ export class AdvanceSearchComponent implements OnInit {
   public advanceSearchRequest: AdvanceSearchRequestSubscriptions = {
     signUpOnFrom: '',
     signUpOnTo: '',
-    startedAtFrom: '',
+    startedAtBefore: '',
     balance: '',
     expiry: ''
     // startedAtTo: '', 
@@ -50,7 +50,7 @@ export class AdvanceSearchComponent implements OnInit {
   }
   public AdvanceSearch() {
     let dataToSend = _.cloneDeep(this.advanceSearchForm.value);
-    dataToSend.startedAtFrom = dataToSend.startedAtFrom ? moment(dataToSend.startedAtFrom).format(GIDDH_DATE_FORMAT) : '';
+    dataToSend.startedAtBefore = dataToSend.startedAtBefore ? moment(dataToSend.startedAtBefore).format(GIDDH_DATE_FORMAT) : '';
     dataToSend.expiry = dataToSend.expiry ? moment(dataToSend.expiry).format(GIDDH_DATE_FORMAT) : '';
     dataToSend.signUpOnFrom = dataToSend.signUpOnFrom ? moment(dataToSend.signUpOnFrom).format(GIDDH_DATE_FORMAT) : '';
     dataToSend.signUpOnTo = dataToSend.signUpOnTo ? moment(dataToSend.signUpOnTo).format(GIDDH_DATE_FORMAT) : '';
@@ -67,7 +67,7 @@ export class AdvanceSearchComponent implements OnInit {
     this.advanceSearchForm = this.fb.group({
       signUpOnFrom: [''],
       signUpOnTo: [''],
-      startedAtFrom: [''],
+      startedAtBefore: [''],
       balance: ['', Validators.compose([digitsOnly])],
       expiry: ['']
       // startedAtTo: [''],

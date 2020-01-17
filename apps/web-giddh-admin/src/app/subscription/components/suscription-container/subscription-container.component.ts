@@ -150,7 +150,6 @@ export class SubscriptionContainerComponent implements OnInit {
     public searchViaAdvanceSearch() {
         this.advanceSearchRequest.signUpOnFrom = this.advanceSearchRequest.signUpOnFrom ? moment(this.advanceSearchRequest.signUpOnFrom).format(GIDDH_DATE_FORMAT) : '';
         this.advanceSearchRequest.startedAtFrom = this.advanceSearchRequest.startedAtFrom ? moment(this.advanceSearchRequest.startedAtFrom).format(GIDDH_DATE_FORMAT) : '';
-        console.log(this.advanceSearchRequest);
         this.getAdvancedSearchedSubscriptions(this.advanceSearchRequest);
 
     }

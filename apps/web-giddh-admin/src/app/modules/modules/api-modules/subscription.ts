@@ -80,6 +80,7 @@ export class AdvanceSearchRequestSubscriptions {
     startedAtFrom?: string;
     balance?: string;
     expiry?: string;
+    startedAtBefore?: string;
     startedAtTo?: string;
     subscriptionId?: string;
     status?: string;
