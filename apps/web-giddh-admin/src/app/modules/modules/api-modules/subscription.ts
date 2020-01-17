@@ -94,3 +94,13 @@ export class UpdateSubscriptionModel {
     public status?: string; // active || inactive || expired
 
 }
+export class AuditLogsRequest {
+    entity: string; // for type like subscription plan etc.
+    sort?: string;
+    from?: string;
+    to?: string;
+    page?: any;
+    count?: any;
+    entityIdentifier: string;  // For ID of subscription or plan or etc.
+
+}
