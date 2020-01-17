@@ -1,0 +1,204 @@
+<div class="">
+    <div class="pageHeader">
+        <div class="inline-flex-subscription">
+            <a class="pull-right btn btn-blue" href="javascript:void(0)_" (click)="togglePanel()">Advance Search</a>
+
+            <button class="ml-1 btn-link" *ngIf="isFromAdvanceSearchRes" (click)="resetFilters();"><i class="icon icon-loop2
+              "></i> Clear Filter</button>
+        </div>
+
+        <button class="pull-right btn btn-blue">Assign Plan</button>
+    </div>
+    <div class="page-content">
+        <div class="table-responsive table-height">
+            <table class="table table-bordered basic subscrib-list-table card-list-table">
+                <thead>
+                    <tr (clickOutside)="hideOpenedSearchBox()">
+                        <th class="table-search">
+                            <div [hidden]="inlineSearch == 'subscribersSignup'">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <span>Signup On</span>
+                                    <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('subscribersSignup')"></i>
+                                </div>
+                            </div>
+                            <div class="input-container" [hidden]="inlineSearch !== 'subscribersSignup'">
+                                <input type="text" placeholder="Signup on" class="form-control w100" #subscribersSignupField [(ngModel)]="advanceSearchRequest.signUpOnFrom" [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }" (ngModelChange)="searchViaAdvanceSearch()" bsDatepicker name="signUpOnFrom"
+                                />
+                            </div>
+                        </th>
+                        <th class="table-search">
+                            <div [hidden]="inlineSearch == 'subscribOn'">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <span>Subscribed On</span>
+                                    <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('subscribOn')"></i>
+                                </div>
+                            </div>
+                            <div class="input-container" [hidden]="inlineSearch !== 'subscribOn'">
+                                <input type="text" placeholder="Subscribe on" class="form-control w100" #subscribOnField [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }" bsDatepicker [(ngModel)]="advanceSearchRequest.startedAtFrom" (ngModelChange)="searchViaAdvanceSearch()" name="startedAtFrom"
+                                />
+                            </div>
+                        </th>
+
+                        <th class="table-search">
+                            <div [hidden]="inlineSearch == 'subscribId'">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <span>Subscription ID</span>
+                                    <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('subscribId')"></i>
+                                </div>
+                            </div>
+                            <div class="input-container" [hidden]="inlineSearch !== 'subscribId'">
+                                <input type="text" placeholder="Subscribtion ID" class="form-control w100" #subscribIdField name="subscriptionId" [(ngModel)]="advanceSearchRequest.subscriptionId" (ngModelChange)="searchViaSubscriptionId$.next($event)" />
+                            </div>
+                        </th>
+
+                        <th>
+                            <div class="d-flex align-items-center justify-content-between">
+                                Plan
+                                <a href="javascript:void(0)" class="text-black">
+                                    <!-- <i class="fa fa-angle-down"></i> -->
+                                </a>
+                            </div>
+                        </th>
+                        <th class="transform-none">No of Company</th>
+
+                        <th>
+                            <div class="d-flex align-items-center justify-content-between">
+                                Transaction Limit
+                                <a (click)="sortBy('TRANSACTION_LIMIT')" class="text-black">
+                                    <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': subscriptionRequest.sortType === 'desc' && subscriptionRequest.sortBy === 'TRANSACTION_LIMIT', 'fa-sort-numeric-asc': (subscriptionRequest.sortType === 'asc' && subscriptionRequest.sortBy === 'TRANSACTION_LIMIT') || subscriptionRequest.sortBy !== 'TRANSACTION_LIMIT'}"></i>
+                                </a>
+                            </div>
+                        </th>
+
+                        <th>
+                            <div class="d-flex align-items-center justify-content-between">
+                                Balance
+                                <a (click)="sortBy('BALANCE')" class="text-black">
+                                    <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': subscriptionRequest.sortType === 'desc' && subscriptionRequest.sortBy === 'BALANCE', 'fa-sort-numeric-asc': (subscriptionRequest.sortType === 'asc' && subscriptionRequest.sortBy === 'BALANCE') || subscriptionRequest.sortBy !== 'BALANCE'}"></i>
+                                </a>
+                            </div>
+                        </th>
+
+                        <th>
+                            <div class="d-flex align-items-center justify-content-between">
+                                Total Amount
+                                <a (click)="sortBy('TOTAL_AMOUNT')" class="text-black">
+                                    <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': subscriptionRequest.sortType === 'desc' && subscriptionRequest.sortBy === 'TOTAL_AMOUNT', 'fa-sort-numeric-asc': (subscriptionRequest.sortType === 'asc' && subscriptionRequest.sortBy === 'TOTAL_AMOUNT') || subscriptionRequest.sortBy !== 'TOTAL_AMOUNT'}"></i>
+                                </a>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="d-flex align-items-center justify-content-between">
+                                Additional Transaction
+                                <a (click)="sortBy('ADDITIONAL_TRANSACTIONS')" class="text-black">
+                                    <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': subscriptionRequest.sortType === 'desc' && subscriptionRequest.sortBy === 'ADDITIONAL_TRANSACTIONS', 'fa-sort-numeric-asc': (subscriptionRequest.sortType === 'asc' && subscriptionRequest.sortBy === 'ADDITIONAL_TRANSACTIONS') || subscriptionRequest.sortBy !== 'ADDITIONAL_TRANSACTIONS'}"></i>
+                                </a>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="d-flex align-items-center justify-content-between">
+                                Additional Charges
+                                <a (click)="sortBy('ADDITIONAL_CHARGES')" class="text-black">
+                                    <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': subscriptionRequest.sortType === 'desc' && subscriptionRequest.sortBy === 'ADDITIONAL_CHARGES', 'fa-sort-numeric-asc': (subscriptionRequest.sortType === 'asc' && subscriptionRequest.sortBy === 'ADDITIONAL_CHARGES') || subscriptionRequest.sortBy !== 'ADDITIONAL_CHARGES'}"></i>
+                                </a>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="d-flex align-items-center justify-content-between">
+                                Rate/Transaction
+                                <a (click)="sortBy('RATE_PER_EXTRA_TRANSACTION')" class="text-black">
+                                    <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': subscriptionRequest.sortType === 'desc' && subscriptionRequest.sortBy === 'RATE_PER_EXTRA_TRANSACTION', 'fa-sort-numeric-asc': (subscriptionRequest.sortType === 'asc' && subscriptionRequest.sortBy === 'RATE_PER_EXTRA_TRANSACTION') || subscriptionRequest.sortBy !== 'RATE_PER_EXTRA_TRANSACTION'}"></i>
+                                </a>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="d-flex align-items-center justify-content-between">
+                                Expiry
+                                <a (click)="sortBy('EXPIRY')" class="text-black">
+                                    <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': subscriptionRequest.sortType === 'desc' && subscriptionRequest.sortBy === 'EXPIRY', 'fa-sort-numeric-asc': (subscriptionRequest.sortType === 'asc' && subscriptionRequest.sortBy === 'EXPIRY') || subscriptionRequest.sortBy !== 'EXPIRY'}"></i>
+                                </a>
+                            </div>
+                        </th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let subscription of subscriptionData">
+                        <td data-title="Signup On">{{subscription.userDetails.signUpOn}}</td>
+                        <td data-title="Subscribe on">{{subscription.startedAt}}</td>
+                        <td data-title="Subscribtion Id" class="nowrap"><a href="javascript:void(0)" (click)="openEditSubscription( subscription.subscriptionId)">{{subscription.subscriptionId}}</a></td>
+                        <td data-title="Plan">{{subscription.planDetails.name}}</td>
+                        <td data-title="No of Company">{{subscription?.totalCompanies}}/{{subscription?.planDetails?.companiesLimit}}</td>
+                        <td data-title="Transction Limit">{{subscription.planDetails.transactionLimit}}</td>
+                        <td data-title="Balance">{{subscription.balance}}</td>
+                        <td data-title="Total Amount">{{subscription.planDetails.amount}}/-</td>
+                        <td data-title="Additional Transction">{{subscription.additionalTransactions}}</td>
+                        <td data-title="Additional Charges">{{subscription.additionalCharges}}</td>
+                        <td data-title="Rate/Transction">{{subscription.planDetails.ratePerExtraTransaction}}</td>
+                        <td data-title="Expiry" class="nowrap">{{subscription.expiry}}</td>
+                        <td data-title="Status">{{subscription.status}}</td>
+                    </tr>
+                    <tr *ngIf="!subscriptionData || subscriptionData.length === 0">
+                        <td colspan="13" align="center">No records found.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div *ngIf="subscriberRes && subscriberRes.totalItems>49" class="paginationWrapper">
+            <pagination [totalItems]="subscriberRes.totalItems" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true" [itemsPerPage]="50" [rotate]="false" previousText="&#9668;" nextText="&#9658;" (pageChanged)="pageChanged($event)"></pagination>
+        </div>
+
+        <!-- <pagination [totalItems]="30"></pagination> -->
+
+
+
+
+
+        <div class="page-footer">
+            <div class="row">
+                <div class="col-md-1 col-sm-3 wrap-row">
+                    <div class="userNumber">
+                        <h4>{{totalSubscriber?.total}}</h4>
+                    </div>
+                    <div class="aboutUser">
+                        <p>Total User</p>
+                    </div>
+                </div>
+                <div class="col-md-1 col-sm-3 wrap-row">
+                    <div class="userNumber">
+                        <h4>{{totalSubscriber?.active}}</h4>
+                    </div>
+                    <div class="aboutUser">
+                        <p>Active User</p>
+                    </div>
+                </div>
+                <div class="col-md-1 col-sm-3 wrap-row">
+                    <div class="userNumber">
+                        <h4>{{totalSubscriber?.inactive}}</h4>
+                    </div>
+                    <div class="aboutUser">
+                        <p>Inactive User</p>
+                    </div>
+                </div>
+                <div class="col-md-1 col-sm-3 wrap-row">
+                    <div class="userNumber">
+                        <h4>{{totalSubscriber?.trial}}</h4>
+                    </div>
+                    <div class="aboutUser">
+                        <p>Trial</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<ng-template #editPlan>
+    <app-editPlan-modal></app-editPlan-modal>
+</ng-template>
+
+<app-advance-search *ngIf="togglePanelBool" [rightToggle]="togglePanelBool" (hidePopup)="hidePopup()"></app-advance-search>

@@ -9,97 +9,93 @@ import { GeneralService } from './general.service';
 @Injectable()
 export class HttpWrapperService {
 
-  constructor(private _http: HttpClient, private _loaderService: LoaderService, private generalService: GeneralService) {
-  }
-
-  public get = (url: string, params?: any, options?: any): Observable<any> => {
-    options = this.prepareOptions(options);
-    options.params = params;
-    return this._http.get(url, options).pipe(tap((res) => {
-      //
-    }), finalize(() => {
-      this.hideLoader();
-    }));
-  }
-  public post = (url: string, body: any, options?: any): Observable<any> => {
-    options = this.prepareOptions(options);
-    return this._http.post(url, body, options).pipe(tap((res) => {
-      //
-    }), finalize(() => {
-      this.hideLoader();
-    }));
-  }
-  public put = (url: string, body: any, options?: any): Observable<any> => {
-    options = this.prepareOptions(options);
-    return this._http.put(url, body, options).pipe(tap((res) => {
-      //
-    }), finalize(() => {
-      this.hideLoader();
-    }));
-  }
-  public delete = (url: string, params?: any, options?: any): Observable<any> => {
-    options = this.prepareOptions(options);
-    options.search = this.objectToParams(params);
-    return this._http.delete(url, options).pipe(tap((res) => {
-      //
-    }), finalize(() => {
-      this.hideLoader();
-    }));
-  }
-  public patch = (url: string, body: any, options?: any): Observable<any> => {
-    options = this.prepareOptions(options);
-    return this._http.patch(url, body, options).pipe(tap((res) => {
-      //
-    }), finalize(() => {
-      this.hideLoader();
-    }));
-  }
-  public prepareOptions(options: any): any {
-    this.showLoader();
-    //let sessionId = this._generalService.sessionId;
-    let sessionId = this.generalService.sessionId;
-    options = options || {};
-
-    if (!options.headers) {
-      options.headers = {} as any;
+    constructor(private _http: HttpClient, private _loaderService: LoaderService, private generalService: GeneralService) {
     }
 
-    if (sessionId) {
-      options.headers['Session-Id'] = sessionId;
+    public get = (url: string, params?: any, options?: any): Observable<any> => {
+        options = this.prepareOptions(options);
+        options.params = params;
+        return this._http.get(url, options).pipe(tap((res) => {
+            //
+        }), finalize(() => {
+            this.hideLoader();
+        }));
     }
-    // options.withCredentials = true;
-    options.headers['cache-control'] = 'no-cache';
-    if (!options.headers['Content-Type']) {
-      options.headers['Content-Type'] = 'application/json';
+    public post = (url: string, body: any, options?: any): Observable<any> => {
+        options = this.prepareOptions(options);
+        return this._http.post(url, body, options).pipe(tap((res) => {
+            //
+        }), finalize(() => {
+            this.hideLoader();
+        }));
     }
-    if (options.headers['Content-Type'] === 'multipart/form-data') {
-      delete options.headers['Content-Type'];
+    public put = (url: string, body: any, options?: any): Observable<any> => {
+        options = this.prepareOptions(options);
+        return this._http.put(url, body, options).pipe(tap((res) => {
+            //
+        }), finalize(() => {
+            this.hideLoader();
+        }));
     }
-    if (!options.headers['Accept']) {
-      options.headers['Accept'] = 'application/json';
+    public delete = (url: string, params?: any, options?: any): Observable<any> => {
+        options = this.prepareOptions(options);
+        options.search = this.objectToParams(params);
+        return this._http.delete(url, options).pipe(tap((res) => {
+            //
+        }), finalize(() => {
+            this.hideLoader();
+        }));
     }
-    options.headers['auth-key'] =
-        'RW6m8O_bAvRcPN6EL4QmV1rvmG9bP-z6ZhhIXSxRBMnu6TaqGSvqhcGp3rykzfhqyHSIMYJvskOnbvb76p3D6pqLzX1E2QPtA-AN-H8qM8A=';
-    options.headers = new HttpHeaders(options.headers);
-    return options;
-  }
+    public patch = (url: string, body: any, options?: any): Observable<any> => {
+        options = this.prepareOptions(options);
+        return this._http.patch(url, body, options).pipe(tap((res) => {
+            //
+        }), finalize(() => {
+            this.hideLoader();
+        }));
+    }
+    public prepareOptions(options: any): any {
+        this.showLoader();
+        let sessionId = this.generalService.sessionId;
+        options = options || {};
 
-  public isPrimitive(value) {
-    return value == null || (typeof value !== 'function' && typeof value !== 'object');
-  }
+        if (!options.headers) {
+            options.headers = {} as any;
+        }
 
-  public objectToParams(object = {}) {
-    return Object.keys(object).map((value) => {
-      let objectValue = this.isPrimitive(object[value]) ? object[value] : JSON.stringify(object[value]);
-      return `${value}=${objectValue}`;
-    }).join('&');
-  }
+        if (sessionId) {
+            options.headers['Session-Id'] = sessionId;
+        }
+        options.headers['cache-control'] = 'no-cache';
+        if (!options.headers['Content-Type']) {
+            options.headers['Content-Type'] = 'application/json';
+        }
+        if (options.headers['Content-Type'] === 'multipart/form-data') {
+            delete options.headers['Content-Type'];
+        }
+        if (!options.headers['Accept']) {
+            options.headers['Accept'] = 'application/json';
+        }
+        options.headers = new HttpHeaders(options.headers);
+        return options;
+    }
 
-  private showLoader(): void {
-    this._loaderService.show();
-  }
+    public isPrimitive(value) {
+        return value == null || (typeof value !== 'function' && typeof value !== 'object');
+    }
 
-  private hideLoader(): void {
-    this._loaderService.hide();
-  }
+    public objectToParams(object = {}) {
+        return Object.keys(object).map((value) => {
+            let objectValue = this.isPrimitive(object[value]) ? object[value] : JSON.stringify(object[value]);
+            return `${value}=${objectValue}`;
+        }).join('&');
+    }
+
+    private showLoader(): void {
+        this._loaderService.show();
+    }
+
+    private hideLoader(): void {
+        this._loaderService.hide();
+    }
 }

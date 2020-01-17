@@ -8,22 +8,68 @@ import { CommonPaginatedRequest } from '../modules/modules/api-modules/subscript
 
 @Injectable()
 export class PlansService {
-    private companyUniqueName: string;
-
     constructor(private errorHandler: ErrorHandler,
         private http: HttpWrapperService,
         @Optional() @Inject(ServiceConfig) private config: IServiceConfigArgs) {
     }
 
-    /**
-     * Create Account Service
-     */
-    public getAllPlans(model: CommonPaginatedRequest) {
-        return this.http.get(this.config.apiUrl + PLANS_API.GET_PLANS, model)
+    public getAllPlans(model: CommonPaginatedRequest, post: any) {
+        let url = this.config.apiUrl + PLANS_API.GET_PLANS;
+        url = url.replace(":sortBy", model.sortBy);
+        url = url.replace(":sortType", model.sortType);
+        url = url.replace(":page", String(model.page));
+        url = url.replace(":count", String(model.count));
+
+        return this.http.post(url, post)
             .pipe(
                 map((res) => {
                     return res;
                 }),
                 catchError((e) => this.errorHandler.HandleCatch(e)));
+    }
+
+    public getCountry() {
+        let url = this.config.apiUrl + PLANS_API.GET_COUNTRIES;
+        return this.http.get(url).pipe(
+            map((res) => {
+                return res;
+            }));
+    }
+
+    public createPlan(post: any) {
+        let url = this.config.apiUrl + PLANS_API.CREATE_PLAN;
+
+        return this.http.post(url, post)
+            .pipe(
+                map((res) => {
+                    return res;
+                }),
+                catchError((e) => this.errorHandler.HandleCatch(e)));
+    }
+
+    public getCurrency() {
+        let url = this.config.apiUrl + PLANS_API.GET_CURRENCIES;
+        return this.http.get(url).pipe(
+            map((res) => {
+                return res;
+            }));
+    }
+
+    public getPlan(uniqueName) {
+        let url = this.config.apiUrl + PLANS_API.GET_PLAN_DETAILS;
+        url = url.replace(":uniqueName", uniqueName);
+
+        return this.http.get(url).pipe(
+            map((res) => {
+                return res;
+            }));
+    }
+
+    public getPlansStats() {
+        let url = this.config.apiUrl + PLANS_API.GET_PLAN_STATS;
+        return this.http.get(url).pipe(
+            map((res) => {
+                return res;
+            }));
     }
 }

@@ -1,6 +1,7 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { AdminActions } from './admin.actions';
+import { GeneralActions } from './general/general.action';
 
 /**
  * Do not specify providers for modules that might be imported by a lazy loaded module.
@@ -9,7 +10,8 @@ import { AdminActions } from './admin.actions';
 @NgModule({
   imports: [
     EffectsModule.forRoot([
-      AdminActions
+      AdminActions,
+      GeneralActions,
     ])
   ],
   exports: [EffectsModule]

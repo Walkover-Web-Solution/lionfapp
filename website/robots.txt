@@ -1,4 +1,0 @@
-User-agent: *
-Disallow: local.giddh.com
-Disallow: test.giddh.com
-Disallow: stage.giddh.com
