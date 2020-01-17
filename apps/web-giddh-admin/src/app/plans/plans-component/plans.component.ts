@@ -26,7 +26,7 @@ export class PlansComponent implements OnInit {
     public timeout: any;
     public bsValue: any = '';
     public defaultLoad: boolean = true;
-    public planStats: any[] = [];
+    public planStats: any = {};
 
     constructor(private plansService: PlansService, private generalService: GeneralService) {
 
