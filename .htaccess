@@ -1,5 +1,5 @@
 RewriteEngine On
-RewriteBase /vulture
+RewriteBase /
 
 RewriteCond %{ENV:REDIRECT_STATUS} ^$
 RewriteCond %{REQUEST_FILENAME} !-f
