@@ -177,8 +177,8 @@
             "prod": {
               "outputPath": "dist/apps/web-giddh-admin-prod",
               "extraWebpackConfig": "./webpack.prod.partial.js",
-              "baseHref": "https://giddh.com/vulture/",
-              "baseUrl": "giddh.com",
+              "baseHref": "https://vulture.giddh.com/",
+              "baseUrl": "vulture.giddh.com",
               "fileReplacements": [
                 {
                   "replace": "apps/web-giddh-admin/src/index.html",
