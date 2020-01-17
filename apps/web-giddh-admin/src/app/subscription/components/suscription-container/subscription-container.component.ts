@@ -44,11 +44,11 @@ export class SubscriptionContainerComponent implements OnInit {
     public inlineSearch: any = '';
     public togglePanelBool: boolean;
     public totalSubscriber: TotalSubscribers;
+    public searchedAdvancedRequestModelByAdvanceSearch: AdvanceSearchRequestSubscriptions;
     public advanceSearchRequest: AdvanceSearchRequestSubscriptions = {
         signUpOnFrom: '',
         subscriptionId: '',
-        startedAtFrom: ''
-
+        startedAtFrom: '',
     };
 
     constructor(private store: Store<AppState>, private adminActions: AdminActions, private toasty: ToasterService,
@@ -161,8 +161,11 @@ export class SubscriptionContainerComponent implements OnInit {
      */
     public pageChanged(event: any): void {
         this.subscriptionRequest.page = event.page;
-        this.getSubscriptionData(this.subscriptionRequest);
-
+        if (this.isFromAdvanceSearchRes) {
+            this.getAdvancedSearchedSubscriptions(this.searchedAdvancedRequestModelByAdvanceSearch);
+        } else {
+            this.getSubscriptionData(this.subscriptionRequest);
+        }
     }
     public getSubscriptionData(subscrieRequest) {
         this.store.dispatch(this.adminActions.getSubscription(subscrieRequest));
@@ -176,7 +179,11 @@ export class SubscriptionContainerComponent implements OnInit {
             }
         });
     }
-
+    public advanceSearchRequestEmitter(event) {
+        if (event) {
+            this.searchedAdvancedRequestModelByAdvanceSearch = event;
+        }
+    }
     public togglePanel() {
         if (this.togglePanelBool) {
             this.togglePanelBool = false;
@@ -213,7 +220,11 @@ export class SubscriptionContainerComponent implements OnInit {
         }
 
         this.subscriptionRequest.sortBy = column;
-        this.getSubscriptionData(this.subscriptionRequest);
+        if (this.isFromAdvanceSearchRes) {
+            this.getAdvancedSearchedSubscriptions(this.searchedAdvancedRequestModelByAdvanceSearch);
+        } else {
+            this.getSubscriptionData(this.subscriptionRequest);
+        }
     }
     /**
      * To search input box closed
