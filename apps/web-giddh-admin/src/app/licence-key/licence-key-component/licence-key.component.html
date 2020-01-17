@@ -7,24 +7,26 @@
             <table class="table table-bordered basic subscrib-list-table card-list-table table-striped">
                 <thead>
                     <tr>
-                        <th>Sub. on</th>
+                        <th>
+                          Subscribed On
+                        </th>
                         <th>Sub ID</th>
                         <th>User Name</th>
                         <th>Plan</th>
-                        <th (click)="sortBy('currentcompanycount')">No of Company <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-angle-down': getAllLicenceKeyRequest.sort === 'desc' && getAllLicenceKeyRequest.sortBy === 'currentcompanycount', 'fa-angle-up': (getAllLicenceKeyRequest.sort === 'asc' && getAllLicenceKeyRequest.sortBy === 'currentcompanycount') || getAllLicenceKeyRequest.sortBy !== 'currentcompanycount'}"></i></th>
+                        <th class="transform-none" (click)="sortBy('currentcompanycount')">No of Company <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-angle-down': getAllLicenceKeyRequest.sort === 'desc' && getAllLicenceKeyRequest.sortBy === 'currentcompanycount', 'fa-angle-up': (getAllLicenceKeyRequest.sort === 'asc' && getAllLicenceKeyRequest.sortBy === 'currentcompanycount') || getAllLicenceKeyRequest.sortBy !== 'currentcompanycount'}"></i></th>
                         <th (click)="sortBy('balance')">Balance <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-angle-down': getAllLicenceKeyRequest.sort === 'desc' && getAllLicenceKeyRequest.sortBy === 'balance', 'fa-angle-up': (getAllLicenceKeyRequest.sort === 'asc' && getAllLicenceKeyRequest.sortBy === 'balance') || getAllLicenceKeyRequest.sortBy !== 'balance'}"></i></th>
                         <th (click)="sortBy('transactionlimit')">Transaction Limit <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-angle-down': getAllLicenceKeyRequest.sort === 'desc' && getAllLicenceKeyRequest.sortBy === 'transactionlimit', 'fa-angle-up': (getAllLicenceKeyRequest.sort === 'asc' && getAllLicenceKeyRequest.sortBy === 'transactionlimit') || getAllLicenceKeyRequest.sortBy !== 'transactionlimit'}"></i></th>
                         <th>License Key </th>
                         <th (click)="sortBy('status')">Status <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-angle-down': getAllLicenceKeyRequest.sort === 'desc' && getAllLicenceKeyRequest.sortBy === 'status', 'fa-angle-up': (getAllLicenceKeyRequest.sort === 'asc' && getAllLicenceKeyRequest.sortBy === 'status') || getAllLicenceKeyRequest.sortBy !== 'status'}"></i></th>
                         <th>Expiry</th>
                         <th>Total Amount</th>
-                        <th>Comments</th>
+                        <th width="15%">Comments</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let item of items">
                         <td data-title="Sub. on">{{item.subOn}}</td>
-                        <td data-title="Sub ID"><a href="javascript:void(0)" (click)="openSubscriptionModal(template, item.subscriptionId)">{{item.subscriptionId}}</a></td>
+                        <td data-title="Sub ID"><a href="javascript:void(0)" (click)="openEditSubscription( item.subscriptionId)">{{item.subscriptionId}}</a></td>
                         <td data-title="User Name">{{item.user?.name}}</td>
                         <td data-title="Plan">{{item.planName}}</td>
                         <td data-title="No of Company">{{item.currentCompanyCount}}</td>
@@ -34,10 +36,12 @@
                         <td data-title="Status">{{item.licenceKeyStatus}}</td>
                         <td data-title="Expiry">{{item.subExpiry}}</td>
                         <td data-title="Total Amount">{{item.amount}}</td>
-                        <td data-title="Comments"><span *ngIf="!item.expanded">{{item.comments | slice:0:100}}</span><span *ngIf="item.comments && item.comments.length > 100 && !item.expanded">...</span><span *ngIf="item.expanded">{{item.comments}}</span>&nbsp;<a href="javascript:;" *ngIf="item.comments && item.comments.length > 100" (click)="item.expanded = !item.expanded" [ngClass]="{'fa': 1 === 1, 'fa-arrows-alt': !item.expanded, 'fa-expand': item.expanded}" title="{{item.expanded ? 'Collapse' : 'Expand'}}"></a></td>
+                        <td data-title="Comments"><span *ngIf="!item.expanded">{{item.comments | slice:0:100}}</span><span *ngIf="item.comments && item.comments.length > 100 && !item.expanded">...</span><span *ngIf="item.expanded">{{item.comments}}</span>&nbsp;
+                            <a href="javascript:;" *ngIf="item.comments && item.comments.length > 100" (click)="item.expanded = !item.expanded" [ngClass]="{'fa': 1 === 1, 'fa-arrows-alt': !item.expanded, 'fa-expand': item.expanded}" title="{{item.expanded ? 'Collapse' : 'Expand'}}"></a>
+                        </td>
                     </tr>
                     <tr *ngIf="!items || items.length === 0">
-                        <td colspan="12" align="center">No records found.</td> 
+                        <td colspan="12" align="center">No records found.</td>
                     </tr>
                 </tbody>
             </table>
@@ -47,6 +51,3 @@
         </div>
     </div>
 </div>
-<ng-template class="modal-ubscription" #template>
-    <app-subscription-modal [subscriptionId]="subscriptionId"></app-subscription-modal>
-</ng-template>

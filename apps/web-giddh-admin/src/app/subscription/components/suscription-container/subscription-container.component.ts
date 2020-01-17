@@ -17,10 +17,10 @@ import { GeneralService } from '../../../services/general.service';
 
 @Component({
     selector: 'app-suscription-container',
-    templateUrl: './suscription-container.component.html',
-    styleUrls: ['./suscription-container.component.scss']
+    templateUrl: './subscription-container.component.html',
+    styleUrls: ['./subscription-container.component.scss']
 })
-export class SuscriptionContainerComponent implements OnInit {
+export class SubscriptionContainerComponent implements OnInit {
 
     @ViewChild('SubscribersSignupField') public SubscribersSignupField;
     @ViewChild('subscribOnField') public subscribOnField;
@@ -31,6 +31,9 @@ export class SuscriptionContainerComponent implements OnInit {
     public subscriptionId: any = '';
     public searchViaSubscriptionId$ = new Subject<string>();
     public searchViaSubscriptionId: string;
+    public isFromAdvanceSearchRes: boolean = false;
+    public togglePlanDetailsPanelBool: boolean;
+
 
 
     private destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
@@ -53,21 +56,15 @@ export class SuscriptionContainerComponent implements OnInit {
 
 
     }
-
-    public openEditModal(editPlan: TemplateRef<any>) {
-        this.modalRefEdit = this.modalService.show(
-            editPlan,
-            Object.assign({}, { class: 'gray modal-lg' })
-        );
-    }
-
-
-    public openSubscriptionModal(template: TemplateRef<any>, subscriptionId) {
+    /**
+     *To navigate edit subscription 
+     *
+     * @param {*} subscriptionId
+     * @memberof SubscriptionContainerComponent
+     */
+    public openEditSubscription(subscriptionId) {
         this.subscriptionId = subscriptionId;
-        this.modalRef = this.modalService.show(
-            template,
-            Object.assign({}, { class: 'gray modal-lg' })
-        );
+        this.router.navigate([`admin/subscription/edit/${subscriptionId}`]);
     }
 
     ngOnInit() {
@@ -90,13 +87,23 @@ export class SuscriptionContainerComponent implements OnInit {
         });
 
     }
+    /**
+     * To reset Advance search request component
+     *
+     * @memberof SubscriptionContainerComponent
+     */
     public resetAdvanceSearch() {
         this.advanceSearchRequest.signUpOnFrom = '';
         this.advanceSearchRequest.startedAtFrom = '';
         this.advanceSearchRequest.subscriptionId = '';
 
     }
-
+    /**
+     * dispatched advance search to get subscriptions
+     *
+     * @param {*} advanceSearchRequest
+     * @memberof SubscriptionContainerComponent
+     */
     public getAdvancedSearchedSubscriptions(advanceSearchRequest) {
         this.store.dispatch(this.adminActions.getSubscriptionAdvancedSearch(advanceSearchRequest));
     }
@@ -107,10 +114,15 @@ export class SuscriptionContainerComponent implements OnInit {
         this.subscriptionRequest.sortBy = 'ADDITIONAL_TRANSACTIONS';
         this.subscriptionRequest.sortType = 'desc';
     }
-
+    /**
+     * set subscriptions data
+     *
+     * @memberof SubscriptionContainerComponent
+     */
     public setAllSubscriberList() {
         this.store.pipe(select(s => s.subscriptions.allSubscriptions), takeUntil(this.destroyed$)).subscribe(res => {
             if (res) {
+                this.isFromAdvanceSearchRes = res.fromAdvanceSearch;
                 if (res.status === 'success') {
                     this.subscriberRes = res.body;
                     this.subscriptionData = [];
@@ -142,12 +154,13 @@ export class SuscriptionContainerComponent implements OnInit {
         this.getAdvancedSearchedSubscriptions(this.advanceSearchRequest);
 
     }
-
-    public RightSlide() {
-        this.rightToggle = !this.rightToggle;
-    }
+    /**
+     *Pagination 
+     *
+     * @param {*} event page no
+     * @memberof SubscriptionContainerComponent
+     */
     public pageChanged(event: any): void {
-
         this.subscriptionRequest.page = event.page;
         this.getSubscriptionData(this.subscriptionRequest);
 
@@ -171,16 +184,28 @@ export class SuscriptionContainerComponent implements OnInit {
         } else {
             this.togglePanelBool = true;
         }
+        this.toggleBodyClass();
     }
     public hidePopup() {
         this.togglePanelBool = false;
+        this.toggleBodyClass();
     }
+    /**
+     *Hard reset all applied filters
+     *
+     * @memberof SubscriptionContainerComponent
+     */
     public resetFilters() {
         this.setDefaultrequest();
         this.resetAdvanceSearch();
         this.getSubscriptionData(this.subscriptionRequest);
     }
-
+    /**
+     *to sort table 
+     *
+     * @param {*} column  search params
+     * @memberof SubscriptionContainerComponent
+     */
     public sortBy(column) {
         if (column === this.subscriptionRequest.sortBy) {
             this.subscriptionRequest.sortType = (this.subscriptionRequest.sortType === "asc") ? "desc" : "asc";
@@ -191,9 +216,28 @@ export class SuscriptionContainerComponent implements OnInit {
         this.subscriptionRequest.sortBy = column;
         this.getSubscriptionData(this.subscriptionRequest);
     }
+    /**
+     * To search input box closed
+     *
+     * @memberof SubscriptionContainerComponent
+     */
     public hideOpenedSearchBox() {
         if (this.inlineSearch) {
             this.inlineSearch = null;
+        }
+    }
+
+
+    /**
+     * This function is used to add fixed class to body to remove veritical scrolling on page
+     *
+     * @memberof PlansComponent
+     */
+    public toggleBodyClass() {
+        if (this.togglePlanDetailsPanelBool || this.togglePanelBool) {
+            document.querySelector('body').classList.add('fixed');
+        } else {
+            document.querySelector('body').classList.remove('fixed');
         }
     }
 

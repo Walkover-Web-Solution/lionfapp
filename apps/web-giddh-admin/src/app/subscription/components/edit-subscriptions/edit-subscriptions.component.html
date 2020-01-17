@@ -1,0 +1,93 @@
+<!-- <div class="modal-header">
+    <h4 class="modal-title pull-left">2019-1002</h4>
+    <h4 class="active-modal">
+        <span class="active"></span> Active</h4>
+    <button type="button" class="close pull-right" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div> -->
+<div class="modal-body">
+    <div class="row" *ngIf="plansData && plansData?.subscription">
+        <div class="col-sm-6 font-14">
+            <p class="mb-0">{{plansData?.subscription?.userDetails?.name}}</p>
+            <p class="mb-0">{{plansData?.subscription?.userDetails?.email}}</p>
+            <p class="mb-0">{{plansData?.subscription?.userDetails?.mobileno}}</p>
+        </div>
+        <div class="col-sm-6 text-right xs-left">
+            <!-- <a href="javascript:void(0)" class="btn btn-blue mr-1">Email</a>
+            <a href="javascript:void(0)" class="btn btn-blue mr-1">SMS</a> -->
+            <!-- <a class="btn btn-blue mr-1" (click)="openEditModal(editPlan)">Edit</a> -->
+        </div>
+    </div>
+
+    <div class="row mt-2 mb-2" *ngIf="plansData && plansData?.subscription">
+        <div class="col-sm-3 col-xs-4">
+            <p class="text-gray">Plan Name</p>
+            <h3 class="text-orange">{{plansData?.subscription?.planDetails?.name}}</h3>
+        </div>
+        <div class="col-sm-3 col-xs-4">
+            <p class="text-gray">No of Companies</p>
+            <h3 class="text-orange">{{plansData?.subscription?.totalCompanies}}/{{plansData?.subscription?.planDetails?.companiesLimit}}</h3>
+        </div>
+        <div class="col-sm-3 col-xs-4">
+            <p class="text-gray">Amount</p>
+            <h3 class="text-orange">{{plansData?.subscription?.planDetails?.amount}}/-</h3>
+        </div>
+    </div>
+
+    <div class="clearfix">
+        <tabset class="custom-tabs">
+            <tab heading="Companies" id="tab1">
+                <div class="table-responsive">
+                    <table class="table table-bordered basic subscrib-list-table card-list-table">
+                        <thead>
+                            <tr>
+                                <th>Company Name</th>
+                                <th>Subscribed On</th>
+                                <th>Subscription ID</th>
+                                <th>Balance</th>
+                                <th>Transaction Limit</th>
+                                <th>Total Amount</th>
+                                <th>Additional Transaction</th>
+                                <th>Additional Charges</th>
+                                <th>rate/Transaction</th>
+                                <th>Status</th>
+                                <th>Expiry</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of companiesData">
+                                <td data-title="Company Name">{{item.name}}</td>
+                                <td data-title="Subscribeon">{{item?.subscription?.startedAt}}</td>
+                                <td data-title="Subcription1">{{item?.subcription}}</td>
+                                <td data-title="Balance">{{item?.subscription?.balance}}</td>
+                                <td data-title="Tranaction">{{item?.subscription?.planDetails?.transactionLimit}}</td>
+                                <td data-title="Total">{{item?.subscription?.planDetails?.amount}}</td>
+                                <td data-title="Additional">{{item?.subscription?.additionalTransactions}}</td>
+                                <td data-title="Additional">{{item?.subscription?.additionalCharges}}</td>
+                                <td data-title="rate">{{item.subscription?.planDetails?.ratePerExtraTransaction}}</td>
+                                <td data-title="Status">{{item?.subscription?.status}}</td>
+                                <td data-title="Expiry">{{item?.subscription?.expiry}}</td>
+                            </tr>
+                            <tr *ngIf="!companiesData || companiesData.length === 0">
+                                <td colspan="11" align="center">No records found.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </tab>
+            <tab heading="Log" disabled *ngIf="subscriptionsAuditLogs && subscriptionsAuditLogs.length>0">
+                <ul class="log-items mt-3 mb-3">
+                    <ng-container *ngFor="let item of subscriptionsAuditLogs">
+                        <li>{{item.message}}</li>
+                    </ng-container>
+                </ul>
+            </tab>
+        </tabset>
+    </div>
+</div>
+
+
+<ng-template #editPlan>
+    <app-editPlan-modal></app-editPlan-modal>
+</ng-template>

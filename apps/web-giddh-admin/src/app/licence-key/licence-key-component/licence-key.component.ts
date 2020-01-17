@@ -3,6 +3,7 @@ import { LicenceService } from '../../services/licence.service';
 import { SubscriberList } from '../../modules/modules/api-modules/subscription';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 import { GeneralService } from '../../services/general.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-licence-key',
@@ -17,7 +18,7 @@ export class LicenceKeyComponent implements OnInit {
     public modalRef: BsModalRef;
     public subscriptionId: any = '';
 
-    constructor(private licenseService: LicenceService, private modalService: BsModalService, private generalService: GeneralService) {
+    constructor(private licenseService: LicenceService, private modalService: BsModalService, private generalService: GeneralService, private router: Router) {
 
     }
 
@@ -90,11 +91,8 @@ export class LicenceKeyComponent implements OnInit {
      * @param {*} subscriptionId
      * @memberof LicenceKeyComponent
      */
-    public openSubscriptionModal(template: TemplateRef<any>, subscriptionId) {
+    public openEditSubscription(subscriptionId) {
         this.subscriptionId = subscriptionId;
-        this.modalRef = this.modalService.show(
-            template,
-            Object.assign({}, { class: 'gray modal-lg' })
-        );
+        this.router.navigate([`admin/subscription/edit/${subscriptionId}`]);
     }
 }

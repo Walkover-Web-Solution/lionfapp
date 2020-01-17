@@ -7,20 +7,22 @@
                     <input type="text" class="form-control date-range-picker" readonly [(bsValue)]="bsValue"
                         placeholder="Select Date" (bsValueChange)="onChangeFilterDate($event)" bsDaterangepicker>
                 </div>
-                <button class=" btn-link" *ngIf="getUserListPostRequest.signUpOnFrom" (click)="resetFilters();"><i
-                        class="icon icon-loop2
+                <button class=" btn-link" *ngIf="getUserListPostRequest.signUpOnFrom || getUserListPostRequest.userName || getUserListPostRequest.email || getUserListPostRequest.mobile || getUserListPostRequest.subscriptionId" (click)="resetFilters();"><i class="icon icon-loop2
               "></i> Clear Filter</button>
             </div>
-
         </div>
     </div>
     <div class="page-content">
-
         <div class="table-responsive table-height">
             <table class="table table-bordered basic subscrib-list-table card-list-table">
                 <thead>
                     <tr (clickOutside)="inlineSearch = null">
-                        <th>Signup Date</th>
+                        <th>
+                            <div class="d-flex align-items-center justify-content-between">
+                                Signup Date
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                        </th>
 
                         <th class="table-search">
                             <div [hidden]="inlineSearch == 'userName'">
@@ -96,14 +98,9 @@
                         <td data-title="Signup Date">{{userSubscription.userDetails.signUpOn}}</td>
                         <td data-title="Name">{{userSubscription.userDetails.name}}</td>
                         <td data-title="Email">{{userSubscription.userDetails.email}}</td>
-                        <td data-title="Mobile">{{userSubscription.userDetails.mobileno}}</td>
-                        <td data-title="Subscription ID"><a href="javascript:void(0)"
-                                (click)="openSubscriptionModal(template, userSubscription.subscriptions[0].subscriptionId);"
-                                *ngIf="userSubscription.subscriptions?.length > 0">{{ userSubscription.subscriptions.length > 1 ? 'Multiple' : userSubscription.subscriptions[0].subscriptionId}}</a>
-                        </td>
-                        <td data-title="Plan Name"><span
-                                *ngIf="userSubscription.subscriptions?.length > 0">{{userSubscription.subscriptions[0].planDetails.name}}</span>
-                        </td>
+                        <td data-title="Mobile" class="nowrap">{{userSubscription.userDetails.mobileno}}</td>
+                        <td data-title="Subscription ID"><a href="javascript:void(0)" (click)="openEditSubscription(userSubscription.subscriptions[0].subscriptionId);" *ngIf="userSubscription.subscriptions?.length > 0">{{ userSubscription.subscriptions.length > 1 ? 'Multiple' : userSubscription.subscriptions[0].subscriptionId}}</a></td>
+                        <td data-title="Plan Name"><span *ngIf="userSubscription.subscriptions?.length > 0">{{userSubscription.subscriptions[0].planDetails.name}}</span></td>
                         <td data-title="No. of Companies">{{userSubscription.totalCompanies}}</td>
                         <td data-title="Total Amount">{{userSubscription.totalAmount}}/- <a href="javascript:void(0)"
                                 *ngIf="userSubscription.subscriptions?.length > 1"
@@ -118,9 +115,7 @@
                         <td data-title="Name">&nbsp;</td>
                         <td data-title="Email">&nbsp;</td>
                         <td data-title="Mobile">&nbsp;</td>
-                        <td data-title="Subscription ID"><a href="javascript:void(0)"
-                                (click)="openSubscriptionModal(template, userSubscriptionInner.subscriptionId);">{{userSubscriptionInner.subscriptionId}}</a>
-                        </td>
+                        <td data-title="Subscription ID"><a href="javascript:void(0)" (click)="openEditSubscription( userSubscriptionInner.subscriptionId);">{{userSubscriptionInner.subscriptionId}}</a></td>
                         <td data-title="Plan Name"><span>{{userSubscriptionInner.planDetails.name}}</span></td>
                         <td data-title="No. of Companies">{{userSubscriptionInner.companyCount}}</td>
                         <td data-title="Total Amount">{{userSubscriptionInner.planDetails.amount}}/-</td>
@@ -179,6 +174,3 @@
 
     </div>
 </div>
-<ng-template class="modal-ubscription" #template>
-    <app-subscription-modal [subscriptionId]="subscriptionId"></app-subscription-modal>
-</ng-template>
