@@ -64,4 +64,12 @@ export class PlansService {
                 return res;
             }));
     }
+
+    public getPlansStats() {
+        let url = this.config.apiUrl + PLANS_API.GET_PLAN_STATS;
+        return this.http.get(url).pipe(
+            map((res) => {
+                return res;
+            }));
+    }
 }

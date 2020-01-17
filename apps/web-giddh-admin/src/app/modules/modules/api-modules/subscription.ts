@@ -5,6 +5,7 @@ export class CommonPaginatedRequest {
     public page?: number;
     public sortType?: string;
     public sortBy?: string;
+    public id?: string;
 }
 
 export class SubscriberList {
@@ -86,4 +87,9 @@ export class AdvanceSearchRequestSubscriptions {
     userName?: string;
     email?: string;
     mobile?: string;
+}
+export class UpdateSubscriptionModel {
+    public planUniqueName?: string;
+    public status?: string; // active || inactive || expired
+
 }
