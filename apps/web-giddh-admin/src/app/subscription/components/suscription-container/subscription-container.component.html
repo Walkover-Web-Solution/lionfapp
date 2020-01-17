@@ -22,8 +22,8 @@
                                 </div>
                             </div>
                             <div class="input-container" [hidden]="inlineSearch !== 'subscribersSignup'">
-                                <input type="text" placeholder="Signup on" class="form-control w100" #subscribersSignupField [(ngModel)]="advanceSearchRequest.signUpOnFrom" [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }" (ngModelChange)="searchViaAdvanceSearch()" bsDatepicker name="signUpOnFrom"
-                                />
+                                <input type="text" placement="bottom" placeholder="Signup on" readonly class="form-control w100" #subscribersSignupField [(ngModel)]="advanceSearchRequest.signUpOnFrom" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" (ngModelChange)="searchViaAdvanceSearch()"
+                                    bsDatepicker name="signUpOnFrom" />
                             </div>
                         </th>
                         <th class="table-search">
@@ -33,8 +33,9 @@
                                     <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('subscribOn')"></i>
                                 </div>
                             </div>
-                            <div class="input-container" [hidden]="inlineSearch !== 'subscribOn'">
-                                <input type="text" placeholder="Subscribe on" class="form-control w100" #subscribOnField name="subscribOn" />
+                            <div class="input-container" placement="bottom" [hidden]="inlineSearch !== 'subscribOn'">
+                                <input type="text" placeholder="Subscribe on" class="form-control w100" #subscribOnField readonly [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker [(ngModel)]="advanceSearchRequest.startedAtFrom" (ngModelChange)="searchViaAdvanceSearch()" name="startedAtFrom"
+                                />
                             </div>
                         </th>
 
@@ -184,4 +185,4 @@
     <app-editPlan-modal></app-editPlan-modal>
 </ng-template>
 
-<app-advance-search *ngIf="togglePanelBool" [rightToggle]="togglePanelBool" (hidePopup)="hidePopup()"></app-advance-search>
+<app-advance-search *ngIf="togglePanelBool" [rightToggle]="togglePanelBool" (advanceSearchRequestEmitter)="advanceSearchRequestEmitter($event)" (hidePopup)="hidePopup()"></app-advance-search>

@@ -44,11 +44,11 @@ export class SubscriptionContainerComponent implements OnInit {
     public inlineSearch: any = '';
     public togglePanelBool: boolean;
     public totalSubscriber: TotalSubscribers;
+    public searchedAdvancedRequestModelByAdvanceSearch: AdvanceSearchRequestSubscriptions;
     public advanceSearchRequest: AdvanceSearchRequestSubscriptions = {
         signUpOnFrom: '',
         subscriptionId: '',
-        startedAtFrom: ''
-
+        startedAtFrom: '',
     };
 
     constructor(private store: Store<AppState>, private adminActions: AdminActions, private toasty: ToasterService,
@@ -105,7 +105,7 @@ export class SubscriptionContainerComponent implements OnInit {
      * @memberof SubscriptionContainerComponent
      */
     public getAdvancedSearchedSubscriptions(advanceSearchRequest) {
-        this.store.dispatch(this.adminActions.getSubscriptionAdvancedSearch(advanceSearchRequest));
+        this.store.dispatch(this.adminActions.getSubscriptionAdvancedSearch(advanceSearchRequest, this.subscriptionRequest));
     }
 
     public setDefaultrequest() {
@@ -150,7 +150,6 @@ export class SubscriptionContainerComponent implements OnInit {
     public searchViaAdvanceSearch() {
         this.advanceSearchRequest.signUpOnFrom = this.advanceSearchRequest.signUpOnFrom ? moment(this.advanceSearchRequest.signUpOnFrom).format(GIDDH_DATE_FORMAT) : '';
         this.advanceSearchRequest.startedAtFrom = this.advanceSearchRequest.startedAtFrom ? moment(this.advanceSearchRequest.startedAtFrom).format(GIDDH_DATE_FORMAT) : '';
-        console.log(this.advanceSearchRequest);
         this.getAdvancedSearchedSubscriptions(this.advanceSearchRequest);
 
     }
@@ -162,8 +161,11 @@ export class SubscriptionContainerComponent implements OnInit {
      */
     public pageChanged(event: any): void {
         this.subscriptionRequest.page = event.page;
-        this.getSubscriptionData(this.subscriptionRequest);
-
+        if (this.isFromAdvanceSearchRes) {
+            this.getAdvancedSearchedSubscriptions(this.searchedAdvancedRequestModelByAdvanceSearch);
+        } else {
+            this.getSubscriptionData(this.subscriptionRequest);
+        }
     }
     public getSubscriptionData(subscrieRequest) {
         this.store.dispatch(this.adminActions.getSubscription(subscrieRequest));
@@ -177,7 +179,11 @@ export class SubscriptionContainerComponent implements OnInit {
             }
         });
     }
-
+    public advanceSearchRequestEmitter(event) {
+        if (event) {
+            this.searchedAdvancedRequestModelByAdvanceSearch = event;
+        }
+    }
     public togglePanel() {
         if (this.togglePanelBool) {
             this.togglePanelBool = false;
@@ -214,7 +220,11 @@ export class SubscriptionContainerComponent implements OnInit {
         }
 
         this.subscriptionRequest.sortBy = column;
-        this.getSubscriptionData(this.subscriptionRequest);
+        if (this.isFromAdvanceSearchRes) {
+            this.getAdvancedSearchedSubscriptions(this.searchedAdvancedRequestModelByAdvanceSearch);
+        } else {
+            this.getSubscriptionData(this.subscriptionRequest);
+        }
     }
     /**
      * To search input box closed
