@@ -8,7 +8,7 @@
                 <thead>
                     <tr>
                         <th>
-                          Subscribed On
+                            Subscribed On
                         </th>
                         <th>Sub ID</th>
                         <th>User Name</th>
@@ -25,17 +25,17 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let item of items">
-                        <td data-title="Sub. on">{{item.subOn}}</td>
-                        <td data-title="Sub ID"><a href="javascript:void(0)" (click)="openEditSubscription( item.subscriptionId)">{{item.subscriptionId}}</a></td>
-                        <td data-title="User Name">{{item.user?.name}}</td>
-                        <td data-title="Plan">{{item.planName}}</td>
-                        <td data-title="No of Company">{{item.currentCompanyCount}}</td>
-                        <td data-title="Transction Limit">{{item.balance}}</td>
-                        <td data-title="Balance">{{item.transactionLimit}}</td>
+                        <td data-title="Sub. on">{{item.subOn? item.subOn : '-'}}</td>
+                        <td data-title="Sub ID"><a (click)="openEditSubscription( item.subscriptionId)">{{item.subscriptionId? item.subscriptionId: '-'}}</a></td>
+                        <td data-title="User Name">{{item.user?.name?item.user?.name:'-'}}</td>
+                        <td data-title="Plan">{{item.planName?item.planName:'-'}}</td>
+                        <td data-title="No of Company">{{item.currentCompanyCount?item.currentCompanyCount:'-'}}</td>
+                        <td data-title="Transction Limit">{{item.balance?item.balance:'-'}}</td>
+                        <td data-title="Balance">{{item.transactionLimit?item.transactionLimit:'-'}}</td>
                         <td data-title="License Key">{{item.licenceKey ? item.licenceKey : '**********'}}</td>
-                        <td data-title="Status">{{item.licenceKeyStatus}}</td>
-                        <td data-title="Expiry">{{item.subExpiry}}</td>
-                        <td data-title="Total Amount">{{item.amount}}</td>
+                        <td data-title="Status">{{item.licenceKeyStatus?item.licenceKeyStatus:'-'}}</td>
+                        <td data-title="Expiry">{{item.subExpiry?item.subExpiry:'-'}}</td>
+                        <td data-title="Total Amount">{{item.amount?item.amount:'-'}}</td>
                         <td data-title="Comments"><span *ngIf="!item.expanded">{{item.comments | slice:0:100}}</span><span *ngIf="item.comments && item.comments.length > 100 && !item.expanded">...</span><span *ngIf="item.expanded">{{item.comments}}</span>&nbsp;
                             <a href="javascript:;" *ngIf="item.comments && item.comments.length > 100" (click)="item.expanded = !item.expanded" [ngClass]="{'fa': 1 === 1, 'fa-arrows-alt': !item.expanded, 'fa-expand': item.expanded}" title="{{item.expanded ? 'Collapse' : 'Expand'}}"></a>
                         </td>

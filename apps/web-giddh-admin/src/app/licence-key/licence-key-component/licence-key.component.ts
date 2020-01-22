@@ -46,8 +46,17 @@ export class LicenceKeyComponent implements OnInit {
                 this.items = [];
 
                 res.body.results.forEach(key => {
-                    key.subOn = key.subOn.replace(/-/g, "/");
-                    key.subExpiry = key.subExpiry.replace(/-/g, "/");
+                    if (key.subOn) {
+                        key.subOn = key.subOn.replace(/-/g, "/");
+                    } else {
+                        key.subOn = '';
+                    }
+                    if (key.subExpiry) {
+                        key.subExpiry = key.subExpiry.replace(/-/g, "/");
+                    } else {
+                        key.subExpiry = '';
+                    }
+
                     this.items.push(key);
                 });
             }
