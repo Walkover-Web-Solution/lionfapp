@@ -79,19 +79,26 @@
                     <tr>
                         <td data-title="Signup Date">{{userSubscription.userDetails.signUpOn}}</td>
                         <td data-title="Name">{{userSubscription.userDetails.name}}</td>
-                        <td data-title="Email">{{userSubscription.userDetails.email?userSubscription.userDetails.email:'-'}}</td>
-                        <td data-title="Mobile" class="nowrap">{{userSubscription.userDetails.mobileno?userSubscription.userDetails.mobileno:'-'}}</td>
-                        <td data-title="Subscription ID"><a href="javascript:void(0)" (click)="openEditSubscription(userSubscription.subscriptions[0].subscriptionId);" *ngIf="userSubscription.subscriptions?.length > 0">{{ userSubscription.subscriptions.length > 1 ? 'Multiple' : userSubscription.subscriptions[0].subscriptionId}}</a></td>
-                        <td data-title="Plan Name"><span *ngIf="userSubscription.subscriptions?.length > 0">{{userSubscription.subscriptions[0].planDetails.name}}</span></td>
+                        <td data-title="Email">
+                            {{userSubscription.userDetails.email?userSubscription.userDetails.email:'-'}}</td>
+                        <td data-title="Mobile" class="nowrap">
+                            {{userSubscription.userDetails.mobileno?userSubscription.userDetails.mobileno:'-'}}</td>
+                        <td data-title="Subscription ID"><a href="javascript:void(0)" (click)="openEditSubscription(userSubscription.subscriptions[0].subscriptionId);" *ngIf="userSubscription.subscriptions?.length > 0">{{ userSubscription.subscriptions.length > 1 ? 'Multiple' : userSubscription.subscriptions[0].subscriptionId}}</a>
+                        </td>
+                        <td data-title="Plan Name"><span *ngIf="userSubscription.subscriptions?.length > 0">{{userSubscription.subscriptions[0].planDetails.name}}</span>
+                        </td>
                         <td data-title="No. of Companies">{{userSubscription.totalCompanies}}</td>
-                        <td data-title="Total Amount">{{userSubscription.totalAmount}}/- <a href="javascript:void(0)" *ngIf="userSubscription.subscriptions?.length > 1" (click)="userSubscription.showInner = !userSubscription.showInner" class="d-inline-block pull-right"><span [ngClass]="{'fa': 1 === 1, 'fa-arrows-alt': !userSubscription.showInner, 'fa-expand': userSubscription.showInner}"></span></a></td>
+                        <td data-title="Total Amount">{{userSubscription.totalAmount}}/- <a href="javascript:void(0)" *ngIf="userSubscription.subscriptions?.length > 1" (click)="userSubscription.showInner = !userSubscription.showInner" class="d-inline-block pull-right"><span
+                                    [ngClass]="{'fa': 1 === 1, 'fa-arrows-alt': !userSubscription.showInner, 'fa-expand': userSubscription.showInner}"></span></a>
+                        </td>
                     </tr>
                     <tr [hidden]="userSubscription.subscriptions?.length === 1 || !userSubscription.showInner" *ngFor="let userSubscriptionInner of userSubscription.subscriptions;">
                         <td data-title="Signup Date">&nbsp;</td>
                         <td data-title="Name">&nbsp;</td>
                         <td data-title="Email">&nbsp;</td>
                         <td data-title="Mobile">&nbsp;</td>
-                        <td data-title="Subscription ID"><a href="javascript:void(0)" (click)="openEditSubscription( userSubscriptionInner.subscriptionId);">{{userSubscriptionInner.subscriptionId}}</a></td>
+                        <td data-title="Subscription ID"><a href="javascript:void(0)" (click)="openEditSubscription( userSubscriptionInner.subscriptionId);">{{userSubscriptionInner.subscriptionId}}</a>
+                        </td>
                         <td data-title="Plan Name"><span>{{userSubscriptionInner.planDetails.name}}</span></td>
                         <td data-title="No. of Companies">{{userSubscriptionInner.companyCount}}</td>
                         <td data-title="Total Amount">{{userSubscriptionInner.planDetails.amount}}/-</td>
@@ -107,7 +114,7 @@
         <div *ngIf="userSubscriptionData && userlistRes && userlistRes.totalItems > 50" class="paginationWrapper">
             <pagination [totalItems]="userlistRes.totalItems" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true" [itemsPerPage]="50" [rotate]="false" previousText="&#9668;" nextText="&#9658;" (pageChanged)="pageChanged($event)"></pagination>
         </div>
-
+        <!-- Todo : API is under process -->
         <!-- <div class="page-footer">
         <div class="row">
             <div class="col-md-1 col-sm-3 wrap-row">
