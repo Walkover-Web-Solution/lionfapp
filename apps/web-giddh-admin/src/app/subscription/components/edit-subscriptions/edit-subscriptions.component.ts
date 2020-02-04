@@ -36,9 +36,13 @@ export class EditSubscriptionsComponent implements OnInit {
     count: '',
     entityIdentifier: '',
   };
+  
 
   constructor(private store: Store<AppState>, private modalService: BsModalService, private generalActions: GeneralActions, private toasty: ToasterService, private adminActions: AdminActions, private subscriptionService: SubscriptionService, private router: Router, private generalService: GeneralService, private activateRoute: ActivatedRoute) {
     this.paginationRequest.from = '';
+    this.paginationRequest.page = 1;
+    this.paginationRequest.count = 20;
+
   }
 
   ngOnInit() {
@@ -75,6 +79,11 @@ export class EditSubscriptionsComponent implements OnInit {
       });;
     }
   }
+
+   public pageChanged(event) {
+        this.paginationRequest.page = event.page;
+        this.getAllCompaniesBuSubscriptionId();
+    }
 
   public getAuditLogs(auditLogRequestParams) {
     this.subscriptionService.getAuditLog(auditLogRequestParams).subscribe(resp => {
