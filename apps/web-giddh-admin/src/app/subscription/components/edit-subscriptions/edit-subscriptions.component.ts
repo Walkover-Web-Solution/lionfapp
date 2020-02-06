@@ -27,6 +27,8 @@ export class EditSubscriptionsComponent implements OnInit {
   public modalRefEdit: BsModalRef;
   public companiesAllRes: SubscriberList = new SubscriberList();
   public subscriptionsAuditLogs = [];
+  public subscriptionsAuditLogsResponse: any;
+
   public auditLogRequest: AuditLogsRequest = {
     entity: '',
     sort: '',
@@ -37,8 +39,12 @@ export class EditSubscriptionsComponent implements OnInit {
     entityIdentifier: '',
   };
 
+
   constructor(private store: Store<AppState>, private modalService: BsModalService, private generalActions: GeneralActions, private toasty: ToasterService, private adminActions: AdminActions, private subscriptionService: SubscriptionService, private router: Router, private generalService: GeneralService, private activateRoute: ActivatedRoute) {
     this.paginationRequest.from = '';
+    this.paginationRequest.page = 1;
+    this.paginationRequest.count = 20;
+
   }
 
   ngOnInit() {
@@ -76,12 +82,26 @@ export class EditSubscriptionsComponent implements OnInit {
     }
   }
 
-  public getAuditLogs(auditLogRequestParams) {
+  public pageChanged(event) {
+    this.paginationRequest.page = event.page;
+    this.getAllCompaniesBuSubscriptionId();
+  }
+
+/**
+ * API call to get audit log
+ *
+ * @param {*} auditLogRequestParams request model
+ * @memberof EditSubscriptionsComponent
+ */
+public getAuditLogs(auditLogRequestParams): void {
     this.subscriptionService.getAuditLog(auditLogRequestParams).subscribe(resp => {
       if (resp) {
         if (resp.status === 'success') {
-          if (resp.body.versions) {
-            this.subscriptionsAuditLogs = resp.body.versions;
+          if (resp.body && resp.body.paginatedResult) {
+            this.subscriptionsAuditLogsResponse = resp.body.paginatedResult;
+            if (resp.body.paginatedResult.results) {
+              this.subscriptionsAuditLogs = resp.body.paginatedResult.results
+            }
           } else {
             this.subscriptionsAuditLogs = resp.body.results;
           }
