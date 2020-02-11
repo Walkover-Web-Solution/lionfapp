@@ -320,6 +320,47 @@ a {
 
 
 /* table */
+.table-dropdown .mat-form-field-wrapper {
+  padding-bottom: 0px;
+}
+.table-dropdown .mat-form-field-infix {
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+}
+.table-dropdown .mat-select-arrow-wrapper {
+  display: none;
+}
+.table-dropdown .mat-form-field {
+  line-height: initial;
+}
+.table-dropdown .mat-form-field-wrapper {
+  padding-bottom: 0px;
+}
+.table-dropdown .mat-form-field-infix {
+  padding: 0px;
+  border: 0px;
+}
+.table-dropdown .mat-form-field-label-wrapper {
+  top: 0;
+  padding: 0px;
+}
+.table-dropdown .mat-form-field-label {
+  position: relative;
+  top: 0;
+  font-weight: 600;
+  color: #262626;
+}
+.table-dropdown .mat-form-field-underline {
+  display: none;
+}
+.table-dropdown .mat-form-field-appearance-legacy.mat-form-field-can-float .mat-input-server:focus+.mat-form-field-label-wrapper .mat-form-field-label, .table-dropdown .mat-form-field-appearance-legacy.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+  transform: none;
+  -ms-transform: translateY(-1.28125em) scale(.75);
+  width: 133.33333%;
+}
+
+
 
 .basic {
     background: #fff;
@@ -340,7 +381,16 @@ a {
   border-right:1px solid #c6c4c4;
   white-space: nowrap;
 }
-
+.multiselect-dropdown > li {
+  padding-right: 10px;
+  padding-left: 10px;
+}
+.btn-multiselect {
+  background: none;
+  border: 0px;
+  font-size: 13px;
+  padding: 0px 10px;
+}
 .basic>tbody>tr:hover td {
     background: #f4f5f8;
 }
