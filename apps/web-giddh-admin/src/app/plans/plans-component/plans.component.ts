@@ -3,7 +3,6 @@ import { PlansService } from '../../services/plan.service';
 import * as moment from 'moment/moment';
 import { Router } from '@angular/router';
 import { GeneralService } from '../../services/general.service';
-import {FormControl} from '@angular/forms';
 
 
 
@@ -15,8 +14,6 @@ import {FormControl} from '@angular/forms';
 
 export class PlansComponent implements OnInit {
 
-  toppings = new FormControl();
-  public countries: any[] = [];
 
     @ViewChild('planNameField') public planNameField;
 
@@ -34,26 +31,7 @@ export class PlansComponent implements OnInit {
     public planStats: any = {};
 
     constructor(private plansService: PlansService, private generalService: GeneralService) {
-      this.getCountry();
     }
-
-
-
-    /**
-     * This function is used to get all allowed onboarding countries
-     *
-     * @memberof CreatePlansComponent
-     */
-    public getCountry() {
-      this.plansService.getCountry().subscribe(res => {
-          if (res.status === 'success') {
-              res.body.forEach(key => {
-                  this.countries.push({ label: key.countryName, value: key.countryName });
-              });
-              this.countries.sort();
-          }
-      });
-  }
 
     /**
      * Initializes the component
