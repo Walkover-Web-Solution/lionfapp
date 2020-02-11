@@ -104,3 +104,13 @@ export class AuditLogsRequest {
     entityIdentifier: string;  // For ID of subscription or plan or etc.
 
 }
+
+/*
+ * request body for get all companies
+*/
+export class GetAllCompaniesRequest {
+    startedAtFrom: string = '';
+    companyName: string = '';
+    subscriptionId: string = '';
+    status: string[] = []; // "trial","expired"
+}

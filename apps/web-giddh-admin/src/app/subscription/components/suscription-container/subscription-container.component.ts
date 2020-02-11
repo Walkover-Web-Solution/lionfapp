@@ -7,7 +7,7 @@ import { Store, select } from '@ngrx/store';
 import { AdminActions } from '../../../actions/admin.actions';
 import { takeUntil, take, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
-import { CommonPaginatedRequest, SubscriberList, TotalSubscribers, AdvanceSearchRequestSubscriptions } from '../../../modules/modules/api-modules/subscription';
+import { CommonPaginatedRequest, SubscriberList, TotalSubscribers, AdvanceSearchRequestSubscriptions, GetAllCompaniesRequest } from '../../../modules/modules/api-modules/subscription';
 import { ToasterService } from '../../../services/toaster.service';
 import * as moment from 'moment/moment';
 import { GIDDH_DATE_FORMAT } from '../../../shared/defalutformatter/defaultDateFormat';
@@ -33,6 +33,7 @@ export class SubscriptionContainerComponent implements OnInit {
     public searchViaSubscriptionId: string;
     public isFromAdvanceSearchRes: boolean = false;
     public togglePlanDetailsPanelBool: boolean;
+    public getAllCompaniesRequest: GetAllCompaniesRequest = new GetAllCompaniesRequest()
 
 
 
@@ -64,6 +65,8 @@ export class SubscriptionContainerComponent implements OnInit {
      */
     public openEditSubscription(subscriptionId) {
         this.subscriptionId = subscriptionId;
+        this.getAllCompaniesRequest.subscriptionId = subscriptionId;
+        this.subscriptionService.setGetAllCompanyRequestObject(this.getAllCompaniesRequest)
         this.router.navigate([`admin/subscription/edit/${subscriptionId}`]);
     }
 

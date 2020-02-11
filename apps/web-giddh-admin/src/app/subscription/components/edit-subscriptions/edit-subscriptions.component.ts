@@ -7,7 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription, ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AdminActions } from '../../../actions/admin.actions';
-import { CommonPaginatedRequest, SubscriberList, AuditLogsRequest } from '../../../modules/modules/api-modules/subscription';
+import { CommonPaginatedRequest, SubscriberList, AuditLogsRequest, GetAllCompaniesRequest } from '../../../modules/modules/api-modules/subscription';
 import { SubscriptionService } from '../../../services/subscription.service';
 import { ToasterService } from '../../../services/toaster.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
@@ -28,7 +28,8 @@ export class EditSubscriptionsComponent implements OnInit {
   public companiesAllRes: SubscriberList = new SubscriberList();
   public subscriptionsAuditLogs = [];
   public subscriptionsAuditLogsResponse: any;
-
+  public getAllCompaniesRequest: GetAllCompaniesRequest = new GetAllCompaniesRequest();
+  public isDetailsShow: boolean = false;
   public auditLogRequest: AuditLogsRequest = {
     entity: '',
     sort: '',
@@ -48,24 +49,32 @@ export class EditSubscriptionsComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.getAllCompaniesRequest = this.subscriptionService.getGetAllCompanyRequestObject();
     this.activateRoute.params.subscribe(params => {
+      this.auditLogRequest.count = 50;
+      this.auditLogRequest.page = 1;
       if (params['subscriptionId']) {
         this.subscriptionId = params['subscriptionId'];
-        this.auditLogRequest.count = 50;
-        this.auditLogRequest.page = 1;
+        // this.getAllCompaniesRequest.subscriptionId = params['subscriptionId'];
         this.auditLogRequest.entity = 'SUBSCRIPTION';
         this.auditLogRequest.entityIdentifier = this.subscriptionId
+        this.isDetailsShow = true;
+      } else {
+        this.auditLogRequest.entity = 'SUBSCRIPTION';
+        this.auditLogRequest.entityIdentifier = this.getAllCompaniesRequest.subscriptionId;
+        this.isDetailsShow = false;
       }
       this.generalService.setCurrentPageTitle("view subscription detail");
     });
-    this.getAllCompaniesBuSubscriptionId();
-    this.getAuditLogs(this.auditLogRequest);
+    this.getAllCompanies();
+    if (this.auditLogRequest.entityIdentifier) {
+      this.getAuditLogs(this.auditLogRequest);
+    }
   }
 
-  public getAllCompaniesBuSubscriptionId() {
-    if (this.subscriptionId) {
-      this.subscriptionService.getAllCompaniesBySubscriptionId(this.subscriptionId, this.paginationRequest).subscribe(resp => {
+  public getAllCompanies() {
+    if (this.getAllCompaniesRequest && this.paginationRequest) {
+      this.subscriptionService.getAllCompanies(this.getAllCompaniesRequest, this.paginationRequest).subscribe(resp => {
         if (resp) {
           if (resp.status === 'success') {
             this.companiesData = [];
@@ -84,16 +93,16 @@ export class EditSubscriptionsComponent implements OnInit {
 
   public pageChanged(event) {
     this.paginationRequest.page = event.page;
-    this.getAllCompaniesBuSubscriptionId();
+    this.getAllCompanies();
   }
 
-/**
- * API call to get audit log
- *
- * @param {*} auditLogRequestParams request model
- * @memberof EditSubscriptionsComponent
- */
-public getAuditLogs(auditLogRequestParams): void {
+  /**
+   * API call to get audit log
+   *
+   * @param {*} auditLogRequestParams request model
+   * @memberof EditSubscriptionsComponent
+   */
+  public getAuditLogs(auditLogRequestParams): void {
     this.subscriptionService.getAuditLog(auditLogRequestParams).subscribe(resp => {
       if (resp) {
         if (resp.status === 'success') {
