@@ -29,3 +29,6 @@ export const LOGIN_API = {
 export const GMAIL_API = {
   GENERATE_GMAIL_TOKEN: 'company/:companyUniqueName/generate-mail-token' // POST
 };
+export const ONBOARDING_COUNTRIES = {
+  COUNTRIES_API: 'country?formName=onboarding&refresh=false' 
+};

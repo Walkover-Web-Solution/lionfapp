@@ -9,6 +9,7 @@ import { IForceClear } from '../../../theme/ng-virtual-select/sh-select.componen
 import { Observable, of as observableOf } from 'rxjs';
 import { Router } from '@angular/router';
 import { GeneralService } from '../../../services/general.service';
+import { AuthenticationService } from '../../../services/authentication.service';
 
 @Component({
     selector: 'app-generate-key',
@@ -23,6 +24,8 @@ export class GenerateKeyComponent implements OnInit {
     public getAllPlansPostRequest: any = {};
     public getAllPlansRequest: CommonPaginatedRequest = new CommonPaginatedRequest();
     public allPlans: IOption[] = [];
+    public selectedCountry: string = ''
+    public countrySource: IOption[] = [];
     public generateLicenseKeysRequest: any = {
         planUniqueName: '',
         noOfKeys: 1
@@ -34,9 +37,10 @@ export class GenerateKeyComponent implements OnInit {
     public generatedKeysAvailable: boolean = false;
     public forceClear$: Observable<IForceClear> = observableOf({ status: false });
 
-    constructor(private plansService: PlansService, private licenseService: LicenceService, private generalService: GeneralService, private toaster: ToasterService) {
+    constructor(private plansService: PlansService, private licenseService: LicenceService, private generalService: GeneralService, private toaster: ToasterService, private authenticationService: AuthenticationService) {
         this.getLicenseKeyStatistics();
         this.getAllPlans();
+        this.getOnboardCountries();
     }
 
     /**
@@ -60,6 +64,7 @@ export class GenerateKeyComponent implements OnInit {
         this.getAllPlansRequest.sortType = 'desc';
         this.plansService.getAllPlans(this.getAllPlansRequest, this.getAllPlansPostRequest).subscribe(res => {
             if (res.status === 'success') {
+                this.allPlans = [];
                 res.body.results.forEach(key => {
                     this.allPlans.push({ label: key.name, value: key.uniqueName });
                 });
@@ -248,5 +253,59 @@ export class GenerateKeyComponent implements OnInit {
                 this.generateLicenseKeysRequest.noOfKeys = 1000;
             }
         }
+    }
+
+    /**
+     * API call to get all onboarding countries
+     *
+     * @memberof GenerateKeyComponent
+     */
+    public getOnboardCountries() {
+        this.authenticationService.getCountry().subscribe(res => {
+            if (res.status === 'success') {
+                if (res.body && res.body.length > 0) {
+                    res.body.forEach(key => {
+                        this.countrySource.push({ label: key.countryName, value: key.alpha2CountryCode });
+                    });
+                }
+            } else {
+                this.toaster.clearAllToaster();
+                this.toaster.errorToast(res.message);
+            }
+        });
+    }
+
+    /**
+     * Select country call
+     *
+     * @param {*} event countryUniqueName
+     * @memberof GenerateKeyComponent
+     */
+    public selectCountry(event: IOption) {
+        if (event) {
+            this.getPlansUsingCountry(event.value);
+        }
+    }
+
+    /**
+     * API call to get all plans using country
+     *
+     * @param {*} countryCode  countryUniqueName
+     * @memberof GenerateKeyComponent
+     */
+    public getPlansUsingCountry(countryCode) {
+        this.authenticationService.getAllPlanUsingCountry(countryCode).subscribe(res => {
+            if (res.status === 'success') {
+                if (res.body && res.body.results) {
+                    this.allPlans = [];
+                    res.body.results.forEach(key => {
+                        this.allPlans.push({ label: key.name, value: key.uniqueName });
+                    });
+                }
+            } else {
+                this.toaster.clearAllToaster();
+                this.toaster.errorToast(res.message);
+            }
+        });
     }
 }
