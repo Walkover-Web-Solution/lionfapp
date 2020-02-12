@@ -341,6 +341,7 @@ a {
   padding-right: 10px;
   padding-left: 10px;
   font-family: 'Lato', sans-serif;
+  font-weight: normal;
 }
 .btn-multiselect {
   background: none;
