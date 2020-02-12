@@ -33,7 +33,7 @@
                         <div class="col-md-4">
                           <div class="select-style form-group">
                               <sh-select placeholder="Country" name="planUniqueName" autocomplete="false"
-                                id="planUniqueName" [(ngModel)]="generateLicenseKeysRequest.planUniqueName"
+                                id="planUniqueName"
                                 [options]="allPlans" [isFilterEnabled]="true" [ItemHeight]="33" [forceClearReactive]="forceClear$ | async" required>
                               </sh-select>
                           </div>
@@ -42,7 +42,7 @@
                         <div class="col-md-4">
                             <div class="select-style form-group sadik">
                                 <sh-select placeholder="Select Plan" name="planUniqueName" autocomplete="false"
-                                    id="planUniqueName"
+                                    id="planUniqueName" [(ngModel)]="generateLicenseKeysRequest.planUniqueName"
                                     [options]="allPlans" [isFilterEnabled]="true" [ItemHeight]="33" [forceClearReactive]="forceClear$ | async" required></sh-select>
                             </div>
                         </div>
