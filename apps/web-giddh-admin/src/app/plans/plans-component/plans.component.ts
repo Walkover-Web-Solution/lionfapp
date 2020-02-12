@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { GeneralService } from '../../services/general.service';
 
 
+
 @Component({
     selector: 'app-plans',
     templateUrl: './plans.component.html',
@@ -12,6 +13,7 @@ import { GeneralService } from '../../services/general.service';
 })
 
 export class PlansComponent implements OnInit {
+
 
     @ViewChild('planNameField') public planNameField;
 
@@ -29,7 +31,6 @@ export class PlansComponent implements OnInit {
     public planStats: any = {};
 
     constructor(private plansService: PlansService, private generalService: GeneralService) {
-
     }
 
     /**
