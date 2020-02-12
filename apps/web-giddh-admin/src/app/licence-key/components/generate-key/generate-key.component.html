@@ -24,18 +24,31 @@
             <div class="row">
                 <div class="col-md-5">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <input type="number" (blur)="validateLicenseKeys()" placeholder="No. of keys"
                                 class="form-control" name="noOfKeys" [(ngModel)]="generateLicenseKeysRequest.noOfKeys"
                                 required>
                         </div>
-                        <div class="col-md-6">
-                            <div class="select-style form-group">
+
+                        <div class="col-md-4">
+                          <div class="select-style form-group">
+                              <sh-select placeholder="Country" name="planUniqueName" autocomplete="false"
+                                id="planUniqueName"
+                                [options]="allPlans" [isFilterEnabled]="true" [ItemHeight]="33" [forceClearReactive]="forceClear$ | async" required>
+                              </sh-select>
+                          </div>
+                      </div>
+
+                        <div class="col-md-4">
+                            <div class="select-style form-group sadik">
                                 <sh-select placeholder="Select Plan" name="planUniqueName" autocomplete="false"
                                     id="planUniqueName" [(ngModel)]="generateLicenseKeysRequest.planUniqueName"
                                     [options]="allPlans" [isFilterEnabled]="true" [ItemHeight]="33" [forceClearReactive]="forceClear$ | async" required></sh-select>
                             </div>
                         </div>
+
+                        
+
                     </div>
 
                     <div class="clearfix">
