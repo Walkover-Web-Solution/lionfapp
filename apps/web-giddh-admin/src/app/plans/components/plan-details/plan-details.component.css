@@ -19,3 +19,6 @@
   margin: 0px;
   padding: 10px 0;
 }
+.plan-details .form-group:last-child {
+  border-bottom: 0px solid #ccc;
+}

@@ -41,25 +41,105 @@
                 <div class="table-responsive">
                     <table class="table table-bordered basic subscrib-list-table card-list-table">
                         <thead>
-                            <tr>
-                                <th>Company Name</th>
-                                <th>Subscribed On</th>
-                                <th>Subscription ID</th>
-                                <th>Balance</th>
-                                <th>Transaction Limit</th>
-                                <th>Total Amount</th>
-                                <th>Additional Transaction</th>
-                                <th>Additional Charges</th>
-                                <th>rate/Transaction</th>
-                                <th>Status</th>
+                            <tr (clickOutside)="inlineSearch = null">
+                              <th class="table-search">
+                                <div [hidden]="inlineSearch == 'planName'">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <span>Company Name</span>
+                                        <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('planName')"></i>
+                                    </div>
+                                </div>
+                                <div class="input-container" [hidden]="inlineSearch !== 'planName'">
+                                    <input type="text" placeholder="Company Name" class="form-control w100"
+                                        name="planName"
+                                        (keypress)="columnSearch()" (keydown)="columnSearch()" />
+                                </div>
+                                </th>
+
+                                <th class="table-search">
+                                  <div [hidden]="userName == 'planName'">
+                                      <div class="d-flex align-items-center justify-content-between">
+                                          <span>User name</span>
+                                          <i class="fa fa-search pull-right" (click)="focusOnColumnSearch2('planName')"></i>
+                                      </div>
+                                  </div>
+                                  <div class="input-container" [hidden]="userName !== 'planName'">
+                                      <input type="text" placeholder="User name" class="form-control w100"
+                                          name="planName" (keydown)="columnSearch()" />
+                                  </div>
+                                  </th>
+
+                                  <th class="table-search">
+                                    <div [hidden]="SubscribedOn == 'planName'">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <span>Subscribed On</span>
+                                            <i class="fa fa-search pull-right" (click)="focusOnColumnSearch3('planName')"></i>
+                                        </div>
+                                    </div>
+                                    <div class="input-container" [hidden]="SubscribedOn !== 'planName'">
+                                        <input type="text" placeholder="Subscribed On" class="form-control w100"
+                                            name="planName" (keydown)="columnSearch()" />
+                                    </div>
+                                  </th>
+
+
+                                  <th class="table-search">
+                                    <div [hidden]="SubscriptionsID == 'planName'">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <span>subscription ID</span>
+                                            <i class="fa fa-search pull-right" (click)="focusOnColumnSearch4('planName')"></i>
+                                        </div>
+                                    </div>
+                                    <div class="input-container" [hidden]="SubscriptionsID !== 'planName'">
+                                        <input type="text" placeholder="Subscribed On" class="form-control w100"
+                                            name="planName" (keydown)="columnSearch()" />
+                                    </div>
+                                  </th>
+
+                                  <th class="table-dropdown">Plan Name
+                                    <div class="btn-group pull-right" dropdown>
+                                      <button id="button-basic" dropdownToggle type="button" class="btn-multiselect dropdown-toggle pull-right"
+                                              aria-controls="dropdown-basic"><span class="fa fa-angle-down"></span>
+                                      </button>
+                                      <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu multiselect-dropdown"
+                                          role="menu" aria-labelledby="button-basic">
+                                        <li role="menuitem"><input type="checkbox"> Plan 1</li>
+                                        <li role="menuitem"><input type="checkbox"> Plan 2</li>
+                                        <li role="menuitem"><input type="checkbox"> Plan 3</li>
+                                      </ul>
+                                    </div>
+                                  </th>
+
+                                <th>Balance <i class="fa pull-right fa-sort-numeric-asc"></i></th>
+                                <th>Transaction Limit <i class="fa pull-right fa-sort-numeric-asc"></i></th>
+                                <th>Total Amount <i class="fa pull-right fa-sort-numeric-asc"></i></th>
+                                <th>Additional Transaction <i class="fa pull-right fa-sort-numeric-asc"></i></th>
+                                <th>Additional Charges <i class="fa pull-right fa-sort-numeric-asc"></i></th>
+                                <th>rate/Transaction <i class="fa pull-right fa-sort-numeric-asc"></i></th>
+                                <th class="table-dropdown">Status
+                                  <div class="btn-group pull-right" dropdown>
+                                    <button id="button-basic" dropdownToggle type="button" class="btn-multiselect dropdown-toggle pull-right"
+                                            aria-controls="dropdown-basic"><span class="fa fa-angle-down"></span>
+                                    </button>
+                                    <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu multiselect-dropdown"
+                                        role="menu" aria-labelledby="button-basic">
+                                      <li role="menuitem"><input type="checkbox"> Plan 1</li>
+                                      <li role="menuitem"><input type="checkbox"> Plan 2</li>
+                                      <li role="menuitem"><input type="checkbox"> Plan 3</li>
+                                    </ul>
+                                  </div>
+                                </th>
+
                                 <th>Expiry</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let item of companiesData">
                                 <td data-title="Company Name">{{item.name}}</td>
+                                <td data-title="User Name">User Name</td>
                                 <td data-title="Subscribeon">{{item?.subscription?.startedAt}}</td>
                                 <td data-title="Subcription1">{{subscriptionId}}</td>
+                                <td data-title="Plan Name">Name of Plan Name</td>
                                 <td data-title="Balance">{{item?.subscription?.balance}}</td>
                                 <td data-title="Tranaction">{{item?.subscription?.planDetails?.transactionLimit}}</td>
                                 <td data-title="Total">{{item?.subscription?.planDetails?.amount}}</td>
@@ -70,7 +150,7 @@
                                 <td data-title="Expiry">{{item?.subscription?.expiry}}</td>
                             </tr>
                             <tr *ngIf="!companiesData || companiesData.length === 0">
-                                <td colspan="11" align="center">No records found.</td>
+                                <td colspan="13" align="center">No records found.</td>
                             </tr>
                         </tbody>
                     </table>
