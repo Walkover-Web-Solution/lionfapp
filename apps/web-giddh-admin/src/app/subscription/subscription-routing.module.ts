@@ -7,6 +7,7 @@ import { EditSubscriptionsComponent } from './components/edit-subscriptions/edit
 const routes: Routes = [
   { path: '', component: SubscriptionComponent, pathMatch: 'full' },
   { path: 'users', component: UserListComponent, pathMatch: 'full' },
+  { path: 'edit', component: EditSubscriptionsComponent, pathMatch: 'full' },
   { path: 'edit/:subscriptionId', component: EditSubscriptionsComponent, pathMatch: 'full' }
 ];
 

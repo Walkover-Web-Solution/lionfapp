@@ -6,14 +6,15 @@ import { Configuration, URLS } from '../app.constants';
 import { Router } from '@angular/router';
 import { HttpWrapperService } from './httpWrapper.service';
 import { LoaderService } from './loader.service';
-import { GMAIL_API, LOGIN_API } from './apiurls/login.api';
+import { GMAIL_API, LOGIN_API, ONBOARDING_COUNTRIES } from './apiurls/login.api';
 import { BaseResponse } from '../models/api-models/BaseResponse';
-import { AuthKeyResponse, LinkedInRequestModel, SignupWithMobile, UserDetails, VerifyEmailModel, VerifyEmailResponseModel, VerifyMobileModel, VerifyMobileResponseModel } from '../models/api-models/loginModels';
+import { AuthKeyResponse, LinkedInRequestModel, SignupWithMobile, UserDetails, VerifyEmailModel, VerifyEmailResponseModel, VerifyMobileModel, VerifyMobileResponseModel, CountryRequest } from '../models/api-models/loginModels';
 import { ErrorHandler } from './catchManager/catchmanger';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { GeneralService } from './general.service';
 import { IServiceConfigArgs, ServiceConfig } from './service.config';
 import { LoginWithPassword, SignUpWithPassword } from '../models/api-models/login';
+import { LICENSE_API } from './apiurls/licensekeys.api';
 
 @Injectable()
 export class AuthenticationService {
@@ -42,4 +43,23 @@ export class AuthenticationService {
       return data;
     }), catchError((e) => this.errorHandler.HandleCatch<VerifyEmailResponseModel, string>(e, args)));
   }
+
+  public getCountry(): Observable<BaseResponse<any, any>> {
+        const url = this.config.apiUrl + ONBOARDING_COUNTRIES.COUNTRIES_API;
+        return this._http.get(url).pipe(
+            map((res) => {
+                let data: BaseResponse<any, any> = res;
+                return data;
+            }));
+    }
+
+    public getAllPlanUsingCountry(countryCode: any): Observable<BaseResponse<any, any>> {
+        let url = this.config.apiUrl + LICENSE_API.GET_PLANS_USING_COUNTRY;
+        url = url.replace(':country', countryCode);
+        return this._http.get(url).pipe(
+            map((res) => {
+                let data: BaseResponse<any, any> = res;
+                return data;
+            }));
+    }
 }

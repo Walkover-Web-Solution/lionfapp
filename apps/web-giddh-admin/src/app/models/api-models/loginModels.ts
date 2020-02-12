@@ -124,3 +124,7 @@ export class AuthKeyResponse {
   public authKey: string;
   public uniqueName: string;
 }
+
+export class CountryRequest {
+    formName: string;
+}

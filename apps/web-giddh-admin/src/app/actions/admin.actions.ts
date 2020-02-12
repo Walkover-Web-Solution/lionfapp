@@ -71,18 +71,18 @@ export class AdminActions {
       }
       return { type: 'EmptyAction' };
     }));
-  @Effect()
-  public getCompaniesBySubscriptionId$: Observable<Action> = this.action$.pipe(ofType(AdminActions.GET_COMPANIES_BY_SUBCRIPTION_ID),
-    switchMap((action: CustomActions) => {
-      return this.subscriptionService.getAllCompaniesBySubscriptionId(action.payload.subscriptionId, action.payload.model).pipe(
-        map((response) => {
-          return {
-            type: AdminActions.GET_COMPANIES_BY_SUBCRIPTION_ID_RESPONSE,
-            payload: response
-          }
-        }))
-    })
-  );
+  // @Effect()
+  // public getCompaniesBySubscriptionId$: Observable<Action> = this.action$.pipe(ofType(AdminActions.GET_COMPANIES_BY_SUBCRIPTION_ID),
+  //   switchMap((action: CustomActions) => {
+  //     return this.subscriptionService.getAllCompaniesBySubscriptionId(action.payload.subscriptionId, action.payload.model).pipe(
+  //       map((response) => {
+  //         return {
+  //           type: AdminActions.GET_COMPANIES_BY_SUBCRIPTION_ID_RESPONSE,
+  //           payload: response
+  //         }
+  //       }))
+  //   })
+  // );
 
 
   @Effect()
@@ -131,12 +131,12 @@ export class AdminActions {
     };
   }
 
-  public getCompaniesBySubscriptionId(subscriptionId, model: CommonPaginatedRequest): CustomActions {
-    return {
-      type: AdminActions.GET_COMPANIES_BY_SUBCRIPTION_ID,
-      payload: { subscriptionId, model }
-    };
-  }
+  // public getCompaniesBySubscriptionId(subscriptionId, model: CommonPaginatedRequest): CustomActions {
+  //   return {
+  //     type: AdminActions.GET_COMPANIES_BY_SUBCRIPTION_ID,
+  //     payload: { subscriptionId, model }
+  //   };
+  // }
 
   public getCompaniesBySubscriptionIdResponse(value): CustomActions {
     return {
