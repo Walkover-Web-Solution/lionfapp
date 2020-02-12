@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from "@angular/core";
+import { Component, OnInit, TemplateRef, ViewChild } from "@angular/core";
 import { Store, select } from '@ngrx/store';
 import { AppState } from '../../../store';
 import { GeneralService } from '../../../services/general.service';
@@ -19,6 +19,12 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 })
 
 export class EditSubscriptionsComponent implements OnInit {
+  
+  public inlineSearch: any = '';
+  public userName: any = '';
+  public SubscribedOn: any = '';
+  public SubscriptionsID : any = '';
+  
   public subscriptionId: string;
   public destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
   public paginationRequest: CommonPaginatedRequest = new CommonPaginatedRequest();
@@ -39,6 +45,8 @@ export class EditSubscriptionsComponent implements OnInit {
     count: '',
     entityIdentifier: '',
   };
+
+
 
 
   constructor(private store: Store<AppState>, private modalService: BsModalService, private generalActions: GeneralActions, private toasty: ToasterService, private adminActions: AdminActions, private subscriptionService: SubscriptionService, private router: Router, private generalService: GeneralService, private activateRoute: ActivatedRoute) {
@@ -94,6 +102,26 @@ export class EditSubscriptionsComponent implements OnInit {
   public pageChanged(event) {
     this.paginationRequest.page = event.page;
     this.getAllCompanies();
+  }
+
+  /**
+     * This function is used to put focus on column search
+     *
+     */
+  public focusOnColumnSearch(inlineSearch) {
+      this.inlineSearch = inlineSearch;
+  }
+
+  public focusOnColumnSearch2(userName) {
+    this.userName = userName;
+  }
+
+  public focusOnColumnSearch3(SubscribedOn) {
+    this.SubscribedOn = SubscribedOn;
+  }
+
+  public focusOnColumnSearch4(SubscriptionsID) {
+    this.SubscriptionsID = SubscriptionsID;
   }
 
   /**

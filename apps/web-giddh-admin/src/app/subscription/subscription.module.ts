@@ -15,6 +15,8 @@ import { EditPlanModalComponent } from '../shared/edit-plan/edit-plan.component'
 import { DigitsOnlyModule } from '../shared/directive/digitonly/digitsOnly.module';
 import { EditSubscriptionsComponent } from './components/edit-subscriptions/edit-subscriptions.component';
 import { SubscriptionContainerComponent } from './components/suscription-container/subscription-container.component';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+
 
 @NgModule({
   declarations: [SubscriptionComponent, SubscriptionContainerComponent, UserListComponent, AdvanceSearchComponent, EditPlanModalComponent, EditSubscriptionsComponent],
@@ -29,7 +31,8 @@ import { SubscriptionContainerComponent } from './components/suscription-contain
     FormsModule,
     ReactiveFormsModule,
     ClickOutsideModule,
-    DigitsOnlyModule
+    DigitsOnlyModule,
+    BsDropdownModule
   ]
 })
 export class SubscriptionModule { }
