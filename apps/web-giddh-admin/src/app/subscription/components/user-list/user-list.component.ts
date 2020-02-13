@@ -2,7 +2,7 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UserService } from '../../../services/user.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { SubscriberList } from '../../../modules/modules/api-modules/subscription';
+import { SubscriberList, PAGINATION_COUNT } from '../../../modules/modules/api-modules/subscription';
 import * as moment from 'moment/moment';
 import { GeneralService } from '../../../services/general.service';
 import { Router } from '@angular/router';
@@ -53,7 +53,7 @@ export class UserListComponent implements OnInit {
      */
     ngOnInit() {
         this.generalService.setCurrentPageTitle("Users");
-        this.getUserListRequest.count = 50;
+        this.getUserListRequest.count = PAGINATION_COUNT;
         this.getUserListRequest.page = 1;
         this.getUserListRequest.sortBy = 'User';
         this.getUserListRequest.sortType = 'desc';

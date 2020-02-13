@@ -4,8 +4,7 @@
             <span class="input-group-addon">
                 <i class="fa fa-calendar pull-right"></i>
             </span>
-            <input type="text" placeholder="Select Date" readonly [(bsValue)]="bsValue"
-                (bsValueChange)="onChangeFilterDate($event)" class="form-control date-range-picker" bsDaterangepicker>
+            <input type="text" placeholder="Select Date" readonly [(bsValue)]="bsValue" (bsValueChange)="onChangeFilterDate($event)" class="form-control date-range-picker" bsDaterangepicker>
         </div>
 
         <button class=" btn-link" *ngIf="getAllPlansPostRequest.createdAtFrom" (click)="resetFilters();"><i class="icon icon-loop2
@@ -27,47 +26,40 @@
                             </div>
                         </div>
                         <div class="input-container" [hidden]="inlineSearch !== 'planName'">
-                            <input type="text" placeholder="Plan Name" class="form-control w100" #planNameField
-                                name="planName" [(ngModel)]="getAllPlansPostRequest.planName"
-                                (keypress)="columnSearch()" (keydown)="columnSearch()" />
+                            <input type="text" placeholder="Plan Name" class="form-control w100" #planNameField name="planName" [(ngModel)]="getAllPlansPostRequest.planName" (keypress)="columnSearch()" (keydown)="columnSearch()" />
                         </div>
                     </th>
                     <th>
-                      Created on
+                        Created on
                     </th>
-                    <th class="transform-none" (click)="sortBy('NO_OF_COMPANIES')">No of Company <i
-                            [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': getAllPlansRequest.sortType === 'desc' && getAllPlansRequest.sortBy === 'NO_OF_COMPANIES', 'fa-sort-numeric-asc': (getAllPlansRequest.sortType === 'asc' && getAllPlansRequest.sortBy === 'NO_OF_COMPANIES') || getAllPlansRequest.sortBy !== 'NO_OF_COMPANIES'}"></i>
+                    <th class="transform-none" (click)="sortBy('NO_OF_COMPANIES')">No of Company <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': getAllPlansRequest.sortType === 'desc' && getAllPlansRequest.sortBy === 'NO_OF_COMPANIES', 'fa-sort-numeric-asc': (getAllPlansRequest.sortType === 'asc' && getAllPlansRequest.sortBy === 'NO_OF_COMPANIES') || getAllPlansRequest.sortBy !== 'NO_OF_COMPANIES'}"></i>
                     </th>
                     <th (click)="sortBy('TOTAL_USERS')">Total User
-                        <i
-                            [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': getAllPlansRequest.sortType === 'desc' && getAllPlansRequest.sortBy === 'TOTAL_USERS', 'fa-sort-numeric-asc': (getAllPlansRequest.sortType === 'asc' && getAllPlansRequest.sortBy === 'TOTAL_USERS') || getAllPlansRequest.sortBy !== 'TOTAL_USERS'}"></i>
+                        <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': getAllPlansRequest.sortType === 'desc' && getAllPlansRequest.sortBy === 'TOTAL_USERS', 'fa-sort-numeric-asc': (getAllPlansRequest.sortType === 'asc' && getAllPlansRequest.sortBy === 'TOTAL_USERS') || getAllPlansRequest.sortBy !== 'TOTAL_USERS'}"></i>
                     </th>
                     <th (click)="sortBy('TOTAL_AMOUNT')">Total Amount
-                        <i
-                            [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': getAllPlansRequest.sortType === 'desc' && getAllPlansRequest.sortBy === 'TOTAL_AMOUNT', 'fa-sort-numeric-asc': (getAllPlansRequest.sortType === 'asc' && getAllPlansRequest.sortBy === 'TOTAL_AMOUNT') || getAllPlansRequest.sortBy !== 'TOTAL_AMOUNT'}"></i>
+                        <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': getAllPlansRequest.sortType === 'desc' && getAllPlansRequest.sortBy === 'TOTAL_AMOUNT', 'fa-sort-numeric-asc': (getAllPlansRequest.sortType === 'asc' && getAllPlansRequest.sortBy === 'TOTAL_AMOUNT') || getAllPlansRequest.sortBy !== 'TOTAL_AMOUNT'}"></i>
                     </th>
                     <th (click)="sortBy('EXPIRY')">Expiry in next 30 days
-                        <i
-                            [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': getAllPlansRequest.sortType === 'desc' && getAllPlansRequest.sortBy === 'EXPIRY', 'fa-sort-numeric-asc': (getAllPlansRequest.sortType === 'asc' && getAllPlansRequest.sortBy === 'EXPIRY') || getAllPlansRequest.sortBy !== 'EXPIRY'}"></i>
+                        <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': getAllPlansRequest.sortType === 'desc' && getAllPlansRequest.sortBy === 'EXPIRY', 'fa-sort-numeric-asc': (getAllPlansRequest.sortType === 'asc' && getAllPlansRequest.sortBy === 'EXPIRY') || getAllPlansRequest.sortBy !== 'EXPIRY'}"></i>
                     </th>
                     <th class="table-dropdown">
-                      Country
+                        Country
 
-                      <div class="btn-group pull-right" dropdown>
-                        <button id="button-basic" dropdownToggle type="button" class="btn-multiselect dropdown-toggle pull-right"
-                                aria-controls="dropdown-basic"><span class="fa fa-angle-down"></span>
-                        </button>
-                        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu multiselect-dropdown"
-                            role="menu" aria-labelledby="button-basic">
-                          <li role="menuitem"><input type="checkbox"> Select all</li>
-                          <li role="menuitem"><input type="checkbox"> Indai</li>
-                          <li role="menuitem"><input type="checkbox"> Oman</li>
-                          <li role="menuitem"><input type="checkbox"> Kuwait</li>
-                          <li role="menuitem"><input type="checkbox"> United Arab Emirates</li>
-                        </ul>
-                      </div>
-                      
-                      
+                        <!-- <div class="btn-group pull-right" dropdown [autoClose]="false">
+                            <button id="button-basic" dropdownToggle type="button" class="btn-multiselect dropdown-toggle pull-right" aria-controls="dropdown-basic"><span
+                                    class="fa fa-angle-down"></span>
+                            </button>
+                            <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu multiselect-dropdown" role="menu" aria-labelledby="button-basic">
+                                <ng-container *ngFor="let item of countrySource">
+                                    <li role="menuitem"><input type="checkbox" (click)="checkedCountryName(item, $event);">{{item.label}}</li>
+                                </ng-container>
+                                <li *ngIf="countrySource.length==0">No results found</li>
+
+                            </ul>
+                        </div> -->
+
+
                     </th>
                 </tr>
             </thead>
@@ -91,9 +83,7 @@
     </div>
 
     <div *ngIf="plansData && plansData.totalItems > 50" class="paginationWrapper">
-      <pagination [totalItems]="plansData.totalItems" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true"
-          [itemsPerPage]="50" [rotate]="false" previousText="&#9668;" nextText="&#9658;"
-          (pageChanged)="pageChanged($event)"></pagination>
+        <pagination [totalItems]="plansData.totalItems" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true" [itemsPerPage]="50" [rotate]="false" previousText="&#9668;" nextText="&#9658;" (pageChanged)="pageChanged($event)"></pagination>
     </div>
 
     <div class="page-footer">
@@ -141,9 +131,8 @@
         </div>
     </div>
 
-    
+
 </div>
 
 <app-create-plans *ngIf="togglePanelBool" [rightToggle]="togglePanelBool" (hidePopup)="hidePopup()"></app-create-plans>
-<app-plan-details *ngIf="togglePlanDetailsPanelBool" [planUniqueName]="selectedPlan"
-    [rightToggle]="togglePlanDetailsPanelBool" (hidePopup)="hidePlanDetailsPopup()"></app-plan-details>
+<app-plan-details *ngIf="togglePlanDetailsPanelBool" [planUniqueName]="selectedPlan" [rightToggle]="togglePlanDetailsPanelBool" (hidePopup)="hidePlanDetailsPopup()"></app-plan-details>

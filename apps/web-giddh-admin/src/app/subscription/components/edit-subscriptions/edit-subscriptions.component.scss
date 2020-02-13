@@ -1,3 +1,8 @@
 .subscrib-list-table thead tr th {
-  min-width: 200px;
+    min-width: 200px;
+}
+
+.multiselect-dropdown {
+    max-height: 207px;
+    overflow-y: auto;
 }

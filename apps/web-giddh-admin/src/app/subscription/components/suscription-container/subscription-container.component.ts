@@ -7,7 +7,7 @@ import { Store, select } from '@ngrx/store';
 import { AdminActions } from '../../../actions/admin.actions';
 import { takeUntil, take, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
-import { CommonPaginatedRequest, SubscriberList, TotalSubscribers, AdvanceSearchRequestSubscriptions, GetAllCompaniesRequest } from '../../../modules/modules/api-modules/subscription';
+import { CommonPaginatedRequest, SubscriberList, TotalSubscribers, AdvanceSearchRequestSubscriptions, GetAllCompaniesRequest, PAGINATION_COUNT } from '../../../modules/modules/api-modules/subscription';
 import { ToasterService } from '../../../services/toaster.service';
 import * as moment from 'moment/moment';
 import { GIDDH_DATE_FORMAT } from '../../../shared/defalutformatter/defaultDateFormat';
@@ -112,7 +112,7 @@ export class SubscriptionContainerComponent implements OnInit {
     }
 
     public setDefaultrequest() {
-        this.subscriptionRequest.count = 50;
+        this.subscriptionRequest.count = PAGINATION_COUNT;
         this.subscriptionRequest.page = 1;
         this.subscriptionRequest.sortBy = 'ADDITIONAL_TRANSACTIONS';
         this.subscriptionRequest.sortType = 'desc';
@@ -127,13 +127,19 @@ export class SubscriptionContainerComponent implements OnInit {
             if (res) {
                 this.isFromAdvanceSearchRes = res.fromAdvanceSearch;
                 if (res.status === 'success') {
-                    this.subscriberRes = res.body;
-                    this.subscriptionData = [];
-                    res.body.results.forEach(key => {
-                        key.userDetails.signUpOn = key.userDetails.signUpOn.split(" ")[0].replace(/-/g, "/");
-                        key.startedAt = key.startedAt.replace(/-/g, "/")
-                        this.subscriptionData.push(key);
-                    });
+                    if (res.body && res.body.results) {
+                        this.subscriberRes = res.body;
+                        this.subscriptionData = [];
+                        res.body.results.forEach(key => {
+                            if (key && key.userDetails && key.userDetails.signUpOn) {
+                            key.userDetails.signUpOn = key.userDetails.signUpOn.split(" ")[0].replace(/-/g, "/");
+                            }
+                            if (key.startedAt) {
+                                key.startedAt = key.startedAt.replace(/-/g, "/");
+                            }
+                            this.subscriptionData.push(key);
+                        });
+                    }
                 } else {
                     this.toasty.errorToast(res.message)
                 }

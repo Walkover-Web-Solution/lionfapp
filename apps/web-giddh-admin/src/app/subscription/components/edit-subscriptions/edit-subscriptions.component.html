@@ -7,20 +7,21 @@
     </button>
 </div> -->
 <div class="modal-body">
-    <div class="row" *ngIf="plansData && plansData?.subscription">
+    <!-- <div class="row" *ngIf="plansData && plansData?.subscription">
         <div class="col-sm-6 font-14">
             <p class="mb-0">{{plansData?.subscription?.userDetails?.name}}</p>
             <p class="mb-0">{{plansData?.subscription?.userDetails?.email}}</p>
             <p class="mb-0">{{plansData?.subscription?.userDetails?.mobileno}}</p>
         </div>
-        <div class="col-sm-6 text-right xs-left">
-            <!-- <a href="javascript:void(0)" class="btn btn-blue mr-1">Email</a>
-            <a href="javascript:void(0)" class="btn btn-blue mr-1">SMS</a> -->
-            <!-- <a class="btn btn-blue mr-1" (click)="openEditModal(editPlan)">Edit</a> -->
+        <div class="pull-right">
+           <a href="javascript:void(0)" class="btn btn-blue mr-1">Email</a>
+         <a href="javascript:void(0)" class="btn btn-blue mr-1">SMS</a>
+            <a class="btn btn-blue mr-1" (click)="openEditModal(editPlan)">Edit</a> 
+            <a class="btn btn-blue mr-1" (click)="history.back()">Back</a>
         </div>
-    </div>
+    </div> -->
 
-    <div class="row mt-2 mb-2" *ngIf="plansData && plansData?.subscription">
+    <!-- <div class="row mt-2 mb-2" *ngIf="plansData && plansData?.subscription">
         <div class="col-sm-3 col-xs-4">
             <p class="text-gray">Plan Name</p>
             <h3 class="text-orange">{{plansData?.subscription?.planDetails?.name}}</h3>
@@ -33,7 +34,13 @@
             <p class="text-gray">Amount</p>
             <h3 class="text-orange">{{plansData?.subscription?.planDetails?.amount}}/-</h3>
         </div>
+    </div> -->
+    <div class="row">
+        <div class="pull-right">
+            <a href="javascript:void(0)" [routerLink]="['/admin/subscription']" routerLinkActive="router-link-active" class="btn btn-blue mr-1">Back</a>
+        </div>
     </div>
+
 
     <div class="clearfix">
         <tabset class="custom-tabs">
@@ -41,105 +48,127 @@
                 <div class="table-responsive">
                     <table class="table table-bordered basic subscrib-list-table card-list-table">
                         <thead>
-                            <tr (clickOutside)="inlineSearch = null">
-                              <th class="table-search">
-                                <div [hidden]="inlineSearch == 'planName'">
-                                    <div class="d-flex align-items-center justify-content-between">
-                                        <span>Company Name</span>
-                                        <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('planName')"></i>
+                            <tr (clickOutside)="hideOpenedSearchBox()">
+                                <th class="table-search">
+                                    <div [hidden]="inlineSearch == 'planName' || getAllCompaniesRequest.companyName">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <span>Company Name</span>
+                                            <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('planName')"></i>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="input-container" [hidden]="inlineSearch !== 'planName'">
-                                    <input type="text" placeholder="Company Name" class="form-control w100"
-                                        name="planName"
-                                        (keypress)="columnSearch()" (keydown)="columnSearch()" />
-                                </div>
+                                    <div class="input-container" [hidden]="inlineSearch !== 'planName' && !getAllCompaniesRequest.companyName">
+                                        <input type="text" placeholder="Company Name" [(ngModel)]="getAllCompaniesRequest.companyName" class="form-control w100" (ngModelChange)="searchViaCompanyName$.next($event)" name="planName" />
+                                    </div>
                                 </th>
 
                                 <th class="table-search">
-                                  <div [hidden]="userName == 'planName'">
-                                      <div class="d-flex align-items-center justify-content-between">
-                                          <span>User name</span>
-                                          <i class="fa fa-search pull-right" (click)="focusOnColumnSearch2('planName')"></i>
-                                      </div>
-                                  </div>
-                                  <div class="input-container" [hidden]="userName !== 'planName'">
-                                      <input type="text" placeholder="User name" class="form-control w100"
-                                          name="planName" (keydown)="columnSearch()" />
-                                  </div>
-                                  </th>
-
-                                  <th class="table-search">
-                                    <div [hidden]="SubscribedOn == 'planName'">
+                                    <div [hidden]="inlineSearch == 'userName' || getAllCompaniesRequest.userName">
                                         <div class="d-flex align-items-center justify-content-between">
-                                            <span>Subscribed On</span>
-                                            <i class="fa fa-search pull-right" (click)="focusOnColumnSearch3('planName')"></i>
+                                            <span>User name</span>
+                                            <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('userName')"></i>
                                         </div>
                                     </div>
-                                    <div class="input-container" [hidden]="SubscribedOn !== 'planName'">
-                                        <input type="text" placeholder="Subscribed On" class="form-control w100"
-                                            name="planName" (keydown)="columnSearch()" />
+                                    <div class="input-container" [hidden]="inlineSearch !== 'userName' && !getAllCompaniesRequest.userName">
+                                        <input type="text" placeholder="User name" class="form-control w100" [(ngModel)]="getAllCompaniesRequest.userName" name="userName" (ngModelChange)="searchViaUserName$.next($event)" />
                                     </div>
-                                  </th>
-
-
-                                  <th class="table-search">
-                                    <div [hidden]="SubscriptionsID == 'planName'">
-                                        <div class="d-flex align-items-center justify-content-between">
-                                            <span>subscription ID</span>
-                                            <i class="fa fa-search pull-right" (click)="focusOnColumnSearch4('planName')"></i>
-                                        </div>
-                                    </div>
-                                    <div class="input-container" [hidden]="SubscriptionsID !== 'planName'">
-                                        <input type="text" placeholder="Subscribed On" class="form-control w100"
-                                            name="planName" (keydown)="columnSearch()" />
-                                    </div>
-                                  </th>
-
-                                  <th class="table-dropdown">Plan Name
-                                    <div class="btn-group pull-right" dropdown>
-                                      <button id="button-basic" dropdownToggle type="button" class="btn-multiselect dropdown-toggle pull-right"
-                                              aria-controls="dropdown-basic"><span class="fa fa-angle-down"></span>
-                                      </button>
-                                      <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu multiselect-dropdown"
-                                          role="menu" aria-labelledby="button-basic">
-                                        <li role="menuitem"><input type="checkbox"> Plan 1</li>
-                                        <li role="menuitem"><input type="checkbox"> Plan 2</li>
-                                        <li role="menuitem"><input type="checkbox"> Plan 3</li>
-                                      </ul>
-                                    </div>
-                                  </th>
-
-                                <th>Balance <i class="fa pull-right fa-sort-numeric-asc"></i></th>
-                                <th>Transaction Limit <i class="fa pull-right fa-sort-numeric-asc"></i></th>
-                                <th>Total Amount <i class="fa pull-right fa-sort-numeric-asc"></i></th>
-                                <th>Additional Transaction <i class="fa pull-right fa-sort-numeric-asc"></i></th>
-                                <th>Additional Charges <i class="fa pull-right fa-sort-numeric-asc"></i></th>
-                                <th>rate/Transaction <i class="fa pull-right fa-sort-numeric-asc"></i></th>
-                                <th class="table-dropdown">Status
-                                  <div class="btn-group pull-right" dropdown>
-                                    <button id="button-basic" dropdownToggle type="button" class="btn-multiselect dropdown-toggle pull-right"
-                                            aria-controls="dropdown-basic"><span class="fa fa-angle-down"></span>
-                                    </button>
-                                    <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu multiselect-dropdown"
-                                        role="menu" aria-labelledby="button-basic">
-                                      <li role="menuitem"><input type="checkbox"> Plan 1</li>
-                                      <li role="menuitem"><input type="checkbox"> Plan 2</li>
-                                      <li role="menuitem"><input type="checkbox"> Plan 3</li>
-                                    </ul>
-                                  </div>
                                 </th>
 
-                                <th>Expiry</th>
+                                <th class="table-search">
+                                    <div [hidden]="inlineSearch == 'subsOn' || getAllCompaniesRequest.startedAtFrom">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <span>Subscribed On</span>
+                                            <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('subsOn')"></i>
+                                        </div>
+                                    </div>
+                                    <div class="input-container" [hidden]="inlineSearch !== 'subsOn' && !getAllCompaniesRequest.startedAtFrom">
+                                        <input type="text" placeholder="Subscribe on" class="form-control w100" [(ngModel)]="getAllCompaniesRequest.startedAtFrom" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker (ngModelChange)="searchViaSubscribedOn()" name="startedAtFrom" />
+                                        <!-- <input type="text" placeholder="Subscribed On" class="form-control w100" name="planName" (keydown)="columnSearch()" /> -->
+                                    </div>
+                                </th>
+
+
+                                <th class="table-search">
+                                    <div [hidden]="inlineSearch == 'subId' || getAllCompaniesRequest.subscriptionId">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <span>subscription ID</span>
+                                            <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('subId')"></i>
+                                        </div>
+                                    </div>
+                                    <div class="input-container" [hidden]="inlineSearch !== 'subId' && !getAllCompaniesRequest.subscriptionId">
+                                        <input type="text" placeholder="Subscription id" class="form-control w100" name="subscriptionId" [(ngModel)]="getAllCompaniesRequest.subscriptionId" (ngModelChange)="searchViaSubscriptionID$.next($event)" />
+                                    </div>
+                                </th>
+
+                                <th class="table-dropdown">Plan Name
+                                    <div class="btn-group pull-right" dropdown [autoClose]="false">
+                                        <button id="button-basic" dropdownToggle type="button" class="btn-multiselect dropdown-toggle pull-right" aria-controls="dropdown-basic"><span class="fa fa-angle-down"></span>
+                                      </button>
+                                        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu multiselect-dropdown" role="menu" aria-labelledby="button-basic">
+                                            <ng-container *ngFor="let item of allPlans">
+                                                <li role="menuitem"><input type="checkbox" (click)="checkedPlanName(item, $event);">{{item.label}}</li>
+                                            </ng-container>
+                                            <li *ngIf="allPlans.length==0">No results found</li>
+                                        </ul>
+                                    </div>
+                                </th>
+
+                                <th>Balance
+                                    <a (click)="sortBy('BALANCE')" class="text-black">
+                                        <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': paginationRequest.sortType === 'desc' && paginationRequest.sortBy === 'BALANCE', 'fa-sort-numeric-asc': (paginationRequest.sortType === 'asc' && paginationRequest.sortBy === 'BALANCE') || paginationRequest.sortBy !== 'BALANCE'}"></i>
+                                    </a>
+                                    <!-- <i class="fa pull-right fa-sort-numeric-asc"></i> -->
+                                </th>
+                                <th>Transaction Limit
+                                    <a (click)="sortBy('TRANSACTION_LIMIT')" class="text-black">
+                                        <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': paginationRequest.sortType === 'desc' && paginationRequest.sortBy === 'TRANSACTION_LIMIT', 'fa-sort-numeric-asc': (paginationRequest.sortType === 'asc' && paginationRequest.sortBy === 'TRANSACTION_LIMIT') || paginationRequest.sortBy !== 'TRANSACTION_LIMIT'}"></i>
+                                    </a>
+                                </th>
+                                <th>Total Amount
+                                    <a (click)="sortBy('TOTAL_AMOUNT')" class="text-black">
+                                        <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': paginationRequest.sortType === 'desc' && paginationRequest.sortBy === 'TOTAL_AMOUNT', 'fa-sort-numeric-asc': (paginationRequest.sortType === 'asc' && paginationRequest.sortBy === 'TOTAL_AMOUNT') || paginationRequest.sortBy !== 'TOTAL_AMOUNT'}"></i>
+                                    </a>
+                                </th>
+                                <th>Additional Transaction
+                                    <a (click)="sortBy('ADDITIONAL_TRANSACTIONS')" class="text-black">
+                                        <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': paginationRequest.sortType === 'desc' && paginationRequest.sortBy === 'ADDITIONAL_TRANSACTIONS', 'fa-sort-numeric-asc': (paginationRequest.sortType === 'asc' && paginationRequest.sortBy === 'ADDITIONAL_TRANSACTIONS') || paginationRequest.sortBy !== 'ADDITIONAL_TRANSACTIONS'}"></i>
+                                    </a>
+                                </th>
+                                <th>Additional Charges
+                                    <a (click)="sortBy('ADDITIONAL_CHARGES')" class="text-black">
+                                        <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': paginationRequest.sortType === 'desc' && paginationRequest.sortBy === 'ADDITIONAL_CHARGES', 'fa-sort-numeric-asc': (paginationRequest.sortType === 'asc' && paginationRequest.sortBy === 'ADDITIONAL_CHARGES') || paginationRequest.sortBy !== 'ADDITIONAL_CHARGES'}"></i>
+                                    </a>
+                                </th>
+                                <th>rate/Transaction
+                                    <a (click)="sortBy('RATE_PER_EXTRA_TRANSACTION')" class="text-black">
+                                        <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': paginationRequest.sortType === 'desc' && paginationRequest.sortBy === 'RATE_PER_EXTRA_TRANSACTION', 'fa-sort-numeric-asc': (paginationRequest.sortType === 'asc' && paginationRequest.sortBy === 'RATE_PER_EXTRA_TRANSACTION') || paginationRequest.sortBy !== 'RATE_PER_EXTRA_TRANSACTION'}"></i>
+                                    </a>
+                                </th>
+                                <th class="table-dropdown">Status
+                                    <div class="btn-group pull-right" dropdown [autoClose]="false">
+                                        <button id="button-basic" dropdownToggle type="button" class="btn-multiselect dropdown-toggle pull-right" aria-controls="dropdown-basic"><span class="fa fa-angle-down"></span>
+                                    </button>
+                                        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu multiselect-dropdown" role="menu" aria-labelledby="button-basic">
+                                            <li role="menuitem"><input type="checkbox" (click)="checkedPlanStatus('trial', $event);"> Trial</li>
+                                            <li role="menuitem"><input type="checkbox" (click)="checkedPlanStatus('active', $event);"> Active</li>
+                                            <li role="menuitem"><input type="checkbox" (click)="checkedPlanStatus('expired', $event);"> Expired</li>
+                                        </ul>
+                                    </div>
+                                </th>
+
+                                <th>Expiry
+                                    <a (click)="sortBy('EXPIRY')" class="text-black">
+                                        <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': paginationRequest.sortType === 'desc' && paginationRequest.sortBy === 'EXPIRY', 'fa-sort-numeric-asc': (paginationRequest.sortType === 'asc' && paginationRequest.sortBy === 'EXPIRY') || paginationRequest.sortBy !== 'EXPIRY'}"></i>
+                                    </a>
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let item of companiesData">
-                                <td data-title="Company Name">{{item.name}}</td>
-                                <td data-title="User Name">User Name</td>
+                                <td data-title="Company Name">{{item?.name}}</td>
+                                <td data-title="User Name">{{item?.createdBy?.name}}</td>
                                 <td data-title="Subscribeon">{{item?.subscription?.startedAt}}</td>
-                                <td data-title="Subcription1">{{subscriptionId}}</td>
-                                <td data-title="Plan Name">Name of Plan Name</td>
+                                <td data-title="Subcription1">{{item?.subscription?.subscriptionId}}</td>
+                                <td data-title="Plan Name">{{item?.subscription.planDetails?.name}}</td>
                                 <td data-title="Balance">{{item?.subscription?.balance}}</td>
                                 <td data-title="Tranaction">{{item?.subscription?.planDetails?.transactionLimit}}</td>
                                 <td data-title="Total">{{item?.subscription?.planDetails?.amount}}</td>
@@ -149,7 +178,7 @@
                                 <td data-title="Status">{{item?.subscription?.status}}</td>
                                 <td data-title="Expiry">{{item?.subscription?.expiry}}</td>
                             </tr>
-                            <tr *ngIf="!companiesData || companiesData.length === 0">
+                            <tr *ngIf="companiesData.length === 0">
                                 <td colspan="13" align="center">No records found.</td>
                             </tr>
                         </tbody>

@@ -63,9 +63,11 @@ export class SubscriptionService {
     public getAllCompanies(body: GetAllCompaniesRequest, model: CommonPaginatedRequest) {
         let url = SUBSCRIPTION_API.GET_ALL_COMPANIES
         if (model.sortBy) {
+            url = url + '&sortBy=:sortBy';// &sortType=:sortType&
             url = url.replace(':sortBy', model.sortBy);
         }
         if (model.sortType) {
+             url = url + '&sortType=:sortType';
             url = url.replace(':sortType', model.sortType);
         }
         if (model.page) {

@@ -3,6 +3,10 @@ import { PlansService } from '../../services/plan.service';
 import * as moment from 'moment/moment';
 import { Router } from '@angular/router';
 import { GeneralService } from '../../services/general.service';
+import { ToasterService } from '../../services/toaster.service';
+import { AuthenticationService } from '../../services/authentication.service';
+import { IOption } from '../../theme/ng-select/ng-select';
+import { PAGINATION_COUNT } from '../../modules/modules/api-modules/subscription';
 
 
 
@@ -29,8 +33,10 @@ export class PlansComponent implements OnInit {
     public bsValue: any = '';
     public defaultLoad: boolean = true;
     public planStats: any = {};
+    public countrySource: IOption[] = [];
+    public selectedCountries: string[] = []
 
-    constructor(private plansService: PlansService, private generalService: GeneralService) {
+    constructor(private plansService: PlansService, private generalService: GeneralService, private toaster: ToasterService, private authenticationService: AuthenticationService) {
     }
 
     /**
@@ -40,12 +46,13 @@ export class PlansComponent implements OnInit {
      */
     ngOnInit() {
         this.generalService.setCurrentPageTitle("Plans");
-        this.getAllPlansRequest.count = 50;
+        this.getAllPlansRequest.count = PAGINATION_COUNT;
         this.getAllPlansRequest.page = 1;
         this.getAllPlansRequest.sortBy = 'TOTAL_AMOUNT';
         this.getAllPlansRequest.sortType = 'desc';
         this.getPlansStats();
         this.getAllPlans();
+        this.getOnboardCountries();
     }
 
     /**
@@ -184,6 +191,7 @@ export class PlansComponent implements OnInit {
     public hidePlanDetailsPopup() {
         this.selectedPlan = '';
         this.togglePlanDetailsPanelBool = false;
+        this.getAllPlans();
         this.toggleBodyClass();
     }
 
@@ -236,5 +244,37 @@ export class PlansComponent implements OnInit {
                 this.planStats = res.body;
             }
         });
+    }
+
+    /**
+   * API call to get all onboarding countries
+   *
+   * @memberof GenerateKeyComponent
+   */
+    public getOnboardCountries() {
+        this.authenticationService.getCountry().subscribe(res => {
+            if (res.status === 'success') {
+                if (res.body && res.body.length > 0) {
+                    res.body.forEach(key => {
+                        this.countrySource.push({ label: key.countryName, value: key.alpha2CountryCode });
+                    });
+                }
+            } else {
+                this.toaster.clearAllToaster();
+                this.toaster.errorToast(res.message);
+            }
+        });
+    }
+
+    public checkedCountryName(item, event) {
+        if (event.target.checked) {
+            if (this.selectedCountries.indexOf(item.name) === -1) {
+                this.selectedCountries.push(item.value);
+            }
+        } else {
+            let index = this.selectedCountries.indexOf(item.name);
+            this.selectedCountries.splice(index, 1);
+        }
+        console.log(this.selectedCountries);
     }
 }

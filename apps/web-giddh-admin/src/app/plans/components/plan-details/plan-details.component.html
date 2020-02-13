@@ -7,7 +7,7 @@
     <div class="clearfix pr-2 pl-2 pt-2 plan-details" *ngIf="planDetails">
         <div class="form-group">
             <label>Plan name</label><br>
-            <input type="text" class="form-control" placeholder="Plan name">
+            <input type="text" class="form-control" [(ngModel)]="planDetails.name" placeholder="Plan name">
             <!-- <span>{{planDetails.name}}</span> -->
         </div>
         <div class="form-group">
@@ -39,9 +39,9 @@
             <span>{{planDetails.ratePerExtraTransaction}}</span>
         </div>
         <div class="form-group">
+            <input type="checkbox" [(ngModel)]="planDetails.isCommonPlan" class="form-control d-inline-block">
             <label>Is Common Plan</label><br>
-            <input type="text" class="form-control" placeholder="Is Common Plan">
-            <!-- <span>{{planDetails.isCommonPlan ? 'Yes': 'No'}}</span> -->
         </div>
+        <button type="button" class="btn btn-blue mt-2" (click)="updatePlan(planDetails)">Update</button>
     </div>
 </div>
