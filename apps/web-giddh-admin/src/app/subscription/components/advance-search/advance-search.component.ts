@@ -50,7 +50,7 @@ export class AdvanceSearchComponent implements OnInit {
     this.setAdvanceSearch();
 
   }
-  public AdvanceSearch() {
+  public advanceSearch() {
     let dataToSend = _.cloneDeep(this.advanceSearchForm.value);
     dataToSend.startedAtBefore = dataToSend.startedAtBefore ? moment(dataToSend.startedAtBefore).format(GIDDH_DATE_FORMAT) : '';
     dataToSend.expiry = dataToSend.expiry ? moment(dataToSend.expiry).format(GIDDH_DATE_FORMAT) : '';
