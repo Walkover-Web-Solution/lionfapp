@@ -8,7 +8,8 @@
         </div>
         <div class="clearfix pr-2 pl-2 pt-2" [formGroup]="advanceSearchForm">
             <ul class="advance-search m-0 p-0">
-                <li><label><span>Balance is</span></label> <span class="blue-clr">Greater than</span> <input type="number" formControlName="balance" digitsOnlyDirective placeholder="No of transactions"></li>
+                <li><label><span>Balance is</span></label> <span class="blue-clr">Greater than</span> <input type="number" formControlName="balance" digitsOnlyDirective placeholder="No of transactions">
+                </li>
                 <li><label><span>Subscribe on</span></label> <span class="blue-clr">Before</span> <input type="text" formControlName="startedAtBefore" placeholder="Date" bsDatepicker readonly [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" placement="left"></li>
                 <li><label><span>Expiry</span></label> <span class="blue-clr">Before</span> <input type="text" formControlName="expiry" placeholder="Date" readonly [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker placement="left"></li>
                 <li><label><span>Signup between</span></label>

@@ -30,7 +30,7 @@
 
                         <div class="col-md-4">
                             <div class="select-style form-group">
-                                <sh-select placeholder="Country" name="countryUniqueName" autocomplete="false" id="countryUniqueName" [(ngModel)]="selectedCountry" (selected)="selectCountry($event)" [options]="countrySource" [isFilterEnabled]="true" [ItemHeight]="33" [forceClearReactive]="forceClear$ | async"
+                                <sh-select placeholder="Country" name="countryUniqueName" autocomplete="false" id="countryUniqueName" [(ngModel)]="countryUniqueName" (selected)="selectCountry($event)" [options]="countrySource" [isFilterEnabled]="true" [ItemHeight]="33" [forceClearReactive]="forceClear$ | async"
                                     required>
                                 </sh-select>
                             </div>
@@ -38,8 +38,8 @@
 
                         <div class="col-md-4">
                             <div class="select-style form-group sadik">
-                                <sh-select placeholder="Select Plan" name="planUniqueName" autocomplete="false" id="planUniqueName" [disabled]="!selectedCountry" [(ngModel)]="generateLicenseKeysRequest.planUniqueName" [options]="allPlans" [isFilterEnabled]="true" [ItemHeight]="33" [forceClearReactive]="forceClear$ | async"
-                                    required></sh-select>
+                                <sh-select placeholder="Select Plan" name="planUniqueName" autocomplete="false" id="planUniqueName" [disabled]="!countryUniqueName" [(ngModel)]="generateLicenseKeysRequest.planUniqueName" [options]="allPlans" [isFilterEnabled]="true" [ItemHeight]="33"
+                                    [forceClearReactive]="forceClear$ | async" required></sh-select>
                             </div>
                         </div>
 

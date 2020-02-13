@@ -19,32 +19,32 @@ import { LICENSE_API } from './apiurls/licensekeys.api';
 @Injectable()
 export class AuthenticationService {
 
-  constructor(private errorHandler: ErrorHandler,
-              public _httpClient: HttpClient,
-              public _http: HttpWrapperService,
-              public _router: Router,
-              @Optional() @Inject(ServiceConfig) private config: IServiceConfigArgs) {
+    constructor(private errorHandler: ErrorHandler,
+        public _httpClient: HttpClient,
+        public _http: HttpWrapperService,
+        public _router: Router,
+        @Optional() @Inject(ServiceConfig) private config: IServiceConfigArgs) {
 
-  }
+    }
 
 
-  public LoginWithGoogle(token: string) {
-    let args: any = {headers: {}};
-    args.headers['cache-control'] = 'no-cache';
-    args.headers['Content-Type'] = 'application/json';
-    args.headers['Accept'] = 'application/json';
-    args.headers['Access-Token'] = token;
-    args.headers = new HttpHeaders(args.headers);
-    return this._httpClient.get(this.config.apiUrl + LOGIN_API.LOGIN_WITH_GOOGLE, {
-      headers: args.headers,
-      responseType: 'json'
-    }).pipe(map((res) => {
-      let data: BaseResponse<VerifyEmailResponseModel, string> = res as BaseResponse<VerifyEmailResponseModel, string>;
-      return data;
-    }), catchError((e) => this.errorHandler.HandleCatch<VerifyEmailResponseModel, string>(e, args)));
-  }
+    public LoginWithGoogle(token: string) {
+        let args: any = { headers: {} };
+        args.headers['cache-control'] = 'no-cache';
+        args.headers['Content-Type'] = 'application/json';
+        args.headers['Accept'] = 'application/json';
+        args.headers['Access-Token'] = token;
+        args.headers = new HttpHeaders(args.headers);
+        return this._httpClient.get(this.config.apiUrl + LOGIN_API.LOGIN_WITH_GOOGLE, {
+            headers: args.headers,
+            responseType: 'json'
+        }).pipe(map((res) => {
+            let data: BaseResponse<VerifyEmailResponseModel, string> = res as BaseResponse<VerifyEmailResponseModel, string>;
+            return data;
+        }), catchError((e) => this.errorHandler.HandleCatch<VerifyEmailResponseModel, string>(e, args)));
+    }
 
-  public getCountry(): Observable<BaseResponse<any, any>> {
+    public getCountry(): Observable<BaseResponse<any, any>> {
         const url = this.config.apiUrl + ONBOARDING_COUNTRIES.COUNTRIES_API;
         return this._http.get(url).pipe(
             map((res) => {

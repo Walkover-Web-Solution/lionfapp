@@ -64,7 +64,7 @@ export class PlansService {
                 return res;
             }));
     }
-    
+
     public updatePlan(uniqueName, model: any) {
         let url = this.config.apiUrl + PLANS_API.GET_PLAN_DETAILS;
         url = url.replace(":uniqueName", uniqueName);

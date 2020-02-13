@@ -9,7 +9,7 @@ import { CommonPaginatedRequest, AdvanceSearchRequestSubscriptions, UpdateSubscr
 
 @Injectable()
 export class SubscriptionService {
-    public getCompanyfilter:GetAllCompaniesRequest;
+    public getCompanyfilter: GetAllCompaniesRequest;
     private companyUniqueName: string;
 
 
@@ -67,7 +67,7 @@ export class SubscriptionService {
             url = url.replace(':sortBy', model.sortBy);
         }
         if (model.sortType) {
-             url = url + '&sortType=:sortType';
+            url = url + '&sortType=:sortType';
             url = url.replace(':sortType', model.sortType);
         }
         if (model.page) {
@@ -103,7 +103,7 @@ export class SubscriptionService {
     public setGetAllCompanyRequestObject(model: GetAllCompaniesRequest) {
         this.getCompanyfilter = model;
     }
-      public getGetAllCompanyRequestObject():GetAllCompaniesRequest {
-      return this.getCompanyfilter;
+    public getGetAllCompanyRequestObject(): GetAllCompaniesRequest {
+        return this.getCompanyfilter;
     }
 }

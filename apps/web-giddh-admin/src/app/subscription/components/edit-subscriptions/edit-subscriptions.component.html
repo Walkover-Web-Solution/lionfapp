@@ -102,7 +102,7 @@
                                 <th class="table-dropdown">Plan Name
                                     <div class="btn-group pull-right" dropdown [autoClose]="false">
                                         <button id="button-basic" dropdownToggle type="button" class="btn-multiselect dropdown-toggle pull-right" aria-controls="dropdown-basic"><span class="fa fa-angle-down"></span>
-                                      </button>
+                                        </button>
                                         <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu multiselect-dropdown" role="menu" aria-labelledby="button-basic">
                                             <ng-container *ngFor="let item of allPlans">
                                                 <li role="menuitem"><input type="checkbox" (click)="checkedPlanName(item, $event);">{{item.label}}</li>
@@ -146,7 +146,7 @@
                                 <th class="table-dropdown">Status
                                     <div class="btn-group pull-right" dropdown [autoClose]="false">
                                         <button id="button-basic" dropdownToggle type="button" class="btn-multiselect dropdown-toggle pull-right" aria-controls="dropdown-basic"><span class="fa fa-angle-down"></span>
-                                    </button>
+                                        </button>
                                         <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu multiselect-dropdown" role="menu" aria-labelledby="button-basic">
                                             <li role="menuitem"><input type="checkbox" (click)="checkedPlanStatus('trial', $event);"> Trial</li>
                                             <li role="menuitem"><input type="checkbox" (click)="checkedPlanStatus('active', $event);"> Active</li>

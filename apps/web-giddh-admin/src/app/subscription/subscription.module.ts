@@ -19,20 +19,20 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 
 @NgModule({
-  declarations: [SubscriptionComponent, SubscriptionContainerComponent, UserListComponent, AdvanceSearchComponent, EditPlanModalComponent, EditSubscriptionsComponent],
-  imports: [
-    CommonModule,
-    SubscriptionRoutingModule,
-    PerfectScrollbarModule,
-    TabsModule,
-    PaginationModule,
-    BsDatepickerModule.forRoot(),
-    ModalModule.forRoot(),
-    FormsModule,
-    ReactiveFormsModule,
-    ClickOutsideModule,
-    DigitsOnlyModule,
-    BsDropdownModule
-  ]
+    declarations: [SubscriptionComponent, SubscriptionContainerComponent, UserListComponent, AdvanceSearchComponent, EditPlanModalComponent, EditSubscriptionsComponent],
+    imports: [
+        CommonModule,
+        SubscriptionRoutingModule,
+        PerfectScrollbarModule,
+        TabsModule,
+        PaginationModule,
+        BsDatepickerModule.forRoot(),
+        ModalModule.forRoot(),
+        FormsModule,
+        ReactiveFormsModule,
+        ClickOutsideModule,
+        DigitsOnlyModule,
+        BsDropdownModule
+    ]
 })
 export class SubscriptionModule { }

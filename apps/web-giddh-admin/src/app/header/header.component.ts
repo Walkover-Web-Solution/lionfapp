@@ -65,7 +65,7 @@ export class HeaderComponent implements OnInit {
         this.authService.signOut();
         this.router.navigate(['login']);
     }
-    
+
     public getCompaniesList() {
         this.subscriptionService.setGetAllCompanyRequestObject(this.getCompanyfilter);
         this.router.navigate(['admin', 'subscription', 'edit']);

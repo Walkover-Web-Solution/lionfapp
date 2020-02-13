@@ -33,7 +33,7 @@ export class SubscriptionContainerComponent implements OnInit {
     public searchViaSubscriptionId: string;
     public isFromAdvanceSearchRes: boolean = false;
     public togglePlanDetailsPanelBool: boolean;
-    public getAllCompaniesRequest: GetAllCompaniesRequest = new GetAllCompaniesRequest()
+    public getAllCompaniesRequest: GetAllCompaniesRequest = new GetAllCompaniesRequest();
 
 
 
@@ -66,7 +66,7 @@ export class SubscriptionContainerComponent implements OnInit {
     public openEditSubscription(subscriptionId) {
         this.subscriptionId = subscriptionId;
         this.getAllCompaniesRequest.subscriptionId = subscriptionId;
-        this.subscriptionService.setGetAllCompanyRequestObject(this.getAllCompaniesRequest)
+        this.subscriptionService.setGetAllCompanyRequestObject(this.getAllCompaniesRequest);
         this.router.navigate([`admin/subscription/edit/${subscriptionId}`]);
     }
 
@@ -132,7 +132,7 @@ export class SubscriptionContainerComponent implements OnInit {
                         this.subscriptionData = [];
                         res.body.results.forEach(key => {
                             if (key && key.userDetails && key.userDetails.signUpOn) {
-                            key.userDetails.signUpOn = key.userDetails.signUpOn.split(" ")[0].replace(/-/g, "/");
+                                key.userDetails.signUpOn = key.userDetails.signUpOn.split(" ")[0].replace(/-/g, "/");
                             }
                             if (key.startedAt) {
                                 key.startedAt = key.startedAt.replace(/-/g, "/");
