@@ -184,6 +184,7 @@ export class PlansComponent implements OnInit {
     public hidePlanDetailsPopup() {
         this.selectedPlan = '';
         this.togglePlanDetailsPanelBool = false;
+        this.getAllPlans();
         this.toggleBodyClass();
     }
 

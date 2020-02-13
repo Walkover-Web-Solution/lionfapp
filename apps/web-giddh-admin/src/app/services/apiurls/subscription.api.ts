@@ -6,6 +6,6 @@ export const SUBSCRIPTION_API = {
     GET_ALL_COMPANIES_BY_SUBSCRIPTION_ID: 'v2/admin/subscription/companies?subscriptionId=:subscriptionId',
     GET_AUDIT_LOGS: 'v2/admin/audit-logs',
     UPDATE_SUBSCRIPTION: 'v2/admin/subscription?subscriptionId=:subscriptionId',
-    GET_ALL_COMPANIES: 'v2/admin/companies?sortBy=:sortBy&sortType=:sortType&page=:page',
+    GET_ALL_COMPANIES: 'v2/admin/companies?page=:page',
 
 };

@@ -127,13 +127,17 @@ export class SubscriptionContainerComponent implements OnInit {
             if (res) {
                 this.isFromAdvanceSearchRes = res.fromAdvanceSearch;
                 if (res.status === 'success') {
-                    this.subscriberRes = res.body;
-                    this.subscriptionData = [];
-                    res.body.results.forEach(key => {
-                        key.userDetails.signUpOn = key.userDetails.signUpOn.split(" ")[0].replace(/-/g, "/");
-                        key.startedAt = key.startedAt.replace(/-/g, "/")
-                        this.subscriptionData.push(key);
-                    });
+                    if (res.body && res.body.results) {
+                        this.subscriberRes = res.body;
+                        this.subscriptionData = [];
+                        res.body.results.forEach(key => {
+                            key.userDetails.signUpOn = key.userDetails.signUpOn.split(" ")[0].replace(/-/g, "/");
+                            if (key.startedAt) {
+                                key.startedAt = key.startedAt.replace(/-/g, "/");
+                            }
+                            this.subscriptionData.push(key);
+                        });
+                    }
                 } else {
                     this.toasty.errorToast(res.message)
                 }

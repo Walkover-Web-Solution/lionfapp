@@ -109,8 +109,10 @@ export class AuditLogsRequest {
  * request body for get all companies
 */
 export class GetAllCompaniesRequest {
-    startedAtFrom: string = '';
+    startedAtFrom: string;
     companyName: string = '';
     subscriptionId: string = '';
+    planUniqueNames: string[] = [];
+    userName: string = '';
     status: string[] = []; // "trial","expired"
 }
