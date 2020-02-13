@@ -24,30 +24,36 @@
             <div class="row">
                 <div class="col-md-5">
                     <div class="row">
-                        <div class="col-md-6">
-                            <input type="number" (blur)="validateLicenseKeys()" placeholder="No. of keys"
-                                class="form-control" name="noOfKeys" [(ngModel)]="generateLicenseKeysRequest.noOfKeys"
-                                required>
+                        <div class="col-md-4">
+                            <input type="number" (blur)="validateLicenseKeys()" placeholder="No. of keys" class="form-control" name="noOfKeys" [(ngModel)]="generateLicenseKeysRequest.noOfKeys" required>
                         </div>
-                        <div class="col-md-6">
+
+                        <div class="col-md-4">
                             <div class="select-style form-group">
-                                <sh-select placeholder="Select Plan" name="planUniqueName" autocomplete="false"
-                                    id="planUniqueName" [(ngModel)]="generateLicenseKeysRequest.planUniqueName"
-                                    [options]="allPlans" [isFilterEnabled]="true" [ItemHeight]="33" [forceClearReactive]="forceClear$ | async" required></sh-select>
+                                <sh-select placeholder="Country" name="countryUniqueName" autocomplete="false" id="countryUniqueName" [(ngModel)]="selectedCountry" (selected)="selectCountry($event)" [options]="countrySource" [isFilterEnabled]="true" [ItemHeight]="33" [forceClearReactive]="forceClear$ | async"
+                                    required>
+                                </sh-select>
                             </div>
                         </div>
+
+                        <div class="col-md-4">
+                            <div class="select-style form-group sadik">
+                                <sh-select placeholder="Select Plan" name="planUniqueName" autocomplete="false" id="planUniqueName" [disabled]="!selectedCountry" [(ngModel)]="generateLicenseKeysRequest.planUniqueName" [options]="allPlans" [isFilterEnabled]="true" [ItemHeight]="33" [forceClearReactive]="forceClear$ | async"
+                                    required></sh-select>
+                            </div>
+                        </div>
+
+
+
                     </div>
 
                     <div class="clearfix">
                         <div class="clearBoth">
                             <div class="form-group">
-                                <textarea name="comments" class="textarea form-control"
-                                    [(ngModel)]="generateLicenseKeysRequest.comments" placeholder="Comments" required></textarea>
+                                <textarea name="comments" class="textarea form-control" [(ngModel)]="generateLicenseKeysRequest.comments" placeholder="Comments" required></textarea>
                             </div>
                             <div class="clearfix">
-                                <button type="button" class="btn-blue btn"
-                                    [disabled]="generateKeysForm.invalid || isLoading"
-                                    (click)="generateKeys()">Generate</button>
+                                <button type="button" class="btn-blue btn" [disabled]="generateKeysForm.invalid || isLoading" (click)="generateKeys()">Generate</button>
                             </div>
                         </div>
                     </div>

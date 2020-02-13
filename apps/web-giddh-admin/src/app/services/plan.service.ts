@@ -64,6 +64,17 @@ export class PlansService {
                 return res;
             }));
     }
+    
+    public updatePlan(uniqueName, model: any) {
+        let url = this.config.apiUrl + PLANS_API.GET_PLAN_DETAILS;
+        url = url.replace(":uniqueName", uniqueName);
+
+        return this.http.put(url, model).pipe(
+            map((res) => {
+                return res;
+            }), catchError((e) => this.errorHandler.HandleCatch(e)));
+    }
+
 
     public getPlansStats() {
         let url = this.config.apiUrl + PLANS_API.GET_PLAN_STATS;

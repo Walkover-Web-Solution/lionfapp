@@ -8,6 +8,8 @@ import { AppState } from '../store';
 import { takeUntil } from 'rxjs/operators';
 import { ReplaySubject } from 'rxjs';
 import { CurrentPage } from '../modules/common';
+import { SubscriptionService } from '../services/subscription.service';
+import { GetAllCompaniesRequest } from '../modules/modules/api-modules/subscription';
 
 
 @Component({
@@ -26,12 +28,13 @@ export class HeaderComponent implements OnInit {
     public selectedpageheader;
     public selectedPage: string
     public destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
+    public getCompanyfilter: GetAllCompaniesRequest = new GetAllCompaniesRequest();
     public onclick(id: string) {
         this.activeMenu = id;
         this.isDropDownOpen = !this.isDropDownOpen;
     }
 
-    constructor(private store: Store<AppState>, private generalService: GeneralService, private _generalActions: GeneralActions, private router: Router, private authService: AuthService) {
+    constructor(private store: Store<AppState>, private generalService: GeneralService, private _generalActions: GeneralActions, private router: Router, private authService: AuthService, private subscriptionService: SubscriptionService) {
         let session = null;
         if (JSON.parse(localStorage.getItem('session'))) {
             session = JSON.parse(localStorage.getItem('session'));
@@ -61,5 +64,9 @@ export class HeaderComponent implements OnInit {
         this.generalService.user = null;
         this.authService.signOut();
         this.router.navigate(['login']);
+    }
+    public getCompaniesList() {
+        this.subscriptionService.setGetAllCompanyRequestObject(this.getCompanyfilter);
+        this.router.navigate(['admin', 'subscription', 'edit']);
     }
 }

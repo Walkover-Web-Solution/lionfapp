@@ -9,6 +9,10 @@ import { CreatePlansComponent } from './components/create-plans/create-plans.com
 import { PlanDetailsComponent } from './components/plan-details/plan-details.component';
 import { ShSelectModule } from '../theme/ng-virtual-select/sh-select.module';
 import { ClickOutsideModule } from 'ng-click-outside';
+import {MatSelectModule} from '@angular/material/select';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+
+
 
 @NgModule({
     declarations: [PlansComponent, CreatePlansComponent, PlanDetailsComponent],
@@ -21,7 +25,9 @@ import { ClickOutsideModule } from 'ng-click-outside';
         FormsModule,
         ReactiveFormsModule,
         ClickOutsideModule,
-        ShSelectModule
+        ShSelectModule,
+        MatSelectModule,
+        BsDropdownModule.forRoot()
     ]
 })
 export class PlansModule { }

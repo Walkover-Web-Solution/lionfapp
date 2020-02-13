@@ -318,9 +318,6 @@ a {
 
 /*btn end*/
 
-
-/* table */
-
 .basic {
     background: #fff;
 }
@@ -340,7 +337,18 @@ a {
   border-right:1px solid #c6c4c4;
   white-space: nowrap;
 }
-
+.multiselect-dropdown > li {
+  padding-right: 10px;
+  padding-left: 10px;
+  font-family: 'Lato', sans-serif;
+  font-weight: normal;
+}
+.btn-multiselect {
+  background: none;
+  border: 0px;
+  font-size: 13px;
+  padding: 0px 10px;
+}
 .basic>tbody>tr:hover td {
     background: #f4f5f8;
 }

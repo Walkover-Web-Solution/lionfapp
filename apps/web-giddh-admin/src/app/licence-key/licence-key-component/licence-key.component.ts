@@ -1,6 +1,6 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { LicenceService } from '../../services/licence.service';
-import { SubscriberList } from '../../modules/modules/api-modules/subscription';
+import { SubscriberList, PAGINATION_COUNT } from '../../modules/modules/api-modules/subscription';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 import { GeneralService } from '../../services/general.service';
 import { Router } from '@angular/router';
@@ -29,7 +29,7 @@ export class LicenceKeyComponent implements OnInit {
      */
     ngOnInit() {
         this.generalService.setCurrentPageTitle("License Keys");
-        this.getAllLicenceKeyRequest.count = 50;
+        this.getAllLicenceKeyRequest.count = PAGINATION_COUNT;
         this.getAllLicenceKeyRequest.page = 1;
         this.getAllLicenceKey();
     }

@@ -1,4 +1,4 @@
-export class Subscription{
+export class Subscription {
   public userDetails: UserDetails;
   public companies: [];
   public totalTransactions: number;
@@ -34,4 +34,15 @@ export interface PlanDetails {
   durationUnit: string,
   duration: number,
   name: string
+}
+
+export class UpdatePlanRequest {
+  amount: number;
+  transactionLimit: number;
+  companiesLimit: number;
+  name: string;
+  countries: string[];
+  duration: number;
+  durationUnit: string;
+  ratePerExtraTransaction: number
 }
