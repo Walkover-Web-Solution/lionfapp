@@ -34,6 +34,7 @@ export class PlansComponent implements OnInit {
     public defaultLoad: boolean = true;
     public planStats: any = {};
     public countrySource: IOption[] = [];
+    public selectedCountries: string[] = []
 
     constructor(private plansService: PlansService, private generalService: GeneralService, private toaster: ToasterService, private authenticationService: AuthenticationService) {
     }
@@ -51,6 +52,7 @@ export class PlansComponent implements OnInit {
         this.getAllPlansRequest.sortType = 'desc';
         this.getPlansStats();
         this.getAllPlans();
+        this.getOnboardCountries();
     }
 
     /**
@@ -244,11 +246,11 @@ export class PlansComponent implements OnInit {
         });
     }
 
-      /**
-     * API call to get all onboarding countries
-     *
-     * @memberof GenerateKeyComponent
-     */
+    /**
+   * API call to get all onboarding countries
+   *
+   * @memberof GenerateKeyComponent
+   */
     public getOnboardCountries() {
         this.authenticationService.getCountry().subscribe(res => {
             if (res.status === 'success') {
@@ -262,5 +264,17 @@ export class PlansComponent implements OnInit {
                 this.toaster.errorToast(res.message);
             }
         });
+    }
+
+    public checkedCountryName(item, event) {
+        if (event.target.checked) {
+            if (this.selectedCountries.indexOf(item.name) === -1) {
+                this.selectedCountries.push(item.value);
+            }
+        } else {
+            let index = this.selectedCountries.indexOf(item.name);
+            this.selectedCountries.splice(index, 1);
+        }
+        console.log(this.selectedCountries);
     }
 }
