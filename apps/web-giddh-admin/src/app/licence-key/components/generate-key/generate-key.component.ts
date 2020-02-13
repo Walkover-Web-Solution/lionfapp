@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { PlansService } from '../../../services/plan.service';
-import { CommonPaginatedRequest } from '../../../modules/modules/api-modules/subscription';
+import { CommonPaginatedRequest, PAGINATION_COUNT } from '../../../modules/modules/api-modules/subscription';
 import { NgForm } from '@angular/forms';
 import { LicenceService } from '../../../services/licence.service';
 import { ToasterService } from '../../../services/toaster.service';
@@ -58,7 +58,7 @@ export class GenerateKeyComponent implements OnInit {
      * @memberof GenerateKeyComponent
      */
     public getAllPlans(): void {
-        this.getAllPlansRequest.count = 0;
+        this.getAllPlansRequest.count = PAGINATION_COUNT;
         this.getAllPlansRequest.page = 1;
         this.getAllPlansRequest.sortBy = 'TOTAL_AMOUNT';
         this.getAllPlansRequest.sortType = 'desc';

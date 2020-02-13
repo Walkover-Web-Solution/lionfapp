@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AdvanceSearchRequestSubscriptions, CommonPaginatedRequest } from '../../../modules/modules/api-modules/subscription';
+import { AdvanceSearchRequestSubscriptions, CommonPaginatedRequest, PAGINATION_COUNT } from '../../../modules/modules/api-modules/subscription';
 import { AppState } from '../../../store';
 import { Store } from '@ngrx/store';
 import { AdminActions } from '../../../actions/admin.actions';
@@ -45,7 +45,7 @@ export class AdvanceSearchComponent implements OnInit {
   constructor(private fb: FormBuilder, private store: Store<AppState>, private adminActions: AdminActions, private toasty: ToasterService) { }
 
   ngOnInit() {
-    this.advanceSearchFilter.count = 50;
+    this.advanceSearchFilter.count = PAGINATION_COUNT;
     this.advanceSearchFilter.page = 1;
     this.setAdvanceSearch();
 

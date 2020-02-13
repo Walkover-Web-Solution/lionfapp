@@ -7,7 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription, ReplaySubject, Subject } from 'rxjs';
 import { takeUntil, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { AdminActions } from '../../../actions/admin.actions';
-import { CommonPaginatedRequest, SubscriberList, AuditLogsRequest, GetAllCompaniesRequest } from '../../../modules/modules/api-modules/subscription';
+import { CommonPaginatedRequest, SubscriberList, AuditLogsRequest, GetAllCompaniesRequest, PAGINATION_COUNT } from '../../../modules/modules/api-modules/subscription';
 import { SubscriptionService } from '../../../services/subscription.service';
 import { ToasterService } from '../../../services/toaster.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
@@ -37,12 +37,12 @@ export class EditSubscriptionsComponent implements OnInit {
   public subscriptionsAuditLogs = [];
   public subscriptionsAuditLogsResponse: any;
   public getAllCompaniesRequest: GetAllCompaniesRequest = {
-     startedAtFrom: '',
+    startedAtFrom: '',
     companyName: '',
     subscriptionId: '',
     planUniqueNames: [],
     userName: '',
-    status: [] 
+    status: []
   };
   public searchViaCompanyName$ = new Subject<string>();
   public searchViaUserName$ = new Subject<string>();
@@ -69,17 +69,17 @@ export class EditSubscriptionsComponent implements OnInit {
   constructor(private store: Store<AppState>, private modalService: BsModalService, private generalActions: GeneralActions, private toasty: ToasterService, private adminActions: AdminActions, private subscriptionService: SubscriptionService, private router: Router, private generalService: GeneralService, private activateRoute: ActivatedRoute, private plansService: PlansService) {
     this.paginationRequest.from = '';
     this.paginationRequest.page = 1;
-    this.paginationRequest.count = 20;
+    this.paginationRequest.count = PAGINATION_COUNT;
 
   }
 
   ngOnInit() {
-    if(this.subscriptionService.getGetAllCompanyRequestObject()) {
-    this.getAllCompaniesRequest = this.subscriptionService.getGetAllCompanyRequestObject();
+    if (this.subscriptionService.getGetAllCompanyRequestObject()) {
+      this.getAllCompaniesRequest = this.subscriptionService.getGetAllCompanyRequestObject();
     }
     this.getAllPlans();
     this.activateRoute.params.subscribe(params => {
-      this.auditLogRequest.count = 50;
+      this.auditLogRequest.count = PAGINATION_COUNT;
       this.auditLogRequest.page = 1;
       if (params['subscriptionId']) {
         this.subscriptionId = params['subscriptionId'];
@@ -97,35 +97,35 @@ export class EditSubscriptionsComponent implements OnInit {
         this.isDetailsShow = false;
         this.generalService.setCurrentPageTitle("Companies");
       }
-    
+
     });
     this.getAllCompanies();
     if (this.auditLogRequest.entityIdentifier) {
       this.getAuditLogs(this.auditLogRequest);
     }
 
-     this.searchViaCompanyName$.pipe(
-            debounceTime(1000),
-            distinctUntilChanged()
-        ).subscribe(term => {
-            this.getAllCompaniesRequest.companyName = term;
-            this.getAllCompanies();
-        });
+    this.searchViaCompanyName$.pipe(
+      debounceTime(1000),
+      distinctUntilChanged()
+    ).subscribe(term => {
+      this.getAllCompaniesRequest.companyName = term;
+      this.getAllCompanies();
+    });
 
-          this.searchViaUserName$.pipe(
-            debounceTime(1000),
-            distinctUntilChanged()
-        ).subscribe(term => {
-            this.getAllCompaniesRequest.userName = term;
-            this.getAllCompanies();
-        });
-          this.searchViaSubscriptionID$.pipe(
-            debounceTime(1000),
-            distinctUntilChanged()
-        ).subscribe(term => {
-            this.getAllCompaniesRequest.subscriptionId = term;
-            this.getAllCompanies();
-        });
+    this.searchViaUserName$.pipe(
+      debounceTime(1000),
+      distinctUntilChanged()
+    ).subscribe(term => {
+      this.getAllCompaniesRequest.userName = term;
+      this.getAllCompanies();
+    });
+    this.searchViaSubscriptionID$.pipe(
+      debounceTime(1000),
+      distinctUntilChanged()
+    ).subscribe(term => {
+      this.getAllCompaniesRequest.subscriptionId = term;
+      this.getAllCompanies();
+    });
   }
 
   public getAllCompanies() {
@@ -150,7 +150,7 @@ export class EditSubscriptionsComponent implements OnInit {
   }
 
   /**
-   * Paginaton pabe change action
+   * Paginaton page change action
    *
    * @param {*} event page number
    * @memberof EditSubscriptionsComponent
@@ -238,7 +238,7 @@ export class EditSubscriptionsComponent implements OnInit {
    * @memberof EditSubscriptionsComponent
    */
   public getAllPlans(): void {
-    this.getAllPlansRequest.count = 0;
+    this.getAllPlansRequest.count = PAGINATION_COUNT;
     this.getAllPlansRequest.page = 1;
     this.getAllPlansRequest.sortBy = 'TOTAL_AMOUNT';
     this.getAllPlansRequest.sortType = 'desc';
@@ -281,8 +281,8 @@ export class EditSubscriptionsComponent implements OnInit {
     this.getAllCompanies();
   }
 
-   public searchViaSubscribedOn() {
-        this.getAllCompaniesRequest.startedAtFrom = this.getAllCompaniesRequest.startedAtFrom ? moment(this.getAllCompaniesRequest.startedAtFrom).format(GIDDH_DATE_FORMAT) : '';
-        this.getAllCompanies();
-    }
+  public searchViaSubscribedOn() {
+    this.getAllCompaniesRequest.startedAtFrom = this.getAllCompaniesRequest.startedAtFrom ? moment(this.getAllCompaniesRequest.startedAtFrom).format(GIDDH_DATE_FORMAT) : '';
+    this.getAllCompanies();
+  }
 }

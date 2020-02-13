@@ -1,3 +1,5 @@
+/** Pagination count limit */
+export const PAGINATION_COUNT = 50;
 export class CommonPaginatedRequest {
     public from?: string;
     public to?: string;
