@@ -10,7 +10,7 @@ import { LicenceService } from './licence.service';
 import { UserService } from './user.service';
 import { SubscriptionService } from './subscription.service';
 import { PlansService } from './plan.service';
-import {GeneralService} from './general.service'
+import { GeneralService } from './general.service'
 import { AuthenticationService } from './authentication.service';
 
 /**
@@ -18,26 +18,26 @@ import { AuthenticationService } from './authentication.service';
  */
 
 @NgModule({
-  imports: [CommonModule, RouterModule
-  ],
-  exports: [CommonModule, FormsModule, RouterModule]
+    imports: [CommonModule, RouterModule
+    ],
+    exports: [CommonModule, FormsModule, RouterModule]
 })
 export class ServiceModule {
-  public static forRoot(): ModuleWithProviders {
-    return {
-      ngModule: ServiceModule,
-      providers: [
-        ErrorHandler,
-        HttpWrapperService,
-        ToasterService,
-        LoaderService,
-        LicenceService,
-        UserService,
-        SubscriptionService,
-        PlansService,
-        AuthenticationService,
-        GeneralService
-      ]
-    };
-  }
+    public static forRoot(): ModuleWithProviders {
+        return {
+            ngModule: ServiceModule,
+            providers: [
+                ErrorHandler,
+                HttpWrapperService,
+                ToasterService,
+                LoaderService,
+                LicenceService,
+                UserService,
+                SubscriptionService,
+                PlansService,
+                AuthenticationService,
+                GeneralService
+            ]
+        };
+    }
 }

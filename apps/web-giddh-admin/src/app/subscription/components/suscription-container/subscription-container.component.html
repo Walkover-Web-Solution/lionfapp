@@ -55,7 +55,7 @@
                             <div class="d-flex align-items-center justify-content-between">
                                 Plan
                                 <a href="javascript:void(0)" class="text-black">
-                                    <!-- <i class="fa fa-angle-down"></i> -->
+                                    <i class="fa fa-angle-down"></i>
                                 </a>
                             </div>
                         </th>
@@ -126,9 +126,11 @@
                     <tr *ngFor="let subscription of subscriptionData">
                         <td data-title="Signup On">{{subscription.userDetails.signUpOn}}</td>
                         <td data-title="Subscribe on">{{subscription.startedAt}}</td>
-                        <td data-title="Subscribtion Id" class="nowrap"><a href="javascript:void(0)" (click)="openEditSubscription( subscription.subscriptionId)">{{subscription.subscriptionId}}</a></td>
+                        <td data-title="Subscribtion Id" class="nowrap"><a href="javascript:void(0)" (click)="openEditSubscription( subscription.subscriptionId)">{{subscription.subscriptionId}}</a>
+                        </td>
                         <td data-title="Plan">{{subscription.planDetails.name}}</td>
-                        <td data-title="No of Company">{{subscription?.totalCompanies}}/{{subscription?.planDetails?.companiesLimit}}</td>
+                        <td data-title="No of Company">
+                            {{subscription?.totalCompanies}}/{{subscription?.planDetails?.companiesLimit}}</td>
                         <td data-title="Transction Limit">{{subscription.planDetails.transactionLimit}}</td>
                         <td data-title="Balance">{{subscription.balance}}</td>
                         <td data-title="Total Amount">{{subscription.planDetails.amount}}/-</td>

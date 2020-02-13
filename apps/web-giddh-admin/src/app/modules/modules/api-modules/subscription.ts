@@ -1,3 +1,5 @@
+/** Pagination count limit */
+export const PAGINATION_COUNT = 50;
 export class CommonPaginatedRequest {
     public from?: string;
     public to?: string;
@@ -103,4 +105,16 @@ export class AuditLogsRequest {
     count?: any;
     entityIdentifier: string;  // For ID of subscription or plan or etc.
 
+}
+
+/*
+ * request body for get all companies
+*/
+export class GetAllCompaniesRequest {
+    startedAtFrom: string;
+    companyName: string = '';
+    subscriptionId: string = '';
+    planUniqueNames: string[] = [];
+    userName: string = '';
+    status: string[] = []; // "trial","expired"
 }
