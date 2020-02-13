@@ -275,6 +275,5 @@ export class PlansComponent implements OnInit {
             let index = this.selectedCountries.indexOf(item.name);
             this.selectedCountries.splice(index, 1);
         }
-        console.log(this.selectedCountries);
     }
 }
