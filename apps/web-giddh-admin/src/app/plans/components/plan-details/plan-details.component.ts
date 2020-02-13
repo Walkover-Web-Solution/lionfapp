@@ -43,7 +43,6 @@ export class PlanDetailsComponent implements OnInit {
             if (res.status === 'success') {
                 this.planDetails = res.body;
                 this.updatePlanRequest = res.body;
-                console.log(this.updatePlanRequest);
             } else {
                 this.toaster.errorToast(res.message);
             }
@@ -56,7 +55,7 @@ export class PlanDetailsComponent implements OnInit {
             this.isLoading = false;
             if (res.status === 'success') {
                 this.planDetails = res.body;
-                this.toaster.successToast('Plan update successfully');
+                this.toaster.successToast('Plan updated successfully');
                 this.closePopup();
             } else {
                 this.toaster.errorToast(res.message);

@@ -39,9 +39,8 @@
             <span>{{planDetails.ratePerExtraTransaction}}</span>
         </div>
         <div class="form-group">
-            <input type="checkbox d-inline" [(ngModel)]="planDetails.isCommonPlan" class="form-control">
+            <input type="checkbox" [(ngModel)]="planDetails.isCommonPlan" class="form-control d-inline-block">
             <label>Is Common Plan</label><br>
-            <!-- <span>{{planDetails.isCommonPlan ? 'Yes': 'No'}}</span> -->
         </div>
         <button type="button" class="btn btn-blue mt-2" (click)="updatePlan(planDetails)">Update</button>
     </div>
