@@ -24,7 +24,7 @@ export function SubscriptionsReducer(state: SubscriptionsState = initialState, a
 
   switch (action.type) {
 
-    case AdminActions.GET_SUBCRIPTION:
+    case AdminActions.GET_SUBSCRIPTION:
       return Object.assign({}, state, {
         isGetSubscriptionInprocess: true,
         isGetSubscriptionSuccess: false
