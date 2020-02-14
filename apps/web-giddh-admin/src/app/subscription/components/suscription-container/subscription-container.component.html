@@ -47,16 +47,28 @@
                                 </div>
                             </div>
                             <div class="input-container" [hidden]="inlineSearch !== 'subscribId'">
-                                <input type="text" placeholder="Subscribtion ID" class="form-control w100" #subscribIdField name="subscriptionId" [(ngModel)]="advanceSearchRequest.subscriptionId" (ngModelChange)="searchViaSubscriptionId$.next($event)" />
+                                <input type="text" placeholder="Subscription ID" class="form-control w100" #subscribIdField name="subscriptionId" [(ngModel)]="advanceSearchRequest.subscriptionId" (ngModelChange)="searchViaSubscriptionId$.next($event)" />
                             </div>
                         </th>
 
-                        <th>
+                        <!-- <th>
                             <div class="d-flex align-items-center justify-content-between">
                                 Plan
                                 <a href="javascript:void(0)" class="text-black">
                                     <i class="fa fa-angle-down"></i>
                                 </a>
+                            </div>
+                        </th> -->
+                        <th class="table-dropdown">Plan Name
+                            <div class="btn-group pull-right" dropdown [autoClose]="false">
+                                <button id="button-basic" dropdownToggle type="button" class="btn-multiselect dropdown-toggle pull-right" aria-controls="dropdown-basic"><span class="fa fa-angle-down"></span>
+                                </button>
+                                <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu multiselect-dropdown" role="menu" aria-labelledby="button-basic">
+                                    <ng-container *ngFor="let item of allPlans">
+                                        <li role="menuitem"><input type="checkbox" (click)="checkedPlanName(item, $event);">{{item.label}}</li>
+                                    </ng-container>
+                                    <li *ngIf="allPlans.length==0">No results found</li>
+                                </ul>
                             </div>
                         </th>
                         <th class="transform-none">No of Company</th>
@@ -119,22 +131,34 @@
                                 </a>
                             </div>
                         </th>
-                        <th>Status</th>
+                        <th class="table-dropdown">Status
+                            <div class="btn-group pull-right" dropdown [autoClose]="false">
+                                <button id="button-basic" dropdownToggle type="button" class="btn-multiselect dropdown-toggle pull-right" aria-controls="dropdown-basic"><span class="fa fa-angle-down"></span>
+                                </button>
+                                <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu multiselect-dropdown" role="menu" aria-labelledby="button-basic">
+                                    <li role="menuitem"><input type="checkbox" (click)="checkedStatus('trial', $event);"> Trial</li>
+                                    <li role="menuitem"><input type="checkbox" (click)="checkedStatus('active', $event);"> Active</li>
+                                    <li role="menuitem"><input type="checkbox" (click)="checkedStatus('expired', $event);"> Expired</li>
+                                </ul>
+                            </div>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let subscription of subscriptionData">
                         <td data-title="Signup On">{{subscription.userDetails.signUpOn}}</td>
                         <td data-title="Subscribe on">{{subscription.startedAt}}</td>
-                        <td data-title="Subscribtion Id" class="nowrap"><a href="javascript:void(0)" (click)="openEditSubscription( subscription.subscriptionId)">{{subscription.subscriptionId}}</a></td>
+                        <td data-title="Subscription Id" class="nowrap"><a href="javascript:void(0)" (click)="openEditSubscription( subscription.subscriptionId)">{{subscription.subscriptionId}}</a>
+                        </td>
                         <td data-title="Plan">{{subscription.planDetails.name}}</td>
-                        <td data-title="No of Company">{{subscription?.totalCompanies}}/{{subscription?.planDetails?.companiesLimit}}</td>
-                        <td data-title="Transction Limit">{{subscription.planDetails.transactionLimit}}</td>
+                        <td data-title="No of Company">
+                            {{subscription?.totalCompanies}}/{{subscription?.planDetails?.companiesLimit}}</td>
+                        <td data-title="Transaction Limit">{{subscription.planDetails.transactionLimit}}</td>
                         <td data-title="Balance">{{subscription.balance}}</td>
                         <td data-title="Total Amount">{{subscription.planDetails.amount}}/-</td>
-                        <td data-title="Additional Transction">{{subscription.additionalTransactions}}</td>
+                        <td data-title="Additional Transaction">{{subscription.additionalTransactions}}</td>
                         <td data-title="Additional Charges">{{subscription.additionalCharges}}</td>
-                        <td data-title="Rate/Transction">{{subscription.planDetails.ratePerExtraTransaction}}</td>
+                        <td data-title="Rate/Transaction">{{subscription.planDetails.ratePerExtraTransaction}}</td>
                         <td data-title="Expiry" class="nowrap">{{subscription.expiry}}</td>
                         <td data-title="Status">{{subscription.status}}</td>
                     </tr>

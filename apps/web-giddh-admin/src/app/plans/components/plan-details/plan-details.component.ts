@@ -50,8 +50,8 @@ export class PlanDetailsComponent implements OnInit {
     }
 
     public updatePlan(planObject) {
-       this.updatePlanRequest = planObject;
-         this.plansService.updatePlan(this.planUniqueName, this.updatePlanRequest).subscribe(res => {
+        this.updatePlanRequest = planObject;
+        this.plansService.updatePlan(this.planUniqueName, this.updatePlanRequest).subscribe(res => {
             this.isLoading = false;
             if (res.status === 'success') {
                 this.planDetails = res.body;

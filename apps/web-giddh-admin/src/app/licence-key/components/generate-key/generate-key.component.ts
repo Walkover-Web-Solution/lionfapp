@@ -24,7 +24,7 @@ export class GenerateKeyComponent implements OnInit {
     public getAllPlansPostRequest: any = {};
     public getAllPlansRequest: CommonPaginatedRequest = new CommonPaginatedRequest();
     public allPlans: IOption[] = [];
-    public selectedCountry: string = ''
+    public countryUniqueName: string = ''
     public countrySource: IOption[] = [];
     public generateLicenseKeysRequest: any = {
         planUniqueName: '',

@@ -35,7 +35,7 @@
             <h3 class="text-orange">{{plansData?.subscription?.planDetails?.amount}}/-</h3>
         </div>
     </div> -->
-    <div class="row">
+    <div class="row" *ngIf="isDetailsShow">
         <div class="pull-right">
             <a href="javascript:void(0)" [routerLink]="['/admin/subscription']" routerLinkActive="router-link-active" class="btn btn-blue mr-1">Back</a>
         </div>
@@ -102,7 +102,7 @@
                                 <th class="table-dropdown">Plan Name
                                     <div class="btn-group pull-right" dropdown [autoClose]="false">
                                         <button id="button-basic" dropdownToggle type="button" class="btn-multiselect dropdown-toggle pull-right" aria-controls="dropdown-basic"><span class="fa fa-angle-down"></span>
-                                      </button>
+                                        </button>
                                         <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu multiselect-dropdown" role="menu" aria-labelledby="button-basic">
                                             <ng-container *ngFor="let item of allPlans">
                                                 <li role="menuitem"><input type="checkbox" (click)="checkedPlanName(item, $event);">{{item.label}}</li>
@@ -146,7 +146,7 @@
                                 <th class="table-dropdown">Status
                                     <div class="btn-group pull-right" dropdown [autoClose]="false">
                                         <button id="button-basic" dropdownToggle type="button" class="btn-multiselect dropdown-toggle pull-right" aria-controls="dropdown-basic"><span class="fa fa-angle-down"></span>
-                                    </button>
+                                        </button>
                                         <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu multiselect-dropdown" role="menu" aria-labelledby="button-basic">
                                             <li role="menuitem"><input type="checkbox" (click)="checkedPlanStatus('trial', $event);"> Trial</li>
                                             <li role="menuitem"><input type="checkbox" (click)="checkedPlanStatus('active', $event);"> Active</li>
@@ -194,7 +194,7 @@
             </tab>
         </tabset>
     </div>
-    <div class="text-center" *ngIf="progressData?.length && companiesAllRes.totalItems>paginationRequest?.count-1">
+    <div class="text-center" *ngIf="companiesData?.length && companiesAllRes.totalItems>paginationRequest?.count-1">
         <pagination [maxSize]="5" [totalItems]="companiesAllRes?.totalItems" [itemsPerPage]="companiesAllRes.count" [(ngModel)]="paginationRequest.page" (pageChanged)="pageChanged($event)" class="pagination-sm" [boundaryLinks]="true" [rotate]="false">
         </pagination>
     </div>

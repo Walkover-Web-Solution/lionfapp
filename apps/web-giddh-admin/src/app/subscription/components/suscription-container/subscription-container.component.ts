@@ -13,6 +13,8 @@ import * as moment from 'moment/moment';
 import { GIDDH_DATE_FORMAT } from '../../../shared/defalutformatter/defaultDateFormat';
 import { Router } from '@angular/router';
 import { GeneralService } from '../../../services/general.service';
+import { IOption } from '../../../theme/ng-select/ng-select';
+import { PlansService } from '../../../services/plan.service';
 
 
 @Component({
@@ -33,9 +35,12 @@ export class SubscriptionContainerComponent implements OnInit {
     public searchViaSubscriptionId: string;
     public isFromAdvanceSearchRes: boolean = false;
     public togglePlanDetailsPanelBool: boolean;
-    public getAllCompaniesRequest: GetAllCompaniesRequest = new GetAllCompaniesRequest()
-
-
+    public getAllCompaniesRequest: GetAllCompaniesRequest = new GetAllCompaniesRequest();
+    public getAllPlansRequest: CommonPaginatedRequest = new CommonPaginatedRequest();
+    public allPlans: IOption[] = [];
+    public getAllPlansPostRequest: any = {};
+    public selectedStatus: string[] = [];
+    public selectedPlans: string[] = [];
 
     private destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
     public subscriberRes: SubscriberList = new SubscriberList();
@@ -53,8 +58,7 @@ export class SubscriptionContainerComponent implements OnInit {
     };
 
     constructor(private store: Store<AppState>, private adminActions: AdminActions, private toasty: ToasterService,
-        private subscriptionService: SubscriptionService, private modalService: BsModalService, private router: Router, private generalService: GeneralService) {
-
+        private subscriptionService: SubscriptionService, private modalService: BsModalService, private router: Router, private generalService: GeneralService, private plansService: PlansService) {
 
     }
     /**
@@ -66,7 +70,7 @@ export class SubscriptionContainerComponent implements OnInit {
     public openEditSubscription(subscriptionId) {
         this.subscriptionId = subscriptionId;
         this.getAllCompaniesRequest.subscriptionId = subscriptionId;
-        this.subscriptionService.setGetAllCompanyRequestObject(this.getAllCompaniesRequest)
+        this.subscriptionService.setGetAllCompanyRequestObject(this.getAllCompaniesRequest);
         this.router.navigate([`admin/subscription/edit/${subscriptionId}`]);
     }
 
@@ -88,7 +92,7 @@ export class SubscriptionContainerComponent implements OnInit {
             this.advanceSearchRequest.subscriptionId = term;
             this.getAdvancedSearchedSubscriptions(this.advanceSearchRequest);
         });
-
+        this.getAllPlans();
     }
     /**
      * To reset Advance search request component
@@ -132,7 +136,7 @@ export class SubscriptionContainerComponent implements OnInit {
                         this.subscriptionData = [];
                         res.body.results.forEach(key => {
                             if (key && key.userDetails && key.userDetails.signUpOn) {
-                            key.userDetails.signUpOn = key.userDetails.signUpOn.split(" ")[0].replace(/-/g, "/");
+                                key.userDetails.signUpOn = key.userDetails.signUpOn.split(" ")[0].replace(/-/g, "/");
                             }
                             if (key.startedAt) {
                                 key.startedAt = key.startedAt.replace(/-/g, "/");
@@ -214,6 +218,8 @@ export class SubscriptionContainerComponent implements OnInit {
         this.setDefaultrequest();
         this.resetAdvanceSearch();
         this.getSubscriptionData(this.subscriptionRequest);
+        this.selectedPlans = [];
+        this.selectedStatus = []
     }
     /**
      *to sort table 
@@ -258,6 +264,66 @@ export class SubscriptionContainerComponent implements OnInit {
         } else {
             document.querySelector('body').classList.remove('fixed');
         }
+    }
+
+    /**
+   * This function is used to get all plans to show in dropdown
+   *
+   * @memberof EditSubscriptionsComponent
+   */
+    public getAllPlans(): void {
+        this.getAllPlansRequest.count = PAGINATION_COUNT;
+        this.getAllPlansRequest.page = 1;
+        this.getAllPlansRequest.sortBy = 'TOTAL_AMOUNT';
+        this.getAllPlansRequest.sortType = 'desc';
+        this.plansService.getAllPlans(this.getAllPlansRequest, this.getAllPlansPostRequest).subscribe(res => {
+            if (res.status === 'success') {
+                this.allPlans = [];
+                res.body.results.forEach(key => {
+                    this.allPlans.push({ label: key.name, value: key.uniqueName });
+                });
+            }
+        });
+    }
+
+    /**
+     * Selected status array list prepare
+     *
+     * @param {string} type
+     * @param {*} event
+     * @memberof SubscriptionContainerComponent
+     */
+    public checkedStatus(type: string, event) {
+        if (event.target.checked) {
+            if (this.selectedStatus.indexOf(type) === -1) {
+                this.selectedStatus.push(type);
+            }
+        } else {
+            let index = this.selectedStatus.indexOf(type);
+            this.selectedStatus.splice(index, 1)
+        }
+        this.advanceSearchRequest.status = this.selectedStatus;
+        this.getAdvancedSearchedSubscriptions(this.advanceSearchRequest);
+    }
+
+    /**
+     * selected plan name array prepare 
+     *
+     * @param {*} item
+     * @param {*} event
+     * @memberof SubscriptionContainerComponent
+     */
+    public checkedPlanName(item, event) {
+        if (event.target.checked) {
+            if (this.selectedPlans.indexOf(item.value) === -1) {
+                this.selectedPlans.push(item.value);
+            }
+        } else {
+            let index = this.selectedPlans.indexOf(item.value);
+            this.selectedPlans.splice(index, 1);
+        }
+         this.advanceSearchRequest.planUniqueName = this.selectedPlans;
+        this.getAdvancedSearchedSubscriptions(this.advanceSearchRequest);
     }
 
 }
