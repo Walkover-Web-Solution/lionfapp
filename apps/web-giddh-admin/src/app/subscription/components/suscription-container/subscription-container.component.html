@@ -47,7 +47,7 @@
                                 </div>
                             </div>
                             <div class="input-container" [hidden]="inlineSearch !== 'subscribId'">
-                                <input type="text" placeholder="Subscribtion ID" class="form-control w100" #subscribIdField name="subscriptionId" [(ngModel)]="advanceSearchRequest.subscriptionId" (ngModelChange)="searchViaSubscriptionId$.next($event)" />
+                                <input type="text" placeholder="Subscription ID" class="form-control w100" #subscribIdField name="subscriptionId" [(ngModel)]="advanceSearchRequest.subscriptionId" (ngModelChange)="searchViaSubscriptionId$.next($event)" />
                             </div>
                         </th>
 
@@ -148,17 +148,17 @@
                     <tr *ngFor="let subscription of subscriptionData">
                         <td data-title="Signup On">{{subscription.userDetails.signUpOn}}</td>
                         <td data-title="Subscribe on">{{subscription.startedAt}}</td>
-                        <td data-title="Subscribtion Id" class="nowrap"><a href="javascript:void(0)" (click)="openEditSubscription( subscription.subscriptionId)">{{subscription.subscriptionId}}</a>
+                        <td data-title="Subscription Id" class="nowrap"><a href="javascript:void(0)" (click)="openEditSubscription( subscription.subscriptionId)">{{subscription.subscriptionId}}</a>
                         </td>
                         <td data-title="Plan">{{subscription.planDetails.name}}</td>
                         <td data-title="No of Company">
                             {{subscription?.totalCompanies}}/{{subscription?.planDetails?.companiesLimit}}</td>
-                        <td data-title="Transction Limit">{{subscription.planDetails.transactionLimit}}</td>
+                        <td data-title="Transaction Limit">{{subscription.planDetails.transactionLimit}}</td>
                         <td data-title="Balance">{{subscription.balance}}</td>
                         <td data-title="Total Amount">{{subscription.planDetails.amount}}/-</td>
-                        <td data-title="Additional Transction">{{subscription.additionalTransactions}}</td>
+                        <td data-title="Additional Transaction">{{subscription.additionalTransactions}}</td>
                         <td data-title="Additional Charges">{{subscription.additionalCharges}}</td>
-                        <td data-title="Rate/Transction">{{subscription.planDetails.ratePerExtraTransaction}}</td>
+                        <td data-title="Rate/Transaction">{{subscription.planDetails.ratePerExtraTransaction}}</td>
                         <td data-title="Expiry" class="nowrap">{{subscription.expiry}}</td>
                         <td data-title="Status">{{subscription.status}}</td>
                     </tr>
