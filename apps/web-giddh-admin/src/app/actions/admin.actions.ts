@@ -94,7 +94,7 @@ export class AdminActions {
                 // this.toasty.errorToast(response.message, response.code);
                 return { type: 'EmptyAction' };
             } else {
-                console.log('companied by id', response);
+                //
             }
         }));
     constructor(
