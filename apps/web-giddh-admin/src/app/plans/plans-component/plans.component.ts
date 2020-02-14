@@ -24,7 +24,9 @@ export class PlansComponent implements OnInit {
     public plansData: any;
     public plansDataResults: any;
     public getAllPlansRequest: any = {};
-    public getAllPlansPostRequest: any = {};
+    public getAllPlansPostRequest: any = {
+
+    };
     public togglePanelBool: boolean;
     public togglePlanDetailsPanelBool: boolean;
     public selectedPlan: any = '';
@@ -45,6 +47,7 @@ export class PlansComponent implements OnInit {
      * @memberof PlansComponent
      */
     ngOnInit() {
+        this.getAllPlansPostRequest.countries = [];
         this.generalService.setCurrentPageTitle("Plans");
         this.getAllPlansRequest.count = PAGINATION_COUNT;
         this.getAllPlansRequest.page = 1;
@@ -204,6 +207,7 @@ export class PlansComponent implements OnInit {
         this.bsValue = null;
         this.getAllPlansPostRequest.createdAtFrom = '';
         this.getAllPlansPostRequest.createdAtTo = '';
+        this.getAllPlansPostRequest.countries = [];
         this.getAllPlans();
     }
 
@@ -269,11 +273,13 @@ export class PlansComponent implements OnInit {
     public checkedCountryName(item, event) {
         if (event.target.checked) {
             if (this.selectedCountries.indexOf(item.name) === -1) {
-                this.selectedCountries.push(item.value);
+                this.selectedCountries.push(item.label);
             }
         } else {
             let index = this.selectedCountries.indexOf(item.name);
             this.selectedCountries.splice(index, 1);
         }
+        this.getAllPlansPostRequest.countries = this.selectedCountries;
+         this.getAllPlans();
     }
 }
