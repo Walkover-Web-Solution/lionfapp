@@ -76,6 +76,12 @@ export class TotalSubscribers {
     active: number;
     trial: number
 }
+
+export class StatusModel {
+    trial: boolean;
+    expired: boolean;
+    active: boolean
+}
 export class AdvanceSearchRequestSubscriptions {
     signUpOnFrom?: string;
     signUpOnTo?: string;
