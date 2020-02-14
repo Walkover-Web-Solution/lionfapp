@@ -24,17 +24,17 @@ export function SubscriptionsReducer(state: SubscriptionsState = initialState, a
 
   switch (action.type) {
 
-    case AdminActions.GET_SUBCRIPTION:
+    case AdminActions.GET_SUBSCRIPTION:
       return Object.assign({}, state, {
         isGetSubscriptionInprocess: true,
         isGetSubscriptionSuccess: false
       });
-    case AdminActions.GET_SUBCRIPTION_ADVANCEDSEARCH:
+    case AdminActions.GET_SUBSCRIPTION_ADVANCEDSEARCH:
       return Object.assign({}, state, {
         isGetSubscriptionInprocess: true,
         isGetSubscriptionSuccess: false
       });
-    case AdminActions.GET_SUBCRIPTION_RESPONSE:
+    case AdminActions.GET_SUBSCRIPTION_RESPONSE:
       {
         let allSubscriptions = action.payload;
         allSubscriptions.fromAdvanceSearch = false;
@@ -45,7 +45,7 @@ export function SubscriptionsReducer(state: SubscriptionsState = initialState, a
         });
       }
 
-    case AdminActions.GET_SUBCRIPTION_AVANCEDSEARCH_RESPONSE:
+    case AdminActions.GET_SUBSCRIPTION_AVANCEDSEARCH_RESPONSE:
       {
         let allSubscriptions = action.payload;
         allSubscriptions.fromAdvanceSearch = true;

@@ -85,11 +85,13 @@ export class AdvanceSearchRequestSubscriptions {
     startedAtBefore?: string;
     startedAtTo?: string;
     subscriptionId?: string;
-    status?: string;
+    status?: string[];
     planName?: string;
     userName?: string;
     email?: string;
     mobile?: string;
+    planUniqueName?: string[];
+
 }
 export class UpdateSubscriptionModel {
     public planUniqueName?: string;
