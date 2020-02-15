@@ -24,8 +24,8 @@ import { GIDDH_DATE_FORMAT } from '../../../shared/defalutformatter/defaultDateF
 
 export class EditSubscriptionsComponent implements OnInit {
 
-  @Input() public showTaxPopup: boolean = false;
-  @Input() public showTaxPopups: boolean = false;
+    @Input() public showTaxPopup: boolean = false;
+    @Input() public showTaxPopups: boolean = false;
 
 
     public inlineSearch: any = null;
@@ -178,10 +178,10 @@ export class EditSubscriptionsComponent implements OnInit {
 
 
     public toggleTaxPopup(action: boolean) {
-      this.showTaxPopup = action;
+        this.showTaxPopup = action;
     }
     public toggleTaxPopups(action: boolean) {
-      this.showTaxPopups = action;
+        this.showTaxPopups = action;
     }
 
     /**
@@ -190,11 +190,11 @@ export class EditSubscriptionsComponent implements OnInit {
      * @memberof TaxControlComponent
      */
     public handleInputFocus(): void {
-      this.showTaxPopup = true;
+        this.showTaxPopup = true;
     }
 
     public handleInputFocused(): void {
-      this.showTaxPopups = true;
+        this.showTaxPopups = true;
     }
 
 
@@ -386,7 +386,7 @@ export class EditSubscriptionsComponent implements OnInit {
         this.isAllPlanStatusTypeSelected();
         this.isAllPlanSelected = false;
         this.isAllPlanTypeSelected = false;
-
+        this.getAllCompanies();
     }
 
     /**
