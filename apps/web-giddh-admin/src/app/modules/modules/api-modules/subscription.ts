@@ -76,6 +76,13 @@ export class TotalSubscribers {
     active: number;
     trial: number
 }
+
+export class TotalUsersCount {
+    totalUser: number;
+    paidUser: number;
+    trialUsers: number;
+    expiredUsers: number
+}
 export class AdvanceSearchRequestSubscriptions {
     signUpOnFrom?: string;
     signUpOnTo?: string;
