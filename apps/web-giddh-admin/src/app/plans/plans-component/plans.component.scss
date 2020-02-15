@@ -7,6 +7,16 @@
 .page-content {
   padding-bottom: 140px;
 }
+.my-dropdown {
+  right: 0 !important;
+}
+.multiselect-dropdown {
+  max-height: 200px;
+  overflow-y: auto;
+}
+.dropdown-table {
+  min-height: 240px;
+}
 /* .table-height {
   max-height: calc(100vh - 370px);
   overflow-y: auto;
