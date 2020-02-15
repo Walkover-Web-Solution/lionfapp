@@ -386,6 +386,7 @@ export class EditSubscriptionsComponent implements OnInit {
         this.isAllPlanStatusTypeSelected();
         this.isAllPlanSelected = false;
         this.isAllPlanTypeSelected = false;
+        this.getAllCompanies();
 
     }
 
