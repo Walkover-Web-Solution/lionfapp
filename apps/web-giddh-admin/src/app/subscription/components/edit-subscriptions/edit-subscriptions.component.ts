@@ -25,7 +25,7 @@ import { GIDDH_DATE_FORMAT } from '../../../shared/defalutformatter/defaultDateF
 export class EditSubscriptionsComponent implements OnInit {
 
   @Input() public showTaxPopup: boolean = false;
-  @Input() public maskInput: string;
+  @Input() public showTaxPopups: boolean = false;
 
 
     public inlineSearch: any = null;
@@ -157,23 +157,8 @@ export class EditSubscriptionsComponent implements OnInit {
     public toggleTaxPopup(action: boolean) {
       this.showTaxPopup = action;
     }
-
-
-    public onFocusLastDiv(el) {
-      let focussableElements = '.entrypanel input[type=text]:not([disabled]),.entrypanel [tabindex]:not([disabled]):not([tabindex="-1"])';
-      // if (document.activeElement && document.activeElement.form) {
-      let focussable = Array.prototype.filter.call(document.querySelectorAll(focussableElements),
-          (element) => {
-              // check for visibility while always include the current activeElement
-              return element.offsetWidth > 0 || element.offsetHeight > 0 || element === document.activeElement
-          });
-      let index = focussable.indexOf(document.activeElement);
-      if (index > -1) {
-          let nextElement = focussable[index + 1] || focussable[0];
-          nextElement.focus();
-      }
-      this.toggleTaxPopup(false);
-      return false;
+    public toggleTaxPopups(action: boolean) {
+      this.showTaxPopups = action;
     }
 
     /**
@@ -183,7 +168,11 @@ export class EditSubscriptionsComponent implements OnInit {
      */
     public handleInputFocus(): void {
       this.showTaxPopup = true;
-  }
+    }
+
+    public handleInputFocused(): void {
+      this.showTaxPopups = true;
+    }
 
 
     /**

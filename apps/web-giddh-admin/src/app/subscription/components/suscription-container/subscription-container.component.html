@@ -59,17 +59,27 @@
                                 </a>
                             </div>
                         </th> -->
-                        <th class="table-dropdown">Plan Name
-                            <div class="btn-group pull-right" dropdown [autoClose]="false" container="body" placement="left">
-                                <button id="button-basic" dropdownToggle type="button" class="btn-multiselect dropdown-toggle pull-right" aria-controls="dropdown-basic"><span class="fa fa-angle-down"></span>
+                        <th class="table-dropdown">
+                          <span class="pr c-dropdown" [ngClass]="{'open': showTaxPopup}" [attachOutsideOnClick]="true"
+                              (clickOutside)="toggleTaxPopup(false)">
+                              <label>Plan Name</label>
+
+                              <div class="btn-group pull-right" dropdown [autoClose]="true" placement="left">
+                                <button id="button-basic" dropdownToggle (focus)="handleInputFocus()" type="button" class="btn-multiselect dropdown-toggle pull-right"><span class="fa fa-angle-down"></span>
                                 </button>
-                                <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu multiselect-dropdown" role="menu" aria-labelledby="button-basic">
+
+                                  <ul id="dropdown-basic" class="dropdown-menu pd multiselect-dropdown" [ngStyle]="{'display': showTaxPopup ? 'block': 'none'}"
+>
                                     <ng-container *ngFor="let item of allPlans">
-                                        <li role="menuitem"><input type="checkbox" (click)="checkedPlanName(item, $event);">{{item.label}}</li>
+                                      <li role="menuitem"><input type="checkbox" (click)="checkedPlanName(item, $event);">{{item.label}}</li>
                                     </ng-container>
                                     <li *ngIf="allPlans.length==0">No results found</li>
-                                </ul>
-                            </div>
+                                  </ul>
+                              </div>
+                          </span>
+
+
+                            
                         </th>
                         <th class="transform-none">No of Company</th>
 
@@ -131,16 +141,24 @@
                                 </a>
                             </div>
                         </th>
-                        <th class="table-dropdown">Status
-                            <div class="btn-group pull-right" dropdown [autoClose]="false">
-                                <button id="button-basic" dropdownToggle type="button" class="btn-multiselect dropdown-toggle pull-right" aria-controls="dropdown-basic"><span class="fa fa-angle-down"></span>
-                                </button>
-                                <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu multiselect-dropdown" role="menu" aria-labelledby="button-basic">
-                                    <li role="menuitem"><input type="checkbox" (click)="checkedStatus('trial', $event);"> Trial</li>
-                                    <li role="menuitem"><input type="checkbox" (click)="checkedStatus('active', $event);"> Active</li>
-                                    <li role="menuitem"><input type="checkbox" (click)="checkedStatus('expired', $event);"> Expired</li>
+
+
+                        <th class="table-dropdown">
+                          <span class="pr c-dropdown" [ngClass]="{'open': showTaxPopups}" [attachOutsideOnClick]="true"
+                            (clickOutside)="toggleTaxPopups(false)">
+                            <label>Status</label>
+
+                            <div class="btn-group pull-right" dropdown [autoClose]="true" placement="left">
+                              <button id="button-basic" dropdownToggle (focus)="handleInputFocused()" type="button" class="btn-multiselect dropdown-toggle pull-right"><span class="fa fa-angle-down"></span>
+                              </button>
+
+                                <ul id="dropdown-basic" class="dropdown-menu pd multiselect-dropdown" [ngStyle]="{'display': showTaxPopups ? 'block': 'none'}">
+                                  <li role="menuitem"><input type="checkbox" (click)="checkedStatus('trial', $event);"> Trial</li>
+                                  <li role="menuitem"><input type="checkbox" (click)="checkedStatus('active', $event);"> Active</li>
+                                  <li role="menuitem"><input type="checkbox" (click)="checkedStatus('expired', $event);"> Expired</li>
                                 </ul>
                             </div>
+                        </span>
                         </th>
                     </tr>
                 </thead>

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { PlansService } from '../../services/plan.service';
 import * as moment from 'moment/moment';
 import { Router } from '@angular/router';
@@ -20,6 +20,8 @@ export class PlansComponent implements OnInit {
 
 
     @ViewChild('planNameField') public planNameField;
+    @Input() public showTaxPopup: boolean = false;
+    @Input() public showTaxPopups: boolean = false;
 
     public plansData: any;
     public plansDataResults: any;
@@ -56,6 +58,27 @@ export class PlansComponent implements OnInit {
         this.getPlansStats();
         this.getAllPlans();
         this.getOnboardCountries();
+    }
+
+
+    public toggleTaxPopup(action: boolean) {
+      this.showTaxPopup = action;
+    }
+    public toggleTaxPopups(action: boolean) {
+      this.showTaxPopups = action;
+    }
+
+    /**
+     * Tax input focus handler
+     *
+     * @memberof TaxControlComponent
+     */
+    public handleInputFocus(): void {
+      this.showTaxPopup = true;
+    }
+
+    public handleInputFocused(): void {
+      this.showTaxPopups = true;
     }
 
     /**

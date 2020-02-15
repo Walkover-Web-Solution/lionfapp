@@ -43,23 +43,28 @@
                     <th (click)="sortBy('EXPIRY')">Expiry in next 30 days
                         <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': getAllPlansRequest.sortType === 'desc' && getAllPlansRequest.sortBy === 'EXPIRY', 'fa-sort-numeric-asc': (getAllPlansRequest.sortType === 'asc' && getAllPlansRequest.sortBy === 'EXPIRY') || getAllPlansRequest.sortBy !== 'EXPIRY'}"></i>
                     </th>
-                    <th class="table-dropdown relative">
-                        Country
 
-                        <div class="btn-group pull-right" dropdown [autoClose]="false" container="body" placement="left">
-                            <button data-boundary="viewport" id="button-basic" dropdownToggle type="button" class="btn-multiselect dropdown-toggle" aria-controls="dropdown-basic"><span
-                                    class="fa fa-angle-down"></span>
-                            </button>
-                            <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu multiselect-dropdown dropdown-menu-right my-dropdown" role="menu" aria-labelledby="button-basic">
-                                <ng-container *ngFor="let item of countrySource">
-                                    <li role="menuitem"><input type="checkbox" (click)="checkedCountryName(item, $event);">{{item.label}}</li>
-                                </ng-container>
-                                <li *ngIf="countrySource.length==0">No results found</li>
+                    <th class="table-dropdown">
+                      <span class="pr c-dropdown" [ngClass]="{'open': showTaxPopups}" [attachOutsideOnClick]="true"
+                        (clickOutside)="toggleTaxPopups(false)">
+                        <label>Country</label>
 
+                        <div class="btn-group pull-right" dropdown [autoClose]="true" placement="left">
+                          <button id="button-basic" dropdownToggle (focus)="handleInputFocused()" type="button" class="btn-multiselect dropdown-toggle pull-right"><span class="fa fa-angle-down"></span>
+                          </button>
+
+                            <ul id="dropdown-basic" class="dropdown-menu pd multiselect-dropdown" [ngStyle]="{'display': showTaxPopups ? 'block': 'none'}">
+                              <ng-container *ngFor="let item of countrySource">
+                                <li role="menuitem"><input type="checkbox" (click)="checkedCountryName(item, $event);">{{item.label}}</li>
+                            </ng-container>
+                            <li *ngIf="countrySource.length==0">No results found</li>
                             </ul>
                         </div>
-
+                    </span>
                     </th>
+
+
+                    
                 </tr>
             </thead>
             <tbody *ngIf="plansDataResults">

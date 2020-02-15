@@ -103,14 +103,14 @@
 
                                   <span class="pr c-dropdown" [ngClass]="{'open': showTaxPopup}" [attachOutsideOnClick]="true"
                                     (clickOutside)="toggleTaxPopup(false)">
-                                    <label>sadik</label>
+                                    <label>Plan Name</label>
 
                                     <div class="btn-group pull-right" dropdown [autoClose]="true" placement="left">
-                                      <button id="button-basic" (focus)="handleInputFocus()" type="button" class="btn-multiselect dropdown-toggle pull-right"><span class="fa fa-angle-down"></span>
+                                      <button id="button-basic" dropdownToggle (focus)="handleInputFocus()" type="button" class="btn-multiselect dropdown-toggle pull-right"><span class="fa fa-angle-down"></span>
                                       </button>
 
                                         <ul id="dropdown-basic" class="dropdown-menu pd multiselect-dropdown" [ngStyle]="{'display': showTaxPopup ? 'block': 'none'}"
-                                           style="max-height: 102px;min-height: 40px">
+>
                                            <ng-container *ngFor="let item of allPlans">
                                             <li role="menuitem"><input type="checkbox" (click)="checkedPlanName(item, $event);">{{item.label}}</li>
                                         </ng-container>
@@ -165,17 +165,24 @@
                                         <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': paginationRequest.sortType === 'desc' && paginationRequest.sortBy === 'RATE_PER_EXTRA_TRANSACTION', 'fa-sort-numeric-asc': (paginationRequest.sortType === 'asc' && paginationRequest.sortBy === 'RATE_PER_EXTRA_TRANSACTION') || paginationRequest.sortBy !== 'RATE_PER_EXTRA_TRANSACTION'}"></i>
                                     </a>
                                 </th>
-                                <th class="table-dropdown">Status
-                                    <div class="btn-group pull-right" dropdown [autoClose]="false" container="body" placement="left">
-                                        <button id="button-basic" dropdownToggle type="button" class="btn-multiselect dropdown-toggle pull-right" aria-controls="dropdown-basic"><span class="fa fa-angle-down"></span>
-                                        </button>
-                                        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu multiselect-dropdown" role="menu" aria-labelledby="button-basic">
-                                            <li role="menuitem"><input type="checkbox" (click)="checkedPlanStatus('trial', $event);"> Trial</li>
+                                <th class="table-dropdown">
+                                  <span class="pr c-dropdown" [ngClass]="{'open': showTaxPopups}" [attachOutsideOnClick]="true"
+                                    (clickOutside)="toggleTaxPopups(false)">
+                                    <label>Status</label>
+
+                                    <div class="btn-group pull-right" dropdown [autoClose]="true" placement="left">
+                                      <button id="button-basic" dropdownToggle (focus)="handleInputFocused()" type="button" class="btn-multiselect dropdown-toggle pull-right"><span class="fa fa-angle-down"></span>
+                                      </button>
+
+                                        <ul id="dropdown-basic" class="dropdown-menu pd multiselect-dropdown" [ngStyle]="{'display': showTaxPopups ? 'block': 'none'}">
+                                           <li role="menuitem"><input type="checkbox" (click)="checkedPlanStatus('trial', $event);"> Trial</li>
                                             <li role="menuitem"><input type="checkbox" (click)="checkedPlanStatus('active', $event);"> Active</li>
                                             <li role="menuitem"><input type="checkbox" (click)="checkedPlanStatus('expired', $event);"> Expired</li>
                                         </ul>
                                     </div>
+                                </span>
                                 </th>
+                                
 
                                 <th>Expiry
                                     <a (click)="sortBy('EXPIRY')" class="text-black">
