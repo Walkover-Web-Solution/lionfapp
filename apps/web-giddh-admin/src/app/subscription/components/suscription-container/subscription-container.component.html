@@ -71,16 +71,14 @@
                                   <ul id="dropdown-basic" class="dropdown-menu pd multiselect-dropdown" [ngStyle]="{'display': showTaxPopup ? 'block': 'none'}"
 >
                                     <ng-container *ngFor="let item of allPlans">
-                                      <li role="menuitem"><input type="checkbox" (click)="checkedPlanName(item, $event);">{{item.label}}</li>
+                                        <li role="menuitem"><input type="checkbox" [(ngModel)]="item.additional" name="additional" (click)="checkedPlanName(item, $event);">{{item.label}}</li>
                                     </ng-container>
                                     <li *ngIf="allPlans.length==0">No results found</li>
                                   </ul>
                               </div>
                           </span>
-
-
-                            
                         </th>
+
                         <th class="transform-none">No of Company</th>
 
                         <th>
@@ -153,9 +151,9 @@
                               </button>
 
                                 <ul id="dropdown-basic" class="dropdown-menu pd multiselect-dropdown" [ngStyle]="{'display': showTaxPopups ? 'block': 'none'}">
-                                  <li role="menuitem"><input type="checkbox" (click)="checkedStatus('trial', $event);"> Trial</li>
-                                  <li role="menuitem"><input type="checkbox" (click)="checkedStatus('active', $event);"> Active</li>
-                                  <li role="menuitem"><input type="checkbox" (click)="checkedStatus('expired', $event);"> Expired</li>
+                                  <li role="menuitem"><input type="checkbox" [(ngModel)]="status.trial" name="trial" (click)="checkedStatus('trial', $event);"> Trial</li>
+                                    <li role="menuitem"><input type="checkbox" [(ngModel)]="status.active" name="active" (click)="checkedStatus('active', $event);"> Active</li>
+                                    <li role="menuitem"><input type="checkbox" [(ngModel)]="status.expired" name="expired" (click)="checkedStatus('expired', $event);"> Expired</li>
                                 </ul>
                             </div>
                         </span>

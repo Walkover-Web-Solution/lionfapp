@@ -7,7 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription, ReplaySubject, Subject } from 'rxjs';
 import { takeUntil, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { AdminActions } from '../../../actions/admin.actions';
-import { CommonPaginatedRequest, SubscriberList, AuditLogsRequest, GetAllCompaniesRequest, PAGINATION_COUNT } from '../../../modules/modules/api-modules/subscription';
+import { CommonPaginatedRequest, SubscriberList, AuditLogsRequest, GetAllCompaniesRequest, PAGINATION_COUNT, StatusModel } from '../../../modules/modules/api-modules/subscription';
 import { SubscriptionService } from '../../../services/subscription.service';
 import { ToasterService } from '../../../services/toaster.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
@@ -48,11 +48,17 @@ export class EditSubscriptionsComponent implements OnInit {
         userName: '',
         status: []
     };
+
+    public status: StatusModel = {
+        trial: false,
+        active: false,
+        expired: false
+    }
     public searchViaCompanyName$ = new Subject<string>();
     public searchViaUserName$ = new Subject<string>();
     public searchViaSubscribedOn$ = new Subject<string>();
     public searchViaSubscriptionID$ = new Subject<string>();
-
+    public showClearFilter: boolean = false;
 
     public isDetailsShow: boolean = false;
     public auditLogRequest: AuditLogsRequest = {
@@ -91,6 +97,7 @@ export class EditSubscriptionsComponent implements OnInit {
                 this.auditLogRequest.entity = 'SUBSCRIPTION';
                 this.auditLogRequest.entityIdentifier = this.subscriptionId;
                 this.isDetailsShow = true;
+                this.showClearFilter = true;
                 this.generalService.setCurrentPageTitle("view subscription detail");
             } else {
                 this.auditLogRequest.entity = 'SUBSCRIPTION';
@@ -112,6 +119,9 @@ export class EditSubscriptionsComponent implements OnInit {
             debounceTime(1000),
             distinctUntilChanged()
         ).subscribe(term => {
+            if (term) {
+                this.showClearFilter = true;
+            }
             this.getAllCompaniesRequest.companyName = term;
             this.getAllCompanies();
         });
@@ -120,6 +130,9 @@ export class EditSubscriptionsComponent implements OnInit {
             debounceTime(1000),
             distinctUntilChanged()
         ).subscribe(term => {
+            if (term) {
+                this.showClearFilter = true;
+            }
             this.getAllCompaniesRequest.userName = term;
             this.getAllCompanies();
         });
@@ -127,6 +140,9 @@ export class EditSubscriptionsComponent implements OnInit {
             debounceTime(1000),
             distinctUntilChanged()
         ).subscribe(term => {
+            if (term) {
+                this.showClearFilter = true;
+            }
             this.getAllCompaniesRequest.subscriptionId = term;
             this.getAllCompanies();
         });
@@ -134,6 +150,11 @@ export class EditSubscriptionsComponent implements OnInit {
 
     public getAllCompanies() {
         if (this.paginationRequest) {
+            if (this.getAllCompaniesRequest && this.getAllCompaniesRequest.status && this.getAllCompaniesRequest.status.length) {
+                this.showClearFilter = true;
+            } else if (this.getAllCompaniesRequest && this.getAllCompaniesRequest.planUniqueNames && this.getAllCompaniesRequest.planUniqueNames.length) {
+                this.showClearFilter = true;
+            } 
             this.subscriptionService.getAllCompanies(this.getAllCompaniesRequest, this.paginationRequest).subscribe(resp => {
                 if (resp) {
                     if (resp.status === 'success') {
@@ -272,7 +293,7 @@ export class EditSubscriptionsComponent implements OnInit {
             if (res.status === 'success') {
                 this.allPlans = [];
                 res.body.results.forEach(key => {
-                    this.allPlans.push({ label: key.name, value: key.uniqueName });
+                    this.allPlans.push({ label: key.name, value: key.uniqueName, additional: false });
                 });
             } else {
                 this.toasty.clearAllToaster();
@@ -281,10 +302,18 @@ export class EditSubscriptionsComponent implements OnInit {
         });
     }
 
+    /**
+     * Tp prepare array of selected status
+     *
+     * @param {string} type plan status type
+     * @param {*} event Event
+     * @memberof EditSubscriptionsComponent
+     */
     public checkedPlanStatus(type: string, event) {
         if (event.target.checked) {
             if (this.selectedPlanStatus.indexOf(type) === -1) {
                 this.selectedPlanStatus.push(type);
+                this.showClearFilter = true;
             }
         } else {
             let index = this.selectedPlanStatus.indexOf(type);
@@ -294,6 +323,13 @@ export class EditSubscriptionsComponent implements OnInit {
         this.getAllCompanies();
     }
 
+    /**
+     * To prepare array of selectd plans
+     *
+     * @param {*} item  plan name
+     * @param {*} event Event
+     * @memberof EditSubscriptionsComponent
+     */
     public checkedPlanName(item, event) {
         if (event.target.checked) {
             if (this.selectedPlans.indexOf(item.value) === -1) {
@@ -307,8 +343,42 @@ export class EditSubscriptionsComponent implements OnInit {
         this.getAllCompanies();
     }
 
+    /**
+     *  API call to serach by plans subscribed date
+     * 
+     * @memberof EditSubscriptionsComponent
+     */
     public searchViaSubscribedOn() {
         this.getAllCompaniesRequest.startedAtFrom = this.getAllCompaniesRequest.startedAtFrom ? moment(this.getAllCompaniesRequest.startedAtFrom).format(GIDDH_DATE_FORMAT) : '';
+        this.getAllCompanies();
+    }
+
+    /**
+     * Reset company filter
+     *
+     * @memberof EditSubscriptionsComponent
+     */
+    public resetGellAllCompaniesFilters() {
+        this.getAllCompaniesRequest.startedAtFrom = '';
+        this.getAllCompaniesRequest.companyName = '';
+        this.getAllCompaniesRequest.subscriptionId = '';
+        this.getAllCompaniesRequest.planUniqueNames = [];
+        this.getAllCompaniesRequest.userName = '';
+        this.getAllCompaniesRequest.status = [];
+    }
+
+    /**
+     * Hard reset all data model
+     *
+     * @memberof EditSubscriptionsComponent
+     */
+    public resetFilters() {
+        this.resetGellAllCompaniesFilters();
+        this.status.active = this.status.expired = this.status.trial = false;
+        this.allPlans.forEach(res => {
+            res.additional = false;
+        });
+        this.showClearFilter = false;
         this.getAllCompanies();
     }
 }
