@@ -36,7 +36,8 @@
         </div>
     </div> -->
     <div>
-        <button *ngIf="showClearFilter" class="ml-1 btn-link" (click)="resetFilters();"><i class="icon icon-loop2"></i> Clear Filter</button>
+        <button *ngIf="showClearFilter" class="ml-1 btn-link" (click)="resetFilters();"><i class="icon icon-loop2"></i>
+            Clear Filter</button>
     </div>
     <div class="row" *ngIf="isDetailsShow">
         <div class="pull-right">
@@ -107,10 +108,11 @@
                                         <button id="button-basic" dropdownToggle type="button" class="btn-multiselect dropdown-toggle pull-right" aria-controls="dropdown-basic"><span class="fa fa-angle-down"></span>
                                         </button>
                                         <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu multiselect-dropdown" role="menu" aria-labelledby="button-basic">
+                                            <li role="menuitem" *ngIf="allPlans?.length"><input type="checkbox" [(ngModel)]="isAllPlanSelected" (click)="selectAllPlans($event);">Select all</li>
                                             <ng-container *ngFor="let item of allPlans">
                                                 <li role="menuitem"><input type="checkbox" [(ngModel)]="item.additional" name="additional" (click)="checkedPlanName(item, $event);">{{item.label}}</li>
                                             </ng-container>
-                                            <li *ngIf="allPlans.length==0">No results found</li>
+                                            <li *ngIf="allPlans?.length==0">No results found</li>
                                         </ul>
                                     </div>
                                 </th>
@@ -151,11 +153,12 @@
                                         <button id="button-basic" dropdownToggle type="button" class="btn-multiselect dropdown-toggle pull-right" aria-controls="dropdown-basic"><span class="fa fa-angle-down"></span>
                                         </button>
                                         <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu multiselect-dropdown" role="menu" aria-labelledby="button-basic">
-                                            <li role="menuitem"><input type="checkbox" [(ngModel)]="status.trial" name="trial" (click)="checkedPlanStatus('trial', $event);"> Trial
+                                            <li role="menuitem"><input type="checkbox" [(ngModel)]="isAllPlanTypeSelected" (click)="selectAllPlansStatus($event);">Select all</li>
+                                            <li role="menuitem"><input type="checkbox" [(ngModel)]="planStatusType.trial" name="trial" (click)="checkedPlanStatus('trial', $event);"> Trial
                                             </li>
-                                            <li role="menuitem"><input type="checkbox" [(ngModel)]="status.active" name="active" (click)="checkedPlanStatus('active', $event);"> Active
+                                            <li role="menuitem"><input type="checkbox" [(ngModel)]="planStatusType.active" name="active" (click)="checkedPlanStatus('active', $event);"> Active
                                             </li>
-                                            <li role="menuitem"><input type="checkbox" [(ngModel)]="status.expired" name="expired" (click)="checkedPlanStatus('expired', $event);"> Expired
+                                            <li role="menuitem"><input type="checkbox" [(ngModel)]="planStatusType.expired" name="expired" (click)="checkedPlanStatus('expired', $event);"> Expired
                                             </li>
                                         </ul>
                                     </div>
