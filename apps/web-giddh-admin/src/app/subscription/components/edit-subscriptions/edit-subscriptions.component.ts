@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewChild } from "@angular/core";
+import { Component, OnInit, TemplateRef, ViewChild, Input } from "@angular/core";
 import { Store, select } from '@ngrx/store';
 import { AppState } from '../../../store';
 import { GeneralService } from '../../../services/general.service';
@@ -23,6 +23,10 @@ import { GIDDH_DATE_FORMAT } from '../../../shared/defalutformatter/defaultDateF
 })
 
 export class EditSubscriptionsComponent implements OnInit {
+
+  @Input() public showTaxPopup: boolean = false;
+  @Input() public maskInput: string;
+
 
     public inlineSearch: any = null;
     public selectedPlanStatus: string[] = [];
@@ -148,6 +152,39 @@ export class EditSubscriptionsComponent implements OnInit {
             });;
         }
     }
+
+
+    public toggleTaxPopup(action: boolean) {
+      this.showTaxPopup = action;
+    }
+
+
+    public onFocusLastDiv(el) {
+      let focussableElements = '.entrypanel input[type=text]:not([disabled]),.entrypanel [tabindex]:not([disabled]):not([tabindex="-1"])';
+      // if (document.activeElement && document.activeElement.form) {
+      let focussable = Array.prototype.filter.call(document.querySelectorAll(focussableElements),
+          (element) => {
+              // check for visibility while always include the current activeElement
+              return element.offsetWidth > 0 || element.offsetHeight > 0 || element === document.activeElement
+          });
+      let index = focussable.indexOf(document.activeElement);
+      if (index > -1) {
+          let nextElement = focussable[index + 1] || focussable[0];
+          nextElement.focus();
+      }
+      this.toggleTaxPopup(false);
+      return false;
+    }
+
+    /**
+     * Tax input focus handler
+     *
+     * @memberof TaxControlComponent
+     */
+    public handleInputFocus(): void {
+      this.showTaxPopup = true;
+  }
+
 
     /**
      * Paginaton page change action

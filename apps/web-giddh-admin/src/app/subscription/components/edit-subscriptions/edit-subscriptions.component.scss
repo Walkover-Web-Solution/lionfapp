@@ -3,6 +3,9 @@
 }
 
 .multiselect-dropdown {
-    max-height: 207px;
+    max-height: 200px !important;
     overflow-y: auto;
+}
+.dropdown-table {
+  min-height: 240px;
 }
