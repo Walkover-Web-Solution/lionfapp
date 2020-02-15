@@ -6,6 +6,7 @@ import { SubscriberList, PAGINATION_COUNT, TotalUsersCount } from '../../../modu
 import * as moment from 'moment/moment';
 import { GeneralService } from '../../../services/general.service';
 import { Router } from '@angular/router';
+import { ToasterService } from '../../../services/toaster.service';
 
 @Component({
     selector: 'app-user-list',
@@ -43,7 +44,7 @@ export class UserListComponent implements OnInit {
         this.expandList = !this.expandList;
     }
 
-    constructor(private generalService: GeneralService, private userService: UserService, private modalService: BsModalService, private router: Router) {
+    constructor(private generalService: GeneralService, private userService: UserService, private modalService: BsModalService, private router: Router, private toaster: ToasterService) {
 
     }
 
@@ -212,7 +213,7 @@ public getAllSubscriptionTotalData() {
             if (res.status === 'success') {
                 this.totalUsers = res.body;
             } else {
-                //  this.toasty.errorToast(res.message)
+                  this.toaster.errorToast(res.message)
             }
         });
     }

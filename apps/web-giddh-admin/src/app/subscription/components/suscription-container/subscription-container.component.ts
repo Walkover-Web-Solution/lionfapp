@@ -7,7 +7,7 @@ import { Store, select } from '@ngrx/store';
 import { AdminActions } from '../../../actions/admin.actions';
 import { takeUntil, take, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
-import { CommonPaginatedRequest, SubscriberList, TotalSubscribers, AdvanceSearchRequestSubscriptions, GetAllCompaniesRequest, PAGINATION_COUNT } from '../../../modules/modules/api-modules/subscription';
+import { CommonPaginatedRequest, SubscriberList, TotalSubscribers, AdvanceSearchRequestSubscriptions, GetAllCompaniesRequest, PAGINATION_COUNT, StatusModel } from '../../../modules/modules/api-modules/subscription';
 import { ToasterService } from '../../../services/toaster.service';
 import * as moment from 'moment/moment';
 import { GIDDH_DATE_FORMAT } from '../../../shared/defalutformatter/defaultDateFormat';
@@ -57,6 +57,12 @@ export class SubscriptionContainerComponent implements OnInit {
         startedAtFrom: '',
     };
 
+    public status: StatusModel = {
+        trial: false,
+        active: false,
+        expired: false
+    }
+    
     constructor(private store: Store<AppState>, private adminActions: AdminActions, private toasty: ToasterService,
         private subscriptionService: SubscriptionService, private modalService: BsModalService, private router: Router, private generalService: GeneralService, private plansService: PlansService) {
 
@@ -220,6 +226,10 @@ export class SubscriptionContainerComponent implements OnInit {
         this.getSubscriptionData(this.subscriptionRequest);
         this.selectedPlans = [];
         this.selectedStatus = []
+        this.status.active = this.status.expired = this.status.trial = false;
+        this.allPlans.forEach(res=> {
+            res.additional = false;
+        })
     }
     /**
      *to sort table 
@@ -280,7 +290,7 @@ export class SubscriptionContainerComponent implements OnInit {
             if (res.status === 'success') {
                 this.allPlans = [];
                 res.body.results.forEach(key => {
-                    this.allPlans.push({ label: key.name, value: key.uniqueName });
+                    this.allPlans.push({ label: key.name, value: key.uniqueName , additional: false });
                 });
             }
         });
@@ -322,7 +332,7 @@ export class SubscriptionContainerComponent implements OnInit {
             let index = this.selectedPlans.indexOf(item.value);
             this.selectedPlans.splice(index, 1);
         }
-         this.advanceSearchRequest.planUniqueName = this.selectedPlans;
+        this.advanceSearchRequest.planUniqueName = this.selectedPlans;
         this.getAdvancedSearchedSubscriptions(this.advanceSearchRequest);
     }
 
