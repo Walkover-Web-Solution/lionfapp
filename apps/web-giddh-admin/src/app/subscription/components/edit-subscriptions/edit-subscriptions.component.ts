@@ -1,10 +1,10 @@
-import { Component, OnInit, TemplateRef, ViewChild } from "@angular/core";
+import { Component, OnInit, TemplateRef, ViewChild, Input } from "@angular/core";
 import { Store, select } from '@ngrx/store';
 import { AppState } from '../../../store';
 import { GeneralService } from '../../../services/general.service';
 import { GeneralActions } from '../../../actions/general/general.action';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Subscription, ReplaySubject, Subject } from 'rxjs';
+import { Subscription, ReplaySubject, Subject, Observable, of as observableOf } from 'rxjs';
 import { takeUntil, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { AdminActions } from '../../../actions/admin.actions';
 import { CommonPaginatedRequest, SubscriberList, AuditLogsRequest, GetAllCompaniesRequest, PAGINATION_COUNT, StatusModel } from '../../../modules/modules/api-modules/subscription';
@@ -23,6 +23,10 @@ import { GIDDH_DATE_FORMAT } from '../../../shared/defalutformatter/defaultDateF
 })
 
 export class EditSubscriptionsComponent implements OnInit {
+
+  @Input() public showTaxPopup: boolean = false;
+  @Input() public showTaxPopups: boolean = false;
+
 
     public inlineSearch: any = null;
     public selectedPlanStatus: string[] = [];
@@ -45,11 +49,12 @@ export class EditSubscriptionsComponent implements OnInit {
         status: []
     };
 
-    public status: StatusModel = {
+    public planStatusType: StatusModel = {
         trial: false,
         active: false,
         expired: false
     }
+    public selectedAllPlanType = ['trial', 'active', 'expired'];
     public searchViaCompanyName$ = new Subject<string>();
     public searchViaUserName$ = new Subject<string>();
     public searchViaSubscribedOn$ = new Subject<string>();
@@ -69,7 +74,8 @@ export class EditSubscriptionsComponent implements OnInit {
     public getAllPlansRequest: CommonPaginatedRequest = new CommonPaginatedRequest();
     public allPlans: IOption[] = [];
     public getAllPlansPostRequest: any = {};
-
+    public isAllPlanSelected: boolean = false;
+    public isAllPlanTypeSelected: boolean = false;
 
 
     constructor(private store: Store<AppState>, private modalService: BsModalService, private generalActions: GeneralActions, private toasty: ToasterService, private adminActions: AdminActions, private subscriptionService: SubscriptionService, private router: Router, private generalService: GeneralService, private activateRoute: ActivatedRoute, private plansService: PlansService) {
@@ -150,7 +156,7 @@ export class EditSubscriptionsComponent implements OnInit {
                 this.showClearFilter = true;
             } else if (this.getAllCompaniesRequest && this.getAllCompaniesRequest.planUniqueNames && this.getAllCompaniesRequest.planUniqueNames.length) {
                 this.showClearFilter = true;
-            } 
+            }
             this.subscriptionService.getAllCompanies(this.getAllCompaniesRequest, this.paginationRequest).subscribe(resp => {
                 if (resp) {
                     if (resp.status === 'success') {
@@ -169,6 +175,28 @@ export class EditSubscriptionsComponent implements OnInit {
             });;
         }
     }
+
+
+    public toggleTaxPopup(action: boolean) {
+      this.showTaxPopup = action;
+    }
+    public toggleTaxPopups(action: boolean) {
+      this.showTaxPopups = action;
+    }
+
+    /**
+     * Tax input focus handler
+     *
+     * @memberof TaxControlComponent
+     */
+    public handleInputFocus(): void {
+      this.showTaxPopup = true;
+    }
+
+    public handleInputFocused(): void {
+      this.showTaxPopups = true;
+    }
+
 
     /**
      * Paginaton page change action
@@ -293,6 +321,7 @@ export class EditSubscriptionsComponent implements OnInit {
             let index = this.selectedPlanStatus.indexOf(type);
             this.selectedPlanStatus.splice(index, 1)
         }
+        this.isAllPlansSelected();
         this.getAllCompaniesRequest.status = this.selectedPlanStatus;
         this.getAllCompanies();
     }
@@ -313,6 +342,7 @@ export class EditSubscriptionsComponent implements OnInit {
             let index = this.selectedPlans.indexOf(item.value);
             this.selectedPlans.splice(index, 1);
         }
+        this.isAllPlansStatusSelected();
         this.getAllCompaniesRequest.planUniqueNames = this.selectedPlans;
         this.getAllCompanies();
     }
@@ -348,11 +378,103 @@ export class EditSubscriptionsComponent implements OnInit {
      */
     public resetFilters() {
         this.resetGellAllCompaniesFilters();
-        this.status.active = this.status.expired = this.status.trial = false;
+        this.planStatusType.active = this.planStatusType.expired = this.planStatusType.trial = false;
         this.allPlans.forEach(res => {
             res.additional = false;
         });
         this.showClearFilter = false;
+        this.isAllPlanStatusTypeSelected();
+        this.isAllPlanSelected = false;
+        this.isAllPlanTypeSelected = false;
+
+    }
+
+    /**
+     *  To check if any plan selected
+     *
+     * @param {*} event Event for checkbox
+     * @memberof EditSubscriptionsComponent
+     */
+    public selectAllPlans(event) {
+        this.selectedPlans = [];
+        if (event.target.checked) {
+            this.allPlans.forEach(res => {
+                this.selectedPlans.push(res.value);
+            });
+            this.allPlans.map(res => {
+                res.additional = true;
+            });
+        } else {
+            this.selectedPlans = [];
+            this.allPlans.map(res => {
+                res.additional = false;
+            });
+        }
+        this.isAllPlansSelected();
+        this.getAllCompaniesRequest.planUniqueNames = this.selectedPlans;
         this.getAllCompanies();
     }
+
+    /**
+     * To check All plans status check
+     *
+     * @param {*} event Event for All plan select checkbox
+     * @memberof EditSubscriptionsComponent
+     */
+    public selectAllPlansStatus(event) {
+        this.selectedPlanStatus = [];
+        if (event.target.checked) {
+            this.selectedPlanStatus = this.selectedAllPlanType;
+            this.isAllPlansStatusSelected(true);
+        } else {
+            this.selectedPlanStatus = []
+            this.isAllPlansStatusSelected(false);
+        }
+        this.getAllCompaniesRequest.status = this.selectedPlanStatus;
+        this.getAllCompanies();
+    }
+
+    /**
+     * To check all plan selected or not
+     *
+     * @private
+     * @memberof EditSubscriptionsComponent
+     */
+    private isAllPlansSelected() {
+        if (this.allPlans.length === this.selectedPlans.length) {
+            this.isAllPlanSelected = true;
+        } else {
+            this.isAllPlanSelected = false;
+        }
+    }
+
+    /**
+     * To reset status type model
+     * 
+     * @private
+     * @param {boolean} [isAllStatus] Boolean to check is all plan statu selected or not
+     * @memberof EditSubscriptionsComponent
+     */
+    private isAllPlansStatusSelected(isAllStatus?: boolean) {
+        if (isAllStatus) {
+            this.planStatusType.active = this.planStatusType.expired = this.planStatusType.trial = true;
+        } else {
+            this.planStatusType.active = this.planStatusType.expired = this.planStatusType.trial = false;
+        }
+        this.isAllPlanStatusTypeSelected();
+    }
+
+    /**
+     * To check all plan status selected or not
+     *
+     * @memberof EditSubscriptionsComponent
+     */
+    public isAllPlanStatusTypeSelected() {
+        if (this.selectedPlanStatus.length === 3) {
+            this.isAllPlanTypeSelected = true;
+        } else {
+            this.isAllPlanTypeSelected = false;
+        }
+    }
+
 }
