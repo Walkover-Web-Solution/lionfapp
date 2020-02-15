@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, Input } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { SubscriptionService } from '../../../services/subscription.service';
 import { AppState } from '../../../store';
@@ -26,6 +26,8 @@ export class SubscriptionContainerComponent implements OnInit {
     @ViewChild('SubscribersSignupField') public SubscribersSignupField;
     @ViewChild('subscribOnField') public subscribOnField;
     @ViewChild('subscribIdField') public subscribIdField;
+    @Input() public showTaxPopup: boolean = false;
+    @Input() public showTaxPopups: boolean = false;
 
     public modalRef: BsModalRef;
     public modalRefEdit: BsModalRef;
@@ -103,6 +105,35 @@ export class SubscriptionContainerComponent implements OnInit {
         });
         this.getAllPlans();
     }
+
+
+    public toggleTaxPopup(action: boolean) {
+      this.showTaxPopup = action;
+    }
+    public toggleTaxPopups(action: boolean) {
+      this.showTaxPopups = action;
+    }
+
+    /**
+     * Tax input focus handler
+     *
+     * @memberof TaxControlComponent
+     */
+    public handleInputFocus(): void {
+      this.showTaxPopup = true;
+    }
+
+    public handleInputFocused(): void {
+      this.showTaxPopups = true;
+    }
+    
+
+    public onFocusLastDiv(el) {
+      this.toggleTaxPopup(false);
+      return false;
+    }
+
+
     /**
      * To reset Advance search request component
      *

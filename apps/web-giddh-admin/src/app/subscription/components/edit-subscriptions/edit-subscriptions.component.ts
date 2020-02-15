@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewChild } from "@angular/core";
+import { Component, OnInit, TemplateRef, ViewChild, Input } from "@angular/core";
 import { Store, select } from '@ngrx/store';
 import { AppState } from '../../../store';
 import { GeneralService } from '../../../services/general.service';
@@ -23,6 +23,10 @@ import { GIDDH_DATE_FORMAT } from '../../../shared/defalutformatter/defaultDateF
 })
 
 export class EditSubscriptionsComponent implements OnInit {
+
+  @Input() public showTaxPopup: boolean = false;
+  @Input() public showTaxPopups: boolean = false;
+
 
     public inlineSearch: any = null;
     public selectedPlanStatus: string[] = [];
@@ -171,6 +175,28 @@ export class EditSubscriptionsComponent implements OnInit {
             });;
         }
     }
+
+
+    public toggleTaxPopup(action: boolean) {
+      this.showTaxPopup = action;
+    }
+    public toggleTaxPopups(action: boolean) {
+      this.showTaxPopups = action;
+    }
+
+    /**
+     * Tax input focus handler
+     *
+     * @memberof TaxControlComponent
+     */
+    public handleInputFocus(): void {
+      this.showTaxPopup = true;
+    }
+
+    public handleInputFocused(): void {
+      this.showTaxPopups = true;
+    }
+
 
     /**
      * Paginaton page change action
