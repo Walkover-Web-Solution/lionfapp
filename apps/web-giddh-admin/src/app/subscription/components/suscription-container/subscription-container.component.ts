@@ -1,12 +1,11 @@
 import { Component, OnInit, ViewChild, TemplateRef, Input } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-
 import { SubscriptionService } from '../../../services/subscription.service';
 import { AppState } from '../../../store';
 import { Store, select } from '@ngrx/store';
 import { AdminActions } from '../../../actions/admin.actions';
 import { takeUntil, take, debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { Observable, ReplaySubject, Subject } from 'rxjs';
+import { Observable, ReplaySubject, of as observableOf, Subject } from 'rxjs';
 import { CommonPaginatedRequest, SubscriberList, TotalSubscribers, AdvanceSearchRequestSubscriptions, GetAllCompaniesRequest, PAGINATION_COUNT, StatusModel } from '../../../modules/modules/api-modules/subscription';
 import { ToasterService } from '../../../services/toaster.service';
 import * as moment from 'moment/moment';
@@ -41,7 +40,7 @@ export class SubscriptionContainerComponent implements OnInit {
     public getAllPlansRequest: CommonPaginatedRequest = new CommonPaginatedRequest();
     public allPlans: IOption[] = [];
     public getAllPlansPostRequest: any = {};
-    public selectedStatus: string[] = [];
+    public selectedPlanStatusType: string[] = [];
     public selectedPlans: string[] = [];
 
     private destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
@@ -58,12 +57,17 @@ export class SubscriptionContainerComponent implements OnInit {
         subscriptionId: '',
         startedAtFrom: '',
     };
+    // public isAllPlansSelected$: Observable<boolean> = observableOf(false);
+    // public isAllPlanTypeSelected$: Observable<boolean> = observableOf(false);
+    public isAllPlanTypeSelected: boolean = false;
+    public isAllPlanSelected: boolean = false;
 
-    public status: StatusModel = {
+    public planStatusType: StatusModel = {
         trial: false,
         active: false,
         expired: false
     }
+    public selectedAllPlanType = ['trial', 'active', 'expired'];
     constructor(private store: Store<AppState>, private adminActions: AdminActions, private toasty: ToasterService,
         private subscriptionService: SubscriptionService, private modalService: BsModalService, private router: Router, private generalService: GeneralService, private plansService: PlansService) {
 
@@ -255,12 +259,17 @@ export class SubscriptionContainerComponent implements OnInit {
         this.resetAdvanceSearch();
         this.getSubscriptionData(this.subscriptionRequest);
         this.selectedPlans = [];
-        this.selectedStatus = []
-        this.status.active = this.status.expired = this.status.trial = false;
-        this.allPlans.forEach(res=> {
+        this.selectedPlanStatusType = []
+        this.planStatusType.active = this.planStatusType.expired = this.planStatusType.trial = false;
+        this.selectedAllPlanType = [];
+        this.isAllPlansTypeChecked(false);
+        this.allPlans.forEach(res => {
             res.additional = false;
-        })
+        });
+        this.isAllPlansStatusSelected();
+        this.isAllPlansSelected();
     }
+
     /**
      *to sort table 
      *
@@ -281,6 +290,7 @@ export class SubscriptionContainerComponent implements OnInit {
             this.getSubscriptionData(this.subscriptionRequest);
         }
     }
+
     /**
      * To search input box closed
      *
@@ -320,7 +330,7 @@ export class SubscriptionContainerComponent implements OnInit {
             if (res.status === 'success') {
                 this.allPlans = [];
                 res.body.results.forEach(key => {
-                    this.allPlans.push({ label: key.name, value: key.uniqueName , additional: false });
+                    this.allPlans.push({ label: key.name, value: key.uniqueName, additional: false });
                 });
             }
         });
@@ -335,15 +345,16 @@ export class SubscriptionContainerComponent implements OnInit {
      */
     public checkedStatus(type: string, event) {
         if (event.target.checked) {
-            if (this.selectedStatus.indexOf(type) === -1) {
-                this.selectedStatus.push(type);
+            if (this.selectedPlanStatusType.indexOf(type) === -1) {
+                this.selectedPlanStatusType.push(type);
             }
         } else {
-            let index = this.selectedStatus.indexOf(type);
-            this.selectedStatus.splice(index, 1)
+            let index = this.selectedPlanStatusType.indexOf(type);
+            this.selectedPlanStatusType.splice(index, 1)
         }
-        this.advanceSearchRequest.status = this.selectedStatus;
+        this.advanceSearchRequest.status = this.selectedPlanStatusType;
         this.getAdvancedSearchedSubscriptions(this.advanceSearchRequest);
+        this.isAllPlansStatusSelected();
     }
 
     /**
@@ -364,6 +375,102 @@ export class SubscriptionContainerComponent implements OnInit {
         }
         this.advanceSearchRequest.planUniqueName = this.selectedPlans;
         this.getAdvancedSearchedSubscriptions(this.advanceSearchRequest);
+        this.isAllPlansSelected();
+    }
+
+    /**
+     * To prepare array of selected all plans
+     *
+     * @param {*} event
+     * @memberof SubscriptionContainerComponent
+     */
+    public selectAllPlans(event) {
+        this.selectedPlans = [];
+        if (event.target.checked) {
+            this.allPlans.forEach(res => {
+                this.selectedPlans.push(res.value);
+            });
+            this.allPlans.map(res => {
+                res.additional = true;
+            });
+        } else {
+            this.selectedPlans = [];
+            this.allPlans.map(res => {
+                res.additional = false;
+            });
+        }
+        this.isAllPlansSelected();
+        this.advanceSearchRequest.planUniqueName = this.selectedPlans;
+        this.getAdvancedSearchedSubscriptions(this.advanceSearchRequest);
+    }
+
+    /**
+     * To prepare arrya of selected plan status
+     *
+     * @param {*} event event types
+     * @memberof SubscriptionContainerComponent
+     */
+    public selectAllPlansStatus(event) {
+        this.selectedPlanStatusType = [];
+        if (event.target.checked) {
+            this.selectedPlanStatusType = this.selectedAllPlanType;
+            this.isAllPlansTypeChecked(true);
+        } else {
+            this.selectedPlanStatusType = []
+            this.isAllPlansTypeChecked(false);
+        }
+        this.isAllPlansStatusSelected();
+        this.advanceSearchRequest.status = this.selectedPlanStatusType;
+        this.getAdvancedSearchedSubscriptions(this.advanceSearchRequest);
+    }
+
+    /**
+     * To check all plans selected or not
+     *
+     * @private
+     * @memberof SubscriptionContainerComponent
+     */
+    private isAllPlansSelected() {
+        if (this.allPlans.length === this.selectedPlans.length) {
+            // this.isAllPlansSelected$ = observableOf(true);
+            this.isAllPlanSelected = true;
+
+        } else {
+            // this.isAllPlansSelected$ = observableOf(false);
+            this.isAllPlanSelected = false;
+
+        }
+    }
+
+    /**
+     * To check set and reset plan status model
+     *
+     * @private
+     * @param {boolean} [isAllStatus] Boolean to check all plans selected 
+     * @memberof SubscriptionContainerComponent
+     */
+    private isAllPlansTypeChecked(isAllStatus?: boolean) {
+        if (isAllStatus !== undefined) {
+            if (isAllStatus) {
+                this.planStatusType.active = this.planStatusType.expired = this.planStatusType.trial = true;
+            } else {
+                this.planStatusType.active = this.planStatusType.expired = this.planStatusType.trial = false;
+            }
+        }
+        this.isAllPlansStatusSelected()
+    }
+
+    /**
+     * To check all plans status selected
+     *
+     * @memberof SubscriptionContainerComponent
+     */
+    public isAllPlansStatusSelected() {
+        if (this.selectedPlanStatusType.length === 3) {
+            this.isAllPlanTypeSelected = true;
+        } else {
+            this.isAllPlanTypeSelected = false;
+        }
     }
 
 }

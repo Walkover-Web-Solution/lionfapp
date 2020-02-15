@@ -33,4 +33,17 @@ export class UserService {
                 }),
                 catchError((e) => this.errorHandler.HandleCatch(e)));
     }
+
+     /**
+     * Get all user data
+     */
+    public getAllUserCounts() {
+        let url = this.config.apiUrl + SUBSCRIPTION_API.GET_ALL_USER_COUNTS;
+        return this.http.get(url)
+            .pipe(
+                map((res) => {
+                    return res;
+                }),
+                catchError((e) => this.errorHandler.HandleCatch(e)));
+    }
 }
