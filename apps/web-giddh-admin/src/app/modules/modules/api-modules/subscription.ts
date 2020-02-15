@@ -77,6 +77,12 @@ export class TotalSubscribers {
     trial: number
 }
 
+export class TotalUsersCount {
+    totalUser: number;
+    paidUser: number;
+    trialUsers: number;
+    expiredUsers: number
+}
 export class StatusModel {
     trial: boolean;
     expired: boolean;

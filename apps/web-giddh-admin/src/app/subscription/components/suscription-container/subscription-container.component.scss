@@ -33,6 +33,13 @@
 .paginationWrapper {
     padding-bottom: 140px;
 }
+.multiselect-dropdown {
+  max-height: 200px;
+  overflow-y: auto;
+}
+.dropdown-table {
+  min-height: 240px;
+}
 
 @media(max-width:1280px) {
     .basic>thead>tr>th {

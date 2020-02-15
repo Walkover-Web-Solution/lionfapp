@@ -2,10 +2,11 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UserService } from '../../../services/user.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { SubscriberList, PAGINATION_COUNT } from '../../../modules/modules/api-modules/subscription';
+import { SubscriberList, PAGINATION_COUNT, TotalUsersCount } from '../../../modules/modules/api-modules/subscription';
 import * as moment from 'moment/moment';
 import { GeneralService } from '../../../services/general.service';
 import { Router } from '@angular/router';
+import { ToasterService } from '../../../services/toaster.service';
 
 @Component({
     selector: 'app-user-list',
@@ -35,6 +36,7 @@ export class UserListComponent implements OnInit {
     public subscriptionId: any = '';
     public bsValue: any = '';
     public defaultLoad: boolean = true;
+    public totalUsers: TotalUsersCount;
 
     destroyed$: Observable<any>;
     public onclick(id: string) {
@@ -42,7 +44,7 @@ export class UserListComponent implements OnInit {
         this.expandList = !this.expandList;
     }
 
-    constructor(private generalService: GeneralService, private userService: UserService, private modalService: BsModalService, private router: Router) {
+    constructor(private generalService: GeneralService, private userService: UserService, private modalService: BsModalService, private router: Router, private toaster: ToasterService) {
 
     }
 
@@ -58,6 +60,7 @@ export class UserListComponent implements OnInit {
         this.getUserListRequest.sortBy = 'User';
         this.getUserListRequest.sortType = 'desc';
         this.getAllUserData();
+        this.getAllSubscriptionTotalData();
     }
 
     /**
@@ -198,5 +201,20 @@ export class UserListComponent implements OnInit {
         this.getUserListRequest.sortType = 'desc';
         this.inlineSearch = null;
         this.getAllUserData();
+    }
+
+/**
+ * API call to get all user footer data
+ *
+ * @memberof UserListComponent
+ */
+public getAllSubscriptionTotalData() {
+        this.userService.getAllUserCounts().subscribe(res => {
+            if (res.status === 'success') {
+                this.totalUsers = res.body;
+            } else {
+                  this.toaster.errorToast(res.message)
+            }
+        });
     }
 }
