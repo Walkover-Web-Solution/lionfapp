@@ -79,7 +79,7 @@ export class TotalSubscribers {
 
 export class TotalUsersCount {
     totalUser: number;
-    paidUser: number;
+    paidUsers: number;
     trialUsers: number;
     expiredUsers: number
 }
