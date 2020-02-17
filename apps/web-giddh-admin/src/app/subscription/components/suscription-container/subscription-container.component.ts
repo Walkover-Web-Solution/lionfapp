@@ -108,10 +108,10 @@ export class SubscriptionContainerComponent implements OnInit {
 
 
     public toggleTaxPopup(action: boolean) {
-      this.showTaxPopup = action;
+        this.showTaxPopup = action;
     }
     public toggleTaxPopups(action: boolean) {
-      this.showTaxPopups = action;
+        this.showTaxPopups = action;
     }
 
     /**
@@ -120,17 +120,17 @@ export class SubscriptionContainerComponent implements OnInit {
      * @memberof TaxControlComponent
      */
     public handleInputFocus(): void {
-      this.showTaxPopup = true;
+        this.showTaxPopup = true;
     }
 
     public handleInputFocused(): void {
-      this.showTaxPopups = true;
+        this.showTaxPopups = true;
     }
-    
+
 
     public onFocusLastDiv(el) {
-      this.toggleTaxPopup(false);
-      return false;
+        this.toggleTaxPopup(false);
+        return false;
     }
 
 
@@ -143,6 +143,17 @@ export class SubscriptionContainerComponent implements OnInit {
         this.advanceSearchRequest.signUpOnFrom = '';
         this.advanceSearchRequest.startedAtFrom = '';
         this.advanceSearchRequest.subscriptionId = '';
+        this.advanceSearchRequest.signUpOnTo = '';
+        this.advanceSearchRequest.balance = '';
+        this.advanceSearchRequest.expiry = '';
+        this.advanceSearchRequest.startedAtBefore = '';
+        this.advanceSearchRequest.startedAtTo = '';
+        this.advanceSearchRequest.status = [];
+        this.advanceSearchRequest.planName = '';
+        this.advanceSearchRequest.userName = '';
+        this.advanceSearchRequest.email = '';
+        this.advanceSearchRequest.mobile = '';
+        this.advanceSearchRequest.planUniqueName = [];
 
     }
     /**
@@ -215,7 +226,7 @@ export class SubscriptionContainerComponent implements OnInit {
     public pageChanged(event: any): void {
         this.subscriptionRequest.page = event.page;
         if (this.isFromAdvanceSearchRes) {
-            this.getAdvancedSearchedSubscriptions(this.searchedAdvancedRequestModelByAdvanceSearch);
+            this.getAdvancedSearchedSubscriptions(this.advanceSearchRequest);
         } else {
             this.getSubscriptionData(this.subscriptionRequest);
         }
@@ -235,6 +246,7 @@ export class SubscriptionContainerComponent implements OnInit {
     public advanceSearchRequestEmitter(event) {
         if (event) {
             this.searchedAdvancedRequestModelByAdvanceSearch = event;
+            this.advanceSearchRequest = event;
         }
     }
     public togglePanel() {
@@ -259,6 +271,7 @@ export class SubscriptionContainerComponent implements OnInit {
         this.resetAdvanceSearch();
         this.getSubscriptionData(this.subscriptionRequest);
         this.selectedPlans = [];
+        this.subscriptionRequest.page = 1;
         this.selectedPlanStatusType = []
         this.planStatusType.active = this.planStatusType.expired = this.planStatusType.trial = false;
         this.selectedAllPlanType = [];
@@ -285,7 +298,7 @@ export class SubscriptionContainerComponent implements OnInit {
 
         this.subscriptionRequest.sortBy = column;
         if (this.isFromAdvanceSearchRes) {
-            this.getAdvancedSearchedSubscriptions(this.searchedAdvancedRequestModelByAdvanceSearch);
+            this.getAdvancedSearchedSubscriptions(this.advanceSearchRequest);
         } else {
             this.getSubscriptionData(this.subscriptionRequest);
         }

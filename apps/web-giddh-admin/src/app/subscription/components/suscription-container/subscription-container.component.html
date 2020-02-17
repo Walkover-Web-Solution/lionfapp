@@ -15,38 +15,38 @@
                 <thead>
                     <tr (clickOutside)="hideOpenedSearchBox()">
                         <th class="table-search">
-                            <div [hidden]="inlineSearch == 'subscribersSignup'">
+                            <div [hidden]="inlineSearch == 'subscribersSignup'|| advanceSearchRequest.signUpOnFrom ">
                                 <div class="d-flex align-items-center justify-content-between">
                                     <span>Signup On</span>
                                     <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('subscribersSignup')"></i>
                                 </div>
                             </div>
-                            <div class="input-container" [hidden]="inlineSearch !== 'subscribersSignup'">
+                            <div class="input-container" [hidden]="inlineSearch !== 'subscribersSignup' && !advanceSearchRequest.signUpOnFrom">
                                 <input type="text" placement="bottom" placeholder="Signup on" readonly class="form-control w100" #subscribersSignupField [(ngModel)]="advanceSearchRequest.signUpOnFrom" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" (ngModelChange)="searchViaAdvanceSearch()"
                                     bsDatepicker name="signUpOnFrom" />
                             </div>
                         </th>
                         <th class="table-search">
-                            <div [hidden]="inlineSearch == 'subscribOn'">
+                            <div [hidden]="inlineSearch == 'subscribOn' || advanceSearchRequest.startedAtFrom">
                                 <div class="d-flex align-items-center justify-content-between">
                                     <span>Subscribed On</span>
                                     <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('subscribOn')"></i>
                                 </div>
                             </div>
-                            <div class="input-container" placement="bottom" [hidden]="inlineSearch !== 'subscribOn'">
+                            <div class="input-container" placement="bottom" [hidden]="inlineSearch !== 'subscribOn' && !advanceSearchRequest.startedAtFrom">
                                 <input type="text" placeholder="Subscribe on" class="form-control w100" #subscribOnField readonly [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker [(ngModel)]="advanceSearchRequest.startedAtFrom" (ngModelChange)="searchViaAdvanceSearch()" name="startedAtFrom"
                                 />
                             </div>
                         </th>
 
                         <th class="table-search">
-                            <div [hidden]="inlineSearch == 'subscribId'">
+                            <div [hidden]="inlineSearch == 'subscribId' || advanceSearchRequest.subscriptionId">
                                 <div class="d-flex align-items-center justify-content-between">
                                     <span>Subscription ID</span>
                                     <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('subscribId')"></i>
                                 </div>
                             </div>
-                            <div class="input-container" [hidden]="inlineSearch !== 'subscribId'">
+                            <div class="input-container" [hidden]="inlineSearch !== 'subscribId' && !advanceSearchRequest.subscriptionId">
                                 <input type="text" placeholder="Subscription ID" class="form-control w100" #subscribIdField name="subscriptionId" [(ngModel)]="advanceSearchRequest.subscriptionId" (ngModelChange)="searchViaSubscriptionId$.next($event)" />
                             </div>
                         </th>
@@ -186,7 +186,7 @@
 </div>
 
 <div *ngIf="subscriberRes && subscriberRes.totalItems>49" class="paginationWrapper">
-    <pagination [totalItems]="subscriberRes.totalItems" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true" [itemsPerPage]="50" [rotate]="false" previousText="&#9668;" nextText="&#9658;" (pageChanged)="pageChanged($event)"></pagination>
+    <pagination [totalItems]="subscriberRes.totalItems" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true" [(ngModel)]="this.subscriptionRequest.page" [itemsPerPage]="50" [rotate]="false" previousText="&#9668;" nextText="&#9658;" (pageChanged)="pageChanged($event)"></pagination>
 </div>
 
 <!-- <pagination [totalItems]="30"></pagination> -->
