@@ -62,7 +62,7 @@ export class HeaderComponent implements OnInit {
         localStorage.removeItem('session');
         this.generalService.sessionId = null;
         this.generalService.user = null;
-        this.authService.signOut();
+        this.authService.userSignOut();
         this.router.navigate(['login']);
     }
 
