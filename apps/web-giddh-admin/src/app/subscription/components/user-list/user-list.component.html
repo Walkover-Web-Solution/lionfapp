@@ -68,10 +68,28 @@
                             </div>
                         </th>
 
-                        <th (click)="sortBy('planName')">Plan Name <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-angle-down': getUserListRequest.sortType === 'desc' && getUserListRequest.sortBy === 'planName', 'fa-angle-up': (getUserListRequest.sortType === 'asc' && getUserListRequest.sortBy === 'planName') || getUserListRequest.sortBy !== 'planName'}"></i>
+                        <th class="table-dropdown">
+                          <span class="pr c-dropdown" [ngClass]="{'open': showTaxPopup}" [attachOutsideOnClick]="true" (clickOutside)="toggleTaxPopup(false)">
+                            <label>Plan Name</label>
+
+                            <div class="btn-group pull-right" dropdown [autoClose]="true" placement="left">
+                              <button id="button-basic" dropdownToggle (focus)="handleInputFocus()" type="button" class="btn-multiselect dropdown-toggle pull-right"><span class="fa fa-angle-down"></span>
+                            </button>
+
+                            <ul id="dropdown-basic" class="dropdown-menu pd multiselect-dropdown" [ngStyle]="{'display': showTaxPopup ? 'block': 'none'}">
+                              <li role="menuitem"><input type="checkbox" name="additional">Select all</li>
+                              <li role="menuitem"><input type="checkbox" name="additional">Trial plan 1</li>
+                              <li role="menuitem"><input type="checkbox" name="additional">Plan 1</li>
+                              <li role="menuitem"><input type="checkbox" name="additional">Trial</li>
+                              <li role="menuitem"><input type="checkbox" name="additional">Trial plan 2</li>
+                              <!-- <li *ngIf="allPlans.length==0">No results found</li> -->
+                            </ul>
+                            </div>
+                          </span>
                         </th>
-                        <th (click)="sortBy('NO_OF_COMPANIES')"> <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': getUserListRequest.sortType === 'desc' && getUserListRequest.sortBy === 'NO_OF_COMPANIES', 'fa-sort-numeric-asc': (getUserListRequest.sortType === 'asc' && getUserListRequest.sortBy === 'NO_OF_COMPANIES') || getUserListRequest.sortBy !== 'NO_OF_COMPANIES'}"></i>                            No. of Companies </th>
-                        <th (click)="sortBy('TOTAL_AMOUNT')">Total Amount <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': getUserListRequest.sortType === 'desc' && getUserListRequest.sortBy === 'TOTAL_AMOUNT', 'fa-sort-numeric-asc': (getUserListRequest.sortType === 'asc' && getUserListRequest.sortBy === 'TOTAL_AMOUNT') || getUserListRequest.sortBy !== 'TOTAL_AMOUNT'}"></i>
+
+                        <th (click)="sortBy('NO_OF_COMPANIES')"> <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getUserListRequest.sortType === 'desc' && getUserListRequest.sortBy === 'NO_OF_COMPANIES', 'icon-icon-sort-down': (getUserListRequest.sortType === 'asc' && getUserListRequest.sortBy === 'NO_OF_COMPANIES') || getUserListRequest.sortBy !== 'NO_OF_COMPANIES'}"></i>                            No. of Companies </th>
+                        <th (click)="sortBy('TOTAL_AMOUNT')">Total Amount <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getUserListRequest.sortType === 'desc' && getUserListRequest.sortBy === 'TOTAL_AMOUNT', 'icon-icon-sort-down': (getUserListRequest.sortType === 'asc' && getUserListRequest.sortBy === 'TOTAL_AMOUNT') || getUserListRequest.sortBy !== 'TOTAL_AMOUNT'}"></i>
                         </th>
                     </tr>
                 </thead>
@@ -114,9 +132,12 @@
                 </tbody>
             </table>
         </div>
-        <div *ngIf="userSubscriptionData && userlistRes && userlistRes.totalItems > 50" class="paginationWrapper">
+
+      <div class="paginationWrapper">
+        <div *ngIf="userSubscriptionData && userlistRes && userlistRes.totalItems > 50">
             <pagination [totalItems]="userlistRes.totalItems" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true" [itemsPerPage]="50" [rotate]="false" previousText="&#9668;" nextText="&#9658;" (pageChanged)="pageChanged($event)"></pagination>
         </div>
+      </div>
         <!-- Footer -->
         <div class="page-footer">
             <div class="row">

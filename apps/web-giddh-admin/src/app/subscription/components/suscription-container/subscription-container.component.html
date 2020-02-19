@@ -85,7 +85,8 @@
             <div class="d-flex align-items-center justify-content-between">
                 Transaction Limit
                 <a (click)="sortBy('TRANSACTION_LIMIT')" class="text-black">
-                    <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': subscriptionRequest.sortType === 'desc' && subscriptionRequest.sortBy === 'TRANSACTION_LIMIT', 'fa-sort-numeric-asc': (subscriptionRequest.sortType === 'asc' && subscriptionRequest.sortBy === 'TRANSACTION_LIMIT') || subscriptionRequest.sortBy !== 'TRANSACTION_LIMIT'}"></i>
+                    <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': subscriptionRequest.sortType === 'desc' && subscriptionRequest.sortBy === 'TRANSACTION_LIMIT', 'icon-icon-sort-down
+': (subscriptionRequest.sortType === 'asc' && subscriptionRequest.sortBy === 'TRANSACTION_LIMIT') || subscriptionRequest.sortBy !== 'TRANSACTION_LIMIT'}"></i>
                 </a>
             </div>
         </th>
@@ -94,7 +95,8 @@
             <div class="d-flex align-items-center justify-content-between">
                 Balance
                 <a (click)="sortBy('BALANCE')" class="text-black">
-                    <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': subscriptionRequest.sortType === 'desc' && subscriptionRequest.sortBy === 'BALANCE', 'fa-sort-numeric-asc': (subscriptionRequest.sortType === 'asc' && subscriptionRequest.sortBy === 'BALANCE') || subscriptionRequest.sortBy !== 'BALANCE'}"></i>
+                    <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': subscriptionRequest.sortType === 'desc' && subscriptionRequest.sortBy === 'BALANCE', 'icon-icon-sort-down
+': (subscriptionRequest.sortType === 'asc' && subscriptionRequest.sortBy === 'BALANCE') || subscriptionRequest.sortBy !== 'BALANCE'}"></i>
                 </a>
             </div>
         </th>
@@ -103,7 +105,8 @@
             <div class="d-flex align-items-center justify-content-between">
                 Total Amount
                 <a (click)="sortBy('TOTAL_AMOUNT')" class="text-black">
-                    <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': subscriptionRequest.sortType === 'desc' && subscriptionRequest.sortBy === 'TOTAL_AMOUNT', 'fa-sort-numeric-asc': (subscriptionRequest.sortType === 'asc' && subscriptionRequest.sortBy === 'TOTAL_AMOUNT') || subscriptionRequest.sortBy !== 'TOTAL_AMOUNT'}"></i>
+                    <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': subscriptionRequest.sortType === 'desc' && subscriptionRequest.sortBy === 'TOTAL_AMOUNT', 'icon-icon-sort-down
+': (subscriptionRequest.sortType === 'asc' && subscriptionRequest.sortBy === 'TOTAL_AMOUNT') || subscriptionRequest.sortBy !== 'TOTAL_AMOUNT'}"></i>
                 </a>
             </div>
         </th>
@@ -111,7 +114,8 @@
             <div class="d-flex align-items-center justify-content-between">
                 Additional Transaction
                 <a (click)="sortBy('ADDITIONAL_TRANSACTIONS')" class="text-black">
-                    <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': subscriptionRequest.sortType === 'desc' && subscriptionRequest.sortBy === 'ADDITIONAL_TRANSACTIONS', 'fa-sort-numeric-asc': (subscriptionRequest.sortType === 'asc' && subscriptionRequest.sortBy === 'ADDITIONAL_TRANSACTIONS') || subscriptionRequest.sortBy !== 'ADDITIONAL_TRANSACTIONS'}"></i>
+                    <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': subscriptionRequest.sortType === 'desc' && subscriptionRequest.sortBy === 'ADDITIONAL_TRANSACTIONS', 'icon-icon-sort-down
+': (subscriptionRequest.sortType === 'asc' && subscriptionRequest.sortBy === 'ADDITIONAL_TRANSACTIONS') || subscriptionRequest.sortBy !== 'ADDITIONAL_TRANSACTIONS'}"></i>
                 </a>
             </div>
         </th>
@@ -119,7 +123,8 @@
             <div class="d-flex align-items-center justify-content-between">
                 Additional Charges
                 <a (click)="sortBy('ADDITIONAL_CHARGES')" class="text-black">
-                    <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': subscriptionRequest.sortType === 'desc' && subscriptionRequest.sortBy === 'ADDITIONAL_CHARGES', 'fa-sort-numeric-asc': (subscriptionRequest.sortType === 'asc' && subscriptionRequest.sortBy === 'ADDITIONAL_CHARGES') || subscriptionRequest.sortBy !== 'ADDITIONAL_CHARGES'}"></i>
+                    <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': subscriptionRequest.sortType === 'desc' && subscriptionRequest.sortBy === 'ADDITIONAL_CHARGES', 'icon-icon-sort-down
+': (subscriptionRequest.sortType === 'asc' && subscriptionRequest.sortBy === 'ADDITIONAL_CHARGES') || subscriptionRequest.sortBy !== 'ADDITIONAL_CHARGES'}"></i>
                 </a>
             </div>
         </th>
@@ -127,7 +132,8 @@
             <div class="d-flex align-items-center justify-content-between">
                 Rate/Transaction
                 <a (click)="sortBy('RATE_PER_EXTRA_TRANSACTION')" class="text-black">
-                    <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': subscriptionRequest.sortType === 'desc' && subscriptionRequest.sortBy === 'RATE_PER_EXTRA_TRANSACTION', 'fa-sort-numeric-asc': (subscriptionRequest.sortType === 'asc' && subscriptionRequest.sortBy === 'RATE_PER_EXTRA_TRANSACTION') || subscriptionRequest.sortBy !== 'RATE_PER_EXTRA_TRANSACTION'}"></i>
+                    <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': subscriptionRequest.sortType === 'desc' && subscriptionRequest.sortBy === 'RATE_PER_EXTRA_TRANSACTION', 'icon-icon-sort-down
+': (subscriptionRequest.sortType === 'asc' && subscriptionRequest.sortBy === 'RATE_PER_EXTRA_TRANSACTION') || subscriptionRequest.sortBy !== 'RATE_PER_EXTRA_TRANSACTION'}"></i>
                 </a>
             </div>
         </th>
@@ -135,7 +141,8 @@
             <div class="d-flex align-items-center justify-content-between">
                 Expiry
                 <a (click)="sortBy('EXPIRY')" class="text-black">
-                    <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': subscriptionRequest.sortType === 'desc' && subscriptionRequest.sortBy === 'EXPIRY', 'fa-sort-numeric-asc': (subscriptionRequest.sortType === 'asc' && subscriptionRequest.sortBy === 'EXPIRY') || subscriptionRequest.sortBy !== 'EXPIRY'}"></i>
+                    <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': subscriptionRequest.sortType === 'desc' && subscriptionRequest.sortBy === 'EXPIRY', 'icon-icon-sort-down
+': (subscriptionRequest.sortType === 'asc' && subscriptionRequest.sortBy === 'EXPIRY') || subscriptionRequest.sortBy !== 'EXPIRY'}"></i>
                 </a>
             </div>
         </th>
@@ -185,8 +192,10 @@
     </table>
 </div>
 
-<div *ngIf="subscriberRes && subscriberRes.totalItems>49" class="paginationWrapper">
-    <pagination [totalItems]="subscriberRes.totalItems" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true" [(ngModel)]="this.subscriptionRequest.page" [itemsPerPage]="50" [rotate]="false" previousText="&#9668;" nextText="&#9658;" (pageChanged)="pageChanged($event)"></pagination>
+<div class="paginationWrapper">
+  <div *ngIf="subscriberRes && subscriberRes.totalItems>49">
+      <pagination [totalItems]="subscriberRes.totalItems" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true" [(ngModel)]="this.subscriptionRequest.page" [itemsPerPage]="50" [rotate]="false" previousText="&#9668;" nextText="&#9658;" (pageChanged)="pageChanged($event)"></pagination>
+  </div>
 </div>
 
 <!-- <pagination [totalItems]="30"></pagination> -->

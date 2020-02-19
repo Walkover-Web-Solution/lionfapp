@@ -1,13 +1,12 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UserService } from '../../../services/user.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { SubscriberList, PAGINATION_COUNT, TotalUsersCount } from '../../../modules/modules/api-modules/subscription';
+import { SubscriberList, PAGINATION_COUNT, TotalUsersCount, CommonPaginatedRequest } from '../../../modules/modules/api-modules/subscription';
 import * as moment from 'moment/moment';
 import { GeneralService } from '../../../services/general.service';
 import { Router } from '@angular/router';
 import { ToasterService } from '../../../services/toaster.service';
-
 @Component({
     selector: 'app-user-list',
     templateUrl: './user-list.component.html',
@@ -19,6 +18,7 @@ export class UserListComponent implements OnInit {
     @ViewChild('userEmailField') public userEmailField;
     @ViewChild('userMobileField') public userMobileField;
     @ViewChild('userSubscriptionField') public userSubscriptionField;
+    @Input() public showTaxPopup: boolean = false;
 
     public modalRef: BsModalRef;
     public expandList = false;
@@ -61,6 +61,19 @@ export class UserListComponent implements OnInit {
         this.getUserListRequest.sortType = 'desc';
         this.getAllUserData();
         this.getAllSubscriptionTotalData();
+    }
+
+    public toggleTaxPopup(action: boolean) {
+      this.showTaxPopup = action;
+    }
+
+    /**
+     * Tax input focus handler
+     *
+     * @memberof TaxControlComponent
+     */
+    public handleInputFocus(): void {
+      this.showTaxPopup = true;
     }
 
     /**
