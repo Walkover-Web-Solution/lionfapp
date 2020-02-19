@@ -68,15 +68,6 @@ export class UserListComponent implements OnInit {
     }
 
     /**
-     * Tax input focus handler
-     *
-     * @memberof TaxControlComponent
-     */
-    public handleInputFocus(): void {
-      this.showTaxPopup = true;
-    }
-
-    /**
      * This function is used to put focus on column search
      *
      * @param {*} inlineSearch
