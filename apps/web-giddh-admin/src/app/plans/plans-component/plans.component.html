@@ -45,15 +45,15 @@
                     </th>
 
                     <th class="table-dropdown">
-                      <span class="pr c-dropdown" [ngClass]="{'open': showTaxPopups}" [attachOutsideOnClick]="true"
-                        (clickOutside)="toggleTaxPopups(false)">
+                      <span class="pr c-dropdown" [ngClass]="{'open': showTaxPopup}" [attachOutsideOnClick]="true"
+                      (clickOutside)="toggleTaxPopup(false)">
                         <label>Country</label>
 
                         <div class="btn-group pull-right" dropdown [autoClose]="true" placement="left">
-                          <button id="button-basic" dropdownToggle (focus)="handleInputFocused()" type="button" class="btn-multiselect dropdown-toggle pull-right"><span class="fa fa-angle-down"></span>
+                          <button id="button-basic" dropdownToggle (click)="handleInputFocus(showTaxPopup)" type="button" class="btn-multiselect dropdown-toggle pull-right"><span class="fa fa-angle-down"></span>
                           </button>
 
-                            <ul id="dropdown-basic" class="dropdown-menu pd multiselect-dropdown" [ngStyle]="{'display': showTaxPopups ? 'block': 'none'}">
+                            <ul id="dropdown-basic" class="dropdown-menu pd multiselect-dropdown" [ngStyle]="{'display': showTaxPopup ? 'block': 'none'}">
                               <ng-container *ngFor="let item of countrySource">
                                 <li role="menuitem"><input type="checkbox" (click)="checkedCountryName(item, $event);">{{item.label}}</li>
                             </ng-container>

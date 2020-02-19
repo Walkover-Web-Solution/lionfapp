@@ -66,6 +66,14 @@ export class UserListComponent implements OnInit {
     public toggleTaxPopup(action: boolean) {
       this.showTaxPopup = action;
     }
+    /**
+     * Tax input focus handler
+     *
+     * @memberof TaxControlComponent
+     */
+    public handleInputFocus(isShow:boolean): void {
+      this.showTaxPopup = isShow? false: true;
+    }
 
     /**
      * This function is used to put focus on column search

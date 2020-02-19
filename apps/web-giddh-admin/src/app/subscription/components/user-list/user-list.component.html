@@ -73,7 +73,7 @@
                             <label>Plan Name</label>
 
                             <div class="btn-group pull-right" dropdown [autoClose]="true" placement="left">
-                              <button id="button-basic" dropdownToggle (focus)="toggleTaxPopup(true);" type="button" class="btn-multiselect dropdown-toggle pull-right"><span class="fa fa-angle-down"></span>
+                              <button id="button-basic" dropdownToggle (click)="handleInputFocus(showTaxPopup)" type="button" class="btn-multiselect dropdown-toggle pull-right"><span class="fa fa-angle-down"></span>
                             </button>
 
                             <ul id="dropdown-basic" class="dropdown-menu pd multiselect-dropdown" [ngStyle]="{'display': showTaxPopup ? 'block': 'none'}">

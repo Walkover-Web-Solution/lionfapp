@@ -64,7 +64,7 @@
                               <label>Plan Name</label>
 
                               <div class="btn-group pull-right" dropdown [autoClose]="true" placement="left">
-                                <button id="button-basic" dropdownToggle (focus)="handleInputFocus()" type="button" class="btn-multiselect dropdown-toggle pull-right"><span class="fa fa-angle-down"></span>
+                                <button id="button-basic" dropdownToggle (click)="handleInputFocus(showTaxPopup)" type="button" class="btn-multiselect dropdown-toggle pull-right"><span class="fa fa-angle-down"></span>
                             </button>
 
                             <ul id="dropdown-basic" class="dropdown-menu pd multiselect-dropdown" [ngStyle]="{'display': showTaxPopup ? 'block': 'none'}">
@@ -75,9 +75,9 @@
                                 </ng-container>
                                 <li *ngIf="allPlans.length==0">No results found</li>
                             </ul>
-        </div>
-        </span>
-        </th>
+                            </div>
+                          </span>
+                        </th>
 
         <th class="transform-none">No of Company</th>
 
@@ -153,8 +153,8 @@
                             <label>Status</label>
 
                             <div class="btn-group pull-right" dropdown [autoClose]="true" placement="left">
-                              <button id="button-basic" dropdownToggle (focus)="handleInputFocused()" type="button" class="btn-multiselect dropdown-toggle pull-right"><span class="fa fa-angle-down"></span>
-            </button>
+                              <button id="button-basic" dropdownToggle (click)="status(showTaxPopups)" type="button" class="btn-multiselect dropdown-toggle pull-right"><span class="fa fa-angle-down"></span>
+                              </button>
 
             <ul id="dropdown-basic" class="dropdown-menu pd multiselect-dropdown" [ngStyle]="{'display': showTaxPopups ? 'block': 'none'}">
                 <li role="menuitem"><input type="checkbox" [(ngModel)]="isAllPlanTypeSelected" (click)="selectAllPlansStatus($event);">Select all</li>

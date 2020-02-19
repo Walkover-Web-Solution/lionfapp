@@ -178,24 +178,24 @@ export class EditSubscriptionsComponent implements OnInit {
 
 
     public toggleTaxPopup(action: boolean) {
-        this.showTaxPopup = action;
-    }
-    public toggleTaxPopups(action: boolean) {
-        this.showTaxPopups = action;
-    }
+      this.showTaxPopup = action;
+  }
+  public toggleTaxPopups(action: boolean) {
+      this.showTaxPopups = action;
+  }
 
-    /**
-     * Tax input focus handler
-     *
-     * @memberof TaxControlComponent
-     */
-    public handleInputFocus(): void {
-        this.showTaxPopup = true;
-    }
+  /**
+   * Tax input focus handler
+   *
+   * @memberof TaxControlComponent
+   */
+  public handleInputFocus(isShow:boolean): void {
+      this.showTaxPopup = isShow? false: true;
+  }
 
-    public handleInputFocused(): void {
-        this.showTaxPopups = true;
-    }
+  public status(isShow:boolean): void {
+    this.showTaxPopups = isShow? false: true;
+  }
 
 
     /**
