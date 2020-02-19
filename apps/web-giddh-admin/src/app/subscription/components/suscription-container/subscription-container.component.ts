@@ -153,7 +153,7 @@ export class SubscriptionContainerComponent implements OnInit {
         this.advanceSearchRequest.userName = '';
         this.advanceSearchRequest.email = '';
         this.advanceSearchRequest.mobile = '';
-        this.advanceSearchRequest.planUniqueName = [];
+        this.advanceSearchRequest.planUniqueNames = [];
 
     }
     /**
@@ -386,7 +386,7 @@ export class SubscriptionContainerComponent implements OnInit {
             let index = this.selectedPlans.indexOf(item.value);
             this.selectedPlans.splice(index, 1);
         }
-        this.advanceSearchRequest.planUniqueName = this.selectedPlans;
+        this.advanceSearchRequest.planUniqueNames = this.selectedPlans;
         this.getAdvancedSearchedSubscriptions(this.advanceSearchRequest);
         this.isAllPlansSelected();
     }
@@ -413,7 +413,7 @@ export class SubscriptionContainerComponent implements OnInit {
             });
         }
         this.isAllPlansSelected();
-        this.advanceSearchRequest.planUniqueName = this.selectedPlans;
+        this.advanceSearchRequest.planUniqueNames = this.selectedPlans;
         this.getAdvancedSearchedSubscriptions(this.advanceSearchRequest);
     }
 
