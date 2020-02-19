@@ -102,7 +102,7 @@ export class AdvanceSearchRequestSubscriptions {
     userName?: string;
     email?: string;
     mobile?: string;
-    planUniqueName?: string[];
+    planUniqueNames?: string[];
 
 }
 export class UpdateSubscriptionModel {
