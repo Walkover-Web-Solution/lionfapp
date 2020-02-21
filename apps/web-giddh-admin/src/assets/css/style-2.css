@@ -933,6 +933,7 @@ bs-datepicker-container {
   padding: 15px 15px;
   margin: 0 -15px;
   z-index: 9;
+  box-shadow: 0 0 6px rgba(0,0,0,.1);
 }
 .userNumber h4 {
   color: #1b1f6d;

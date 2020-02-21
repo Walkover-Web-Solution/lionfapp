@@ -119,12 +119,12 @@ export class SubscriptionContainerComponent implements OnInit {
      *
      * @memberof TaxControlComponent
      */
-    public handleInputFocus(): void {
-        this.showTaxPopup = true;
+    public handleInputFocus(isShow:boolean): void {
+        this.showTaxPopup = isShow? false: true;
     }
 
-    public handleInputFocused(): void {
-        this.showTaxPopups = true;
+    public status(isShow:boolean): void {
+      this.showTaxPopups = isShow? false: true;
     }
 
 

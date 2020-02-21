@@ -13,11 +13,11 @@
                         <th>Sub ID</th>
                         <th>User Name</th>
                         <th>Plan</th>
-                        <th class="transform-none" (click)="sortBy('currentcompanycount')">No of Company <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-angle-down': getAllLicenceKeyRequest.sort === 'desc' && getAllLicenceKeyRequest.sortBy === 'currentcompanycount', 'fa-angle-up': (getAllLicenceKeyRequest.sort === 'asc' && getAllLicenceKeyRequest.sortBy === 'currentcompanycount') || getAllLicenceKeyRequest.sortBy !== 'currentcompanycount'}"></i></th>
-                        <th (click)="sortBy('balance')">Balance <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-angle-down': getAllLicenceKeyRequest.sort === 'desc' && getAllLicenceKeyRequest.sortBy === 'balance', 'fa-angle-up': (getAllLicenceKeyRequest.sort === 'asc' && getAllLicenceKeyRequest.sortBy === 'balance') || getAllLicenceKeyRequest.sortBy !== 'balance'}"></i></th>
-                        <th (click)="sortBy('transactionlimit')">Transaction Limit <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-angle-down': getAllLicenceKeyRequest.sort === 'desc' && getAllLicenceKeyRequest.sortBy === 'transactionlimit', 'fa-angle-up': (getAllLicenceKeyRequest.sort === 'asc' && getAllLicenceKeyRequest.sortBy === 'transactionlimit') || getAllLicenceKeyRequest.sortBy !== 'transactionlimit'}"></i></th>
+                        <th class="transform-none" (click)="sortBy('currentcompanycount')">No of Company <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getAllLicenceKeyRequest.sort === 'desc' && getAllLicenceKeyRequest.sortBy === 'currentcompanycount', 'icon-icon-sort-down': (getAllLicenceKeyRequest.sort === 'asc' && getAllLicenceKeyRequest.sortBy === 'currentcompanycount') || getAllLicenceKeyRequest.sortBy !== 'currentcompanycount'}"></i></th>
+                        <th (click)="sortBy('balance')">Balance <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getAllLicenceKeyRequest.sort === 'desc' && getAllLicenceKeyRequest.sortBy === 'balance', 'icon-icon-sort-down': (getAllLicenceKeyRequest.sort === 'asc' && getAllLicenceKeyRequest.sortBy === 'balance') || getAllLicenceKeyRequest.sortBy !== 'balance'}"></i></th>
+                        <th (click)="sortBy('transactionlimit')">Transaction Limit <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getAllLicenceKeyRequest.sort === 'desc' && getAllLicenceKeyRequest.sortBy === 'transactionlimit', 'icon-icon-sort-down': (getAllLicenceKeyRequest.sort === 'asc' && getAllLicenceKeyRequest.sortBy === 'transactionlimit') || getAllLicenceKeyRequest.sortBy !== 'transactionlimit'}"></i></th>
                         <th>License Key </th>
-                        <th (click)="sortBy('status')">Status <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-angle-down': getAllLicenceKeyRequest.sort === 'desc' && getAllLicenceKeyRequest.sortBy === 'status', 'fa-angle-up': (getAllLicenceKeyRequest.sort === 'asc' && getAllLicenceKeyRequest.sortBy === 'status') || getAllLicenceKeyRequest.sortBy !== 'status'}"></i></th>
+                        <th (click)="sortBy('status')">Status <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getAllLicenceKeyRequest.sort === 'desc' && getAllLicenceKeyRequest.sortBy === 'status', 'icon-icon-sort-down': (getAllLicenceKeyRequest.sort === 'asc' && getAllLicenceKeyRequest.sortBy === 'status') || getAllLicenceKeyRequest.sortBy !== 'status'}"></i></th>
                         <th>Expiry</th>
                         <th>Total Amount</th>
                         <th width="15%">Comments</th>
@@ -46,8 +46,10 @@
                 </tbody>
             </table>
         </div>
-        <div *ngIf="LicenceKeyRes && LicenceKeyRes.totalItems > 50" class="paginationWrapper">
-            <pagination [totalItems]="LicenceKeyRes.totalItems" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true" [itemsPerPage]="50" [rotate]="false" previousText="&#9668;" nextText="&#9658;" (pageChanged)="pageChanged($event)"></pagination>
+        <div class="paginationWrapper">
+          <div *ngIf="LicenceKeyRes && LicenceKeyRes.totalItems > 50">
+              <pagination [totalItems]="LicenceKeyRes.totalItems" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true" [itemsPerPage]="50" [rotate]="false" previousText="&#9668;" nextText="&#9658;" (pageChanged)="pageChanged($event)"></pagination>
+          </div>
         </div>
     </div>
 </div>
