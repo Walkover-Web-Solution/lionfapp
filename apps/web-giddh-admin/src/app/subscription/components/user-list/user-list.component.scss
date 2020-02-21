@@ -18,6 +18,9 @@
 .table>tbody+tbody {
   border-top: 0px solid #ddd;
 }
+.paginationWrapper {
+  padding: 60px 0;
+}
 /* .table-height {
   max-height: calc(100vh - 370px);
   overflow-y: auto;

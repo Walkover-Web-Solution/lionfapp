@@ -105,11 +105,11 @@
 
                                 <th class="table-dropdown">
 
-                                    <span class="pr c-dropdown" [ngClass]="{'open': showTaxPopup}" [attachOutsideOnClick]="true" (clickOutside)="toggleTaxPopup(false)">
+                                  <span class="pr c-dropdown" [ngClass]="{'open': showTaxPopup}" [attachOutsideOnClick]="true" (clickOutside)="toggleTaxPopup(false)">
                                     <label>Plan Name</label>
 
                                     <div class="btn-group pull-right" dropdown [autoClose]="true" placement="left">
-                                      <button id="button-basic" dropdownToggle (focus)="handleInputFocus()" type="button" class="btn-multiselect dropdown-toggle pull-right"><span class="fa fa-angle-down"></span>
+                                      <button id="button-basic" dropdownToggle (click)="handleInputFocus(showTaxPopup)" type="button" class="btn-multiselect dropdown-toggle pull-right"><span class="fa fa-angle-down"></span>
                                     </button>
 
                                     <ul id="dropdown-basic" class="dropdown-menu pd multiselect-dropdown" [ngStyle]="{'display': showTaxPopup ? 'block': 'none'}">
@@ -119,8 +119,8 @@
                                         </ng-container>
                                         <li *ngIf="allPlans.length==0">No results found</li>
                                     </ul>
-                </div>
-                </span>
+                                  </div>
+                                  </span>
 
                 <!-- Plan Name
                                     <div class="btn-group pull-right" dropdown [autoClose]="true" container="body" placement="left">
@@ -138,33 +138,33 @@
 
                 <th>Balance
                     <a (click)="sortBy('BALANCE')" class="text-black">
-                        <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': paginationRequest.sortType === 'desc' && paginationRequest.sortBy === 'BALANCE', 'fa-sort-numeric-asc': (paginationRequest.sortType === 'asc' && paginationRequest.sortBy === 'BALANCE') || paginationRequest.sortBy !== 'BALANCE'}"></i>
+                        <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': paginationRequest.sortType === 'desc' && paginationRequest.sortBy === 'BALANCE', 'icon-icon-sort-down': (paginationRequest.sortType === 'asc' && paginationRequest.sortBy === 'BALANCE') || paginationRequest.sortBy !== 'BALANCE'}"></i>
                     </a>
-                    <!-- <i class="fa pull-right fa-sort-numeric-asc"></i> -->
+                    <!-- <i class="fa pull-right icon-icon-sort-down"></i> -->
                 </th>
                 <th>Transaction Limit
                     <a (click)="sortBy('TRANSACTION_LIMIT')" class="text-black">
-                        <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': paginationRequest.sortType === 'desc' && paginationRequest.sortBy === 'TRANSACTION_LIMIT', 'fa-sort-numeric-asc': (paginationRequest.sortType === 'asc' && paginationRequest.sortBy === 'TRANSACTION_LIMIT') || paginationRequest.sortBy !== 'TRANSACTION_LIMIT'}"></i>
+                        <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': paginationRequest.sortType === 'desc' && paginationRequest.sortBy === 'TRANSACTION_LIMIT', 'icon-icon-sort-down': (paginationRequest.sortType === 'asc' && paginationRequest.sortBy === 'TRANSACTION_LIMIT') || paginationRequest.sortBy !== 'TRANSACTION_LIMIT'}"></i>
                     </a>
                 </th>
                 <th>Total Amount
                     <a (click)="sortBy('TOTAL_AMOUNT')" class="text-black">
-                        <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': paginationRequest.sortType === 'desc' && paginationRequest.sortBy === 'TOTAL_AMOUNT', 'fa-sort-numeric-asc': (paginationRequest.sortType === 'asc' && paginationRequest.sortBy === 'TOTAL_AMOUNT') || paginationRequest.sortBy !== 'TOTAL_AMOUNT'}"></i>
+                        <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': paginationRequest.sortType === 'desc' && paginationRequest.sortBy === 'TOTAL_AMOUNT', 'icon-icon-sort-down': (paginationRequest.sortType === 'asc' && paginationRequest.sortBy === 'TOTAL_AMOUNT') || paginationRequest.sortBy !== 'TOTAL_AMOUNT'}"></i>
                     </a>
                 </th>
                 <th>Additional Transaction
                     <a (click)="sortBy('ADDITIONAL_TRANSACTIONS')" class="text-black">
-                        <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': paginationRequest.sortType === 'desc' && paginationRequest.sortBy === 'ADDITIONAL_TRANSACTIONS', 'fa-sort-numeric-asc': (paginationRequest.sortType === 'asc' && paginationRequest.sortBy === 'ADDITIONAL_TRANSACTIONS') || paginationRequest.sortBy !== 'ADDITIONAL_TRANSACTIONS'}"></i>
+                        <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': paginationRequest.sortType === 'desc' && paginationRequest.sortBy === 'ADDITIONAL_TRANSACTIONS', 'icon-icon-sort-down': (paginationRequest.sortType === 'asc' && paginationRequest.sortBy === 'ADDITIONAL_TRANSACTIONS') || paginationRequest.sortBy !== 'ADDITIONAL_TRANSACTIONS'}"></i>
                     </a>
                 </th>
                 <th>Additional Charges
                     <a (click)="sortBy('ADDITIONAL_CHARGES')" class="text-black">
-                        <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': paginationRequest.sortType === 'desc' && paginationRequest.sortBy === 'ADDITIONAL_CHARGES', 'fa-sort-numeric-asc': (paginationRequest.sortType === 'asc' && paginationRequest.sortBy === 'ADDITIONAL_CHARGES') || paginationRequest.sortBy !== 'ADDITIONAL_CHARGES'}"></i>
+                        <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': paginationRequest.sortType === 'desc' && paginationRequest.sortBy === 'ADDITIONAL_CHARGES', 'icon-icon-sort-down': (paginationRequest.sortType === 'asc' && paginationRequest.sortBy === 'ADDITIONAL_CHARGES') || paginationRequest.sortBy !== 'ADDITIONAL_CHARGES'}"></i>
                     </a>
                 </th>
                 <th>rate/Transaction
                     <a (click)="sortBy('RATE_PER_EXTRA_TRANSACTION')" class="text-black">
-                        <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': paginationRequest.sortType === 'desc' && paginationRequest.sortBy === 'RATE_PER_EXTRA_TRANSACTION', 'fa-sort-numeric-asc': (paginationRequest.sortType === 'asc' && paginationRequest.sortBy === 'RATE_PER_EXTRA_TRANSACTION') || paginationRequest.sortBy !== 'RATE_PER_EXTRA_TRANSACTION'}"></i>
+                        <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': paginationRequest.sortType === 'desc' && paginationRequest.sortBy === 'RATE_PER_EXTRA_TRANSACTION', 'icon-icon-sort-down': (paginationRequest.sortType === 'asc' && paginationRequest.sortBy === 'RATE_PER_EXTRA_TRANSACTION') || paginationRequest.sortBy !== 'RATE_PER_EXTRA_TRANSACTION'}"></i>
                     </a>
                 </th>
                 <th class="table-dropdown">
@@ -172,7 +172,7 @@
                                     <label>Status</label>
 
                                     <div class="btn-group pull-right" dropdown [autoClose]="true" placement="left">
-                                      <button id="button-basic" dropdownToggle (focus)="handleInputFocused()" type="button" class="btn-multiselect dropdown-toggle pull-right"><span class="fa fa-angle-down"></span>
+                                      <button id="button-basic" dropdownToggle (click)="status(showTaxPopups)" type="button" class="btn-multiselect dropdown-toggle pull-right"><span class="fa fa-angle-down"></span>
                     </button>
 
                     <ul id="dropdown-basic" class="dropdown-menu pd multiselect-dropdown" [ngStyle]="{'display': showTaxPopups ? 'block': 'none'}">
@@ -191,7 +191,7 @@
 
     <th>Expiry
         <a (click)="sortBy('EXPIRY')" class="text-black">
-            <i [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': paginationRequest.sortType === 'desc' && paginationRequest.sortBy === 'EXPIRY', 'fa-sort-numeric-asc': (paginationRequest.sortType === 'asc' && paginationRequest.sortBy === 'EXPIRY') || paginationRequest.sortBy !== 'EXPIRY'}"></i>
+            <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': paginationRequest.sortType === 'desc' && paginationRequest.sortBy === 'EXPIRY', 'icon-icon-sort-down': (paginationRequest.sortType === 'asc' && paginationRequest.sortBy === 'EXPIRY') || paginationRequest.sortBy !== 'EXPIRY'}"></i>
         </a>
     </th>
     </tr>
