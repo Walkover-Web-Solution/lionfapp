@@ -354,6 +354,7 @@ export class EditSubscriptionsComponent implements OnInit {
      */
     public searchViaSubscribedOn() {
         this.getAllCompaniesRequest.startedAtFrom = this.getAllCompaniesRequest.startedAtFrom ? moment(this.getAllCompaniesRequest.startedAtFrom).format(GIDDH_DATE_FORMAT) : '';
+        this.showClearFilter = true;
         this.getAllCompanies();
     }
 
