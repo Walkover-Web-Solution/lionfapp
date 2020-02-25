@@ -72,9 +72,6 @@ export class UserListComponent implements OnInit {
         this.getAllPlans();
     }
 
-    public toggleTaxPopup(action: boolean) {
-        this.showTaxPopup = action;
-    }
     /**
      * Tax input focus handler
      *
