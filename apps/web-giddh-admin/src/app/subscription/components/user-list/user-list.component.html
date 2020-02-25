@@ -6,7 +6,8 @@
                     <span class="input-group-addon" id="sizing-addon2"><i class="fa fa-calendar pull-right"></i></span>
                     <input type="text" class="form-control date-range-picker" readonly [(bsValue)]="bsValue" placeholder="Select Date" (bsValueChange)="onChangeFilterDate($event)" bsDaterangepicker>
                 </div>
-                <button class=" btn-link" *ngIf="getUserListPostRequest.signUpOnFrom || getUserListPostRequest.userName || getUserListPostRequest.email || getUserListPostRequest.mobile || getUserListPostRequest.subscriptionId" (click)="resetFilters();"><i class="icon icon-loop2
+                <button class=" btn-link" *ngIf="getUserListPostRequest.signUpOnFrom || getUserListPostRequest.userName || getUserListPostRequest.email || getUserListPostRequest.mobile || getUserListPostRequest.subscriptionId || (getUserListPostRequest.planUniqueNames && getUserListPostRequest.planUniqueNames.length)"
+                    (click)="resetFilters();"><i class="icon icon-loop2
               "></i> Clear Filter</button>
             </div>
         </div>
@@ -69,7 +70,7 @@
                         </th>
 
                         <th class="table-dropdown">
-                          <span class="pr c-dropdown" [ngClass]="{'open': showTaxPopup}" [attachOutsideOnClick]="true" (clickOutside)="toggleTaxPopup(false)">
+                            <span class="pr c-dropdown" [ngClass]="{'open': showTaxPopup}" [attachOutsideOnClick]="true" (clickOutside)="handleInputFocus(true)">
                             <label>Plan Name</label>
 
                             <div class="btn-group pull-right" dropdown [autoClose]="true" placement="left">
@@ -77,105 +78,104 @@
                             </button>
 
                             <ul id="dropdown-basic" class="dropdown-menu pd multiselect-dropdown" [ngStyle]="{'display': showTaxPopup ? 'block': 'none'}">
-                              <li role="menuitem"><input type="checkbox" name="additional">Select all</li>
-                              <li role="menuitem"><input type="checkbox" name="additional">Trial plan 1</li>
-                              <li role="menuitem"><input type="checkbox" name="additional">Plan 1</li>
-                              <li role="menuitem"><input type="checkbox" name="additional">Trial</li>
-                              <li role="menuitem"><input type="checkbox" name="additional">Trial plan 2</li>
-                              <!-- <li *ngIf="allPlans.length==0">No results found</li> -->
+                                <li role="menuitem" *ngIf="allPlans?.length"><input type="checkbox" [(ngModel)]="isAllPlanSelected" (click)="selectAllPlans($event);">Select all</li>
+                                <ng-container *ngFor="let item of allPlans">
+                                    <li role="menuitem"><input type="checkbox" [(ngModel)]="item.additional" name="additional" (click)="checkedPlanName(item, $event);">{{item.label}}</li>
+                                </ng-container>
+                                <li *ngIf="allPlans.length==0">No results found</li>
                             </ul>
-                            </div>
-                          </span>
-                        </th>
-
-                        <th (click)="sortBy('NO_OF_COMPANIES')"> <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getUserListRequest.sortType === 'desc' && getUserListRequest.sortBy === 'NO_OF_COMPANIES', 'icon-icon-sort-down': (getUserListRequest.sortType === 'asc' && getUserListRequest.sortBy === 'NO_OF_COMPANIES') || getUserListRequest.sortBy !== 'NO_OF_COMPANIES'}"></i>                            No. of Companies </th>
-                        <th (click)="sortBy('TOTAL_AMOUNT')">Total Amount <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getUserListRequest.sortType === 'desc' && getUserListRequest.sortBy === 'TOTAL_AMOUNT', 'icon-icon-sort-down': (getUserListRequest.sortType === 'asc' && getUserListRequest.sortBy === 'TOTAL_AMOUNT') || getUserListRequest.sortBy !== 'TOTAL_AMOUNT'}"></i>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody *ngFor="let userSubscription of userSubscriptionData">
-                    <tr>
-                        <td data-title="Signup Date">{{userSubscription.userDetails.signUpOn}}</td>
-                        <td data-title="Name">{{userSubscription.userDetails.name}}</td>
-
-                        <td data-title="Email">
-                            {{userSubscription.userDetails.email?userSubscription.userDetails.email:'-'}}</td>
-                        <td data-title="Mobile" class="nowrap">
-                            {{userSubscription.userDetails.mobileno?userSubscription.userDetails.mobileno:'-'}}</td>
-                        <td data-title="Subscription ID" *ngIf="userSubscription.subscriptions.length === 1"><a href="javascript:void(0)" (click)="openEditSubscription(userSubscription.subscriptions[0].subscriptionId, 'subscriptionId');">{{ userSubscription.subscriptions[0].subscriptionId}}</a>
-                        </td>
-                        <td data-title="Subscription ID" *ngIf="userSubscription.subscriptions.length > 1"><a href="javascript:void(0)" (click)="userSubscription.showInner = !userSubscription.showInner">Multiple</a>
-                        </td>
-                        <td data-title="Plan Name"><span *ngIf="userSubscription.subscriptions?.length > 0">{{userSubscription.subscriptions[0].planDetails.name}}</span>
-                        </td>
-                        <td data-title="No. of Companies">{{userSubscription.totalCompanies}}</td>
-                        <td data-title="Total Amount">{{userSubscription.totalAmount}}/- <a href="javascript:void(0)" *ngIf="userSubscription.subscriptions?.length > 1" (click)="userSubscription.showInner = !userSubscription.showInner" class="d-inline-block pull-right"><span
-                                    [ngClass]="{'fa': 1 === 1, 'fa-arrows-alt': !userSubscription.showInner, 'fa-expand': userSubscription.showInner}"></span></a>
-                        </td>
-                    </tr>
-                    <tr [hidden]="userSubscription.subscriptions?.length === 1 || !userSubscription.showInner" *ngFor="let userSubscriptionInner of userSubscription.subscriptions;">
-                        <td data-title="Signup Date">&nbsp;</td>
-                        <td data-title="Name">&nbsp;</td>
-                        <td data-title="Email">&nbsp;</td>
-                        <td data-title="Mobile">&nbsp;</td>
-                        <td data-title="Subscription ID"><a href="javascript:void(0)" (click)="openEditSubscription( userSubscriptionInner.subscriptionId);">{{userSubscriptionInner.subscriptionId}}</a>
-                        </td>
-                        <td data-title="Plan Name"><span>{{userSubscriptionInner.planDetails.name}}</span></td>
-                        <td data-title="No. of Companies">{{userSubscriptionInner.companyCount}}</td>
-                        <td data-title="Total Amount">{{userSubscriptionInner.planDetails.amount}}/-</td>
-                    </tr>
-                </tbody>
-                <tbody *ngIf="!userSubscriptionData || userSubscriptionData.length === 0">
-                    <tr>
-                        <td colspan="8" align="center">No records found.</td>
-                    </tr>
-                </tbody>
-            </table>
         </div>
+        </span>
+        </th>
 
-      <div class="paginationWrapper">
+        <th (click)="sortBy('NO_OF_COMPANIES')"> <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getUserListRequest.sortType === 'desc' && getUserListRequest.sortBy === 'NO_OF_COMPANIES', 'icon-icon-sort-down': (getUserListRequest.sortType === 'asc' && getUserListRequest.sortBy === 'NO_OF_COMPANIES') || getUserListRequest.sortBy !== 'NO_OF_COMPANIES'}"></i>            No. of Companies </th>
+        <th (click)="sortBy('TOTAL_AMOUNT')">Total Amount <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getUserListRequest.sortType === 'desc' && getUserListRequest.sortBy === 'TOTAL_AMOUNT', 'icon-icon-sort-down': (getUserListRequest.sortType === 'asc' && getUserListRequest.sortBy === 'TOTAL_AMOUNT') || getUserListRequest.sortBy !== 'TOTAL_AMOUNT'}"></i>
+        </th>
+        </tr>
+        </thead>
+        <tbody *ngFor="let userSubscription of userSubscriptionData">
+            <tr>
+                <td data-title="Signup Date">{{userSubscription.userDetails.signUpOn}}</td>
+                <td data-title="Name">{{userSubscription.userDetails.name}}</td>
+
+                <td data-title="Email">
+                    {{userSubscription.userDetails.email?userSubscription.userDetails.email:'-'}}</td>
+                <td data-title="Mobile" class="nowrap">
+                    {{userSubscription.userDetails.mobileno?userSubscription.userDetails.mobileno:'-'}}</td>
+                <td data-title="Subscription ID" *ngIf="userSubscription.subscriptions.length === 1"><a href="javascript:void(0)" (click)="openEditSubscription(userSubscription.subscriptions[0].subscriptionId, 'subscriptionId');">{{ userSubscription.subscriptions[0].subscriptionId}}</a>
+                </td>
+                <td data-title="Subscription ID" *ngIf="userSubscription.subscriptions.length > 1"><a href="javascript:void(0)" (click)="userSubscription.showInner = !userSubscription.showInner">Multiple</a>
+                </td>
+                <td data-title="Plan Name"><span *ngIf="userSubscription.subscriptions?.length > 0">{{userSubscription.subscriptions[0].planDetails.name}}</span>
+                </td>
+                <td data-title="No. of Companies">{{userSubscription.totalCompanies}}</td>
+                <td data-title="Total Amount">{{userSubscription.totalAmount}}/- <a href="javascript:void(0)" *ngIf="userSubscription.subscriptions?.length > 1" (click)="userSubscription.showInner = !userSubscription.showInner" class="d-inline-block pull-right"><span
+                                    [ngClass]="{'fa': 1 === 1, 'fa-arrows-alt': !userSubscription.showInner, 'fa-expand': userSubscription.showInner}"></span></a>
+                </td>
+            </tr>
+            <tr [hidden]="userSubscription.subscriptions?.length === 1 || !userSubscription.showInner" *ngFor="let userSubscriptionInner of userSubscription.subscriptions;">
+                <td data-title="Signup Date">&nbsp;</td>
+                <td data-title="Name">&nbsp;</td>
+                <td data-title="Email">&nbsp;</td>
+                <td data-title="Mobile">&nbsp;</td>
+                <td data-title="Subscription ID"><a href="javascript:void(0)" (click)="openEditSubscription( userSubscriptionInner.subscriptionId);">{{userSubscriptionInner.subscriptionId}}</a>
+                </td>
+                <td data-title="Plan Name"><span>{{userSubscriptionInner.planDetails.name}}</span></td>
+                <td data-title="No. of Companies">{{userSubscriptionInner.companyCount}}</td>
+                <td data-title="Total Amount">{{userSubscriptionInner.planDetails.amount}}/-</td>
+            </tr>
+        </tbody>
+        <tbody *ngIf="!userSubscriptionData || userSubscriptionData.length === 0">
+            <tr>
+                <td colspan="8" align="center">No records found.</td>
+            </tr>
+        </tbody>
+        </table>
+    </div>
+
+    <div class="paginationWrapper">
         <div *ngIf="userSubscriptionData && userlistRes && userlistRes.totalItems > 50">
             <pagination [totalItems]="userlistRes.totalItems" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true" [itemsPerPage]="50" [rotate]="false" previousText="&#9668;" nextText="&#9658;" (pageChanged)="pageChanged($event)"></pagination>
         </div>
-      </div>
-        <!-- Footer -->
-        <div class="page-footer">
-            <div class="row">
-                <div class="col-md-1 col-sm-3 wrap-row">
-                    <div class="userNumber">
-                        <h4>{{totalUsers?.totalUser?totalUsers?.totalUser: 0}}</h4>
-                    </div>
-                    <div class="aboutUser">
-                        <p>Total User</p>
-                    </div>
+    </div>
+    <!-- Footer -->
+    <div class="page-footer">
+        <div class="row">
+            <div class="col-md-1 col-sm-3 wrap-row">
+                <div class="userNumber">
+                    <h4>{{totalUsers?.totalUser?totalUsers?.totalUser: 0}}</h4>
                 </div>
-                <div class="col-md-1 col-sm-3 wrap-row">
-                    <div class="userNumber">
-                        <h4>{{totalUsers?.paidUsers? totalUsers?.paidUsers: 0}}</h4>
-                    </div>
-                    <div class="aboutUser">
-                        <p>Active User</p>
-                    </div>
+                <div class="aboutUser">
+                    <p>Total User</p>
                 </div>
-                <div class="col-md-1 col-sm-3 wrap-row">
-                    <div class="userNumber">
-                        <h4>{{totalUsers?.expiredUsers? totalUsers?.expiredUsers: 0}}</h4>
-                    </div>
-                    <div class="aboutUser">
-                        <p>Inactive User</p>
-                    </div>
+            </div>
+            <div class="col-md-1 col-sm-3 wrap-row">
+                <div class="userNumber">
+                    <h4>{{totalUsers?.paidUsers? totalUsers?.paidUsers: 0}}</h4>
                 </div>
-                <div class="col-md-1 col-sm-3 wrap-row">
-                    <div class="userNumber">
-                        <h4>{{totalUsers?.trialUsers? totalUsers?.trialUsers: 0}}</h4>
-                    </div>
-                    <div class="aboutUser">
-                        <p>Trial</p>
-                    </div>
+                <div class="aboutUser">
+                    <p>Active User</p>
+                </div>
+            </div>
+            <div class="col-md-1 col-sm-3 wrap-row">
+                <div class="userNumber">
+                    <h4>{{totalUsers?.expiredUsers? totalUsers?.expiredUsers: 0}}</h4>
+                </div>
+                <div class="aboutUser">
+                    <p>Inactive User</p>
+                </div>
+            </div>
+            <div class="col-md-1 col-sm-3 wrap-row">
+                <div class="userNumber">
+                    <h4>{{totalUsers?.trialUsers? totalUsers?.trialUsers: 0}}</h4>
+                </div>
+                <div class="aboutUser">
+                    <p>Trial</p>
                 </div>
             </div>
         </div>
-
-
     </div>
+
+
+</div>
 </div>
