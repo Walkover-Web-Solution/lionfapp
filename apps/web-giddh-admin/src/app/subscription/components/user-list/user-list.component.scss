@@ -25,7 +25,7 @@
 }
 
 .paginationWrapper {
-    padding: 60px 0;
+    padding: 40px 0 120px;
 }
 
 .multiselect-dropdown {
@@ -33,11 +33,9 @@
     overflow-y: auto;
 }
 
-
-/* .table-height {
-  max-height: calc(100vh - 370px);
-  overflow-y: auto;
-} */
+.dropdown-table {
+  min-height: 240px;
+}
 
 @media(max-width:1280px) {
     .basic>thead>tr>th {
