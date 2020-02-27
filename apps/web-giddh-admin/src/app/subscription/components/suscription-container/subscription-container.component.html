@@ -75,9 +75,9 @@
                                 </ng-container>
                                 <li *ngIf="allPlans.length==0">No results found</li>
                             </ul>
-                            </div>
-                          </span>
-                        </th>
+        </div>
+        </span>
+        </th>
 
         <th class="transform-none">No of Company</th>
 
@@ -93,10 +93,10 @@
 
         <th>
             <div class="d-flex align-items-center justify-content-between">
-                Balance
-                <a (click)="sortBy('BALANCE')" class="text-black">
-                    <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': subscriptionRequest.sortType === 'desc' && subscriptionRequest.sortBy === 'BALANCE', 'icon-icon-sort-down
-': (subscriptionRequest.sortType === 'asc' && subscriptionRequest.sortBy === 'BALANCE') || subscriptionRequest.sortBy !== 'BALANCE'}"></i>
+                Remaining Transaction
+                <a (click)="sortBy('REMAINING_TRANSACTIONS')" class="text-black">
+                    <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': subscriptionRequest.sortType === 'desc' && subscriptionRequest.sortBy === 'REMAINING_TRANSACTIONS', 'icon-icon-sort-down
+': (subscriptionRequest.sortType === 'asc' && subscriptionRequest.sortBy === 'REMAINING_TRANSACTIONS') || subscriptionRequest.sortBy !== 'REMAINING_TRANSACTIONS'}"></i>
                 </a>
             </div>
         </th>
@@ -154,7 +154,7 @@
 
                             <div class="btn-group pull-right" dropdown [autoClose]="true" placement="left">
                               <button id="button-basic" dropdownToggle (click)="status(showTaxPopups)" type="button" class="btn-multiselect dropdown-toggle pull-right"><span class="fa fa-angle-down"></span>
-                              </button>
+            </button>
 
             <ul id="dropdown-basic" class="dropdown-menu pd multiselect-dropdown" [ngStyle]="{'display': showTaxPopups ? 'block': 'none'}">
                 <li role="menuitem"><input type="checkbox" [(ngModel)]="isAllPlanTypeSelected" (click)="selectAllPlansStatus($event);">Select all</li>
@@ -177,7 +177,7 @@
             <td data-title="No of Company">
                 {{subscription?.totalCompanies}}/{{subscription?.planDetails?.companiesLimit}}</td>
             <td data-title="Transaction Limit">{{subscription.planDetails.transactionLimit}}</td>
-            <td data-title="Balance">{{subscription.balance}}</td>
+            <td data-title="Remaining Transaction">{{subscription.transactionsRemaining}}</td>
             <td data-title="Total Amount">{{subscription.planDetails.amount}}/-</td>
             <td data-title="Additional Transaction">{{subscription.additionalTransactions}}</td>
             <td data-title="Additional Charges">{{subscription.additionalCharges}}</td>
@@ -193,9 +193,9 @@
 </div>
 
 <div class="paginationWrapper">
-  <div *ngIf="subscriberRes && subscriberRes.totalItems>49">
-      <pagination [totalItems]="subscriberRes.totalItems" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true" [(ngModel)]="this.subscriptionRequest.page" [itemsPerPage]="50" [rotate]="false" previousText="&#9668;" nextText="&#9658;" (pageChanged)="pageChanged($event)"></pagination>
-  </div>
+    <div *ngIf="subscriberRes && subscriberRes.totalItems>49">
+        <pagination [totalItems]="subscriberRes.totalItems" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true" [(ngModel)]="this.subscriptionRequest.page" [itemsPerPage]="50" [rotate]="false" previousText="&#9668;" nextText="&#9658;" (pageChanged)="pageChanged($event)"></pagination>
+    </div>
 </div>
 
 <!-- <pagination [totalItems]="30"></pagination> -->
