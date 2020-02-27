@@ -40,6 +40,7 @@ export class PlansComponent implements OnInit {
     public countrySource: IOption[] = [];
     public selectedCountries: string[] = []
     public isAllCountrySelected: boolean = false;
+    public PAGINATION_COUNT:number = PAGINATION_COUNT;
 
 
     constructor(private plansService: PlansService, private generalService: GeneralService, private toaster: ToasterService, private authenticationService: AuthenticationService) {
