@@ -59,11 +59,7 @@ export class HeaderComponent implements OnInit {
     }
 
     public clearData() {
-        localStorage.removeItem('session');
-        this.generalService.sessionId = null;
-        this.generalService.user = null;
-        this.authService.userSignOut();
-        this.router.navigate(['login']);
+        this.generalService.clearUserSession();
     }
 
     public getCompaniesList() {

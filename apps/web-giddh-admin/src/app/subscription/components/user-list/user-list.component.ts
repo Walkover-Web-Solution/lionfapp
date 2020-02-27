@@ -215,9 +215,13 @@ export class UserListComponent implements OnInit {
         this.getUserListPostRequest.email = '';
         this.getUserListPostRequest.mobile = '';
         this.getUserListPostRequest.subscriptionId = '';
-        this.getUserListRequest.sortBy = 'User';
-        this.getUserListRequest.sortType = 'desc';
+        this.getUserListPostRequest.planUniqueNames = [];
+        this.getUserListRequest.sortBy = '';
+        this.getUserListRequest.sortType = '';
         this.inlineSearch = null;
+        this.allPlans.forEach(res => {
+            res.additional = false;
+        });
         this.isAllPlanSelected = false;
         this.getAllUserData();
     }
@@ -254,6 +258,7 @@ export class UserListComponent implements OnInit {
             this.selectedPlans.splice(index, 1);
         }
         this.getUserListPostRequest.planUniqueNames = this.selectedPlans;
+        this.isAllPlansSelected();
         this.getAllUserData();
     }
 
@@ -306,8 +311,8 @@ export class UserListComponent implements OnInit {
     public getAllPlans(): void {
         this.getAllPlansRequest.count = PAGINATION_COUNT;
         this.getAllPlansRequest.page = 1;
-        this.getAllPlansRequest.sortBy = 'TOTAL_AMOUNT';
-        this.getAllPlansRequest.sortType = 'desc';
+        this.getAllPlansRequest.sortBy = '';
+        this.getAllPlansRequest.sortType = '';
         this.plansService.getAllPlans(this.getAllPlansRequest, this.getAllPlansPostRequest).subscribe(res => {
             if (res.status === 'success') {
                 this.allPlans = [];

@@ -7,7 +7,7 @@
             <input type="text" placeholder="Select Date" readonly [(bsValue)]="bsValue" (bsValueChange)="onChangeFilterDate($event)" class="form-control date-range-picker" bsDaterangepicker>
         </div>
 
-        <button class=" btn-link" *ngIf="getAllPlansPostRequest.createdAtFrom" (click)="resetFilters();"><i class="icon icon-loop2
+        <button class=" btn-link" *ngIf="getAllPlansPostRequest.planName || getAllPlansPostRequest.countries.length || getAllPlansPostRequest.createdAtFrom" (click)="resetFilters();"><i class="icon icon-loop2
       "></i> Clear Filter</button>
     </div>
 
@@ -45,97 +45,97 @@
                     </th>
 
                     <th class="table-dropdown">
-                      <span class="pr c-dropdown" [ngClass]="{'open': showTaxPopup}" [attachOutsideOnClick]="true"
-                      (clickOutside)="toggleTaxPopup(false)">
+                        <span class="pr c-dropdown" [ngClass]="{'open': showTaxPopup}" [attachOutsideOnClick]="true" (clickOutside)="handleInputFocus(true)">
                         <label>Country</label>
 
                         <div class="btn-group pull-right" dropdown [autoClose]="true" placement="left">
                           <button id="button-basic" dropdownToggle (click)="handleInputFocus(showTaxPopup)" type="button" class="btn-multiselect dropdown-toggle pull-right"><span class="fa fa-angle-down"></span>
-                          </button>
+                        </button>
 
-                            <ul id="dropdown-basic" class="dropdown-menu pd multiselect-dropdown" [ngStyle]="{'display': showTaxPopup ? 'block': 'none'}">
-                              <ng-container *ngFor="let item of countrySource">
-                                <li role="menuitem"><input type="checkbox" (click)="checkedCountryName(item, $event);">{{item.label}}</li>
+                        <ul id="dropdown-basic" class="dropdown-menu pd multiselect-dropdown" [ngStyle]="{'display': showTaxPopup ? 'block': 'none'}">
+                            <li role="menuitem" *ngIf="countrySource?.length"><input type="checkbox" [(ngModel)]="isAllCountrySelected" (click)="selectAllCountry($event);">Select all</li>
+                            <ng-container *ngFor="let item of countrySource">
+                                <li role="menuitem"><input type="checkbox" [(ngModel)]="item.additional" name="additional" (click)="checkedCountryName(item, $event);">{{item.label}}</li>
                             </ng-container>
                             <li *ngIf="countrySource.length==0">No results found</li>
-                            </ul>
-                        </div>
-                    </span>
-                    </th>
-
-
-                    
-                </tr>
-            </thead>
-            <tbody *ngIf="plansDataResults">
-                <tr *ngFor="let plans of plansDataResults">
-                    <td><a href="javascript:;" (click)="showPlanDetails(plans.uniqueName)">{{plans.name}}</a></td>
-                    <td>{{plans.createdAt}}</td>
-                    <td>{{plans.totalCompanies}}</td>
-                    <td>{{plans.totalUsers}}</td>
-                    <td>{{plans.amount}}</td>
-                    <td>{{plans.expiry}}</td>
-                    <td>{{plans.countries}}</td>
-                </tr>
-            </tbody>
-            <tbody *ngIf="!plansData || !plansDataResults || plansDataResults.length === 0">
-                <tr>
-                    <td colspan="7" align="center">No records found.</td>
-                </tr>
-            </tbody>
-        </table>
+                        </ul>
     </div>
+    </span>
+    </th>
 
-    <div class="paginationWrapper">
-      <div *ngIf="plansData && plansData.totalItems > 50">
-          <pagination [totalItems]="plansData.totalItems" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true" [itemsPerPage]="50" [rotate]="false" previousText="&#9668;" nextText="&#9658;" (pageChanged)="pageChanged($event)"></pagination>
-      </div>
+
+
+    </tr>
+    </thead>
+    <tbody *ngIf="plansDataResults">
+        <tr *ngFor="let plans of plansDataResults">
+            <td><a href="javascript:;" (click)="showPlanDetails(plans.uniqueName)">{{plans.name}}</a></td>
+            <td>{{plans.createdAt}}</td>
+            <td>{{plans.totalCompanies}}</td>
+            <td>{{plans.totalUsers}}</td>
+            <td>{{plans.amount}}</td>
+            <td>{{plans.expiry}}</td>
+            <td>{{plans.countries}}</td>
+        </tr>
+    </tbody>
+    <tbody *ngIf="!plansData || !plansDataResults || plansDataResults.length === 0">
+        <tr>
+            <td colspan="7" align="center">No records found.</td>
+        </tr>
+    </tbody>
+    </table>
+</div>
+
+<div class="paginationWrapper">
+    <div *ngIf="plansData && plansData.totalItems > PAGINATION_COUNT">
+        <pagination [totalItems]="plansData.totalItems" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true" [itemsPerPage]="PAGINATION_COUNT" [rotate]="false" previousText="&#9668;" nextText="&#9658;" (pageChanged)="pageChanged($event)"></pagination>
     </div>
+</div>
 
-    <div class="page-footer">
-        <div class="row">
-            <div class="col-md-1 col-sm-3 wrap-row">
-                <div class="userNumber">
-                    <h4>{{planStats?.commonPlans}}</h4>
-                </div>
-                <div class="aboutUser">
-                    <p>Common Plans</p>
-                </div>
+<div class="page-footer">
+    <div class="row">
+        <div class="col-md-1 col-sm-3 wrap-row">
+            <div class="userNumber">
+                <h4>{{planStats?.commonPlans}}</h4>
             </div>
-            <div class="col-md-1 col-sm-3 wrap-row">
-                <div class="userNumber">
-                    <h4>{{planStats?.adminPlans}}</h4>
-                </div>
-                <div class="aboutUser">
-                    <p>Admin Plans</p>
-                </div>
+            <div class="aboutUser">
+                <p>Common Plans</p>
             </div>
-            <div class="col-md-1 col-sm-3 wrap-row">
-                <div class="userNumber">
-                    <h4>{{planStats?.totalPlans}}</h4>
-                </div>
-                <div class="aboutUser">
-                    <p>Total Plans</p>
-                </div>
+        </div>
+        <div class="col-md-1 col-sm-3 wrap-row">
+            <div class="userNumber">
+                <h4>{{planStats?.adminPlans}}</h4>
             </div>
-            <div class="col-md-1 col-sm-3 wrap-row">
-                <div class="userNumber">
-                    <h4>{{planStats?.paidPlans}}</h4>
-                </div>
-                <div class="aboutUser">
-                    <p>Paid Plans</p>
-                </div>
+            <div class="aboutUser">
+                <p>Admin Plans</p>
             </div>
-            <div class="col-md-1 col-sm-3 wrap-row">
-                <div class="userNumber">
-                    <h4>{{planStats?.trialPlans}}</h4>
-                </div>
-                <div class="aboutUser">
-                    <p>Trial Plans</p>
-                </div>
+        </div>
+        <div class="col-md-1 col-sm-3 wrap-row">
+            <div class="userNumber">
+                <h4>{{planStats?.totalPlans}}</h4>
+            </div>
+            <div class="aboutUser">
+                <p>Total Plans</p>
+            </div>
+        </div>
+        <div class="col-md-1 col-sm-3 wrap-row">
+            <div class="userNumber">
+                <h4>{{planStats?.paidPlans}}</h4>
+            </div>
+            <div class="aboutUser">
+                <p>Paid Plans</p>
+            </div>
+        </div>
+        <div class="col-md-1 col-sm-3 wrap-row">
+            <div class="userNumber">
+                <h4>{{planStats?.trialPlans}}</h4>
+            </div>
+            <div class="aboutUser">
+                <p>Trial Plans</p>
             </div>
         </div>
     </div>
+</div>
 
 
 </div>
