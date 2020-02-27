@@ -62,9 +62,6 @@ export class PlansComponent implements OnInit {
         this.getOnboardCountries();
     }
 
-    public toggleTaxPopup(action: boolean) {
-        this.showTaxPopup = action;
-    }
     /**
      * Tax input focus handler
      *
@@ -73,7 +70,6 @@ export class PlansComponent implements OnInit {
     public handleInputFocus(isShow: boolean): void {
         this.showTaxPopup = isShow ? false : true;
     }
-
 
     /**
      * This function is used to get all plans list

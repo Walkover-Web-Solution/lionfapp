@@ -59,7 +59,7 @@ export class HeaderComponent implements OnInit {
     }
 
     public clearData() {
-      this.generalService.clearUserSession();
+        this.generalService.clearUserSession();
     }
 
     public getCompaniesList() {

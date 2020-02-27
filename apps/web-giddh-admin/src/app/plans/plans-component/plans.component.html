@@ -45,7 +45,7 @@
                     </th>
 
                     <th class="table-dropdown">
-                        <span class="pr c-dropdown" [ngClass]="{'open': showTaxPopup}" [attachOutsideOnClick]="true" (clickOutside)="toggleTaxPopup(false)">
+                        <span class="pr c-dropdown" [ngClass]="{'open': showTaxPopup}" [attachOutsideOnClick]="true" (clickOutside)="handleInputFocus(true)">
                         <label>Country</label>
 
                         <div class="btn-group pull-right" dropdown [autoClose]="true" placement="left">
@@ -87,7 +87,7 @@
 </div>
 
 <div class="paginationWrapper">
-    <div *ngIf="plansData && plansData.totalItems > 50">
+    <div *ngIf="plansData && plansData.totalItems > PAGINATION_COUNT">
         <pagination [totalItems]="plansData.totalItems" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true" [itemsPerPage]="50" [rotate]="false" previousText="&#9668;" nextText="&#9658;" (pageChanged)="pageChanged($event)"></pagination>
     </div>
 </div>
