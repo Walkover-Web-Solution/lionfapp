@@ -60,8 +60,8 @@ export class GenerateKeyComponent implements OnInit {
     public getAllPlans(): void {
         this.getAllPlansRequest.count = PAGINATION_COUNT;
         this.getAllPlansRequest.page = 1;
-        this.getAllPlansRequest.sortBy = 'TOTAL_AMOUNT';
-        this.getAllPlansRequest.sortType = 'desc';
+        this.getAllPlansRequest.sortBy = '';
+        this.getAllPlansRequest.sortType = '';
         this.plansService.getAllPlans(this.getAllPlansRequest, this.getAllPlansPostRequest).subscribe(res => {
             if (res.status === 'success') {
                 this.allPlans = [];
