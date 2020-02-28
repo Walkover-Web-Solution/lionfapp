@@ -14,7 +14,7 @@
                         <th>User Name</th>
                         <th>Plan</th>
                         <th class="transform-none" (click)="sortBy('currentcompanycount')">No of Company <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getAllLicenceKeyRequest.sort === 'desc' && getAllLicenceKeyRequest.sortBy === 'currentcompanycount', 'icon-icon-sort-down': (getAllLicenceKeyRequest.sort === 'asc' && getAllLicenceKeyRequest.sortBy === 'currentcompanycount') || getAllLicenceKeyRequest.sortBy !== 'currentcompanycount'}"></i></th>
-                        <th (click)="sortBy('balance')">Balance <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getAllLicenceKeyRequest.sort === 'desc' && getAllLicenceKeyRequest.sortBy === 'balance', 'icon-icon-sort-down': (getAllLicenceKeyRequest.sort === 'asc' && getAllLicenceKeyRequest.sortBy === 'balance') || getAllLicenceKeyRequest.sortBy !== 'balance'}"></i></th>
+                        <th (click)="sortBy('balance')">Remaining Transaction <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getAllLicenceKeyRequest.sort === 'desc' && getAllLicenceKeyRequest.sortBy === 'balance', 'icon-icon-sort-down': (getAllLicenceKeyRequest.sort === 'asc' && getAllLicenceKeyRequest.sortBy === 'balance') || getAllLicenceKeyRequest.sortBy !== 'balance'}"></i></th>
                         <th (click)="sortBy('transactionlimit')">Transaction Limit <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getAllLicenceKeyRequest.sort === 'desc' && getAllLicenceKeyRequest.sortBy === 'transactionlimit', 'icon-icon-sort-down': (getAllLicenceKeyRequest.sort === 'asc' && getAllLicenceKeyRequest.sortBy === 'transactionlimit') || getAllLicenceKeyRequest.sortBy !== 'transactionlimit'}"></i></th>
                         <th>License Key </th>
                         <th (click)="sortBy('status')">Status <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getAllLicenceKeyRequest.sort === 'desc' && getAllLicenceKeyRequest.sortBy === 'status', 'icon-icon-sort-down': (getAllLicenceKeyRequest.sort === 'asc' && getAllLicenceKeyRequest.sortBy === 'status') || getAllLicenceKeyRequest.sortBy !== 'status'}"></i></th>
@@ -30,6 +30,7 @@
                         <td data-title="User Name">{{item.user?.name?item.user?.name:'-'}}</td>
                         <td data-title="Plan">{{item.planName?item.planName:'-'}}</td>
                         <td data-title="No of Company">{{item.currentCompanyCount?item.currentCompanyCount:'-'}}</td>
+                        <!-- This is actualy remaining Tx balance binded as remaining Tx from backend after discussed with rajat  -->
                         <td data-title="Transaction Limit">{{item.balance?item.balance:'-'}}</td>
                         <td data-title="Balance">{{item.transactionLimit?item.transactionLimit:'-'}}</td>
                         <td data-title="License Key">{{item.licenceKey ? item.licenceKey : '**********'}}</td>
