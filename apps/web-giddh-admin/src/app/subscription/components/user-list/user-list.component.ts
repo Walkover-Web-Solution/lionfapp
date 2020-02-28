@@ -1,12 +1,14 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UserService } from '../../../services/user.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { SubscriberList } from '../../../modules/modules/api-modules/subscription';
+import { SubscriberList, PAGINATION_COUNT, TotalUsersCount, CommonPaginatedRequest } from '../../../modules/modules/api-modules/subscription';
 import * as moment from 'moment/moment';
 import { GeneralService } from '../../../services/general.service';
 import { Router } from '@angular/router';
-
+import { ToasterService } from '../../../services/toaster.service';
+import { IOption } from '../../../theme/ng-select/ng-select';
+import { PlansService } from '../../../services/plan.service';
 @Component({
     selector: 'app-user-list',
     templateUrl: './user-list.component.html',
@@ -18,6 +20,7 @@ export class UserListComponent implements OnInit {
     @ViewChild('userEmailField') public userEmailField;
     @ViewChild('userMobileField') public userMobileField;
     @ViewChild('userSubscriptionField') public userSubscriptionField;
+    @Input() public showTaxPopup: boolean = false;
 
     public modalRef: BsModalRef;
     public expandList = false;
@@ -35,6 +38,13 @@ export class UserListComponent implements OnInit {
     public subscriptionId: any = '';
     public bsValue: any = '';
     public defaultLoad: boolean = true;
+    public totalUsers: TotalUsersCount;
+    public allPlans: IOption[] = [];
+    public selectedPlans: string[] = [];
+    public isAllPlanSelected: boolean = false;
+    public getAllPlansPostRequest: any = {};
+    public getAllPlansRequest: CommonPaginatedRequest = new CommonPaginatedRequest();
+
 
     destroyed$: Observable<any>;
     public onclick(id: string) {
@@ -42,7 +52,7 @@ export class UserListComponent implements OnInit {
         this.expandList = !this.expandList;
     }
 
-    constructor(private generalService: GeneralService, private userService: UserService, private modalService: BsModalService, private router: Router) {
+    constructor(private generalService: GeneralService, private userService: UserService, private modalService: BsModalService, private router: Router, private toaster: ToasterService, private plansService: PlansService) {
 
     }
 
@@ -53,11 +63,22 @@ export class UserListComponent implements OnInit {
      */
     ngOnInit() {
         this.generalService.setCurrentPageTitle("Users");
-        this.getUserListRequest.count = 50;
+        this.getUserListRequest.count = PAGINATION_COUNT;
         this.getUserListRequest.page = 1;
         this.getUserListRequest.sortBy = 'User';
         this.getUserListRequest.sortType = 'desc';
         this.getAllUserData();
+        this.getAllSubscriptionTotalData();
+        this.getAllPlans();
+    }
+
+    /**
+     * Tax input focus handler
+     *
+     * @memberof TaxControlComponent
+     */
+    public handleInputFocus(isShow: boolean): void {
+        this.showTaxPopup = isShow ? false : true;
     }
 
     /**
@@ -194,9 +215,114 @@ export class UserListComponent implements OnInit {
         this.getUserListPostRequest.email = '';
         this.getUserListPostRequest.mobile = '';
         this.getUserListPostRequest.subscriptionId = '';
-        this.getUserListRequest.sortBy = 'User';
-        this.getUserListRequest.sortType = 'desc';
+        this.getUserListPostRequest.planUniqueNames = [];
+        this.getUserListRequest.sortBy = '';
+        this.getUserListRequest.sortType = '';
         this.inlineSearch = null;
+        this.allPlans.forEach(res => {
+            res.additional = false;
+        });
+        this.isAllPlanSelected = false;
         this.getAllUserData();
+    }
+
+    /**
+     * API call to get all user footer data
+     *
+     * @memberof UserListComponent
+     */
+    public getAllSubscriptionTotalData() {
+        this.userService.getAllUserCounts().subscribe(res => {
+            if (res.status === 'success') {
+                this.totalUsers = res.body;
+            } else {
+                this.toaster.errorToast(res.message)
+            }
+        });
+    }
+
+    /**
+    * To prepare array of selectd plans
+    *
+    * @param {*} item  plan name
+    * @param {*} event Event
+    * @memberof UserListComponent
+    */
+    public checkedPlanName(item, event) {
+        if (event.target.checked) {
+            if (this.selectedPlans.indexOf(item.value) === -1) {
+                this.selectedPlans.push(item.value);
+            }
+        } else {
+            let index = this.selectedPlans.indexOf(item.value);
+            this.selectedPlans.splice(index, 1);
+        }
+        this.getUserListPostRequest.planUniqueNames = this.selectedPlans;
+        this.isAllPlansSelected();
+        this.getAllUserData();
+    }
+
+
+    /**
+     * To check all plan selected or not
+     *
+     * @private
+     * @memberof UserListComponent
+     */
+    private isAllPlansSelected() {
+        if (this.allPlans.length === this.selectedPlans.length) {
+            this.isAllPlanSelected = true;
+        } else {
+            this.isAllPlanSelected = false;
+        }
+    }
+
+    /**
+    *  To check if any plan selected
+    *
+    * @param {*} event Event for checkbox
+    * @memberof UserListComponent
+    */
+    public selectAllPlans(event) {
+        this.selectedPlans = [];
+        if (event.target.checked) {
+            this.allPlans.forEach(res => {
+                this.selectedPlans.push(res.value);
+            });
+            this.allPlans.map(res => {
+                res.additional = true;
+            });
+        } else {
+            this.selectedPlans = [];
+            this.allPlans.map(res => {
+                res.additional = false;
+            });
+        }
+        this.isAllPlansSelected();
+        this.getUserListPostRequest.planUniqueNames = this.selectedPlans;
+        this.getAllUserData();
+    }
+
+    /**
+ * This function is used to get all plans to show in dropdown
+ *
+ * @memberof UserListComponent
+ */
+    public getAllPlans(): void {
+        this.getAllPlansRequest.count = PAGINATION_COUNT;
+        this.getAllPlansRequest.page = 1;
+        this.getAllPlansRequest.sortBy = '';
+        this.getAllPlansRequest.sortType = '';
+        this.plansService.getAllPlans(this.getAllPlansRequest, this.getAllPlansPostRequest).subscribe(res => {
+            if (res.status === 'success') {
+                this.allPlans = [];
+                res.body.results.forEach(key => {
+                    this.allPlans.push({ label: key.name, value: key.uniqueName, additional: false });
+                });
+            } else {
+                this.toaster.clearAllToaster();
+                this.toaster.errorToast("Something went wrong in getting plans! Please try again.");
+            }
+        });
     }
 }

@@ -1,3 +1,5 @@
+/** Pagination count limit */
+export const PAGINATION_COUNT = 50;
 export class CommonPaginatedRequest {
     public from?: string;
     public to?: string;
@@ -74,6 +76,18 @@ export class TotalSubscribers {
     active: number;
     trial: number
 }
+
+export class TotalUsersCount {
+    totalUser: number;
+    paidUsers: number;
+    trialUsers: number;
+    expiredUsers: number
+}
+export class StatusModel {
+    trial: boolean;
+    expired: boolean;
+    active: boolean
+}
 export class AdvanceSearchRequestSubscriptions {
     signUpOnFrom?: string;
     signUpOnTo?: string;
@@ -83,11 +97,13 @@ export class AdvanceSearchRequestSubscriptions {
     startedAtBefore?: string;
     startedAtTo?: string;
     subscriptionId?: string;
-    status?: string;
+    status?: string[];
     planName?: string;
     userName?: string;
     email?: string;
     mobile?: string;
+    planUniqueNames?: string[];
+
 }
 export class UpdateSubscriptionModel {
     public planUniqueName?: string;
@@ -103,4 +119,16 @@ export class AuditLogsRequest {
     count?: any;
     entityIdentifier: string;  // For ID of subscription or plan or etc.
 
+}
+
+/*
+ * request body for get all companies
+*/
+export class GetAllCompaniesRequest {
+    startedAtFrom: string;
+    companyName: string = '';
+    subscriptionId: string = '';
+    planUniqueNames: string[] = [];
+    userName: string = '';
+    status: string[] = []; // "trial","expired"
 }
