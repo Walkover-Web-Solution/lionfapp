@@ -105,7 +105,7 @@
 
                                 <th class="table-dropdown">
 
-                                  <span class="pr c-dropdown" [ngClass]="{'open': showTaxPopup}" [attachOutsideOnClick]="true" (clickOutside)="toggleTaxPopup(false)">
+                                    <span class="pr c-dropdown" [ngClass]="{'open': showTaxPopup}" [attachOutsideOnClick]="true" (clickOutside)="toggleTaxPopup(false)">
                                     <label>Plan Name</label>
 
                                     <div class="btn-group pull-right" dropdown [autoClose]="true" placement="left">
@@ -119,8 +119,8 @@
                                         </ng-container>
                                         <li *ngIf="allPlans.length==0">No results found</li>
                                     </ul>
-                                  </div>
-                                  </span>
+                </div>
+                </span>
 
                 <!-- Plan Name
                                     <div class="btn-group pull-right" dropdown [autoClose]="true" container="body" placement="left">
@@ -136,9 +136,9 @@
                                     </div> -->
                 </th>
 
-                <th>Balance
-                    <a (click)="sortBy('BALANCE')" class="text-black">
-                        <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': paginationRequest.sortType === 'desc' && paginationRequest.sortBy === 'BALANCE', 'icon-icon-sort-down': (paginationRequest.sortType === 'asc' && paginationRequest.sortBy === 'BALANCE') || paginationRequest.sortBy !== 'BALANCE'}"></i>
+                <th>Remaining Transaction
+                    <a (click)="sortBy('REMAINING_TRANSACTIONS')" class="text-black">
+                        <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': paginationRequest.sortType === 'desc' && paginationRequest.sortBy === 'REMAINING_TRANSACTIONS', 'icon-icon-sort-down': (paginationRequest.sortType === 'asc' && paginationRequest.sortBy === 'REMAINING_TRANSACTIONS') || paginationRequest.sortBy !== 'REMAINING_TRANSACTIONS'}"></i>
                     </a>
                     <!-- <i class="fa pull-right icon-icon-sort-down"></i> -->
                 </th>
@@ -203,7 +203,7 @@
             <td data-title="Subscribeon">{{item?.subscription?.startedAt}}</td>
             <td data-title="Subcription1">{{item?.subscription?.subscriptionId}}</td>
             <td data-title="Plan Name">{{item?.subscription.planDetails?.name}}</td>
-            <td data-title="Balance">{{item?.subscription?.balance}}</td>
+            <td data-title="Remaining Transaction">{{item?.subscription?.transactionsRemaining}}</td>
             <td data-title="Tranaction">{{item?.subscription?.planDetails?.transactionLimit}}</td>
             <td data-title="Total">{{item?.subscription?.planDetails?.amount}}</td>
             <td data-title="Additional">{{item?.subscription?.additionalTransactions}}</td>
