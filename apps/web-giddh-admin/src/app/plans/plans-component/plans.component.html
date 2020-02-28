@@ -4,18 +4,17 @@
             <span class="input-group-addon">
                 <i class="fa fa-calendar pull-right"></i>
             </span>
-            <input type="text" placeholder="Select Date" readonly [(bsValue)]="bsValue"
-                (bsValueChange)="onChangeFilterDate($event)" class="form-control date-range-picker" bsDaterangepicker>
+            <input type="text" placeholder="Select Date" readonly [(bsValue)]="bsValue" (bsValueChange)="onChangeFilterDate($event)" class="form-control date-range-picker" bsDaterangepicker>
         </div>
 
-        <button class=" btn-link" *ngIf="getAllPlansPostRequest.createdAtFrom" (click)="resetFilters();"><i class="icon icon-loop2
+        <button class=" btn-link" *ngIf="getAllPlansPostRequest.planName || getAllPlansPostRequest.countries.length || getAllPlansPostRequest.createdAtFrom" (click)="resetFilters();"><i class="icon icon-loop2
       "></i> Clear Filter</button>
     </div>
 
     <button type="button" class="btn btn-blue" (click)="togglePanel()">+ New Plan</button>
 </div>
 <div class="page-content">
-    <div class="table-responsive table-height">
+    <div class="table-responsive table-height dropdown-table">
         <table class="table table-bordered basic subscrib-list-table card-list-table">
             <thead>
                 <tr (clickOutside)="inlineSearch = null">
@@ -27,105 +26,119 @@
                             </div>
                         </div>
                         <div class="input-container" [hidden]="inlineSearch !== 'planName'">
-                            <input type="text" placeholder="Plan Name" class="form-control w100" #planNameField
-                                name="planName" [(ngModel)]="getAllPlansPostRequest.planName"
-                                (keypress)="columnSearch()" (keydown)="columnSearch()" />
+                            <input type="text" placeholder="Plan Name" class="form-control w100" #planNameField name="planName" [(ngModel)]="getAllPlansPostRequest.planName" (keypress)="columnSearch()" (keydown)="columnSearch()" />
                         </div>
                     </th>
                     <th>
-                      Created on
+                        Created on
                     </th>
-                    <th class="transform-none" (click)="sortBy('NO_OF_COMPANIES')">No of Company <i
-                            [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': getAllPlansRequest.sortType === 'desc' && getAllPlansRequest.sortBy === 'NO_OF_COMPANIES', 'fa-sort-numeric-asc': (getAllPlansRequest.sortType === 'asc' && getAllPlansRequest.sortBy === 'NO_OF_COMPANIES') || getAllPlansRequest.sortBy !== 'NO_OF_COMPANIES'}"></i>
+                    <th class="transform-none" (click)="sortBy('NO_OF_COMPANIES')">No of Company <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getAllPlansRequest.sortType === 'desc' && getAllPlansRequest.sortBy === 'NO_OF_COMPANIES', 'icon-icon-sort-down': (getAllPlansRequest.sortType === 'asc' && getAllPlansRequest.sortBy === 'NO_OF_COMPANIES') || getAllPlansRequest.sortBy !== 'NO_OF_COMPANIES'}"></i>
                     </th>
                     <th (click)="sortBy('TOTAL_USERS')">Total User
-                        <i
-                            [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': getAllPlansRequest.sortType === 'desc' && getAllPlansRequest.sortBy === 'TOTAL_USERS', 'fa-sort-numeric-asc': (getAllPlansRequest.sortType === 'asc' && getAllPlansRequest.sortBy === 'TOTAL_USERS') || getAllPlansRequest.sortBy !== 'TOTAL_USERS'}"></i>
+                        <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getAllPlansRequest.sortType === 'desc' && getAllPlansRequest.sortBy === 'TOTAL_USERS', 'icon-icon-sort-down': (getAllPlansRequest.sortType === 'asc' && getAllPlansRequest.sortBy === 'TOTAL_USERS') || getAllPlansRequest.sortBy !== 'TOTAL_USERS'}"></i>
                     </th>
                     <th (click)="sortBy('TOTAL_AMOUNT')">Total Amount
-                        <i
-                            [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': getAllPlansRequest.sortType === 'desc' && getAllPlansRequest.sortBy === 'TOTAL_AMOUNT', 'fa-sort-numeric-asc': (getAllPlansRequest.sortType === 'asc' && getAllPlansRequest.sortBy === 'TOTAL_AMOUNT') || getAllPlansRequest.sortBy !== 'TOTAL_AMOUNT'}"></i>
+                        <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getAllPlansRequest.sortType === 'desc' && getAllPlansRequest.sortBy === 'TOTAL_AMOUNT', 'icon-icon-sort-down': (getAllPlansRequest.sortType === 'asc' && getAllPlansRequest.sortBy === 'TOTAL_AMOUNT') || getAllPlansRequest.sortBy !== 'TOTAL_AMOUNT'}"></i>
                     </th>
                     <th (click)="sortBy('EXPIRY')">Expiry in next 30 days
-                        <i
-                            [ngClass]="{'fa pull-right': 1 === 1, 'fa-sort-numeric-desc': getAllPlansRequest.sortType === 'desc' && getAllPlansRequest.sortBy === 'EXPIRY', 'fa-sort-numeric-asc': (getAllPlansRequest.sortType === 'asc' && getAllPlansRequest.sortBy === 'EXPIRY') || getAllPlansRequest.sortBy !== 'EXPIRY'}"></i>
+                        <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getAllPlansRequest.sortType === 'desc' && getAllPlansRequest.sortBy === 'EXPIRY', 'icon-icon-sort-down': (getAllPlansRequest.sortType === 'asc' && getAllPlansRequest.sortBy === 'EXPIRY') || getAllPlansRequest.sortBy !== 'EXPIRY'}"></i>
                     </th>
-                    <th>Country</th>
-                </tr>
-            </thead>
-            <tbody *ngIf="plansDataResults">
-                <tr *ngFor="let plans of plansDataResults">
-                    <td><a href="javascript:;" (click)="showPlanDetails(plans.uniqueName)">{{plans.name}}</a></td>
-                    <td>{{plans.createdAt}}</td>
-                    <td>{{plans.totalCompanies}}</td>
-                    <td>{{plans.totalUsers}}</td>
-                    <td>{{plans.amount}}</td>
-                    <td>{{plans.expiry}}</td>
-                    <td>{{plans.countries}}</td>
-                </tr>
-            </tbody>
-            <tbody *ngIf="!plansData || !plansDataResults || plansDataResults.length === 0">
-                <tr>
-                    <td colspan="7" align="center">No records found.</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
 
-    <div *ngIf="plansData && plansData.totalItems > 50" class="paginationWrapper">
-      <pagination [totalItems]="plansData.totalItems" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true"
-          [itemsPerPage]="50" [rotate]="false" previousText="&#9668;" nextText="&#9658;"
-          (pageChanged)="pageChanged($event)"></pagination>
-    </div>
+                    <th class="table-dropdown">
+                        <span class="pr c-dropdown" [ngClass]="{'open': showTaxPopup}" [attachOutsideOnClick]="true" (clickOutside)="handleInputFocus(true)">
+                        <label>Country</label>
 
-    <div class="page-footer">
-        <div class="row">
-            <div class="col-md-1 col-sm-3 wrap-row">
-                <div class="userNumber">
-                    <h4>{{planStats?.commonPlans}}</h4>
-                </div>
-                <div class="aboutUser">
-                    <p>Common Plans</p>
-                </div>
+                        <div class="btn-group pull-right" dropdown [autoClose]="true" placement="left">
+                          <button id="button-basic" dropdownToggle (click)="handleInputFocus(showTaxPopup)" type="button" class="btn-multiselect dropdown-toggle pull-right"><span class="fa fa-angle-down"></span>
+                        </button>
+
+                        <ul id="dropdown-basic" class="dropdown-menu pd multiselect-dropdown" [ngStyle]="{'display': showTaxPopup ? 'block': 'none'}">
+                            <li role="menuitem" *ngIf="countrySource?.length"><input type="checkbox" [(ngModel)]="isAllCountrySelected" (click)="selectAllCountry($event);">Select all</li>
+                            <ng-container *ngFor="let item of countrySource">
+                                <li role="menuitem"><input type="checkbox" [(ngModel)]="item.additional" name="additional" (click)="checkedCountryName(item, $event);">{{item.label}}</li>
+                            </ng-container>
+                            <li *ngIf="countrySource.length==0">No results found</li>
+                        </ul>
+    </div>
+    </span>
+    </th>
+
+
+
+    </tr>
+    </thead>
+    <tbody *ngIf="plansDataResults">
+        <tr *ngFor="let plans of plansDataResults">
+            <td><a href="javascript:;" (click)="showPlanDetails(plans.uniqueName)">{{plans.name}}</a></td>
+            <td>{{plans.createdAt}}</td>
+            <td>{{plans.totalCompanies}}</td>
+            <td>{{plans.totalUsers}}</td>
+            <td>{{plans.amount}}</td>
+            <td>{{plans.expiry}}</td>
+            <td>{{plans.countries}}</td>
+        </tr>
+    </tbody>
+    <tbody *ngIf="!plansData || !plansDataResults || plansDataResults.length === 0">
+        <tr>
+            <td colspan="7" align="center">No records found.</td>
+        </tr>
+    </tbody>
+    </table>
+</div>
+
+<div class="paginationWrapper">
+    <div *ngIf="plansData && plansData.totalItems > PAGINATION_COUNT">
+        <pagination [totalItems]="plansData.totalItems" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true" [itemsPerPage]="PAGINATION_COUNT" [rotate]="false" previousText="&#9668;" nextText="&#9658;" (pageChanged)="pageChanged($event)"></pagination>
+    </div>
+</div>
+
+<div class="page-footer">
+    <div class="row">
+        <div class="col-md-1 col-sm-3 wrap-row">
+            <div class="userNumber">
+                <h4>{{planStats?.commonPlans}}</h4>
             </div>
-            <div class="col-md-1 col-sm-3 wrap-row">
-                <div class="userNumber">
-                    <h4>{{planStats?.adminPlans}}</h4>
-                </div>
-                <div class="aboutUser">
-                    <p>Admin Plans</p>
-                </div>
+            <div class="aboutUser">
+                <p>Common Plans</p>
             </div>
-            <div class="col-md-1 col-sm-3 wrap-row">
-                <div class="userNumber">
-                    <h4>{{planStats?.totalPlans}}</h4>
-                </div>
-                <div class="aboutUser">
-                    <p>Total Plans</p>
-                </div>
+        </div>
+        <div class="col-md-1 col-sm-3 wrap-row">
+            <div class="userNumber">
+                <h4>{{planStats?.adminPlans}}</h4>
             </div>
-            <div class="col-md-1 col-sm-3 wrap-row">
-                <div class="userNumber">
-                    <h4>{{planStats?.paidPlans}}</h4>
-                </div>
-                <div class="aboutUser">
-                    <p>Paid Plans</p>
-                </div>
+            <div class="aboutUser">
+                <p>Admin Plans</p>
             </div>
-            <div class="col-md-1 col-sm-3 wrap-row">
-                <div class="userNumber">
-                    <h4>{{planStats?.trialPlans}}</h4>
-                </div>
-                <div class="aboutUser">
-                    <p>Trial Plans</p>
-                </div>
+        </div>
+        <div class="col-md-1 col-sm-3 wrap-row">
+            <div class="userNumber">
+                <h4>{{planStats?.totalPlans}}</h4>
+            </div>
+            <div class="aboutUser">
+                <p>Total Plans</p>
+            </div>
+        </div>
+        <div class="col-md-1 col-sm-3 wrap-row">
+            <div class="userNumber">
+                <h4>{{planStats?.paidPlans}}</h4>
+            </div>
+            <div class="aboutUser">
+                <p>Paid Plans</p>
+            </div>
+        </div>
+        <div class="col-md-1 col-sm-3 wrap-row">
+            <div class="userNumber">
+                <h4>{{planStats?.trialPlans}}</h4>
+            </div>
+            <div class="aboutUser">
+                <p>Trial Plans</p>
             </div>
         </div>
     </div>
+</div>
 
-    
+
 </div>
 
 <app-create-plans *ngIf="togglePanelBool" [rightToggle]="togglePanelBool" (hidePopup)="hidePopup()"></app-create-plans>
-<app-plan-details *ngIf="togglePlanDetailsPanelBool" [planUniqueName]="selectedPlan"
-    [rightToggle]="togglePlanDetailsPanelBool" (hidePopup)="hidePlanDetailsPopup()"></app-plan-details>
+<app-plan-details *ngIf="togglePlanDetailsPanelBool" [planUniqueName]="selectedPlan" [rightToggle]="togglePlanDetailsPanelBool" (hidePopup)="hidePlanDetailsPopup()"></app-plan-details>

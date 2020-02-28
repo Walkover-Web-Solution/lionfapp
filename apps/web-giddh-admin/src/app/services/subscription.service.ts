@@ -4,12 +4,14 @@ import { Inject, Injectable, OnInit, Optional } from '@angular/core';
 import { SUBSCRIPTION_API } from './apiurls/subscription.api';
 import { ErrorHandler } from './catchManager/catchmanger';
 import { IServiceConfigArgs, ServiceConfig } from './service.config';
-import { CommonPaginatedRequest, AdvanceSearchRequestSubscriptions, UpdateSubscriptionModel } from '../modules/modules/api-modules/subscription';
+import { CommonPaginatedRequest, AdvanceSearchRequestSubscriptions, UpdateSubscriptionModel, GetAllCompaniesRequest } from '../modules/modules/api-modules/subscription';
 
 
 @Injectable()
 export class SubscriptionService {
+    public getCompanyfilter: GetAllCompaniesRequest;
     private companyUniqueName: string;
+
 
     constructor(private errorHandler: ErrorHandler,
         private http: HttpWrapperService,
@@ -48,8 +50,30 @@ export class SubscriptionService {
                 }),
                 catchError((e) => this.errorHandler.HandleCatch(e)));
     }
-    public getAllCompaniesBySubscriptionId(subscriptioId: string, model: CommonPaginatedRequest) {
-        return this.http.get(this.config.apiUrl + SUBSCRIPTION_API.GET_ALL_COMPANIES_BY_SUBSCRIPTION_ID.replace(':subscriptionId', subscriptioId), model)
+
+    //getAllCompaniesBySubscriptionId
+    /**
+     * API call to get all companies using subscriptionId and companyName
+     *
+     * @param {GetAllCompaniesRequest} body request body 
+     * @param {CommonPaginatedRequest} model pagination filter 
+     * @returns
+     * @memberof SubscriptionService
+     */
+    public getAllCompanies(body: GetAllCompaniesRequest, model: CommonPaginatedRequest) {
+        let url = SUBSCRIPTION_API.GET_ALL_COMPANIES
+        if (model.sortBy) {
+            url = url + '&sortBy=:sortBy';// &sortType=:sortType&
+            url = url.replace(':sortBy', model.sortBy);
+        }
+        if (model.sortType) {
+            url = url + '&sortType=:sortType';
+            url = url.replace(':sortType', model.sortType);
+        }
+        if (model.page) {
+            url = url.replace(':page', model.page);
+        }
+        return this.http.post(this.config.apiUrl + url, body)
             .pipe(
                 map((resp) => {
                     return resp;
@@ -75,5 +99,11 @@ export class SubscriptionService {
                 }),
                 catchError((e) =>
                     this.errorHandler.HandleCatch(e)));
+    }
+    public setGetAllCompanyRequestObject(model: GetAllCompaniesRequest) {
+        this.getCompanyfilter = model;
+    }
+    public getGetAllCompanyRequestObject(): GetAllCompaniesRequest {
+        return this.getCompanyfilter;
     }
 }

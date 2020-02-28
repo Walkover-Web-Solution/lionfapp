@@ -1,8 +1,13 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { PlansService } from '../../services/plan.service';
 import * as moment from 'moment/moment';
 import { Router } from '@angular/router';
 import { GeneralService } from '../../services/general.service';
+import { ToasterService } from '../../services/toaster.service';
+import { AuthenticationService } from '../../services/authentication.service';
+import { IOption } from '../../theme/ng-select/ng-select';
+import { PAGINATION_COUNT } from '../../modules/modules/api-modules/subscription';
+
 
 
 @Component({
@@ -13,12 +18,17 @@ import { GeneralService } from '../../services/general.service';
 
 export class PlansComponent implements OnInit {
 
+
     @ViewChild('planNameField') public planNameField;
+    @Input() public showTaxPopup: boolean = false;
+    @Input() public showTaxPopups: boolean = false;
 
     public plansData: any;
     public plansDataResults: any;
     public getAllPlansRequest: any = {};
-    public getAllPlansPostRequest: any = {};
+    public getAllPlansPostRequest: any = {
+
+    };
     public togglePanelBool: boolean;
     public togglePlanDetailsPanelBool: boolean;
     public selectedPlan: any = '';
@@ -27,9 +37,13 @@ export class PlansComponent implements OnInit {
     public bsValue: any = '';
     public defaultLoad: boolean = true;
     public planStats: any = {};
+    public countrySource: IOption[] = [];
+    public selectedCountries: string[] = []
+    public isAllCountrySelected: boolean = false;
+    public PAGINATION_COUNT:number = PAGINATION_COUNT;
 
-    constructor(private plansService: PlansService, private generalService: GeneralService) {
 
+    constructor(private plansService: PlansService, private generalService: GeneralService, private toaster: ToasterService, private authenticationService: AuthenticationService) {
     }
 
     /**
@@ -38,13 +52,24 @@ export class PlansComponent implements OnInit {
      * @memberof PlansComponent
      */
     ngOnInit() {
+        this.getAllPlansPostRequest.countries = [];
         this.generalService.setCurrentPageTitle("Plans");
-        this.getAllPlansRequest.count = 50;
+        this.getAllPlansRequest.count = PAGINATION_COUNT;
         this.getAllPlansRequest.page = 1;
-        this.getAllPlansRequest.sortBy = 'TOTAL_AMOUNT';
-        this.getAllPlansRequest.sortType = 'desc';
+        this.getAllPlansRequest.sortBy = '';
+        this.getAllPlansRequest.sortType = '';
         this.getPlansStats();
         this.getAllPlans();
+        this.getOnboardCountries();
+    }
+
+    /**
+     * Tax input focus handler
+     *
+     * @memberof TaxControlComponent
+     */
+    public handleInputFocus(isShow: boolean): void {
+        this.showTaxPopup = isShow ? false : true;
     }
 
     /**
@@ -183,6 +208,7 @@ export class PlansComponent implements OnInit {
     public hidePlanDetailsPopup() {
         this.selectedPlan = '';
         this.togglePlanDetailsPanelBool = false;
+        this.getAllPlans();
         this.toggleBodyClass();
     }
 
@@ -193,8 +219,14 @@ export class PlansComponent implements OnInit {
      */
     public resetFilters() {
         this.bsValue = null;
+        this.getAllPlansRequest.page = 1;
+        this.getAllPlansPostRequest.planName = '';
         this.getAllPlansPostRequest.createdAtFrom = '';
         this.getAllPlansPostRequest.createdAtTo = '';
+        this.getAllPlansPostRequest.countries = this.selectedCountries = [];
+        this.countrySource.forEach(res => {
+            res.additional = false;
+        });
         this.getAllPlans();
     }
 
@@ -235,5 +267,85 @@ export class PlansComponent implements OnInit {
                 this.planStats = res.body;
             }
         });
+    }
+
+    /**
+   * API call to get all onboarding countries
+   *
+   * @memberof GenerateKeyComponent
+   */
+    public getOnboardCountries() {
+        this.authenticationService.getCountry().subscribe(res => {
+            if (res.status === 'success') {
+                if (res.body && res.body.length > 0) {
+                    res.body.forEach(key => {
+                        this.countrySource.push({ label: key.countryName, value: key.alpha2CountryCode, additional: false });
+                    });
+                }
+            } else {
+                this.toaster.clearAllToaster();
+                this.toaster.errorToast(res.message);
+            }
+        });
+    }
+
+    /**
+     * To check all country selected or not
+     *
+     * @memberof PlansComponent
+     */
+    public isAllCountriesSelected() {
+        if (this.countrySource.length === this.selectedCountries.length) {
+            this.isAllCountrySelected = true;
+        } else {
+            this.isAllCountrySelected = false;
+        }
+    }
+
+    /**
+     * Prepare array of selected country for all country selected
+     *
+     * @param {*} event Click event
+     * @memberof PlansComponent
+     */
+    public selectAllCountry(event) {
+        this.selectedCountries = [];
+        if (event.target.checked) {
+            this.countrySource.forEach(res => {
+                this.selectedCountries.push(res.label);
+            });
+            this.countrySource.map(res => {
+                res.additional = true;
+            });
+        } else {
+            this.selectedCountries = [];
+            this.countrySource.map(res => {
+                res.additional = false;
+            });
+        }
+        this.isAllCountriesSelected();
+        this.getAllPlansPostRequest.countries = this.selectedCountries;
+        this.getAllPlans();
+    }
+
+    /**
+     *  To prepare array of selectd country
+     *
+     * @param {*} item Country selected item
+     * @param {*} event Click event
+     * @memberof PlansComponent
+     */
+    public checkedCountryName(item, event) {
+        if (event.target.checked) {
+            if (this.selectedCountries.indexOf(item.label) === -1) {
+                this.selectedCountries.push(item.label);
+            }
+        } else {
+            let index = this.selectedCountries.indexOf(item.label);
+            this.selectedCountries.splice(index, 1);
+        }
+        this.getAllPlansPostRequest.countries = this.selectedCountries;
+        this.isAllCountriesSelected();
+        this.getAllPlans();
     }
 }
