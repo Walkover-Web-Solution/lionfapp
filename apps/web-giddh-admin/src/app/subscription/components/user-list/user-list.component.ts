@@ -226,10 +226,11 @@ export class UserListComponent implements OnInit {
      */
     public resetFilters() {
         this.bsValue = null;
-        this.getUserListPostRequest.lastSeen = '';
+        this.getUserListPostRequest.lastSeen = {};
         this.getUserListPostRequest.lastSeen.operation = 'relative_before';
         this.getUserListPostRequest.lastSeen.from = '';
         this.getUserListPostRequest.lastSeen.to = '';
+        this.getUserListPostRequest.lastSeen.days = '';
         this.getUserListPostRequest.signUpOnFrom = '';
         this.getUserListPostRequest.signUpOnTo = '';
         this.getUserListPostRequest.userName = '';
@@ -400,6 +401,6 @@ export class UserListComponent implements OnInit {
     public resetLastSeenFilter(): void {
         this.getUserListPostRequest.lastSeen.days = '';
         this.getUserListPostRequest.lastSeen.from = '';
-        this.getUserListPostRequest.lastSeen.days = '';
+        this.getUserListPostRequest.lastSeen.to = '';
     }
 }

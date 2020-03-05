@@ -561,11 +561,11 @@ input[type="checkbox"]:after {
 
   border: 2px solid #5b64c9;
 }
-.radio-custom + .radio-custom-label:before {
+.radio-custom + .radio-custom-label:before,.last-seen-radio-checked:before {
   border-radius: 50%;
   border: 1px solid #5b64c9;
 }
-.radio-custom:checked + :before {
+.radio-custom:checked + :before,.last-seen-radio-checked {
   background: #5b64c9;
   border: 1px solid #5b64c9;
   box-shadow: inset 0px 0px 0px 4px #fff;
