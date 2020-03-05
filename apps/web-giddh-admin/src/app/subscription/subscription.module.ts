@@ -16,10 +16,10 @@ import { DigitsOnlyModule } from '../shared/directive/digitonly/digitsOnly.modul
 import { EditSubscriptionsComponent } from './components/edit-subscriptions/edit-subscriptions.component';
 import { SubscriptionContainerComponent } from './components/suscription-container/subscription-container.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-
+import { TimeAgoPipe } from 'time-ago-pipe';
 
 @NgModule({
-    declarations: [SubscriptionComponent, SubscriptionContainerComponent, UserListComponent, AdvanceSearchComponent, EditPlanModalComponent, EditSubscriptionsComponent],
+    declarations: [SubscriptionComponent, SubscriptionContainerComponent, UserListComponent, AdvanceSearchComponent, EditPlanModalComponent, EditSubscriptionsComponent, TimeAgoPipe],
     imports: [
         CommonModule,
         SubscriptionRoutingModule,
