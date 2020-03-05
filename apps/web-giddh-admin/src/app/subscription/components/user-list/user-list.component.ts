@@ -21,6 +21,7 @@ export class UserListComponent implements OnInit {
     @ViewChild('userMobileField') public userMobileField;
     @ViewChild('userSubscriptionField') public userSubscriptionField;
     @Input() public showTaxPopup: boolean = false;
+    @Input() public lastSeen: boolean = false;
 
     public modalRef: BsModalRef;
     public expandList = false;
@@ -44,7 +45,6 @@ export class UserListComponent implements OnInit {
     public isAllPlanSelected: boolean = false;
     public getAllPlansPostRequest: any = {};
     public getAllPlansRequest: CommonPaginatedRequest = new CommonPaginatedRequest();
-
 
     destroyed$: Observable<any>;
     public onclick(id: string) {
@@ -80,6 +80,9 @@ export class UserListComponent implements OnInit {
     public handleInputFocus(isShow: boolean): void {
         this.showTaxPopup = isShow ? false : true;
     }
+    public lastSeenDropdown(isShow: boolean): void {
+      this.lastSeen = isShow ? false : true;
+  }
 
     /**
      * This function is used to put focus on column search
