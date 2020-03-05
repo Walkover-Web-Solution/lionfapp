@@ -134,7 +134,7 @@
                                                         <span>
                                                             <input id="morethan" class="radio-custom" type="radio"
                                                                 name="lastseen" [(ngModel)]="tempOperation" (ngModelChange)="resetLastSeenFilter()" value="relative_before">
-                                                            <label for="morethan" class="radio-custom-label" [ngClass]="{'last-seen-radio-checked': tempOperation === 'relative_before'}">More
+                                                            <label for="morethan" class="radio-custom-label" [ngClass]="{'last-seen-radio-checked': tempOperation === 'relative_before'}"><span class="radio-checked"></span>More
                                                                 than</label>
                                                         </span>
 
@@ -146,7 +146,7 @@
                                                         <span>
                                                             <input id="lessthan" class="radio-custom" type="radio"
                                                                 name="lastseen" [(ngModel)]="tempOperation" (ngModelChange)="resetLastSeenFilter()" value="relative_after">
-                                                            <label for="lessthan" class="radio-custom-label" [ngClass]="{'last-seen-radio-checked': tempOperation === 'relative_after'}">Less
+                                                            <label for="lessthan" class="radio-custom-label" [ngClass]="{'last-seen-radio-checked': tempOperation === 'relative_after'}"><span class="radio-checked"></span>Less
                                                                 than</label>
                                                         </span>
 
@@ -159,7 +159,7 @@
                                                             <input id="Exactly" class="radio-custom" type="radio"
                                                                 name="lastseen" [(ngModel)]="tempOperation" (ngModelChange)="resetLastSeenFilter()" value="relative_on">
                                                             <label for="Exactly"
-                                                                class="radio-custom-label" [ngClass]="{'last-seen-radio-checked': tempOperation === 'relative_on'}">Exactly</label>
+                                                                class="radio-custom-label" [ngClass]="{'last-seen-radio-checked': tempOperation === 'relative_on'}"><span class="radio-checked"></span>Exactly</label>
                                                         </span>
 
                                                         <div class="d-flex mb-1 align-items-center" *ngIf="tempOperation === 'relative_on'">
@@ -172,10 +172,11 @@
                                                 <div class="clearfix mb-1">
                                                     <p class="mb-05 mt-05">Absolute</p>
                                                     <div class="last-seen-radio">
+
                                                         <span>
                                                             <input id="after" class="radio-custom" type="radio"
                                                                 name="lastseen" [(ngModel)]="tempOperation" (ngModelChange)="resetLastSeenFilter()" value="absolute_after">
-                                                            <label for="after" class="radio-custom-label" [ngClass]="{'last-seen-radio-checked': tempOperation === 'absolute_after'}">After</label>
+                                                            <label for="after" class="radio-custom-label" [ngClass]="{'last-seen-radio-checked': tempOperation === 'absolute_after'}"><span class="radio-checked"></span> After</label>
                                                         </span>
 
                                                         <input type="text" #dp="bsDatepicker" class="date-input" bsDatepicker [isOpen]="true" *ngIf="tempOperation === 'absolute_after'" (bsValueChange)="onLastSeenDateChange($event, 'AFTER')">
@@ -184,7 +185,7 @@
                                                             <input id="before" class="radio-custom" type="radio"
                                                                 name="lastseen" [(ngModel)]="tempOperation" (ngModelChange)="resetLastSeenFilter()" value="absolute_before">
                                                             <label for="before"
-                                                                class="radio-custom-label" [ngClass]="{'last-seen-radio-checked': tempOperation === 'absolute_before'}">Before</label>
+                                                                class="radio-custom-label" [ngClass]="{'last-seen-radio-checked': tempOperation === 'absolute_before'}"><span class="radio-checked"></span>Before</label>
                                                         </span>
 
                                                         <input type="text" #dp="bsDatepicker" class="date-input" bsDatepicker [isOpen]="true" *ngIf="tempOperation === 'absolute_before'" (bsValueChange)="onLastSeenDateChange($event, 'BEFORE')">
@@ -192,7 +193,7 @@
                                                         <span>
                                                             <input id="on" class="radio-custom" type="radio"
                                                                 name="lastseen" [(ngModel)]="tempOperation" (ngModelChange)="resetLastSeenFilter()" value="absolute_on">
-                                                            <label for="on" class="radio-custom-label" [ngClass]="{'last-seen-radio-checked': tempOperation === 'absolute_on'}">On</label>
+                                                            <label for="on" class="radio-custom-label" [ngClass]="{'last-seen-radio-checked': tempOperation === 'absolute_on'}"><span class="radio-checked"></span>On</label>
                                                         </span>
 
                                                         <input type="text" #dp="bsDatepicker" class="date-input" bsDatepicker [isOpen]="true" *ngIf="tempOperation === 'absolute_on'" (bsValueChange)="onLastSeenDateChange($event, 'ON')">
@@ -201,7 +202,7 @@
                                                             <input id="between" class="radio-custom" type="radio"
                                                                 name="lastseen" [(ngModel)]="tempOperation" (ngModelChange)="resetLastSeenFilter()" value="absolute_between">
                                                             <label for="between"
-                                                                class="radio-custom-label" [ngClass]="{'last-seen-radio-checked': tempOperation === 'absolute_between'}">Between</label>
+                                                                class="radio-custom-label" [ngClass]="{'last-seen-radio-checked': tempOperation === 'absolute_between'}"><span class="radio-checked"></span>Between</label>
                                                         </span>
 
                                                         <input type="text" #dp="bsDaterangepicker" class="date-input" bsDaterangepicker [bsConfig]="{ isAnimated: true }" placement="left" *ngIf="tempOperation === 'absolute_between'" [isOpen]="true" (bsValueChange)="onLastSeenDateChange($event, 'BETWEEN')">
@@ -209,14 +210,13 @@
                                                         <span>
                                                             <input id="isunknown" class="radio-custom" type="radio"
                                                                 name="lastseen" [(ngModel)]="tempOperation" (ngModelChange)="resetLastSeenFilter(); onLastSeenDateChange($event, 'UNAVAILABLE')" value="UNAVAILABLE">
-                                                            <label for="isunknown" class="radio-custom-label" [ngClass]="{'last-seen-radio-checked': tempOperation === 'UNAVAILABLE'}">Is
-                                                                unknown</label>
+                                                            <label for="isunknown" class="radio-custom-label" [ngClass]="{'last-seen-radio-checked': tempOperation === 'UNAVAILABLE'}"><span class="radio-checked"></span>Is unknown</label>
                                                         </span>
 
                                                         <span>
                                                             <input id="any-value" class="radio-custom" type="radio"
                                                                 name="lastseen" [(ngModel)]="tempOperation" (ngModelChange)="resetLastSeenFilter(); onLastSeenDateChange($event, 'AVAILABLE')" value="AVAILABLE">
-                                                            <label for="any-value" class="radio-custom-label" [ngClass]="{'last-seen-radio-checked': tempOperation === 'AVAILABLE'}">Has any
+                                                            <label for="any-value" class="radio-custom-label" [ngClass]="{'last-seen-radio-checked': tempOperation === 'AVAILABLE'}"><span class="radio-checked"></span>Has any
                                                                 value</label>
                                                         </span>
                                                     </div>

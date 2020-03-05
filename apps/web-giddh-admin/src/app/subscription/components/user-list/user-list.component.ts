@@ -226,6 +226,7 @@ export class UserListComponent implements OnInit {
      */
     public resetFilters() {
         this.bsValue = null;
+        this.tempOperation = 'relative_before';
         this.getUserListPostRequest.lastSeen = {};
         this.getUserListPostRequest.lastSeen.operation = 'relative_before';
         this.getUserListPostRequest.lastSeen.from = '';
