@@ -21,6 +21,7 @@ export class UserListComponent implements OnInit {
     @ViewChild('userMobileField') public userMobileField;
     @ViewChild('userSubscriptionField') public userSubscriptionField;
     @Input() public showTaxPopup: boolean = false;
+    @Input() public lastSeen: boolean = false;
 
     public modalRef: BsModalRef;
     public expandList = false;
@@ -44,7 +45,9 @@ export class UserListComponent implements OnInit {
     public isAllPlanSelected: boolean = false;
     public getAllPlansPostRequest: any = {};
     public getAllPlansRequest: CommonPaginatedRequest = new CommonPaginatedRequest();
-
+    public timeoutLastSeen: any;
+    public tempOperation: any = "";
+    @ViewChild("dp") public dp;
 
     destroyed$: Observable<any>;
     public onclick(id: string) {
@@ -53,7 +56,9 @@ export class UserListComponent implements OnInit {
     }
 
     constructor(private generalService: GeneralService, private userService: UserService, private modalService: BsModalService, private router: Router, private toaster: ToasterService, private plansService: PlansService) {
-
+        this.getUserListPostRequest.lastSeen = {};
+        this.getUserListPostRequest.lastSeen.operation = "BEFORE";
+        this.tempOperation = "relative_before";
     }
 
     /**
@@ -79,6 +84,13 @@ export class UserListComponent implements OnInit {
      */
     public handleInputFocus(isShow: boolean): void {
         this.showTaxPopup = isShow ? false : true;
+    }
+    public lastSeenDropdown(isShow: boolean): void {
+        this.lastSeen = isShow ? false : true;
+
+        if (this.lastSeen && (this.tempOperation === "absolute_after" || this.tempOperation === "absolute_before" || this.tempOperation === "absolute_on" || this.tempOperation === "absolute_between")) {
+            this.dp.show();
+        }
     }
 
     /**
@@ -122,6 +134,9 @@ export class UserListComponent implements OnInit {
                     key.userDetails.signUpOn = signUpDate[0].replace(/-/g, "/");
                     this.userSubscriptionData.push(key);
                 });
+            } else {
+                this.userlistRes = new SubscriberList();
+                this.userSubscriptionData = [];
             }
         });
     }
@@ -133,8 +148,10 @@ export class UserListComponent implements OnInit {
      * @memberof UserListComponent
      */
     public pageChanged(event: any): void {
-        this.getUserListRequest.page = event.page;
-        this.getAllUserData();
+        if (this.getUserListRequest.page !== event.page) {
+            this.getUserListRequest.page = event.page;
+            this.getAllUserData();
+        }
     }
 
     /**
@@ -209,6 +226,12 @@ export class UserListComponent implements OnInit {
      */
     public resetFilters() {
         this.bsValue = null;
+        this.tempOperation = 'relative_before';
+        this.getUserListPostRequest.lastSeen = {};
+        this.getUserListPostRequest.lastSeen.operation = 'relative_before';
+        this.getUserListPostRequest.lastSeen.from = '';
+        this.getUserListPostRequest.lastSeen.to = '';
+        this.getUserListPostRequest.lastSeen.days = '';
         this.getUserListPostRequest.signUpOnFrom = '';
         this.getUserListPostRequest.signUpOnTo = '';
         this.getUserListPostRequest.userName = '';
@@ -304,10 +327,10 @@ export class UserListComponent implements OnInit {
     }
 
     /**
- * This function is used to get all plans to show in dropdown
- *
- * @memberof UserListComponent
- */
+    * This function is used to get all plans to show in dropdown
+    *
+    * @memberof UserListComponent
+    */
     public getAllPlans(): void {
         this.getAllPlansRequest.count = PAGINATION_COUNT;
         this.getAllPlansRequest.page = 1;
@@ -324,5 +347,61 @@ export class UserListComponent implements OnInit {
                 this.toaster.errorToast("Something went wrong in getting plans! Please try again.");
             }
         });
+    }
+
+    /**
+     * This will filter the user list based on last seen days
+     *
+     * @param {string} value
+     * @memberof UserListComponent
+     */
+    public onLastSeenDaysChange(value): void {
+        if (this.timeoutLastSeen) {
+            clearTimeout(this.timeoutLastSeen);
+        }
+
+        this.getUserListPostRequest.lastSeen.operation = value;
+
+        this.timeoutLastSeen = setTimeout(() => {
+            this.lastSeenDropdown(true);
+            this.getUserListRequest.page = 1;
+            this.getAllUserData();
+            clearTimeout(this.timeoutLastSeen);
+        }, 700);
+    }
+
+    /**
+     * This will filter the user list based on last seen date(s)
+     *
+     * @param {*} date
+     * @param {string} value
+     * @memberof UserListComponent
+     */
+    public onLastSeenDateChange(date: any, value: string): void {
+        this.getUserListPostRequest.lastSeen.operation = value;
+
+        if (value === "BETWEEN") {
+            this.getUserListPostRequest.lastSeen.from = moment(date[0]).format("DD-MM-YYYY");
+            this.getUserListPostRequest.lastSeen.to = moment(date[1]).format("DD-MM-YYYY");
+        } else if (value === "UNAVAILABLE" || value === "AVAILABLE") {
+            this.getUserListPostRequest.lastSeen.from = '';
+            this.getUserListPostRequest.lastSeen.to = '';
+        } else {
+            this.getUserListPostRequest.lastSeen.from = moment(date[0]).format("DD-MM-YYYY");
+            this.getUserListPostRequest.lastSeen.to = '';
+        }
+        this.getUserListRequest.page = 1;
+        this.getAllUserData();
+    }
+
+    /**
+     * This will reset the last seen filters
+     *
+     * @memberof UserListComponent
+     */
+    public resetLastSeenFilter(): void {
+        this.getUserListPostRequest.lastSeen.days = '';
+        this.getUserListPostRequest.lastSeen.from = '';
+        this.getUserListPostRequest.lastSeen.to = '';
     }
 }
