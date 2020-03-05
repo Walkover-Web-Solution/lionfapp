@@ -178,7 +178,7 @@
                                                             <label for="after" class="radio-custom-label">After</label>
                                                         </span>
 
-                                                        <input type="text" #dp="bsDatepicker" style="visibility: hidden;" bsDatepicker [isOpen]="true" *ngIf="tempOperation === 'absolute_after'" (bsValueChange)="onLastSeenDateChange($event, 'AFTER')">
+                                                        <input type="text" #dp="bsDatepicker" class="date-input" bsDatepicker [isOpen]="true" *ngIf="tempOperation === 'absolute_after'" (bsValueChange)="onLastSeenDateChange($event, 'AFTER')">
 
                                                         <span>
                                                             <input id="before" class="radio-custom" type="radio"
@@ -187,7 +187,7 @@
                                                                 class="radio-custom-label">Before</label>
                                                         </span>
 
-                                                        <input type="text" #dp="bsDatepicker" style="visibility: hidden;" bsDatepicker [isOpen]="true" *ngIf="tempOperation === 'absolute_before'" (bsValueChange)="onLastSeenDateChange($event, 'BEFORE')">
+                                                        <input type="text" #dp="bsDatepicker" class="date-input" bsDatepicker [isOpen]="true" *ngIf="tempOperation === 'absolute_before'" (bsValueChange)="onLastSeenDateChange($event, 'BEFORE')">
 
                                                         <span>
                                                             <input id="on" class="radio-custom" type="radio"
@@ -195,7 +195,7 @@
                                                             <label for="on" class="radio-custom-label">On</label>
                                                         </span>
 
-                                                        <input type="text" #dp="bsDatepicker" style="visibility: hidden;" bsDatepicker [isOpen]="true" *ngIf="tempOperation === 'absolute_on'" (bsValueChange)="onLastSeenDateChange($event, 'ON')">
+                                                        <input type="text" #dp="bsDatepicker" class="date-input" bsDatepicker [isOpen]="true" *ngIf="tempOperation === 'absolute_on'" (bsValueChange)="onLastSeenDateChange($event, 'ON')">
 
                                                         <span>
                                                             <input id="between" class="radio-custom" type="radio"
@@ -204,7 +204,7 @@
                                                                 class="radio-custom-label">Between</label>
                                                         </span>
 
-                                                        <input type="text" #dp="bsDaterangepicker" style="visibility: hidden;" bsDaterangepicker [bsConfig]="{ isAnimated: true }" placement="left" *ngIf="tempOperation === 'absolute_between'" [isOpen]="true" (bsValueChange)="onLastSeenDateChange($event, 'BETWEEN')">
+                                                        <input type="text" #dp="bsDaterangepicker" class="date-input" bsDaterangepicker [bsConfig]="{ isAnimated: true }" placement="left" *ngIf="tempOperation === 'absolute_between'" [isOpen]="true" (bsValueChange)="onLastSeenDateChange($event, 'BETWEEN')">
 
                                                         <span>
                                                             <input id="isunknown" class="radio-custom" type="radio"

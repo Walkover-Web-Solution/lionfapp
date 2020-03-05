@@ -29,7 +29,6 @@
 }
 
 .multiselect-dropdown {
-    max-height: 300px;
     overflow-y: auto;
 }
 #dropdown-basic {
@@ -42,6 +41,14 @@
 .last-seen-radio span {
   display: block;
   margin-bottom: 5px;
+}
+.date-input {
+  width: 0px;
+  height: 0px;
+  visibility: hidden;
+  opacity: 0;
+  overflow: hidden;
+  clear: both;
 }
 
 @media(max-width:1280px) {
