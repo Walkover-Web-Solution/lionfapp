@@ -134,6 +134,9 @@ export class UserListComponent implements OnInit {
                     key.userDetails.signUpOn = signUpDate[0].replace(/-/g, "/");
                     this.userSubscriptionData.push(key);
                 });
+            } else {
+                this.userlistRes = new SubscriberList();
+                this.userSubscriptionData = [];
             }
         });
     }
