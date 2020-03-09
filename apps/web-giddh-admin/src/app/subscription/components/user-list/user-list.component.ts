@@ -22,6 +22,7 @@ export class UserListComponent implements OnInit {
     @ViewChild('userSubscriptionField') public userSubscriptionField;
     @Input() public showTaxPopup: boolean = false;
     @Input() public lastSeen: boolean = false;
+    @Input() public owner: boolean = false;
 
     public modalRef: BsModalRef;
     public expandList = false;
@@ -85,6 +86,9 @@ export class UserListComponent implements OnInit {
     public handleInputFocus(isShow: boolean): void {
         this.showTaxPopup = isShow ? false : true;
     }
+    public ownerFocus(isShow: boolean): void {
+      this.owner = isShow ? false : true;
+  }
     public lastSeenDropdown(isShow: boolean): void {
         this.lastSeen = isShow ? false : true;
 
