@@ -7,7 +7,10 @@
               "></i> Clear Filter</button>
         </div>
 
-        <button class="pull-right btn btn-blue">Assign Plan</button>
+        <div class="clearfix">
+          <button class="pull-right btn btn-blue">Assign Plan</button>
+          <button class="pull-right btn btn-blue mr-1" (click)="UpdateTransaction()">update Transactions</button>
+        </div>
     </div>
     <div class="page-content">
         <div class="table-responsive table-height">
@@ -251,3 +254,8 @@
 </ng-template>
 
 <app-advance-search *ngIf="togglePanelBool" [rightToggle]="togglePanelBool" (advanceSearchRequestEmitter)="advanceSearchRequestEmitter($event)" (hidePopup)="hidePopup()"></app-advance-search>
+
+<div class="bg-box" *ngIf="updateTransaction ? in : 'out'"></div>
+<div class="rightSlide kot-repring-sidebar" *ngIf="updateTransaction ? in : 'out'">
+  <app-update-transactions></app-update-transactions>
+</div>
