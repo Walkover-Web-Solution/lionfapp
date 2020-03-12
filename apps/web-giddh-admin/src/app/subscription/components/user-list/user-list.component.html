@@ -265,14 +265,12 @@
                         <td data-title="Signup Date">{{userSubscription.userDetails.signUpOn}}</td>
                         <td data-title="Owner">
                           <div class="btn-group" dropdown>
-                            <a href="javaascript:void(0)" id="button-animated" dropdownToggle aria-controls="dropdown-animated">Unassigned</a>
+                            <a href="javaascript:void(0)" id="button-animated" dropdownToggle aria-controls="dropdown-animated"><span *ngIf="userSubscription.userDetails.managerDetails.name">{{userSubscription.userDetails.managerDetails.name}}</span><span *ngIf="!userSubscription.userDetails.managerDetails.name">-</span></a>
                             <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu"
                                 role="menu" aria-labelledby="button-animated">
-                              <li role="menuitem"><a class="dropdown-item" href="javascript:void(0)">Alok Gangrade</a></li>
-                              <li role="menuitem"><a class="dropdown-item" href="javascript:void(0)">Sakchi baldwa</a>
-                              </li>
-                              <li role="menuitem"><a class="dropdown-item" href="javascript:void(0)">Sheba Khan
-                                here</a></li>
+                                <li *ngFor="let adminUser of adminUsersList;" role="menuitem">
+                                    <a class="dropdown-item" href="javascript:;" (click)="assignLeadOwner(userSubscription.userDetails.uniqueName, adminUser.uniqueName);">{{adminUser.name}}</a>
+                                </li>
                             </ul>
                           </div>
                         </td>
