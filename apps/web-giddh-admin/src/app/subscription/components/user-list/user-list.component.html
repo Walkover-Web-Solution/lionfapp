@@ -23,6 +23,34 @@
                             Signup Date
                         </th>
 
+                        <th class="table-dropdown">
+                          <span class="pr c-dropdown align-center" [ngClass]="{'open': owner}" [attachOutsideOnClick]="true"
+                              (clickOutside)="ownerFocus(true)">
+                              <label>Owner</label>
+
+                              <div class="btn-group pull-right" dropdown [autoClose]="true" placement="left">
+                                  <button id="button-basic" dropdownToggle (click)="ownerFocus(owner)"
+                                      type="button" class="btn-multiselect dropdown-toggle pull-right"><span
+                                          class="fa fa-angle-down"></span>
+                                  </button>
+
+                                  <ul id="dropdown-owner" class="dropdown-menu pd multiselect-dropdown"
+                                      [ngStyle]="{'display': owner ? 'block': 'none'}">
+                                      <li role="menuitem" *ngIf="allPlans?.length"><input type="checkbox"
+                                              [(ngModel)]="isAllPlanSelected" (click)="selectAllPlans($event);">Select
+                                          all</li>
+                                      <ng-container *ngFor="let item of allPlans">
+                                          <li role="menuitem"><input type="checkbox" name="additional">Alok Gangrade</li>
+                                          <li role="menuitem"><input type="checkbox" name="additional">Sheba Khan</li>
+                                          <li role="menuitem"><input type="checkbox" name="additional">Sakshi baldwa</li>
+                                          <li role="menuitem"><input type="checkbox" name="additional">Diva Kara</li>
+                                      </ng-container>
+                                      <li *ngIf="allPlans.length==0">No results found</li>
+                                  </ul>
+                              </div>
+                          </span>
+                      </th>
+
                         <th class="table-search">
                             <div [hidden]="inlineSearch == 'userName'">
                                 <div class="d-flex align-items-center justify-content-between">
@@ -82,7 +110,7 @@
                         </th>
 
                         <th class="table-dropdown">
-                            <span class="pr c-dropdown" [ngClass]="{'open': showTaxPopup}" [attachOutsideOnClick]="true"
+                            <span class="pr c-dropdown align-center" [ngClass]="{'open': showTaxPopup}" [attachOutsideOnClick]="true"
                                 (clickOutside)="handleInputFocus(true)">
                                 <label>Plan Name</label>
 
@@ -92,7 +120,7 @@
                                             class="fa fa-angle-down"></span>
                                     </button>
 
-                                    <ul id="dropdown-basic" class="dropdown-menu pd multiselect-dropdown"
+                                    <ul id="dropdown-plan" class="dropdown-menu pd multiselect-dropdown"
                                         [ngStyle]="{'display': showTaxPopup ? 'block': 'none'}">
                                         <li role="menuitem" *ngIf="allPlans?.length"><input type="checkbox"
                                                 [(ngModel)]="isAllPlanSelected" (click)="selectAllPlans($event);">Select
@@ -108,15 +136,15 @@
                             </span>
                         </th>
 
-                        <th (click)="sortBy('NO_OF_COMPANIES')"> <i
+                        <th (click)="sortBy('NO_OF_COMPANIES')"> <div class="align-center">Companies <i
                                 [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getUserListRequest.sortType === 'desc' && getUserListRequest.sortBy === 'NO_OF_COMPANIES', 'icon-icon-sort-down': (getUserListRequest.sortType === 'asc' && getUserListRequest.sortBy === 'NO_OF_COMPANIES') || getUserListRequest.sortBy !== 'NO_OF_COMPANIES'}"></i>
-                            Companies</th>
-                        <th (click)="sortBy('TOTAL_AMOUNT')">Total Amount <i
-                                [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getUserListRequest.sortType === 'desc' && getUserListRequest.sortBy === 'TOTAL_AMOUNT', 'icon-icon-sort-down': (getUserListRequest.sortType === 'asc' && getUserListRequest.sortBy === 'TOTAL_AMOUNT') || getUserListRequest.sortBy !== 'TOTAL_AMOUNT'}"></i>
+                            </div></th>
+                        <th (click)="sortBy('TOTAL_AMOUNT')"><div class="align-center">Total Amount <i
+                                [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getUserListRequest.sortType === 'desc' && getUserListRequest.sortBy === 'TOTAL_AMOUNT', 'icon-icon-sort-down': (getUserListRequest.sortType === 'asc' && getUserListRequest.sortBy === 'TOTAL_AMOUNT') || getUserListRequest.sortBy !== 'TOTAL_AMOUNT'}"></i></div>
                         </th>
 
                         <th class="table-dropdown">
-                            <span class="pr c-dropdown" [ngClass]="{'open': lastSeen}" [attachOutsideOnClick]="true"
+                            <span class="pr c-dropdown align-center" [ngClass]="{'open': lastSeen}" [attachOutsideOnClick]="true"
                                 (clickOutside)="lastSeenDropdown(true)">
                                 <label>last seen</label>
                                 <div class="btn-group pull-right" dropdown [autoClose]="true" placement="left">
@@ -235,6 +263,19 @@
                 <tbody *ngFor="let userSubscription of userSubscriptionData">
                     <tr>
                         <td data-title="Signup Date">{{userSubscription.userDetails.signUpOn}}</td>
+                        <td data-title="Owner">
+                          <div class="btn-group" dropdown>
+                            <a href="javaascript:void(0)" id="button-animated" dropdownToggle aria-controls="dropdown-animated">Unassigned</a>
+                            <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu"
+                                role="menu" aria-labelledby="button-animated">
+                              <li role="menuitem"><a class="dropdown-item" href="javascript:void(0)">Alok Gangrade</a></li>
+                              <li role="menuitem"><a class="dropdown-item" href="javascript:void(0)">Sakchi baldwa</a>
+                              </li>
+                              <li role="menuitem"><a class="dropdown-item" href="javascript:void(0)">Sheba Khan
+                                here</a></li>
+                            </ul>
+                          </div>
+                        </td>
                         <td data-title="Name">{{userSubscription.userDetails.name}}</td>
 
                         <td data-title="Email">
@@ -278,7 +319,7 @@
                 </tbody>
                 <tbody *ngIf="!userSubscriptionData || userSubscriptionData.length === 0">
                     <tr>
-                        <td colspan="9" align="center">No records found.</td>
+                        <td colspan="10" align="center">No records found.</td>
                     </tr>
                 </tbody>
             </table>
