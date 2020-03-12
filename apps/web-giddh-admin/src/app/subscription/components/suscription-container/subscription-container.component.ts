@@ -42,7 +42,7 @@ export class SubscriptionContainerComponent implements OnInit {
     public getAllPlansPostRequest: any = {};
     public selectedPlanStatusType: string[] = [];
     public selectedPlans: string[] = [];
-
+  
     private destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
     public subscriberRes: SubscriberList = new SubscriberList();
     public subscriptionData = [];
@@ -57,6 +57,13 @@ export class SubscriptionContainerComponent implements OnInit {
         subscriptionId: '',
         startedAtFrom: '',
     };
+
+    public updateTransaction: boolean = false;
+
+    UpdateTransaction(){
+      this.updateTransaction = !this.updateTransaction;       
+    }
+
     // public isAllPlansSelected$: Observable<boolean> = observableOf(false);
     // public isAllPlanTypeSelected$: Observable<boolean> = observableOf(false);
     public isAllPlanTypeSelected: boolean = false;

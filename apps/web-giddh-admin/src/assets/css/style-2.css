@@ -12,6 +12,9 @@ body.unresponsive.fixed {
 .nowrap {
   white-space: nowrap;
 }
+.pt-05 {
+  padding-top: 5px;
+}
 .pd-1 {
     padding: 10px !important;
 }
@@ -227,6 +230,9 @@ body.unresponsive.fixed {
 .text-black {
   color: #333333;
 }
+.text-red {
+  color: #ff0000;
+}
 
 .xs-center {
   text-align: center;
@@ -399,7 +405,6 @@ select:hover {
     box-shadow: none;
     border-color: #d6d6d6;
 }
-
 
 /* form end */
 
@@ -626,7 +631,7 @@ input[type="checkbox"]:after {
 
 /* select css end */
 
-​ ​ .btn-blue {
+​ ​.btn-blue {
     background: #36a1e9;
     color: #fff;
     font-size: 14px;
@@ -642,6 +647,22 @@ input[type="checkbox"]:after {
   color: #36a1e9;
   border: 1px solid #36a1e9;
   background: #fff !important;
+}
+
+.btn-blue-outline {
+  background: #fff;
+  color: #36a1e9;
+  font-size: 14px;
+  border-radius: 2px;
+  height: 32px;
+  line-height: 31px;
+  padding: 0px 15px;
+  border: 1px solid #36a1e9;
+  transition: .5s all ease;
+}
+.btn-blue-outline:hover {
+  color: #fff;
+  background-color: #36a1e9;
 }
 
 .btn-blue,
