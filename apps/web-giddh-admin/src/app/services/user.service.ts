@@ -34,12 +34,48 @@ export class UserService {
                 catchError((e) => this.errorHandler.HandleCatch(e)));
     }
 
-     /**
-     * Get all user data
-     */
+    /**
+    * Get all user data
+    */
     public getAllUserCounts() {
         let url = this.config.apiUrl + SUBSCRIPTION_API.GET_ALL_USER_COUNTS;
         return this.http.get(url)
+            .pipe(
+                map((res) => {
+                    return res;
+                }),
+                catchError((e) => this.errorHandler.HandleCatch(e)));
+    }
+
+    /**
+     * This will get the list of all admin users
+     *
+     * @returns
+     * @memberof UserService
+     */
+    public getAllAdminUsers() {
+        let url = this.config.apiUrl + SUBSCRIPTION_API.GET_ALL_ADMIN_USERS;
+        return this.http.get(url)
+            .pipe(
+                map((res) => {
+                    return res;
+                }),
+                catchError((e) => this.errorHandler.HandleCatch(e)));
+    }
+
+    /**
+     * This will assign the lead owner/manager to the selected user
+     *
+     * @param {string} userUniqueName
+     * @param {*} post
+     * @returns
+     * @memberof UserService
+     */
+    public assignLeadOwner(userUniqueName: string, post: any) {
+        let url = this.config.apiUrl + SUBSCRIPTION_API.ASSIGN_MANAGER;
+        url = url.replace(":userUniqueName", userUniqueName);
+
+        return this.http.put(url, post)
             .pipe(
                 map((res) => {
                     return res;

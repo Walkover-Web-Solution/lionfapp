@@ -7,6 +7,7 @@ export const SUBSCRIPTION_API = {
     GET_AUDIT_LOGS: 'v2/admin/audit-logs',
     UPDATE_SUBSCRIPTION: 'v2/admin/subscription?subscriptionId=:subscriptionId',
     GET_ALL_COMPANIES: 'v2/admin/companies?page=:page',
-    GET_ALL_USER_COUNTS: 'v2/admin/user-totals'
-
+    GET_ALL_USER_COUNTS: 'v2/admin/user-totals',
+    GET_ALL_ADMIN_USERS: 'v2/admin/users/admin/all',
+    ASSIGN_MANAGER: 'v2/admin/users/assign-manager?userUniqueName=:userUniqueName'
 };
