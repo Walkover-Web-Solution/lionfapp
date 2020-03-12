@@ -413,6 +413,11 @@ export class UserListComponent implements OnInit {
         this.getUserListPostRequest.lastSeen.to = '';
     }
 
+    /**
+     * This will get the list of all admin users
+     *
+     * @memberof UserListComponent
+     */
     public getAllAdminUsers() {
         this.userService.getAllAdminUsers().subscribe(res => {
             if (res.status === 'success' && res.body) {
@@ -423,6 +428,13 @@ export class UserListComponent implements OnInit {
         });
     }
 
+    /**
+     * This will assign the lead to admin user
+     *
+     * @param {string} userUniqueName
+     * @param {string} leadOwnerUniqueName
+     * @memberof UserListComponent
+     */
     public assignLeadOwner(userUniqueName: string, leadOwnerUniqueName: string) {
         let post = {managerUserUniqueName: leadOwnerUniqueName};
 
