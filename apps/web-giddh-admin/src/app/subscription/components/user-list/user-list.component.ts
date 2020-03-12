@@ -49,7 +49,7 @@ export class UserListComponent implements OnInit {
     public timeoutLastSeen: any;
     public tempOperation: any = "";
     @ViewChild("dp") public dp;
-    public adminUsersList: any[] = [];
+    public adminUsersList: any;
 
     destroyed$: Observable<any>;
     public onclick(id: string) {
