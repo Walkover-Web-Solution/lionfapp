@@ -514,6 +514,12 @@ export class SubscriptionContainerComponent implements OnInit {
         }
     }
 
+    /**
+     * This will set the subscription id to be used in update popup
+     *
+     * @param {*} subscriptionId
+     * @memberof SubscriptionContainerComponent
+     */
     public editSubscriptionTransactions(subscriptionId) {
         this.editSubscriptionIdTransaction = subscriptionId;
     }

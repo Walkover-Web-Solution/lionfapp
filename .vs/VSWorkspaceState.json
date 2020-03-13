@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\apps",
+    "\\apps\\web-giddh-admin",
+    "\\apps\\web-giddh-admin\\src",
+    "\\apps\\web-giddh-admin\\src\\app",
+    "\\apps\\web-giddh-admin\\src\\app\\subscription",
+    "\\apps\\web-giddh-admin\\src\\app\\subscription\\components",
+    "\\apps\\web-giddh-admin\\src\\app\\subscription\\components\\user-list"
+  ],
+  "SelectedNode": "\\apps\\web-giddh-admin\\src\\app\\subscription\\components\\user-list\\user-list.component.html",
+  "PreviewInSolutionExplorer": false
+}
