@@ -8,7 +8,7 @@
         </div>
 
         <div class="clearfix">
-            <button class="pull-right btn btn-blue">Assign Plan</button>
+            <button class="pull-right btn btn-blue" (click)="openAssignPlanPopup = !openAssignPlanPopup">Assign Plan</button>
             <button class="pull-right btn btn-blue mr-1" *ngIf="editSubscriptionIdTransaction"
                 (click)="openUpdateTransactionPopup = !openUpdateTransactionPopup">Update Transactions</button>
         </div>
@@ -18,7 +18,7 @@
             <table class="table table-bordered basic subscrib-list-table card-list-table">
                 <thead>
                     <tr (clickOutside)="hideOpenedSearchBox()">
-                        <th>&nbsp;</th>
+                        <th>#</th>
                         <th class="table-search">
                             <div [hidden]="inlineSearch == 'subscribersSignup'|| advanceSearchRequest.signUpOnFrom ">
                                 <div class="d-flex align-items-center justify-content-between">
@@ -289,7 +289,11 @@
     (advanceSearchRequestEmitter)="advanceSearchRequestEmitter($event)" (hidePopup)="hidePopup()">
 </app-advance-search>
 
-<div class="bg-box" *ngIf="openUpdateTransactionPopup"></div>
+<div class="bg-box" *ngIf="openUpdateTransactionPopup || openAssignPlanPopup"></div>
 <div class="rightSlide kot-repring-sidebar" *ngIf="openUpdateTransactionPopup">
     <app-update-transactions [subscriptionId]="editSubscriptionIdTransaction" (hideUpdateTransactionPopup)="hideUpdateTransactionPopup()"></app-update-transactions>
+</div>
+
+<div class="rightSlide kot-repring-sidebar" *ngIf="openAssignPlanPopup">
+    <app-assign-plan (hideAssignPlanPopup)="hideAssignPlanPopup()"></app-assign-plan>
 </div>

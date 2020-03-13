@@ -60,6 +60,7 @@ export class SubscriptionContainerComponent implements OnInit {
 
     public openUpdateTransactionPopup: boolean = false;
     public editSubscriptionIdTransaction: string = '';
+    public openAssignPlanPopup: boolean = false;
 
     // public isAllPlansSelected$: Observable<boolean> = observableOf(false);
     // public isAllPlanTypeSelected$: Observable<boolean> = observableOf(false);
@@ -504,7 +505,7 @@ export class SubscriptionContainerComponent implements OnInit {
      *
      * @memberof SubscriptionContainerComponent
      */
-    public hideUpdateTransactionPopup() {
+    public hideUpdateTransactionPopup(): void {
         this.openUpdateTransactionPopup = false;
         this.editSubscriptionIdTransaction = '';
         if (this.isFromAdvanceSearchRes) {
@@ -522,5 +523,19 @@ export class SubscriptionContainerComponent implements OnInit {
      */
     public editSubscriptionTransactions(subscriptionId) {
         this.editSubscriptionIdTransaction = subscriptionId;
+    }
+
+    /**
+     * This will hide the assign plan popup
+     *
+     * @memberof SubscriptionContainerComponent
+     */
+    public hideAssignPlanPopup(): void {
+        this.openAssignPlanPopup = false;
+        if (this.isFromAdvanceSearchRes) {
+            this.getAdvancedSearchedSubscriptions(this.advanceSearchRequest);
+        } else {
+            this.getSubscriptionData(this.subscriptionRequest);
+        }
     }
 }

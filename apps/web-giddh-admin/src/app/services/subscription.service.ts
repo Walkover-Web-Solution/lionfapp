@@ -122,4 +122,16 @@ export class SubscriptionService {
                 catchError((e) =>
                     this.errorHandler.HandleCatch(e)));
     }
+
+    public assignPlan(body: any) {
+        let url = SUBSCRIPTION_API.ASSIGN_PLAN
+
+        return this.http.post(this.config.apiUrl + url, body)
+            .pipe(
+                map((resp) => {
+                    return resp;
+                }),
+                catchError((e) =>
+                    this.errorHandler.HandleCatch(e)));
+    }
 }
