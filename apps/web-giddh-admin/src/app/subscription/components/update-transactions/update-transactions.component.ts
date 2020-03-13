@@ -32,6 +32,11 @@ export class UpdateTransactionsComponent implements OnInit {
 
     constructor(private userService: UserService, private subscriptionService: SubscriptionService, private toasty: ToasterService) { }
 
+    /**
+     * Initializes the component
+     *
+     * @memberof UpdateTransactionsComponent
+     */
     ngOnInit() {
         if(this.subscriptionId) {
             this.getAllUserData();
@@ -40,6 +45,11 @@ export class UpdateTransactionsComponent implements OnInit {
         }
     }
 
+    /**
+     * This will emit the close popup event
+     *
+     * @memberof UpdateTransactionsComponent
+     */
     public closePopup() {
         this.hideUpdateTransactionPopup.emit();
     }
