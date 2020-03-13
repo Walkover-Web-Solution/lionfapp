@@ -91,6 +91,7 @@ export class SubscriptionService {
                 catchError((e) =>
                     this.errorHandler.HandleCatch(e)));
     }
+
     public updateSubscription(subscriptionId: string, model: UpdateSubscriptionModel) {
         return this.http.patch(this.config.apiUrl + SUBSCRIPTION_API.UPDATE_SUBSCRIPTION.replace(':subscriptionId', subscriptionId), model)
             .pipe(
@@ -100,10 +101,25 @@ export class SubscriptionService {
                 catchError((e) =>
                     this.errorHandler.HandleCatch(e)));
     }
+
     public setGetAllCompanyRequestObject(model: GetAllCompaniesRequest) {
         this.getCompanyfilter = model;
     }
+
     public getGetAllCompanyRequestObject(): GetAllCompaniesRequest {
         return this.getCompanyfilter;
+    }
+
+    public updateTransactions(subscriptionId: string, body: any) {
+        let url = SUBSCRIPTION_API.UPDATE_TRANSACTIONS
+        url = url.replace(':subscriptionId', subscriptionId);
+
+        return this.http.put(this.config.apiUrl + url, body)
+            .pipe(
+                map((resp) => {
+                    return resp;
+                }),
+                catchError((e) =>
+                    this.errorHandler.HandleCatch(e)));
     }
 }

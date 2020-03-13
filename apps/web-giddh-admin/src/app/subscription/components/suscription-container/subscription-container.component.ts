@@ -42,7 +42,7 @@ export class SubscriptionContainerComponent implements OnInit {
     public getAllPlansPostRequest: any = {};
     public selectedPlanStatusType: string[] = [];
     public selectedPlans: string[] = [];
-  
+
     private destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
     public subscriberRes: SubscriberList = new SubscriberList();
     public subscriptionData = [];
@@ -58,11 +58,8 @@ export class SubscriptionContainerComponent implements OnInit {
         startedAtFrom: '',
     };
 
-    public updateTransaction: boolean = false;
-
-    UpdateTransaction(){
-      this.updateTransaction = !this.updateTransaction;       
-    }
+    public openUpdateTransactionPopup: boolean = false;
+    public editSubscriptionIdTransaction: string = '';
 
     // public isAllPlansSelected$: Observable<boolean> = observableOf(false);
     // public isAllPlanTypeSelected$: Observable<boolean> = observableOf(false);
@@ -75,10 +72,12 @@ export class SubscriptionContainerComponent implements OnInit {
         expired: false
     }
     public selectedAllPlanType = ['trial', 'active', 'expired'];
+
     constructor(private store: Store<AppState>, private adminActions: AdminActions, private toasty: ToasterService,
         private subscriptionService: SubscriptionService, private modalService: BsModalService, private router: Router, private generalService: GeneralService, private plansService: PlansService) {
 
     }
+
     /**
      *To navigate edit subscription 
      *
@@ -113,10 +112,10 @@ export class SubscriptionContainerComponent implements OnInit {
         this.getAllPlans();
     }
 
-
     public toggleTaxPopup(action: boolean) {
         this.showTaxPopup = action;
     }
+
     public toggleTaxPopups(action: boolean) {
         this.showTaxPopups = action;
     }
@@ -126,20 +125,18 @@ export class SubscriptionContainerComponent implements OnInit {
      *
      * @memberof TaxControlComponent
      */
-    public handleInputFocus(isShow:boolean): void {
-        this.showTaxPopup = isShow? false: true;
+    public handleInputFocus(isShow: boolean): void {
+        this.showTaxPopup = isShow ? false : true;
     }
 
-    public status(isShow:boolean): void {
-      this.showTaxPopups = isShow? false: true;
+    public status(isShow: boolean): void {
+        this.showTaxPopups = isShow ? false : true;
     }
-
 
     public onFocusLastDiv(el) {
         this.toggleTaxPopup(false);
         return false;
     }
-
 
     /**
      * To reset Advance search request component
@@ -163,6 +160,7 @@ export class SubscriptionContainerComponent implements OnInit {
         this.advanceSearchRequest.planUniqueNames = [];
 
     }
+
     /**
      * dispatched advance search to get subscriptions
      *
@@ -179,6 +177,7 @@ export class SubscriptionContainerComponent implements OnInit {
         this.subscriptionRequest.sortBy = '';
         this.subscriptionRequest.sortType = '';
     }
+
     /**
      * set subscriptions data
      *
@@ -218,12 +217,14 @@ export class SubscriptionContainerComponent implements OnInit {
             }
         }, 200);
     }
+
     public searchViaAdvanceSearch() {
         this.advanceSearchRequest.signUpOnFrom = this.advanceSearchRequest.signUpOnFrom ? moment(this.advanceSearchRequest.signUpOnFrom).format(GIDDH_DATE_FORMAT) : '';
         this.advanceSearchRequest.startedAtFrom = this.advanceSearchRequest.startedAtFrom ? moment(this.advanceSearchRequest.startedAtFrom).format(GIDDH_DATE_FORMAT) : '';
         this.getAdvancedSearchedSubscriptions(this.advanceSearchRequest);
 
     }
+
     /**
      *Pagination 
      *
@@ -238,9 +239,11 @@ export class SubscriptionContainerComponent implements OnInit {
             this.getSubscriptionData(this.subscriptionRequest);
         }
     }
+
     public getSubscriptionData(subscrieRequest) {
         this.store.dispatch(this.adminActions.getSubscription(subscrieRequest));
     }
+
     public getAllSubscriptionTotalData() {
         this.subscriptionService.getAllTotalSubscriptions().subscribe(res => {
             if (res.status === 'success') {
@@ -250,12 +253,14 @@ export class SubscriptionContainerComponent implements OnInit {
             }
         });
     }
+
     public advanceSearchRequestEmitter(event) {
         if (event) {
             this.searchedAdvancedRequestModelByAdvanceSearch = event;
             this.advanceSearchRequest = event;
         }
     }
+
     public togglePanel() {
         if (this.togglePanelBool) {
             this.togglePanelBool = false;
@@ -264,10 +269,12 @@ export class SubscriptionContainerComponent implements OnInit {
         }
         this.toggleBodyClass();
     }
+
     public hidePopup() {
         this.togglePanelBool = false;
         this.toggleBodyClass();
     }
+
     /**
      *Hard reset all applied filters
      *
@@ -321,7 +328,6 @@ export class SubscriptionContainerComponent implements OnInit {
             this.inlineSearch = null;
         }
     }
-
 
     /**
      * This function is used to add fixed class to body to remove veritical scrolling on page
@@ -493,4 +499,28 @@ export class SubscriptionContainerComponent implements OnInit {
         }
     }
 
+    /**
+     * This will hide the update transactions popup
+     *
+     * @memberof SubscriptionContainerComponent
+     */
+    public hideUpdateTransactionPopup() {
+        this.openUpdateTransactionPopup = false;
+        this.editSubscriptionIdTransaction = '';
+        if (this.isFromAdvanceSearchRes) {
+            this.getAdvancedSearchedSubscriptions(this.advanceSearchRequest);
+        } else {
+            this.getSubscriptionData(this.subscriptionRequest);
+        }
+    }
+
+    /**
+     * This will set the subscription id to be used in popup
+     *
+     * @param {*} subscriptionId
+     * @memberof SubscriptionContainerComponent
+     */
+    public editSubscriptionTransactions(subscriptionId) {
+        this.editSubscriptionIdTransaction = subscriptionId;
+    }
 }
