@@ -140,11 +140,11 @@
                         </th>
                         <th>
                             <div class="d-flex align-items-center justify-content-between">
-                                Additional Transaction
-                                <a (click)="sortBy('ADDITIONAL_TRANSACTIONS')" class="text-black">
+                                AddOn Transaction
+                                <a (click)="sortBy('ADDON_TRANSACTIONS')" class="text-black">
                                     <i
-                                        [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': subscriptionRequest.sortType === 'desc' && subscriptionRequest.sortBy === 'ADDITIONAL_TRANSACTIONS', 'icon-icon-sort-down
-': (subscriptionRequest.sortType === 'asc' && subscriptionRequest.sortBy === 'ADDITIONAL_TRANSACTIONS') || subscriptionRequest.sortBy !== 'ADDITIONAL_TRANSACTIONS'}"></i>
+                                        [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': subscriptionRequest.sortType === 'desc' && subscriptionRequest.sortBy === 'ADDON_TRANSACTIONS', 'icon-icon-sort-down
+': (subscriptionRequest.sortType === 'asc' && subscriptionRequest.sortBy === 'ADDON_TRANSACTIONS') || subscriptionRequest.sortBy !== 'ADDON_TRANSACTIONS'}"></i>
                                 </a>
                             </div>
                         </th>
@@ -220,7 +220,7 @@
                         <td data-title="Transaction Limit">{{subscription.planDetails.transactionLimit}}</td>
                         <td data-title="Remaining Transaction">{{subscription.transactionsRemaining}}</td>
                         <td data-title="Total Amount">{{subscription.planDetails.amount}}/-</td>
-                        <td data-title="Additional Transaction">{{subscription.additionalTransactions}}</td>
+                        <td data-title="Additional Transaction">{{subscription.addOnTransactions}}</td>
                         <td data-title="Additional Charges">{{subscription.additionalCharges}}</td>
                         <td data-title="Rate/Transaction">{{subscription.planDetails.ratePerExtraTransaction}}</td>
                         <td data-title="Expiry" class="nowrap">{{subscription.expiry}}</td>
