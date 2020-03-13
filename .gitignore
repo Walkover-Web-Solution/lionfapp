@@ -9,7 +9,7 @@
 package-lock.json
 node_modules/
 Dist/
-
+.vs/
 
 .dockerignore
 .editorconfig
