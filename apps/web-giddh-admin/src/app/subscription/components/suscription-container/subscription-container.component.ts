@@ -506,6 +506,12 @@ export class SubscriptionContainerComponent implements OnInit {
      */
     public hideUpdateTransactionPopup() {
         this.openUpdateTransactionPopup = false;
+        this.editSubscriptionIdTransaction = '';
+        if (this.isFromAdvanceSearchRes) {
+            this.getAdvancedSearchedSubscriptions(this.advanceSearchRequest);
+        } else {
+            this.getSubscriptionData(this.subscriptionRequest);
+        }
     }
 
     public editSubscriptionTransactions(subscriptionId) {
