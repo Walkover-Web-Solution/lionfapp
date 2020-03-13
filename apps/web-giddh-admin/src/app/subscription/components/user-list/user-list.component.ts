@@ -22,6 +22,7 @@ export class UserListComponent implements OnInit {
     @ViewChild('userSubscriptionField') public userSubscriptionField;
     @Input() public showTaxPopup: boolean = false;
     @Input() public lastSeen: boolean = false;
+    @Input() public owner: boolean = false;
 
     public modalRef: BsModalRef;
     public expandList = false;
@@ -48,6 +49,7 @@ export class UserListComponent implements OnInit {
     public timeoutLastSeen: any;
     public tempOperation: any = "";
     @ViewChild("dp") public dp;
+    public adminUsersList: any;
 
     destroyed$: Observable<any>;
     public onclick(id: string) {
@@ -59,6 +61,7 @@ export class UserListComponent implements OnInit {
         this.getUserListPostRequest.lastSeen = {};
         this.getUserListPostRequest.lastSeen.operation = "BEFORE";
         this.tempOperation = "relative_before";
+        this.getAllAdminUsers();
     }
 
     /**
@@ -85,6 +88,11 @@ export class UserListComponent implements OnInit {
     public handleInputFocus(isShow: boolean): void {
         this.showTaxPopup = isShow ? false : true;
     }
+
+    public ownerFocus(isShow: boolean): void {
+        this.owner = isShow ? false : true;
+    }
+
     public lastSeenDropdown(isShow: boolean): void {
         this.lastSeen = isShow ? false : true;
 
@@ -403,5 +411,40 @@ export class UserListComponent implements OnInit {
         this.getUserListPostRequest.lastSeen.days = '';
         this.getUserListPostRequest.lastSeen.from = '';
         this.getUserListPostRequest.lastSeen.to = '';
+    }
+
+    /**
+     * This will get the list of all admin users
+     *
+     * @memberof UserListComponent
+     */
+    public getAllAdminUsers() {
+        this.userService.getAllAdminUsers().subscribe(res => {
+            if (res.status === 'success' && res.body) {
+                this.adminUsersList = res.body;
+            } else {
+                this.adminUsersList = [];
+            }
+        });
+    }
+
+    /**
+     * This will assign the lead to admin user
+     *
+     * @param {string} userUniqueName
+     * @param {string} leadOwnerUniqueName
+     * @memberof UserListComponent
+     */
+    public assignLeadOwner(userUniqueName: string, leadOwnerUniqueName: string) {
+        let post = {managerUserUniqueName: leadOwnerUniqueName};
+
+        this.userService.assignLeadOwner(userUniqueName, post).subscribe(res => {
+            if (res.status === 'success') {
+                this.toaster.successToast(res.body);
+                this.getAllUserData();
+            } else {
+                this.toaster.errorToast(res.message);
+            }
+        });
     }
 }
