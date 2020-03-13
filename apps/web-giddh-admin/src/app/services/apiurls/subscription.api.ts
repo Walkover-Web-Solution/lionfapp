@@ -10,5 +10,6 @@ export const SUBSCRIPTION_API = {
     GET_ALL_USER_COUNTS: 'v2/admin/user-totals',
     GET_ALL_ADMIN_USERS: 'v2/admin/users/admin/all',
     ASSIGN_MANAGER: 'v2/admin/users/assign-manager?userUniqueName=:userUniqueName',
-    UPDATE_TRANSACTIONS: 'v2/admin/subscriptions/increase-transactions?subscriptionId=:subscriptionId'
+    UPDATE_TRANSACTIONS: 'v2/admin/subscriptions/increase-transactions?subscriptionId=:subscriptionId',
+    ASSIGN_PLAN: 'v2/admin/subscriptions'
 };
