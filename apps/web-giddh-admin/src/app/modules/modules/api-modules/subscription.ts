@@ -88,12 +88,19 @@ export class StatusModel {
     expired: boolean;
     active: boolean
 }
+
+export class AdvanceSearchFromTo {
+    from: any;
+    to: any;
+}
+
 export class AdvanceSearchRequestSubscriptions {
     signUpOnFrom?: string;
     signUpOnTo?: string;
     startedAtFrom?: string;
     balance?: string;
-    expiry?: string;
+    expiryFilter?: AdvanceSearchFromTo;
+    subscribeOn?: AdvanceSearchFromTo;
     startedAtBefore?: string;
     startedAtTo?: string;
     subscriptionId?: string;
@@ -101,9 +108,9 @@ export class AdvanceSearchRequestSubscriptions {
     planName?: string;
     userName?: string;
     email?: string;
-    mobile?: string;
-    planUniqueNames?: string[];
-
+    mobile?: string; 
+    planUniqueNames? : string[];
+    remainingTxnOpn?: string;
 }
 export class UpdateSubscriptionModel {
     public planUniqueName?: string;
@@ -118,7 +125,6 @@ export class AuditLogsRequest {
     page?: any;
     count?: any;
     entityIdentifier: string;  // For ID of subscription or plan or etc.
-
 }
 
 /*
