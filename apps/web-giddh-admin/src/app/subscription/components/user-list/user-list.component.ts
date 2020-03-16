@@ -50,6 +50,8 @@ export class UserListComponent implements OnInit {
     public tempOperation: any = "";
     @ViewChild("dp") public dp;
     public adminUsersList: any;
+    public isAllOwnerSelected: boolean = false;
+    public selectedOwners: string[] = [];
 
     destroyed$: Observable<any>;
     public onclick(id: string) {
@@ -335,6 +337,67 @@ export class UserListComponent implements OnInit {
     }
 
     /**
+     * To filter based on selected owner
+     *
+     * @param {*} item
+     * @param {*} event
+     * @memberof UserListComponent
+     */
+    public checkedOwnerName(item, event) {
+        if (event.target.checked) {
+            if (this.selectedOwners.indexOf(item.uniqueName) === -1) {
+                this.selectedOwners.push(item.uniqueName);
+            }
+        } else {
+            let index = this.selectedOwners.indexOf(item.uniqueName);
+            this.selectedOwners.splice(index, 1);
+        }
+        this.getUserListPostRequest.managerUniqueNames = this.selectedOwners;
+        this.isAllOwnersSelected();
+        this.getAllUserData();
+    }
+
+    /**
+     * To check if select all is checked
+     *
+     * @private
+     * @memberof UserListComponent
+     */
+    private isAllOwnersSelected() {
+        if (this.adminUsersList.length === this.selectedOwners.length) {
+            this.isAllOwnerSelected = true;
+        } else {
+            this.isAllOwnerSelected = false;
+        }
+    }
+
+    /**
+     * To select all owners
+     *
+     * @param {*} event
+     * @memberof UserListComponent
+     */
+    public selectAllOwners(event) {
+        this.selectedOwners = [];
+        if (event.target.checked) {
+            this.adminUsersList.forEach(res => {
+                this.selectedOwners.push(res.uniqueName);
+            });
+            this.adminUsersList.map(res => {
+                res.additional = true;
+            });
+        } else {
+            this.selectedOwners = [];
+            this.adminUsersList.map(res => {
+                res.additional = false;
+            });
+        }
+        this.isAllOwnersSelected();
+        this.getUserListPostRequest.managerUniqueNames = this.selectedOwners;
+        this.getAllUserData();
+    }
+
+    /**
     * This function is used to get all plans to show in dropdown
     *
     * @memberof UserListComponent
@@ -436,7 +499,7 @@ export class UserListComponent implements OnInit {
      * @memberof UserListComponent
      */
     public assignLeadOwner(userUniqueName: string, leadOwnerUniqueName: string) {
-        let post = {managerUserUniqueName: leadOwnerUniqueName};
+        let post = { managerUserUniqueName: leadOwnerUniqueName };
 
         this.userService.assignLeadOwner(userUniqueName, post).subscribe(res => {
             if (res.status === 'success') {
