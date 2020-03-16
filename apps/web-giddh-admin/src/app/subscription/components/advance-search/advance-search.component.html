@@ -12,13 +12,11 @@
                     <label><span>Remaining Transaction</span></label> 
                     
                     <div class="d-flex align-items-center">
-                      <div class="blue-clr width-100 advance-search-select">
+                      <div class="blue-clr width-100 advance-search-select mr-1">
                         <sh-select name="remainingTxnOpn" autocomplete="false" id="remainingTxnOpn"
                             formControlName="remainingTxnOpn" [options]="remainingTransactionFilters"
                             [isFilterEnabled]="true" [ItemHeight]="33"></sh-select>
                       </div>
-
-                      <span></span>
                         <input type="number" formControlName="balance" digitsOnlyDirective placeholder="No of transactions">
                       </div>
 
