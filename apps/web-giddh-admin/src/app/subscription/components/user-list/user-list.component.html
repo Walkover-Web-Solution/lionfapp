@@ -24,32 +24,31 @@
                         </th>
 
                         <th class="table-dropdown">
-                          <span class="pr c-dropdown align-center" [ngClass]="{'open': owner}" [attachOutsideOnClick]="true"
-                              (clickOutside)="ownerFocus(true)">
-                              <label>Owner</label>
+                            <span class="pr c-dropdown align-center" [ngClass]="{'open': owner}"
+                                [attachOutsideOnClick]="true" (clickOutside)="ownerFocus(true)">
+                                <label>Owner</label>
 
-                              <!-- <div class="btn-group pull-right" dropdown [autoClose]="true" placement="left">
-                                  <button id="button-basic" dropdownToggle (click)="ownerFocus(owner)"
-                                      type="button" class="btn-multiselect dropdown-toggle pull-right"><span
-                                          class="fa fa-angle-down"></span>
-                                  </button>
+                                <div class="btn-group pull-right" dropdown [autoClose]="true" placement="left">
+                                    <button id="button-basic" dropdownToggle (click)="ownerFocus(owner)" type="button"
+                                        class="btn-multiselect dropdown-toggle pull-right"><span
+                                            class="fa fa-angle-down"></span>
+                                    </button>
 
-                                  <ul id="dropdown-owner" class="dropdown-menu pd multiselect-dropdown"
-                                      [ngStyle]="{'display': owner ? 'block': 'none'}">
-                                      <li role="menuitem" *ngIf="allPlans?.length"><input type="checkbox"
-                                              [(ngModel)]="isAllPlanSelected" (click)="selectAllPlans($event);">Select
-                                          all</li>
-                                      <ng-container *ngFor="let item of allPlans">
-                                          <li role="menuitem"><input type="checkbox" name="additional">Alok Gangrade</li>
-                                          <li role="menuitem"><input type="checkbox" name="additional">Sheba Khan</li>
-                                          <li role="menuitem"><input type="checkbox" name="additional">Sakshi baldwa</li>
-                                          <li role="menuitem"><input type="checkbox" name="additional">Diva Kara</li>
-                                      </ng-container>
-                                      <li *ngIf="allPlans.length==0">No results found</li>
-                                  </ul>
-                              </div> -->
-                          </span>
-                      </th>
+                                    <ul id="dropdown-owner" class="dropdown-menu pd multiselect-dropdown"
+                                        [ngStyle]="{'display': owner ? 'block': 'none'}">
+                                        <li role="menuitem" *ngIf="adminUsersList?.length"><input type="checkbox"
+                                                [(ngModel)]="isAllOwnerSelected" (click)="selectAllOwners($event);">Select
+                                            all</li>
+                                        <ng-container *ngFor="let adminUser of adminUsersList;">
+                                            <li role="menuitem">
+                                                <input type="checkbox" [(ngModel)]="adminUser.additional" name="additional" (click)="checkedOwnerName(adminUser, $event);">{{adminUser.name}}
+                                            </li>
+                                        </ng-container>
+                                        <li *ngIf="adminUsersList && adminUsersList.length==0">No results found</li>
+                                    </ul>
+                                </div>
+                            </span>
+                        </th>
 
                         <th class="table-search">
                             <div [hidden]="inlineSearch == 'userName'">
@@ -110,8 +109,8 @@
                         </th>
 
                         <th class="table-dropdown">
-                            <span class="pr c-dropdown align-center" [ngClass]="{'open': showTaxPopup}" [attachOutsideOnClick]="true"
-                                (clickOutside)="handleInputFocus(true)">
+                            <span class="pr c-dropdown align-center" [ngClass]="{'open': showTaxPopup}"
+                                [attachOutsideOnClick]="true" (clickOutside)="handleInputFocus(true)">
                                 <label>Plan Name</label>
 
                                 <div class="btn-group pull-right" dropdown [autoClose]="true" placement="left">
@@ -136,16 +135,20 @@
                             </span>
                         </th>
 
-                        <th (click)="sortBy('NO_OF_COMPANIES')"> <div class="align-center">Companies <i
-                                [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getUserListRequest.sortType === 'desc' && getUserListRequest.sortBy === 'NO_OF_COMPANIES', 'icon-icon-sort-down': (getUserListRequest.sortType === 'asc' && getUserListRequest.sortBy === 'NO_OF_COMPANIES') || getUserListRequest.sortBy !== 'NO_OF_COMPANIES'}"></i>
-                            </div></th>
-                        <th (click)="sortBy('TOTAL_AMOUNT')"><div class="align-center">Total Amount <i
-                                [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getUserListRequest.sortType === 'desc' && getUserListRequest.sortBy === 'TOTAL_AMOUNT', 'icon-icon-sort-down': (getUserListRequest.sortType === 'asc' && getUserListRequest.sortBy === 'TOTAL_AMOUNT') || getUserListRequest.sortBy !== 'TOTAL_AMOUNT'}"></i></div>
+                        <th (click)="sortBy('NO_OF_COMPANIES')">
+                            <div class="align-center">Companies <i
+                                    [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getUserListRequest.sortType === 'desc' && getUserListRequest.sortBy === 'NO_OF_COMPANIES', 'icon-icon-sort-down': (getUserListRequest.sortType === 'asc' && getUserListRequest.sortBy === 'NO_OF_COMPANIES') || getUserListRequest.sortBy !== 'NO_OF_COMPANIES'}"></i>
+                            </div>
+                        </th>
+                        <th (click)="sortBy('TOTAL_AMOUNT')">
+                            <div class="align-center">Total Amount <i
+                                    [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getUserListRequest.sortType === 'desc' && getUserListRequest.sortBy === 'TOTAL_AMOUNT', 'icon-icon-sort-down': (getUserListRequest.sortType === 'asc' && getUserListRequest.sortBy === 'TOTAL_AMOUNT') || getUserListRequest.sortBy !== 'TOTAL_AMOUNT'}"></i>
+                            </div>
                         </th>
 
                         <th class="table-dropdown">
-                            <span class="pr c-dropdown align-center" [ngClass]="{'open': lastSeen}" [attachOutsideOnClick]="true"
-                                (clickOutside)="lastSeenDropdown(true)">
+                            <span class="pr c-dropdown align-center" [ngClass]="{'open': lastSeen}"
+                                [attachOutsideOnClick]="true" (clickOutside)="lastSeenDropdown(true)">
                                 <label>last seen</label>
                                 <div class="btn-group pull-right" dropdown [autoClose]="true" placement="left">
                                     <button id="button-basic" dropdownToggle (click)="lastSeenDropdown(lastSeen)"
@@ -161,37 +164,57 @@
                                                     <div class="last-seen-radio">
                                                         <span>
                                                             <input id="morethan" class="radio-custom" type="radio"
-                                                                name="lastseen" [(ngModel)]="tempOperation" (ngModelChange)="resetLastSeenFilter()" value="relative_before">
-                                                            <label for="morethan" class="radio-custom-label" [ngClass]="{'last-seen-radio-checked': tempOperation === 'relative_before'}"><span class="radio-checked"></span>More
+                                                                name="lastseen" [(ngModel)]="tempOperation"
+                                                                (ngModelChange)="resetLastSeenFilter()"
+                                                                value="relative_before">
+                                                            <label for="morethan" class="radio-custom-label"
+                                                                [ngClass]="{'last-seen-radio-checked': tempOperation === 'relative_before'}"><span
+                                                                    class="radio-checked"></span>More
                                                                 than</label>
                                                         </span>
 
-                                                        <div class="d-flex mb-1 align-items-center" *ngIf="tempOperation === 'relative_before'">
-                                                            <input type="number" class="form-control mr-1" [(ngModel)]="getUserListPostRequest.lastSeen.days" (ngModelChange)="onLastSeenDaysChange('BEFORE')">
+                                                        <div class="d-flex mb-1 align-items-center"
+                                                            *ngIf="tempOperation === 'relative_before'">
+                                                            <input type="number" class="form-control mr-1"
+                                                                [(ngModel)]="getUserListPostRequest.lastSeen.days"
+                                                                (ngModelChange)="onLastSeenDaysChange('BEFORE')">
                                                             <span class="nowrap">Days ago</span>
                                                         </div>
 
                                                         <span>
                                                             <input id="lessthan" class="radio-custom" type="radio"
-                                                                name="lastseen" [(ngModel)]="tempOperation" (ngModelChange)="resetLastSeenFilter()" value="relative_after">
-                                                            <label for="lessthan" class="radio-custom-label" [ngClass]="{'last-seen-radio-checked': tempOperation === 'relative_after'}"><span class="radio-checked"></span>Less
+                                                                name="lastseen" [(ngModel)]="tempOperation"
+                                                                (ngModelChange)="resetLastSeenFilter()"
+                                                                value="relative_after">
+                                                            <label for="lessthan" class="radio-custom-label"
+                                                                [ngClass]="{'last-seen-radio-checked': tempOperation === 'relative_after'}"><span
+                                                                    class="radio-checked"></span>Less
                                                                 than</label>
                                                         </span>
 
-                                                        <div class="d-flex mb-1 align-items-center" *ngIf="tempOperation === 'relative_after'">
-                                                            <input type="number" class="form-control mr-1" [(ngModel)]="getUserListPostRequest.lastSeen.days" (ngModelChange)="onLastSeenDaysChange('AFTER')">
+                                                        <div class="d-flex mb-1 align-items-center"
+                                                            *ngIf="tempOperation === 'relative_after'">
+                                                            <input type="number" class="form-control mr-1"
+                                                                [(ngModel)]="getUserListPostRequest.lastSeen.days"
+                                                                (ngModelChange)="onLastSeenDaysChange('AFTER')">
                                                             <span class="nowrap">Days ago</span>
                                                         </div>
-                                                        
+
                                                         <span>
                                                             <input id="Exactly" class="radio-custom" type="radio"
-                                                                name="lastseen" [(ngModel)]="tempOperation" (ngModelChange)="resetLastSeenFilter()" value="relative_on">
-                                                            <label for="Exactly"
-                                                                class="radio-custom-label" [ngClass]="{'last-seen-radio-checked': tempOperation === 'relative_on'}"><span class="radio-checked"></span>Exactly</label>
+                                                                name="lastseen" [(ngModel)]="tempOperation"
+                                                                (ngModelChange)="resetLastSeenFilter()"
+                                                                value="relative_on">
+                                                            <label for="Exactly" class="radio-custom-label"
+                                                                [ngClass]="{'last-seen-radio-checked': tempOperation === 'relative_on'}"><span
+                                                                    class="radio-checked"></span>Exactly</label>
                                                         </span>
 
-                                                        <div class="d-flex mb-1 align-items-center" *ngIf="tempOperation === 'relative_on'">
-                                                            <input type="number" class="form-control mr-1" [(ngModel)]="getUserListPostRequest.lastSeen.days" (ngModelChange)="onLastSeenDaysChange('ON')">
+                                                        <div class="d-flex mb-1 align-items-center"
+                                                            *ngIf="tempOperation === 'relative_on'">
+                                                            <input type="number" class="form-control mr-1"
+                                                                [(ngModel)]="getUserListPostRequest.lastSeen.days"
+                                                                (ngModelChange)="onLastSeenDaysChange('ON')">
                                                             <span class="nowrap">Days ago</span>
                                                         </div>
                                                     </div>
@@ -203,48 +226,83 @@
 
                                                         <span>
                                                             <input id="after" class="radio-custom" type="radio"
-                                                                name="lastseen" [(ngModel)]="tempOperation" (ngModelChange)="resetLastSeenFilter()" value="absolute_after">
-                                                            <label for="after" class="radio-custom-label" [ngClass]="{'last-seen-radio-checked': tempOperation === 'absolute_after'}"><span class="radio-checked"></span> After</label>
+                                                                name="lastseen" [(ngModel)]="tempOperation"
+                                                                (ngModelChange)="resetLastSeenFilter()"
+                                                                value="absolute_after">
+                                                            <label for="after" class="radio-custom-label"
+                                                                [ngClass]="{'last-seen-radio-checked': tempOperation === 'absolute_after'}"><span
+                                                                    class="radio-checked"></span> After</label>
                                                         </span>
 
-                                                        <input type="text" #dp="bsDatepicker" class="date-input" bsDatepicker [isOpen]="true" *ngIf="tempOperation === 'absolute_after'" (bsValueChange)="onLastSeenDateChange($event, 'AFTER')">
+                                                        <input type="text" #dp="bsDatepicker" class="date-input"
+                                                            bsDatepicker [isOpen]="true"
+                                                            *ngIf="tempOperation === 'absolute_after'"
+                                                            (bsValueChange)="onLastSeenDateChange($event, 'AFTER')">
 
                                                         <span>
                                                             <input id="before" class="radio-custom" type="radio"
-                                                                name="lastseen" [(ngModel)]="tempOperation" (ngModelChange)="resetLastSeenFilter()" value="absolute_before">
-                                                            <label for="before"
-                                                                class="radio-custom-label" [ngClass]="{'last-seen-radio-checked': tempOperation === 'absolute_before'}"><span class="radio-checked"></span>Before</label>
+                                                                name="lastseen" [(ngModel)]="tempOperation"
+                                                                (ngModelChange)="resetLastSeenFilter()"
+                                                                value="absolute_before">
+                                                            <label for="before" class="radio-custom-label"
+                                                                [ngClass]="{'last-seen-radio-checked': tempOperation === 'absolute_before'}"><span
+                                                                    class="radio-checked"></span>Before</label>
                                                         </span>
 
-                                                        <input type="text" #dp="bsDatepicker" class="date-input" bsDatepicker [isOpen]="true" *ngIf="tempOperation === 'absolute_before'" (bsValueChange)="onLastSeenDateChange($event, 'BEFORE')">
+                                                        <input type="text" #dp="bsDatepicker" class="date-input"
+                                                            bsDatepicker [isOpen]="true"
+                                                            *ngIf="tempOperation === 'absolute_before'"
+                                                            (bsValueChange)="onLastSeenDateChange($event, 'BEFORE')">
 
                                                         <span>
                                                             <input id="on" class="radio-custom" type="radio"
-                                                                name="lastseen" [(ngModel)]="tempOperation" (ngModelChange)="resetLastSeenFilter()" value="absolute_on">
-                                                            <label for="on" class="radio-custom-label" [ngClass]="{'last-seen-radio-checked': tempOperation === 'absolute_on'}"><span class="radio-checked"></span>On</label>
+                                                                name="lastseen" [(ngModel)]="tempOperation"
+                                                                (ngModelChange)="resetLastSeenFilter()"
+                                                                value="absolute_on">
+                                                            <label for="on" class="radio-custom-label"
+                                                                [ngClass]="{'last-seen-radio-checked': tempOperation === 'absolute_on'}"><span
+                                                                    class="radio-checked"></span>On</label>
                                                         </span>
 
-                                                        <input type="text" #dp="bsDatepicker" class="date-input" bsDatepicker [isOpen]="true" *ngIf="tempOperation === 'absolute_on'" (bsValueChange)="onLastSeenDateChange($event, 'ON')">
+                                                        <input type="text" #dp="bsDatepicker" class="date-input"
+                                                            bsDatepicker [isOpen]="true"
+                                                            *ngIf="tempOperation === 'absolute_on'"
+                                                            (bsValueChange)="onLastSeenDateChange($event, 'ON')">
 
                                                         <span>
                                                             <input id="between" class="radio-custom" type="radio"
-                                                                name="lastseen" [(ngModel)]="tempOperation" (ngModelChange)="resetLastSeenFilter()" value="absolute_between">
-                                                            <label for="between"
-                                                                class="radio-custom-label" [ngClass]="{'last-seen-radio-checked': tempOperation === 'absolute_between'}"><span class="radio-checked"></span>Between</label>
+                                                                name="lastseen" [(ngModel)]="tempOperation"
+                                                                (ngModelChange)="resetLastSeenFilter()"
+                                                                value="absolute_between">
+                                                            <label for="between" class="radio-custom-label"
+                                                                [ngClass]="{'last-seen-radio-checked': tempOperation === 'absolute_between'}"><span
+                                                                    class="radio-checked"></span>Between</label>
                                                         </span>
 
-                                                        <input type="text" #dp="bsDaterangepicker" class="date-input" bsDaterangepicker [bsConfig]="{ isAnimated: true }" placement="left" *ngIf="tempOperation === 'absolute_between'" [isOpen]="true" (bsValueChange)="onLastSeenDateChange($event, 'BETWEEN')">
+                                                        <input type="text" #dp="bsDaterangepicker" class="date-input"
+                                                            bsDaterangepicker [bsConfig]="{ isAnimated: true }"
+                                                            placement="left"
+                                                            *ngIf="tempOperation === 'absolute_between'" [isOpen]="true"
+                                                            (bsValueChange)="onLastSeenDateChange($event, 'BETWEEN')">
 
                                                         <span>
                                                             <input id="isunknown" class="radio-custom" type="radio"
-                                                                name="lastseen" [(ngModel)]="tempOperation" (ngModelChange)="resetLastSeenFilter(); onLastSeenDateChange($event, 'UNAVAILABLE')" value="UNAVAILABLE">
-                                                            <label for="isunknown" class="radio-custom-label" [ngClass]="{'last-seen-radio-checked': tempOperation === 'UNAVAILABLE'}"><span class="radio-checked"></span>Is unknown</label>
+                                                                name="lastseen" [(ngModel)]="tempOperation"
+                                                                (ngModelChange)="resetLastSeenFilter(); onLastSeenDateChange($event, 'UNAVAILABLE')"
+                                                                value="UNAVAILABLE">
+                                                            <label for="isunknown" class="radio-custom-label"
+                                                                [ngClass]="{'last-seen-radio-checked': tempOperation === 'UNAVAILABLE'}"><span
+                                                                    class="radio-checked"></span>Is unknown</label>
                                                         </span>
 
                                                         <span>
                                                             <input id="any-value" class="radio-custom" type="radio"
-                                                                name="lastseen" [(ngModel)]="tempOperation" (ngModelChange)="resetLastSeenFilter(); onLastSeenDateChange($event, 'AVAILABLE')" value="AVAILABLE">
-                                                            <label for="any-value" class="radio-custom-label" [ngClass]="{'last-seen-radio-checked': tempOperation === 'AVAILABLE'}"><span class="radio-checked"></span>Has any
+                                                                name="lastseen" [(ngModel)]="tempOperation"
+                                                                (ngModelChange)="resetLastSeenFilter(); onLastSeenDateChange($event, 'AVAILABLE')"
+                                                                value="AVAILABLE">
+                                                            <label for="any-value" class="radio-custom-label"
+                                                                [ngClass]="{'last-seen-radio-checked': tempOperation === 'AVAILABLE'}"><span
+                                                                    class="radio-checked"></span>Has any
                                                                 value</label>
                                                         </span>
                                                     </div>
@@ -264,15 +322,19 @@
                     <tr>
                         <td data-title="Signup Date">{{userSubscription.userDetails.signUpOn}}</td>
                         <td data-title="Owner">
-                          <div class="btn-group" dropdown>
-                            <a href="javaascript:void(0)" id="button-animated" dropdownToggle aria-controls="dropdown-animated"><span *ngIf="userSubscription.userDetails.managerDetails.name">{{userSubscription.userDetails.managerDetails.name}}</span><span *ngIf="!userSubscription.userDetails.managerDetails.name">-</span></a>
-                            <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu"
-                                role="menu" aria-labelledby="button-animated">
-                                <li *ngFor="let adminUser of adminUsersList;" role="menuitem">
-                                    <a class="dropdown-item" href="javascript:;" (click)="assignLeadOwner(userSubscription.userDetails.uniqueName, adminUser.uniqueName);">{{adminUser.name}}</a>
-                                </li>
-                            </ul>
-                          </div>
+                            <div class="btn-group owner-dropdown" dropdown>
+                                <a href="javaascript:void(0)" id="button-animated" dropdownToggle
+                                    aria-controls="dropdown-animated"><span
+                                        *ngIf="userSubscription.userDetails.managerDetails.name">{{userSubscription.userDetails.managerDetails.name}}</span><span
+                                        *ngIf="!userSubscription.userDetails.managerDetails.name">Unassigned</span></a>
+                                <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu" role="menu"
+                                    aria-labelledby="button-animated">
+                                    <li *ngFor="let adminUser of adminUsersList;" role="menuitem">
+                                        <a class="dropdown-item" href="javascript:;"
+                                            (click)="assignLeadOwner(userSubscription.userDetails.uniqueName, adminUser.uniqueName);">{{adminUser.name}}</a>
+                                    </li>
+                                </ul>
+                            </div>
                         </td>
                         <td data-title="Name">{{userSubscription.userDetails.name}}</td>
 
@@ -298,11 +360,14 @@
                                 class="d-inline-block pull-right"><span
                                     [ngClass]="{'fa': 1 === 1, 'fa-arrows-alt': !userSubscription.showInner, 'fa-expand': userSubscription.showInner}"></span></a>
                         </td>
-                        <td data-title="Last Seen">{{ (userSubscription?.userDetails?.lastSeen) ? (userSubscription.userDetails.lastSeen | timeAgo) : '-'}}</td>
+                        <td data-title="Last Seen">
+                            {{ (userSubscription?.userDetails?.lastSeen) ? (userSubscription.userDetails.lastSeen | timeAgo) : '-'}}
+                        </td>
                     </tr>
                     <tr [hidden]="userSubscription.subscriptions?.length === 1 || !userSubscription.showInner"
                         *ngFor="let userSubscriptionInner of userSubscription.subscriptions;">
                         <td data-title="Signup Date">&nbsp;</td>
+                        <td data-title="Owner">&nbsp;</td>
                         <td data-title="Name">&nbsp;</td>
                         <td data-title="Email">&nbsp;</td>
                         <td data-title="Mobile">&nbsp;</td>

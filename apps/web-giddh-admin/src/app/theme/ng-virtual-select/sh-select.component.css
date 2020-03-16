@@ -64,7 +64,7 @@ input[type="text"] {
 }
 
 [hidden] {
-    display: none;
+    display: none !important;
 }
 
 i.close.icon.clear::after {
