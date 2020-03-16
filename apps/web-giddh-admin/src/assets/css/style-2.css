@@ -1184,4 +1184,7 @@ bs-datepicker-container {
   .userNumber h4 {
     font-size: 14px;
   }
+  .rightSlide {
+    width: 90%;
+  }
 }
