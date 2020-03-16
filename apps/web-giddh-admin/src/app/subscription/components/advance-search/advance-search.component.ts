@@ -8,6 +8,7 @@ import { ToasterService } from '../../../services/toaster.service';
 import * as moment from 'moment/moment';
 import { GIDDH_DATE_FORMAT } from '../../../shared/defalutformatter/defaultDateFormat';
 import { digitsOnly } from '../../../shared/helper/customValidationhelper';
+import { IOption } from '../../../theme/ng-select/ng-select';
 
 
 @Component({
@@ -26,21 +27,18 @@ export class AdvanceSearchComponent implements OnInit {
     public advanceSearchRequest: AdvanceSearchRequestSubscriptions = {
         signUpOnFrom: '',
         signUpOnTo: '',
-        startedAtBefore: '',
         balance: '',
-        expiry: ''
-        // startedAtTo: '', 
-        // subscriptionId: '',
-        // status: '',
-        // planName: '',
-        // userName: '',
-        // email: '',
-        // mobile: '',
-
+        expiryFilter: {
+            from: '',
+            to: ''
+        },
+        subscribeOn: {
+            from: '',
+            to: ''
+        },
+        remainingTxnOpn: ''
     };
-    public closePopup() {
-        this.hidePopup.emit();
-    }
+    public remainingTransactionFilters: IOption[] = [{ label: 'Greater than', value: 'GREATER_THAN' }, { label: 'Less than', value: 'LESS_THAN' }, { label: 'Greater than equals to', value: 'GREATER_THAN_OR_EQUALS' }, { label: 'Less than equals to', value: 'LESS_THAN_OR_EQUALS' }];
 
     constructor(private fb: FormBuilder, private store: Store<AppState>, private adminActions: AdminActions, private toasty: ToasterService) { }
 
@@ -48,12 +46,14 @@ export class AdvanceSearchComponent implements OnInit {
         this.advanceSearchFilter.count = PAGINATION_COUNT;
         this.advanceSearchFilter.page = 1;
         this.setAdvanceSearch();
-
     }
+
     public advanceSearch() {
         let dataToSend = _.cloneDeep(this.advanceSearchForm.value);
-        dataToSend.startedAtBefore = dataToSend.startedAtBefore ? moment(dataToSend.startedAtBefore).format(GIDDH_DATE_FORMAT) : '';
-        dataToSend.expiry = dataToSend.expiry ? moment(dataToSend.expiry).format(GIDDH_DATE_FORMAT) : '';
+        dataToSend.expiryFilter.from = dataToSend.expiryFilter.from ? moment(dataToSend.expiryFilter.from).format(GIDDH_DATE_FORMAT) : '';
+        dataToSend.expiryFilter.to = dataToSend.expiryFilter.to ? moment(dataToSend.expiryFilter.to).format(GIDDH_DATE_FORMAT) : '';
+        dataToSend.subscribeOn.from = dataToSend.subscribeOn.from ? moment(dataToSend.subscribeOn.from).format(GIDDH_DATE_FORMAT) : '';
+        dataToSend.subscribeOn.to = dataToSend.subscribeOn.to ? moment(dataToSend.subscribeOn.to).format(GIDDH_DATE_FORMAT) : '';
         dataToSend.signUpOnFrom = dataToSend.signUpOnFrom ? moment(dataToSend.signUpOnFrom).format(GIDDH_DATE_FORMAT) : '';
         dataToSend.signUpOnTo = dataToSend.signUpOnTo ? moment(dataToSend.signUpOnTo).format(GIDDH_DATE_FORMAT) : '';
 
@@ -69,17 +69,20 @@ export class AdvanceSearchComponent implements OnInit {
         this.advanceSearchForm = this.fb.group({
             signUpOnFrom: [''],
             signUpOnTo: [''],
-            startedAtBefore: [''],
             balance: ['', Validators.compose([digitsOnly])],
-            expiry: ['']
-            // startedAtTo: [''],
-            // subscriptionId: [''],
-            // status: [''],
-            // planName: [''],
-            // userName: [''],
-            // email: [''],
-            // mobile: [''],
+            expiryFilter: this.fb.group({
+                from: [''],
+                to: ['']
+            }),
+            subscribeOn: this.fb.group({
+                from: [''],
+                to: ['']
+            }),
+            remainingTxnOpn: ['']
         });
     }
 
+    public closePopup() {
+        this.hidePopup.emit();
+    }
 }
