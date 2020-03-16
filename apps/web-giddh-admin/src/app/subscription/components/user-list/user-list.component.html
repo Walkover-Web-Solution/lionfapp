@@ -264,7 +264,7 @@
                     <tr>
                         <td data-title="Signup Date">{{userSubscription.userDetails.signUpOn}}</td>
                         <td data-title="Owner">
-                          <div class="btn-group" dropdown>
+                          <div class="btn-group owner-dropdown" dropdown>
                             <a href="javaascript:void(0)" id="button-animated" dropdownToggle aria-controls="dropdown-animated"><span *ngIf="userSubscription.userDetails.managerDetails.name">{{userSubscription.userDetails.managerDetails.name}}</span><span *ngIf="!userSubscription.userDetails.managerDetails.name">-</span></a>
                             <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu"
                                 role="menu" aria-labelledby="button-animated">
