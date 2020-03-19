@@ -75,8 +75,8 @@ export class UserListComponent implements OnInit {
         this.generalService.setCurrentPageTitle("Users");
         this.getUserListRequest.count = PAGINATION_COUNT;
         this.getUserListRequest.page = 1;
-        this.getUserListRequest.sortBy = 'User';
-        this.getUserListRequest.sortType = 'desc';
+        this.getUserListRequest.sortBy = '';
+        this.getUserListRequest.sortType = '';
         this.getAllUserData();
         this.getAllSubscriptionTotalData();
         this.getAllPlans();
