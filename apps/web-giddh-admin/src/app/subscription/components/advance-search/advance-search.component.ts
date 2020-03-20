@@ -10,14 +10,13 @@ import { GIDDH_DATE_FORMAT } from '../../../shared/defalutformatter/defaultDateF
 import { digitsOnly } from '../../../shared/helper/customValidationhelper';
 import { IOption } from '../../../theme/ng-select/ng-select';
 
-
 @Component({
     selector: 'app-advance-search',
     templateUrl: './advance-search.component.html',
     styleUrls: ['./advance-search.component.scss']
 })
-export class AdvanceSearchComponent implements OnInit {
 
+export class AdvanceSearchComponent implements OnInit {
     public advanceSearchForm: FormGroup;
     @Input() public rightToggle: boolean = false;
     @Output() public hidePopup: EventEmitter<boolean> = new EventEmitter(true);
@@ -27,7 +26,7 @@ export class AdvanceSearchComponent implements OnInit {
     public advanceSearchRequest: AdvanceSearchRequestSubscriptions = {
         signUpOnFrom: '',
         signUpOnTo: '',
-        balance: '',
+        remainingTxn: '',
         expiryFilter: {
             from: '',
             to: ''
@@ -69,7 +68,7 @@ export class AdvanceSearchComponent implements OnInit {
         this.advanceSearchForm = this.fb.group({
             signUpOnFrom: [''],
             signUpOnTo: [''],
-            balance: ['', Validators.compose([digitsOnly])],
+            remainingTxn: ['', Validators.compose([digitsOnly])],
             expiryFilter: this.fb.group({
                 from: [''],
                 to: ['']
