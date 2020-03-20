@@ -98,7 +98,7 @@ export class AdvanceSearchRequestSubscriptions {
     signUpOnFrom?: string;
     signUpOnTo?: string;
     startedAtFrom?: string;
-    balance?: string;
+    remainingTxn?: string;
     expiryFilter?: AdvanceSearchFromTo;
     subscribeOn?: AdvanceSearchFromTo;
     startedAtBefore?: string;
