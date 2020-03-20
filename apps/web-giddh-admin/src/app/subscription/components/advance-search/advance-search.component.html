@@ -26,10 +26,10 @@
                     <div class="d-flex align-items-center">
                     <input type="text"
                         formControlName="from" placeholder="Start date" bsDatepicker readonly
-                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" placement="left"> <span>To</span>
+                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" placement="bottom"> <span>To</span>
                     <input type="text"
                         formControlName="to" placeholder="End date" bsDatepicker readonly
-                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" placement="left">  
+                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" placement="bottom">  
                       </div>  
                 </li>
                 <li formGroupName="expiryFilter">
@@ -37,19 +37,19 @@
                     <div class="d-flex align-items-center">
                     <input type="text"
                         formControlName="from" placeholder="Start date" readonly
-                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker placement="left"> <span>To</span>
+                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker placement="bottom"> <span>To</span>
                         <input type="text"
                         formControlName="to" placeholder="End date" readonly
-                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker placement="left">  
+                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker placement="bottom">  
                       </div>  
                 </li>
                 <li>
                     <label><span>Signup between</span></label>
                     <div class="d-flex align-items-center">
                     <input type="text" placeholder="Start date" formControlName="signUpOnFrom"
-                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" readonly bsDatepicker placement="left"> <span>To</span>
+                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" readonly bsDatepicker placement="bottom"> <span>To</span>
                     <input type="text" placeholder="End date" formControlName="signUpOnTo"
-                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" readonly bsDatepicker placement="left ">
+                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" readonly bsDatepicker placement="bottom">
                       </div>
                 </li>
             </ul>
