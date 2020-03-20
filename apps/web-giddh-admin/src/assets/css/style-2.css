@@ -1188,3 +1188,7 @@ bs-datepicker-container {
     width: 90%;
   }
 }
+#remainingTxnOpn input.form-control.selectedVal.cp, #remainingTxnOpn .header.open input.form-control {
+    margin-left: 0;
+    width: 100%;
+}

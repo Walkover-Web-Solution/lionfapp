@@ -43,6 +43,12 @@ export class SubscriptionService {
     }
 
     public getAllSubscriptionsViaAdvancedSearch(model: AdvanceSearchRequestSubscriptions, filter: CommonPaginatedRequest) {
+        if (filter.sortBy === undefined) {
+            filter.sortBy = "";
+        }
+        if (filter.sortType === undefined) {
+            filter.sortType = "";
+        }
         return this.http.post(this.config.apiUrl + SUBSCRIPTION_API.GET_SUBSCRIPTION_BY_POST.replace(':count', filter.count).replace(':page', filter.page).replace(':sortBy', filter.sortBy).replace(':sortType', filter.sortType), model)
             .pipe(
                 map((res) => {

@@ -56,6 +56,7 @@ export class SubscriptionContainerComponent implements OnInit {
         signUpOnFrom: '',
         subscriptionId: '',
         startedAtFrom: '',
+        remainingTxn: '',
         expiryFilter: {
             from: '',
             to: ''
@@ -158,7 +159,7 @@ export class SubscriptionContainerComponent implements OnInit {
         this.advanceSearchRequest.startedAtFrom = '';
         this.advanceSearchRequest.subscriptionId = '';
         this.advanceSearchRequest.signUpOnTo = '';
-        this.advanceSearchRequest.balance = '';
+        this.advanceSearchRequest.remainingTxn = '';
         this.advanceSearchRequest.expiryFilter = {
             from: '',
             to: ''
