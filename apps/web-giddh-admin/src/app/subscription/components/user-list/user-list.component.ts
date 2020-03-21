@@ -97,10 +97,6 @@ export class UserListComponent implements OnInit {
 
     public lastSeenDropdown(isShow: boolean): void {
         this.lastSeen = isShow ? false : true;
-
-        if (this.lastSeen && (this.tempOperation === "absolute_after" || this.tempOperation === "absolute_before" || this.tempOperation === "absolute_on" || this.tempOperation === "absolute_between")) {
-            this.dp.show();
-        }
     }
 
     /**
@@ -462,6 +458,7 @@ export class UserListComponent implements OnInit {
             this.getUserListPostRequest.lastSeen.to = '';
         }
         this.getUserListRequest.page = 1;
+        this.lastSeenDropdown(true);
         this.getAllUserData();
     }
 
