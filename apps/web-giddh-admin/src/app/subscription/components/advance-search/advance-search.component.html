@@ -9,48 +9,46 @@
         <div class="clearfix pr-2 pl-2 pt-2" [formGroup]="advanceSearchForm">
             <ul class="advance-search m-0 p-0">
                 <li>
-                    <label><span>Remaining Transaction</span></label> 
-                    
+                    <label><span>Remaining Transaction</span></label>
                     <div class="d-flex align-items-center">
-                      <div class="blue-clr width-100 advance-search-select mr-1">
-                        <sh-select name="remainingTxnOpn" autocomplete="false" id="remainingTxnOpn"
-                            formControlName="remainingTxnOpn" [options]="remainingTransactionFilters"
-                            [isFilterEnabled]="true" [ItemHeight]="33"></sh-select>
-                      </div>
-                        <input type="number" formControlName="remainingTxn" digitsOnlyDirective placeholder="No of transactions">
-                      </div>
+                        <div class="blue-clr width-100 advance-search-select mr-1">
+                            <sh-select name="remainingTxnOpn" autocomplete="false" id="remainingTxnOpn"
+                                formControlName="remainingTxnOpn" [options]="remainingTransactionFilters"
+                                [isFilterEnabled]="true" [ItemHeight]="33"></sh-select>
+                        </div>
+                        <input type="number" formControlName="remainingTxn" digitsOnlyDirective
+                            placeholder="No of transactions">
+                    </div>
 
                 </li>
                 <li formGroupName="subscribeOn">
-                    <label><span>Subscribed on between</span></label> 
+                    <label><span>Subscribed on between</span></label>
                     <div class="d-flex align-items-center">
-                    <input type="text"
-                        formControlName="from" placeholder="Start date" bsDatepicker readonly
-                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" placement="bottom"> <span>To</span>
-                    <input type="text"
-                        formControlName="to" placeholder="End date" bsDatepicker readonly
-                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" placement="bottom">  
-                      </div>  
+                        <input type="text" formControlName="from" placeholder="Start date" bsDatepicker readonly
+                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" placement="bottom"> <span>To</span>
+                        <input type="text" formControlName="to" placeholder="End date" bsDatepicker readonly
+                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" placement="bottom">
+                    </div>
                 </li>
                 <li formGroupName="expiryFilter">
-                    <label><span>Expiry between</span></label> 
+                    <label><span>Expiry between</span></label>
                     <div class="d-flex align-items-center">
-                    <input type="text"
-                        formControlName="from" placeholder="Start date" readonly
-                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker placement="bottom"> <span>To</span>
-                        <input type="text"
-                        formControlName="to" placeholder="End date" readonly
-                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker placement="bottom">  
-                      </div>  
+                        <input type="text" formControlName="from" placeholder="Start date" readonly
+                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker placement="bottom">
+                        <span>To</span>
+                        <input type="text" formControlName="to" placeholder="End date" readonly
+                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker placement="bottom">
+                    </div>
                 </li>
                 <li>
                     <label><span>Signup between</span></label>
                     <div class="d-flex align-items-center">
-                    <input type="text" placeholder="Start date" formControlName="signUpOnFrom"
-                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" readonly bsDatepicker placement="bottom"> <span>To</span>
-                    <input type="text" placeholder="End date" formControlName="signUpOnTo"
-                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" readonly bsDatepicker placement="bottom">
-                      </div>
+                        <input type="text" placeholder="Start date" formControlName="signUpOnFrom"
+                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" readonly bsDatepicker placement="bottom">
+                        <span>To</span>
+                        <input type="text" placeholder="End date" formControlName="signUpOnTo"
+                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" readonly bsDatepicker placement="bottom">
+                    </div>
                 </li>
             </ul>
             <button type="button" class="btn btn-blue" (click)="advanceSearch(); ">Search</button>
