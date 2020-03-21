@@ -176,7 +176,7 @@ export class SubscriptionContainerComponent implements OnInit {
         this.advanceSearchRequest.email = '';
         this.advanceSearchRequest.mobile = '';
         this.advanceSearchRequest.planUniqueNames = [];
-
+        this.searchedAdvancedRequestModelByAdvanceSearch = {};
     }
 
     /**
