@@ -223,7 +223,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="clearfix mb-1">
+                                                <div class="clearfix mb-1 date-scroll">
                                                     <p class="mb-05 mt-05">Absolute</p>
                                                     <div class="last-seen-radio">
 
@@ -236,9 +236,11 @@
                                                                 [ngClass]="{'last-seen-radio-checked': tempOperation === 'absolute_after'}"><span
                                                                     class="radio-checked"></span> After</label>
                                                         </span>
-                                                        <bs-datepicker-inline *ngIf="tempOperation === 'absolute_after'"
+                                                        <div class="mt-1 mb-1">
+                                                          <bs-datepicker-inline *ngIf="tempOperation === 'absolute_after'"
                                                             (bsValueChange)="onLastSeenDateChange($event, 'AFTER')">
-                                                        </bs-datepicker-inline>
+                                                          </bs-datepicker-inline>
+                                                        </div>
                                                         <span>
                                                             <input id="before" class="radio-custom" type="radio"
                                                                 name="lastseen" [(ngModel)]="tempOperation"
@@ -248,9 +250,11 @@
                                                                 [ngClass]="{'last-seen-radio-checked': tempOperation === 'absolute_before'}"><span
                                                                     class="radio-checked"></span>Before</label>
                                                         </span>
-                                                        <bs-datepicker-inline *ngIf="tempOperation === 'absolute_before'"
-                                                            (bsValueChange)="onLastSeenDateChange($event, 'BEFORE')">
-                                                        </bs-datepicker-inline>
+                                                        <div class="mt-1 mb-1">
+                                                          <bs-datepicker-inline *ngIf="tempOperation === 'absolute_before'"
+                                                              (bsValueChange)="onLastSeenDateChange($event, 'BEFORE')">
+                                                          </bs-datepicker-inline>
+                                                        </div>
                                                         <span>
                                                             <input id="on" class="radio-custom" type="radio"
                                                                 name="lastseen" [(ngModel)]="tempOperation"
@@ -260,9 +264,11 @@
                                                                 [ngClass]="{'last-seen-radio-checked': tempOperation === 'absolute_on'}"><span
                                                                     class="radio-checked"></span>On</label>
                                                         </span>
-                                                        <bs-datepicker-inline *ngIf="tempOperation === 'absolute_on'"
+                                                        <div class="clearfix mb-1">
+                                                          <bs-datepicker-inline *ngIf="tempOperation === 'absolute_on'"
                                                             (bsValueChange)="onLastSeenDateChange($event, 'ON')">
                                                         </bs-datepicker-inline>
+                                                        </div>
                                                         <span>
                                                             <input id="between" class="radio-custom" type="radio"
                                                                 name="lastseen" [(ngModel)]="tempOperation"
@@ -272,8 +278,10 @@
                                                                 [ngClass]="{'last-seen-radio-checked': tempOperation === 'absolute_between'}"><span
                                                                     class="radio-checked"></span>Between</label>
                                                         </span>
-                                                        <bs-daterangepicker-inline *ngIf="tempOperation === 'absolute_between'" [maxDate]="today" [bsConfig]="bsConfig" (bsValueChange)="onLastSeenDateChange($event, 'BETWEEN')">
-                                                        </bs-daterangepicker-inline>
+                                                        <div class="clearfix mb-1">
+                                                          <bs-daterangepicker-inline *ngIf="tempOperation === 'absolute_between'" [maxDate]="today" [bsConfig]="bsConfig" (bsValueChange)="onLastSeenDateChange($event, 'BETWEEN')">
+                                                          </bs-daterangepicker-inline>
+                                                        </div>
                                                         <span>
                                                             <input id="isunknown" class="radio-custom" type="radio"
                                                                 name="lastseen" [(ngModel)]="tempOperation"
