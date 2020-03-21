@@ -19,6 +19,20 @@ import { IOption } from '../../../theme/ng-select/ng-select';
 export class AdvanceSearchComponent implements OnInit {
     public advanceSearchForm: FormGroup;
     @Input() public rightToggle: boolean = false;
+    @Input() public searchedAdvancedRequestModelByAdvanceSearch: AdvanceSearchRequestSubscriptions = {
+        signUpOnFrom: '',
+        signUpOnTo: '',
+        remainingTxn: '',
+        expiryFilter: {
+            from: '',
+            to: ''
+        },
+        subscribeOn: {
+            from: '',
+            to: ''
+        },
+        remainingTxnOpn: ''
+    };
     @Output() public hidePopup: EventEmitter<boolean> = new EventEmitter(true);
     @Output() public advanceSearchRequestEmitter: EventEmitter<AdvanceSearchRequestSubscriptions> = new EventEmitter();
 
@@ -66,18 +80,18 @@ export class AdvanceSearchComponent implements OnInit {
 
     public setAdvanceSearch() {
         this.advanceSearchForm = this.fb.group({
-            signUpOnFrom: [''],
-            signUpOnTo: [''],
-            remainingTxn: ['', Validators.compose([digitsOnly])],
+            signUpOnFrom: [(this.searchedAdvancedRequestModelByAdvanceSearch) ? this.searchedAdvancedRequestModelByAdvanceSearch.signUpOnFrom : ''],
+            signUpOnTo: [(this.searchedAdvancedRequestModelByAdvanceSearch) ? this.searchedAdvancedRequestModelByAdvanceSearch.signUpOnTo: ''],
+            remainingTxn: [(this.searchedAdvancedRequestModelByAdvanceSearch) ? this.searchedAdvancedRequestModelByAdvanceSearch.remainingTxn : '', Validators.compose([digitsOnly])],
             expiryFilter: this.fb.group({
-                from: [''],
-                to: ['']
+                from: [(this.searchedAdvancedRequestModelByAdvanceSearch && this.searchedAdvancedRequestModelByAdvanceSearch.expiryFilter) ? this.searchedAdvancedRequestModelByAdvanceSearch.expiryFilter.from: ''],
+                to: [(this.searchedAdvancedRequestModelByAdvanceSearch && this.searchedAdvancedRequestModelByAdvanceSearch.expiryFilter) ? this.searchedAdvancedRequestModelByAdvanceSearch.expiryFilter.to: '']
             }),
             subscribeOn: this.fb.group({
-                from: [''],
-                to: ['']
+                from: [(this.searchedAdvancedRequestModelByAdvanceSearch && this.searchedAdvancedRequestModelByAdvanceSearch.subscribeOn) ? this.searchedAdvancedRequestModelByAdvanceSearch.subscribeOn.from: ''],
+                to: [(this.searchedAdvancedRequestModelByAdvanceSearch && this.searchedAdvancedRequestModelByAdvanceSearch.subscribeOn) ? this.searchedAdvancedRequestModelByAdvanceSearch.subscribeOn.to: '']
             }),
-            remainingTxnOpn: ['']
+            remainingTxnOpn: [(this.searchedAdvancedRequestModelByAdvanceSearch) ? this.searchedAdvancedRequestModelByAdvanceSearch.remainingTxnOpn: '']
         });
     }
 

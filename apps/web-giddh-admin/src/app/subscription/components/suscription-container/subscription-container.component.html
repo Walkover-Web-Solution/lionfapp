@@ -284,7 +284,7 @@
 </ng-template>
 
 <app-advance-search *ngIf="togglePanelBool" [rightToggle]="togglePanelBool"
-    (advanceSearchRequestEmitter)="advanceSearchRequestEmitter($event)" (hidePopup)="hidePopup()">
+    (advanceSearchRequestEmitter)="advanceSearchRequestEmitter($event)" [searchedAdvancedRequestModelByAdvanceSearch]="searchedAdvancedRequestModelByAdvanceSearch" (hidePopup)="hidePopup()">
 </app-advance-search>
 
 <div class="bg-box" *ngIf="openUpdateTransactionPopup || openAssignPlanPopup"></div>
