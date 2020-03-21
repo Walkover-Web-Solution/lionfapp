@@ -272,8 +272,7 @@
                                                                 [ngClass]="{'last-seen-radio-checked': tempOperation === 'absolute_between'}"><span
                                                                     class="radio-checked"></span>Between</label>
                                                         </span>
-                                                        <bs-daterangepicker-inline *ngIf="tempOperation === 'absolute_between'"
-                                                            (bsValueChange)="onLastSeenDateChange($event, 'BETWEEN')">
+                                                        <bs-daterangepicker-inline *ngIf="tempOperation === 'absolute_between'" [maxDate]="today" [bsConfig]="bsConfig" (bsValueChange)="onLastSeenDateChange($event, 'BETWEEN')">
                                                         </bs-daterangepicker-inline>
                                                         <span>
                                                             <input id="isunknown" class="radio-custom" type="radio"

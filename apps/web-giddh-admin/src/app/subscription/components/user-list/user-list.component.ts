@@ -52,6 +52,8 @@ export class UserListComponent implements OnInit {
     public adminUsersList: any;
     public isAllOwnerSelected: boolean = false;
     public selectedOwners: string[] = [];
+    public today: Date;
+    public bsConfig: any = {dateInputFormat: 'DD-MM-YYYY', displayMonths: 1 };
 
     destroyed$: Observable<any>;
     public onclick(id: string) {
@@ -60,6 +62,7 @@ export class UserListComponent implements OnInit {
     }
 
     constructor(private generalService: GeneralService, private userService: UserService, private modalService: BsModalService, private router: Router, private toaster: ToasterService, private plansService: PlansService) {
+        this.today = new Date();
         this.getUserListPostRequest.lastSeen = {};
         this.getUserListPostRequest.lastSeen.operation = "BEFORE";
         this.tempOperation = "relative_before";
