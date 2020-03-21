@@ -32,8 +32,8 @@
     overflow-y: auto;
 }
 #dropdown-basic {
-  max-width: 300px;
-  min-width: 300px;
+  max-width: 330px;
+  min-width: 330px;
 }
 #dropdown-owner {
   max-height: 207px;
@@ -62,7 +62,9 @@
 .owner-dropdown > a {
   display: block;
 }
-
+.date-scroll {
+  overflow-x: hidden;
+}
 
 @media(max-width:1280px) {
     .basic>thead>tr>th {
