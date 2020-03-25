@@ -236,8 +236,8 @@
                                                                 [ngClass]="{'last-seen-radio-checked': tempOperation === 'absolute_after'}"><span
                                                                     class="radio-checked"></span> After</label>
                                                         </span>
-                                                        <div class="mt-1 mb-1">
-                                                          <bs-datepicker-inline *ngIf="tempOperation === 'absolute_after'"
+                                                        <div class="mt-1 mb-1" *ngIf="tempOperation === 'absolute_after'">
+                                                          <bs-datepicker-inline
                                                             (bsValueChange)="onLastSeenDateChange($event, 'AFTER')">
                                                           </bs-datepicker-inline>
                                                         </div>
@@ -250,8 +250,8 @@
                                                                 [ngClass]="{'last-seen-radio-checked': tempOperation === 'absolute_before'}"><span
                                                                     class="radio-checked"></span>Before</label>
                                                         </span>
-                                                        <div class="mt-1 mb-1">
-                                                          <bs-datepicker-inline *ngIf="tempOperation === 'absolute_before'"
+                                                        <div class="mt-1 mb-1" *ngIf="tempOperation === 'absolute_before'">
+                                                          <bs-datepicker-inline
                                                               (bsValueChange)="onLastSeenDateChange($event, 'BEFORE')">
                                                           </bs-datepicker-inline>
                                                         </div>
@@ -264,8 +264,8 @@
                                                                 [ngClass]="{'last-seen-radio-checked': tempOperation === 'absolute_on'}"><span
                                                                     class="radio-checked"></span>On</label>
                                                         </span>
-                                                        <div class="clearfix mb-1">
-                                                          <bs-datepicker-inline *ngIf="tempOperation === 'absolute_on'"
+                                                        <div class="clearfix mb-1" *ngIf="tempOperation === 'absolute_on'">
+                                                          <bs-datepicker-inline
                                                             (bsValueChange)="onLastSeenDateChange($event, 'ON')">
                                                         </bs-datepicker-inline>
                                                         </div>
@@ -278,8 +278,8 @@
                                                                 [ngClass]="{'last-seen-radio-checked': tempOperation === 'absolute_between'}"><span
                                                                     class="radio-checked"></span>Between</label>
                                                         </span>
-                                                        <div class="clearfix mb-1">
-                                                          <bs-daterangepicker-inline *ngIf="tempOperation === 'absolute_between'" [maxDate]="today" [bsConfig]="bsConfig" (bsValueChange)="onLastSeenDateChange($event, 'BETWEEN')">
+                                                        <div class="clearfix mb-1" *ngIf="tempOperation === 'absolute_between'">
+                                                          <bs-daterangepicker-inline [maxDate]="today" [bsConfig]="bsConfig" (bsValueChange)="onLastSeenDateChange($event, 'BETWEEN')">
                                                           </bs-daterangepicker-inline>
                                                         </div>
                                                         <span>
