@@ -8,7 +8,7 @@
                         placeholder="Select Date" (bsValueChange)="onChangeFilterDate($event)" bsDaterangepicker>
                 </div>
                 <button class=" btn-link"
-                    *ngIf="getUserListPostRequest.signUpOnFrom || getUserListPostRequest.userName || getUserListPostRequest.email || getUserListPostRequest.mobile || getUserListPostRequest.subscriptionId || (getUserListPostRequest.planUniqueNames && getUserListPostRequest.planUniqueNames.length || getUserListPostRequest.lastSeen.days || getUserListPostRequest.lastSeen.from)"
+                    *ngIf="getUserListPostRequest.signUpOnFrom || getUserListPostRequest.userName || getUserListPostRequest.email || getUserListPostRequest.mobile || getUserListPostRequest.subscriptionId || (getUserListPostRequest.planUniqueNames && getUserListPostRequest.planUniqueNames.length || getUserListPostRequest.lastSeen.days || getUserListPostRequest.lastSeen.from || getUserListPostRequest.lastSeen.operation === 'UNAVAILABLE' || getUserListPostRequest.lastSeen.operation === 'AVAILABLE')"
                     (click)="resetFilters();"><i class="icon icon-loop2
               "></i> Clear Filter</button>
             </div>
