@@ -457,7 +457,7 @@ export class UserListComponent implements OnInit {
             this.getUserListPostRequest.lastSeen.from = '';
             this.getUserListPostRequest.lastSeen.to = '';
         } else {
-            this.getUserListPostRequest.lastSeen.from = moment(date[0]).format("DD-MM-YYYY");
+            this.getUserListPostRequest.lastSeen.from = moment(date).format("DD-MM-YYYY");
             this.getUserListPostRequest.lastSeen.to = '';
         }
         this.getUserListRequest.page = 1;
