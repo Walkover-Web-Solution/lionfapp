@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UserService } from '../../../services/user.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { ToasterService } from '../../../services/toaster.service';
 import { IOption } from '../../../theme/ng-select/ng-select';
 import { PlansService } from '../../../services/plan.service';
+import { GIDDH_DATE_FORMAT } from '../../../shared/defalutformatter/defaultDateFormat';
 @Component({
     selector: 'app-user-list',
     templateUrl: './user-list.component.html',
@@ -53,7 +54,7 @@ export class UserListComponent implements OnInit {
     public isAllOwnerSelected: boolean = false;
     public selectedOwners: string[] = [];
     public today: Date;
-    public bsConfig: any = {dateInputFormat: 'DD-MM-YYYY', displayMonths: 1 };
+    public bsConfig: any = {dateInputFormat: GIDDH_DATE_FORMAT, displayMonths: 1 };
 
     destroyed$: Observable<any>;
     public onclick(id: string) {
@@ -190,8 +191,8 @@ export class UserListComponent implements OnInit {
      */
     public onChangeFilterDate(dates: any) {
         if (dates !== null && !this.defaultLoad) {
-            this.getUserListPostRequest.signUpOnFrom = moment(dates[0]).format("DD-MM-YYYY");
-            this.getUserListPostRequest.signUpOnTo = moment(dates[1]).format("DD-MM-YYYY");
+            this.getUserListPostRequest.signUpOnFrom = moment(dates[0]).format(GIDDH_DATE_FORMAT);
+            this.getUserListPostRequest.signUpOnTo = moment(dates[1]).format(GIDDH_DATE_FORMAT);
             this.getAllUserData();
         }
 
@@ -451,13 +452,13 @@ export class UserListComponent implements OnInit {
         this.getUserListPostRequest.lastSeen.operation = value;
 
         if (value === "BETWEEN") {
-            this.getUserListPostRequest.lastSeen.from = moment(date[0]).format("DD-MM-YYYY");
-            this.getUserListPostRequest.lastSeen.to = moment(date[1]).format("DD-MM-YYYY");
+            this.getUserListPostRequest.lastSeen.from = moment(date[0]).format(GIDDH_DATE_FORMAT);
+            this.getUserListPostRequest.lastSeen.to = moment(date[1]).format(GIDDH_DATE_FORMAT);
         } else if (value === "UNAVAILABLE" || value === "AVAILABLE") {
             this.getUserListPostRequest.lastSeen.from = '';
             this.getUserListPostRequest.lastSeen.to = '';
         } else {
-            this.getUserListPostRequest.lastSeen.from = moment(date[0]).format("DD-MM-YYYY");
+            this.getUserListPostRequest.lastSeen.from = moment(date).format(GIDDH_DATE_FORMAT);
             this.getUserListPostRequest.lastSeen.to = '';
         }
         this.getUserListRequest.page = 1;
