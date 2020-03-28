@@ -54,7 +54,7 @@ export class UserListComponent implements OnInit {
     public isAllOwnerSelected: boolean = false;
     public selectedOwners: string[] = [];
     public today: Date;
-    public bsConfig: any = {dateInputFormat: GIDDH_DATE_FORMAT, displayMonths: 1 };
+    public bsConfig: any = { dateInputFormat: GIDDH_DATE_FORMAT, displayMonths: 1 };
 
     destroyed$: Observable<any>;
     public onclick(id: string) {
@@ -142,6 +142,9 @@ export class UserListComponent implements OnInit {
                 res.body.results.forEach(key => {
                     let signUpDate = key.userDetails.signUpOn.split(" ");
                     key.userDetails.signUpOn = signUpDate[0].replace(/-/g, "/");
+                    if (key.userDetails) {
+                        key.lastSeenCovertedDate = this.changeTimeStampToDate(key.userDetails.lastSeen);
+                    }
                     this.userSubscriptionData.push(key);
                 });
             } else {
@@ -510,5 +513,37 @@ export class UserListComponent implements OnInit {
                 this.toaster.errorToast(res.message);
             }
         });
+    }
+
+    /**
+     * To change time stamp into date as Mar 19, 2020 at 10:34AM
+     *
+     * @private
+     * @param {*} timeStamp
+     * @returns {string}
+     * @memberof UserListComponent
+     */
+    private changeTimeStampToDate(timeStamp): string {
+        let convertedDate: string = '';
+        let dateSplitedArray: Array<any>;
+        let hours;
+        let minutes;
+        let newformat;
+        if (timeStamp) {
+            let date = new Date(timeStamp);
+            dateSplitedArray = new Date(timeStamp).toDateString().split(' ');// "Tue Mar 17 2020"
+            hours = date.getHours();
+            minutes = date.getMinutes();
+            // To check whether AM or PM 
+            newformat = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            // To display "0" as "12" 
+            hours = hours ? hours : 12;
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            if (dateSplitedArray.length) {
+                convertedDate = dateSplitedArray[1] + ' ' + dateSplitedArray[2] + ', ' + dateSplitedArray[3] + ' at ' + hours + ':' + minutes + newformat;
+            }
+        }
+        return convertedDate;
     }
 }

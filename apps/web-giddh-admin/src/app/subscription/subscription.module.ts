@@ -6,7 +6,7 @@ import { SubscriptionRoutingModule } from './subscription-routing.module';
 import { SubscriptionComponent } from './subscription-component/subscription.component';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { UserListComponent } from './components/user-list/user-list.component';
-import { BsDatepickerModule, PaginationModule } from 'ngx-bootstrap';
+import {BsDatepickerModule, PaginationModule, TooltipModule} from 'ngx-bootstrap';
 
 import { AdvanceSearchComponent } from './components/advance-search/advance-search.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
@@ -36,7 +36,8 @@ import { AssignPlanComponent } from './components/assign-plan/assign-plan.compon
         ClickOutsideModule,
         DigitsOnlyModule,
         BsDropdownModule,
-        ShSelectModule
+        ShSelectModule,
+        TooltipModule
     ]
 })
 export class SubscriptionModule { }
