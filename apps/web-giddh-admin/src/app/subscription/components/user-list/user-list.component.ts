@@ -540,10 +540,9 @@ export class UserListComponent implements OnInit {
             // To display "0" as "12" 
             hours = hours ? hours : 12;
             minutes = minutes < 10 ? '0' + minutes : minutes;
-            if(dateSplitedArray.length) {
-            convertedDate = dateSplitedArray[1] + ' ' + dateSplitedArray[2] + ', ' + dateSplitedArray[3] + ' at ' + hours + ':' + minutes + newformat;
+            if (dateSplitedArray.length) {
+                convertedDate = dateSplitedArray[1] + ' ' + dateSplitedArray[2] + ', ' + dateSplitedArray[3] + ' at ' + hours + ':' + minutes + newformat;
             }
-            console.log(date, convertedDate);
         }
         return convertedDate;
     }
