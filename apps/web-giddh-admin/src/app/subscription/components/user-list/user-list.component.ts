@@ -143,7 +143,7 @@ export class UserListComponent implements OnInit {
                     let signUpDate = key.userDetails.signUpOn.split(" ");
                     key.userDetails.signUpOn = signUpDate[0].replace(/-/g, "/");
                     if (key.userDetails) {
-                        key.lastSeenCovertedDate = this.changeTimeStampToDate(key.userDetails.lastSeen);
+                        key.lastSeenConvertedDate = this.changeTimeStampToDate(key.userDetails.lastSeen);
                     }
                     this.userSubscriptionData.push(key);
                 });
