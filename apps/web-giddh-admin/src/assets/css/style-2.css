@@ -233,7 +233,9 @@ body.unresponsive.fixed {
 .text-red {
   color: #ff0000;
 }
-
+.d-inline-block {
+  display: inline-block;
+}
 .xs-center {
   text-align: center;
 }

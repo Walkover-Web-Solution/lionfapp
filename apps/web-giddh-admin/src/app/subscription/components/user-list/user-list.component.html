@@ -357,8 +357,8 @@
                                 class="d-inline-block pull-right"><span
                                     [ngClass]="{'fa': 1 === 1, 'fa-arrows-alt': !userSubscription.showInner, 'fa-expand': userSubscription.showInner}"></span></a>
                         </td>
-                        <td data-title="Last Seen">
-                            {{ (userSubscription?.userDetails?.lastSeen) ? (userSubscription.userDetails.lastSeen | timeAgo) : '-'}}
+                        <td class="cursor-pointer" data-title="Last Seen">
+                           <div class="d-inline-block" [tooltip]="userSubscription.lastSeenConvertedDate" [placement]="'bottom'"> {{ (userSubscription?.userDetails?.lastSeen) ? (userSubscription.userDetails.lastSeen | timeAgo) : '-'}}</div>
                         </td>
                     </tr>
                     <tr [hidden]="userSubscription.subscriptions?.length === 1 || !userSubscription.showInner"
