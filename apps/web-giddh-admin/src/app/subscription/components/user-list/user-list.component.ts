@@ -95,10 +95,22 @@ export class UserListComponent implements OnInit {
         this.showTaxPopup = isShow ? false : true;
     }
 
+    /**
+     * This will hide/show the owner popup
+     *
+     * @param {boolean} isShow
+     * @memberof UserListComponent
+     */
     public ownerFocus(isShow: boolean): void {
         this.owner = isShow ? false : true;
     }
 
+    /**
+     * This will hide/show the last seen filter option
+     *
+     * @param {boolean} isShow
+     * @memberof UserListComponent
+     */
     public lastSeenDropdown(isShow: boolean): void {
         this.lastSeen = isShow ? false : true;
     }

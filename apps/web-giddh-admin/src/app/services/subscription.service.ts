@@ -117,7 +117,7 @@ export class SubscriptionService {
     }
 
     public updateTransactions(subscriptionId: string, body: any) {
-        let url = SUBSCRIPTION_API.UPDATE_TRANSACTIONS
+        let url = SUBSCRIPTION_API.UPDATE_TRANSACTIONS;
         url = url.replace(':subscriptionId', subscriptionId);
 
         return this.http.put(this.config.apiUrl + url, body)
@@ -130,7 +130,7 @@ export class SubscriptionService {
     }
 
     public assignPlan(body: any) {
-        let url = SUBSCRIPTION_API.ASSIGN_PLAN
+        let url = SUBSCRIPTION_API.ASSIGN_PLAN;
 
         return this.http.post(this.config.apiUrl + url, body)
             .pipe(
