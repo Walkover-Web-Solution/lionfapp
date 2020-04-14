@@ -556,10 +556,21 @@ export class SubscriptionContainerComponent implements OnInit {
         }
     }
 
+    /**
+     * This will show radio button on mouseover
+     *
+     * @param {*} subscription
+     * @memberof SubscriptionContainerComponent
+     */
     public showRadioButton(subscription) {
         this.visibleSubscriptionRadioButton = subscription.subscriptionId;
     }
 
+    /**
+     * This will hide the radio button on mouseleave
+     *
+     * @memberof SubscriptionContainerComponent
+     */
     public hideRadioButton() {
         this.visibleSubscriptionRadioButton = '';
     }
