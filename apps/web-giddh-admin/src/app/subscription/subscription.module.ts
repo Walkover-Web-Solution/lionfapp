@@ -6,7 +6,7 @@ import { SubscriptionRoutingModule } from './subscription-routing.module';
 import { SubscriptionComponent } from './subscription-component/subscription.component';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { UserListComponent } from './components/user-list/user-list.component';
-import { BsDatepickerModule, PaginationModule } from 'ngx-bootstrap';
+import {BsDatepickerModule, PaginationModule, TooltipModule} from 'ngx-bootstrap';
 
 import { AdvanceSearchComponent } from './components/advance-search/advance-search.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
@@ -16,10 +16,13 @@ import { DigitsOnlyModule } from '../shared/directive/digitonly/digitsOnly.modul
 import { EditSubscriptionsComponent } from './components/edit-subscriptions/edit-subscriptions.component';
 import { SubscriptionContainerComponent } from './components/suscription-container/subscription-container.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-
+import { TimeAgoPipe } from 'time-ago-pipe';
+import { UpdateTransactionsComponent } from './components/update-transactions/update-transactions.component';
+import { ShSelectModule } from '../theme/ng-virtual-select/sh-select.module';
+import { AssignPlanComponent } from './components/assign-plan/assign-plan.component';
 
 @NgModule({
-    declarations: [SubscriptionComponent, SubscriptionContainerComponent, UserListComponent, AdvanceSearchComponent, EditPlanModalComponent, EditSubscriptionsComponent],
+    declarations: [SubscriptionComponent, SubscriptionContainerComponent, UserListComponent, AdvanceSearchComponent, EditPlanModalComponent, EditSubscriptionsComponent, TimeAgoPipe, UpdateTransactionsComponent, AssignPlanComponent],
     imports: [
         CommonModule,
         SubscriptionRoutingModule,
@@ -32,7 +35,9 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
         ReactiveFormsModule,
         ClickOutsideModule,
         DigitsOnlyModule,
-        BsDropdownModule
+        BsDropdownModule,
+        ShSelectModule,
+        TooltipModule
     ]
 })
 export class SubscriptionModule { }

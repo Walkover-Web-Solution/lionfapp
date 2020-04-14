@@ -43,6 +43,12 @@ export class SubscriptionService {
     }
 
     public getAllSubscriptionsViaAdvancedSearch(model: AdvanceSearchRequestSubscriptions, filter: CommonPaginatedRequest) {
+        if (filter.sortBy === undefined) {
+            filter.sortBy = "";
+        }
+        if (filter.sortType === undefined) {
+            filter.sortType = "";
+        }
         return this.http.post(this.config.apiUrl + SUBSCRIPTION_API.GET_SUBSCRIPTION_BY_POST.replace(':count', filter.count).replace(':page', filter.page).replace(':sortBy', filter.sortBy).replace(':sortType', filter.sortType), model)
             .pipe(
                 map((res) => {
@@ -91,6 +97,7 @@ export class SubscriptionService {
                 catchError((e) =>
                     this.errorHandler.HandleCatch(e)));
     }
+
     public updateSubscription(subscriptionId: string, model: UpdateSubscriptionModel) {
         return this.http.patch(this.config.apiUrl + SUBSCRIPTION_API.UPDATE_SUBSCRIPTION.replace(':subscriptionId', subscriptionId), model)
             .pipe(
@@ -100,10 +107,37 @@ export class SubscriptionService {
                 catchError((e) =>
                     this.errorHandler.HandleCatch(e)));
     }
+
     public setGetAllCompanyRequestObject(model: GetAllCompaniesRequest) {
         this.getCompanyfilter = model;
     }
+
     public getGetAllCompanyRequestObject(): GetAllCompaniesRequest {
         return this.getCompanyfilter;
+    }
+
+    public updateTransactions(subscriptionId: string, body: any) {
+        let url = SUBSCRIPTION_API.UPDATE_TRANSACTIONS;
+        url = url.replace(':subscriptionId', subscriptionId);
+
+        return this.http.put(this.config.apiUrl + url, body)
+            .pipe(
+                map((resp) => {
+                    return resp;
+                }),
+                catchError((e) =>
+                    this.errorHandler.HandleCatch(e)));
+    }
+
+    public assignPlan(body: any) {
+        let url = SUBSCRIPTION_API.ASSIGN_PLAN;
+
+        return this.http.post(this.config.apiUrl + url, body)
+            .pipe(
+                map((resp) => {
+                    return resp;
+                }),
+                catchError((e) =>
+                    this.errorHandler.HandleCatch(e)));
     }
 }
