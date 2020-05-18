@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, HostListener } from '@angular/core';
 import { PlansService } from '../../services/plan.service';
 import * as moment from 'moment/moment';
 import { Router } from '@angular/router';
@@ -347,5 +347,16 @@ export class PlansComponent implements OnInit {
         this.getAllPlansPostRequest.countries = this.selectedCountries;
         this.isAllCountriesSelected();
         this.getAllPlans();
+    }
+
+    /**
+     * This will close all the popup on ESC button
+     *
+     * @param {KeyboardEvent} event
+     * @memberof PlansComponent
+     */
+    @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(event: KeyboardEvent) {
+        this.hidePopup();
+        this.hidePlanDetailsPopup();
     }
 }
