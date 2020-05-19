@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewChild, Input, HostListener } from "@angular/core";
+import { Component, OnInit, TemplateRef, ViewChild, Input, HostListener, ElementRef } from "@angular/core";
 import { Store, select } from '@ngrx/store';
 import { AppState } from '../../../store';
 import { GeneralService } from '../../../services/general.service';
@@ -24,6 +24,11 @@ import { GIDDH_DATE_FORMAT } from '../../../shared/defalutformatter/defaultDateF
 
 export class EditSubscriptionsComponent implements OnInit {
 
+    @ViewChild('companyName') companyName: ElementRef;
+    @ViewChild('userName') userName: ElementRef;
+    @ViewChild('subscriptionIdSearch') subscriptionIdSearch: ElementRef;
+    
+
     @Input() public showTaxPopup: boolean = false;
     @Input() public showTaxPopups: boolean = false;
 
@@ -46,8 +51,7 @@ export class EditSubscriptionsComponent implements OnInit {
         subscriptionId: '',
         planUniqueNames: [],
         userName: '',
-        status: [],
-
+        status: []
     };
 
     public planStatusType: StatusModel = {
@@ -232,6 +236,20 @@ export class EditSubscriptionsComponent implements OnInit {
        */
     public focusOnColumnSearch(inlineSearch) {
         this.inlineSearch = inlineSearch;
+
+        setTimeout(() => {
+            if(inlineSearch === "planName") {
+                this.companyName.nativeElement.focus();
+            }
+
+            if(inlineSearch === "userName") {
+                this.userName.nativeElement.focus();
+            }
+
+            if(inlineSearch === "subId") {
+                this.subscriptionIdSearch.nativeElement.focus();
+            }
+        }, 20);
     }
 
     /**
@@ -371,6 +389,20 @@ export class EditSubscriptionsComponent implements OnInit {
         this.getAllCompaniesRequest.planUniqueNames = [];
         this.getAllCompaniesRequest.userName = '';
         this.getAllCompaniesRequest.status = [];
+        this.getAllCompaniesRequest.expiryFilter = {
+            from: '',
+            to: ''
+        };
+        this.getAllCompaniesRequest.subscribeOn = {
+            from: '',
+            to: ''
+        };
+        this.getAllCompaniesRequest.remainingTxnOpn = "";
+        this.getAllCompaniesRequest.remainingTxn = "";
+        this.getAllCompaniesRequest.transactionLimitOperation = "";
+        this.getAllCompaniesRequest.transactionLimitTxn = "";
+        this.getAllCompaniesRequest.additionalChargesOperation = "";
+        this.getAllCompaniesRequest.additionalChargesTxn = "";
     }
 
     /**
@@ -485,17 +517,14 @@ export class EditSubscriptionsComponent implements OnInit {
         if (event) {
             this.searchedAdvancedRequestModelByAdvanceSearch = event;
             this.getAllCompaniesRequest.subscribeOn = event.subscribeOn;
-            this.getAllCompaniesRequest.remainingTxnOption = event.remainingTxnOption;
+            this.getAllCompaniesRequest.remainingTxnOpn = event.remainingTxnOpn;
             this.getAllCompaniesRequest.remainingTxn = event.remainingTxn;
-            this.getAllCompaniesRequest.transactionLimitOption = event.transactionLimitOption;
+            this.getAllCompaniesRequest.transactionLimitOperation = event.transactionLimitOperation;
             this.getAllCompaniesRequest.transactionLimitTxn = event.transactionLimitTxn;
-            this.getAllCompaniesRequest.additionalChargesOption = event.additionalChargesOption;
+            this.getAllCompaniesRequest.additionalChargesOperation = event.additionalChargesOperation;
             this.getAllCompaniesRequest.additionalChargesTxn = event.additionalChargesTxn;
             this.getAllCompaniesRequest.expiryFilter = event.expiryFilter;
-            this.getAllCompaniesRequest.lastEntryLogDateOption = event.lastEntryLogDateOption;
-            this.getAllCompaniesRequest.lastEntryLogDate = event.lastEntryLogDate;
-            this.getAllCompaniesRequest.lastLoginDateOption = event.lastLoginDateOption;
-            this.getAllCompaniesRequest.lastLoginDate = event.lastLoginDate;
+            this.togglePanel();
             this.getAllCompanies();
         }
     }

@@ -57,11 +57,11 @@
                                     <div [hidden]="inlineSearch == 'planName' || getAllCompaniesRequest.companyName">
                                         <div class="d-flex align-items-center justify-content-between">
                                             <span>Company Name</span>
-                                            <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('planName')"></i>
+                                            <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('planName');"></i>
                                         </div>
                                     </div>
                                     <div class="input-container" [hidden]="inlineSearch !== 'planName' && !getAllCompaniesRequest.companyName">
-                                        <input type="text" placeholder="Company Name" [(ngModel)]="getAllCompaniesRequest.companyName" class="form-control w100" (ngModelChange)="searchViaCompanyName$.next($event)" name="planName" />
+                                        <input type="text" placeholder="Company Name" #companyName [(ngModel)]="getAllCompaniesRequest.companyName" class="form-control w100" (ngModelChange)="searchViaCompanyName$.next($event)" name="planName" />
                                     </div>
                                 </th>
 
@@ -73,7 +73,7 @@
                                         </div>
                                     </div>
                                     <div class="input-container" [hidden]="inlineSearch !== 'userName' && !getAllCompaniesRequest.userName">
-                                        <input type="text" placeholder="User name" class="form-control w100" [(ngModel)]="getAllCompaniesRequest.userName" name="userName" (ngModelChange)="searchViaUserName$.next($event)" />
+                                        <input type="text" placeholder="User name" #userName class="form-control w100" [(ngModel)]="getAllCompaniesRequest.userName" name="userName" (ngModelChange)="searchViaUserName$.next($event)" />
                                     </div>
                                 </th>
 
@@ -81,26 +81,24 @@
                                     <div [hidden]="inlineSearch == 'subsOn' || getAllCompaniesRequest.startedAtFrom">
                                         <div class="d-flex align-items-center justify-content-between">
                                             <span>Subscribed On</span>
-                                            <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('subsOn')"></i>
+                                            <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('subsOn'); dp.show()"></i>
                                         </div>
                                     </div>
                                     <div class="input-container" [hidden]="inlineSearch !== 'subsOn' && !getAllCompaniesRequest.startedAtFrom">
-                                        <input type="text" placeholder="Subscribe on" class="form-control w100" readonly [(ngModel)]="getAllCompaniesRequest.startedAtFrom" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker (ngModelChange)="searchViaSubscribedOn()" name="startedAtFrom"
+                                        <input type="text" placeholder="Subscribe on" #dp="bsDatepicker" class="form-control w100" readonly [(ngModel)]="getAllCompaniesRequest.startedAtFrom" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker (ngModelChange)="searchViaSubscribedOn()" name="startedAtFrom"
                                         />
-                                        <!-- <input type="text" placeholder="Subscribed On" class="form-control w100" name="planName" (keydown)="columnSearch()" /> -->
                                     </div>
                                 </th>
-
 
                                 <th class="table-search">
                                     <div [hidden]="inlineSearch == 'subId' || getAllCompaniesRequest.subscriptionId">
                                         <div class="d-flex align-items-center justify-content-between">
-                                            <span>subscription ID</span>
+                                            <span>Subscription ID</span>
                                             <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('subId')"></i>
                                         </div>
                                     </div>
                                     <div class="input-container" [hidden]="inlineSearch !== 'subId' && !getAllCompaniesRequest.subscriptionId">
-                                        <input type="text" placeholder="Subscription id" class="form-control w100" name="subscriptionId" [(ngModel)]="getAllCompaniesRequest.subscriptionId" (ngModelChange)="searchViaSubscriptionID$.next($event)" />
+                                        <input type="text" placeholder="Subscription id" #subscriptionIdSearch class="form-control w100" name="subscriptionId" [(ngModel)]="getAllCompaniesRequest.subscriptionId" (ngModelChange)="searchViaSubscriptionID$.next($event)" />
                                     </div>
                                 </th>
 

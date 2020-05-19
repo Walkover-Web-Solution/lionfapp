@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CommonPaginatedRequest, PAGINATION_COUNT, CompanyAdvanceSearchRequestSubscriptions } from '../../../modules/modules/api-modules/subscription';
 import { AppState } from '../../../store';
@@ -17,7 +17,7 @@ import { ShSelectComponent } from '../../../theme/ng-virtual-select/sh-select.co
     styleUrls: ['./company-advance-search.component.scss']
 })
 
-export class CompanyAdvanceSearchComponent implements OnInit {
+export class CompanyAdvanceSearchComponent implements OnInit, AfterViewInit {
     public advanceSearchForm: FormGroup;
     @Input() public rightToggle: boolean = false;
     @Input() public searchedAdvancedRequestModelByAdvanceSearch: CompanyAdvanceSearchRequestSubscriptions = {
@@ -29,16 +29,12 @@ export class CompanyAdvanceSearchComponent implements OnInit {
             from: '',
             to: ''
         },
-        remainingTxnOption: '',
+        remainingTxnOpn: '',
         remainingTxn: '',
-        transactionLimitOption: '',
+        transactionLimitOperation: '',
         transactionLimitTxn: '',
-        additionalChargesOption: '',
-        additionalChargesTxn: '',
-        lastEntryLogDateOption: '',
-        lastEntryLogDate: '',
-        lastLoginDateOption: '',
-        lastLoginDate: ''
+        additionalChargesOperation: '',
+        additionalChargesTxn: ''
     };
     @Output() public hidePopup: EventEmitter<boolean> = new EventEmitter(true);
     @Output() public advanceSearchRequestEmitter: EventEmitter<CompanyAdvanceSearchRequestSubscriptions> = new EventEmitter();
@@ -53,16 +49,12 @@ export class CompanyAdvanceSearchComponent implements OnInit {
             from: '',
             to: ''
         },
-        remainingTxnOption: '',
+        remainingTxnOpn: '',
         remainingTxn: '',
-        transactionLimitOption: '',
+        transactionLimitOperation: '',
         transactionLimitTxn: '',
-        additionalChargesOption: '',
-        additionalChargesTxn: '',
-        lastEntryLogDateOption: '',
-        lastEntryLogDate: '',
-        lastLoginDateOption: '',
-        lastLoginDate: ''
+        additionalChargesOperation: '',
+        additionalChargesTxn: ''
     };
     public lessGreaterFilters: IOption[] = [{ label: 'Greater than', value: 'GREATER_THAN' }, { label: 'Less than', value: 'LESS_THAN' }, { label: 'Greater than equals to', value: 'GREATER_THAN_OR_EQUALS' }, { label: 'Less than equals to', value: 'LESS_THAN_OR_EQUALS' }];
     public defaultLoad: boolean = true;
@@ -75,21 +67,20 @@ export class CompanyAdvanceSearchComponent implements OnInit {
         this.setAdvanceSearch();
     }
 
+    public ngAfterViewInit() {
+        setTimeout(() => {
+            this.defaultLoad = false;
+        }, 1000);
+    }
+
     public advanceSearch() {
         let dataToSend = _.cloneDeep(this.advanceSearchForm.value);
         dataToSend.expiryFilter.from = dataToSend.expiryFilter.from ? moment(dataToSend.expiryFilter.from).format(GIDDH_DATE_FORMAT) : '';
         dataToSend.expiryFilter.to = dataToSend.expiryFilter.to ? moment(dataToSend.expiryFilter.to).format(GIDDH_DATE_FORMAT) : '';
         dataToSend.subscribeOn.from = dataToSend.subscribeOn.from ? moment(dataToSend.subscribeOn.from).format(GIDDH_DATE_FORMAT) : '';
         dataToSend.subscribeOn.to = dataToSend.subscribeOn.to ? moment(dataToSend.subscribeOn.to).format(GIDDH_DATE_FORMAT) : '';
-        dataToSend.lastEntryLogDate = dataToSend.lastEntryLogDate ? moment(dataToSend.lastEntryLogDate).format(GIDDH_DATE_FORMAT) : '';
-        dataToSend.lastLoginDate = dataToSend.lastLoginDate ? moment(dataToSend.lastLoginDate).format(GIDDH_DATE_FORMAT) : '';
 
         this.advanceSearchRequestEmitter.emit(dataToSend);
-        //this.getAdvancedSearchedSubscriptions(dataToSend)
-    }
-
-    public getAdvancedSearchedSubscriptions(advanceSearchRequest) {
-        this.store.dispatch(this.adminActions.getSubscriptionAdvancedSearch(advanceSearchRequest, this.advanceSearchFilter));
     }
 
     public setAdvanceSearch() {
@@ -102,16 +93,12 @@ export class CompanyAdvanceSearchComponent implements OnInit {
                 from: [(this.searchedAdvancedRequestModelByAdvanceSearch && this.searchedAdvancedRequestModelByAdvanceSearch.subscribeOn) ? this.searchedAdvancedRequestModelByAdvanceSearch.subscribeOn.from: ''],
                 to: [(this.searchedAdvancedRequestModelByAdvanceSearch && this.searchedAdvancedRequestModelByAdvanceSearch.subscribeOn) ? this.searchedAdvancedRequestModelByAdvanceSearch.subscribeOn.to: '']
             }),
-            remainingTxnOption: [(this.searchedAdvancedRequestModelByAdvanceSearch) ? this.searchedAdvancedRequestModelByAdvanceSearch.remainingTxnOption : ''],
+            remainingTxnOpn: [(this.searchedAdvancedRequestModelByAdvanceSearch) ? this.searchedAdvancedRequestModelByAdvanceSearch.remainingTxnOpn : ''],
             remainingTxn: [(this.searchedAdvancedRequestModelByAdvanceSearch) ? this.searchedAdvancedRequestModelByAdvanceSearch.remainingTxn : '', Validators.compose([digitsOnly])],
-            transactionLimitOption: [(this.searchedAdvancedRequestModelByAdvanceSearch) ? this.searchedAdvancedRequestModelByAdvanceSearch.transactionLimitOption : ''],
+            transactionLimitOperation: [(this.searchedAdvancedRequestModelByAdvanceSearch) ? this.searchedAdvancedRequestModelByAdvanceSearch.transactionLimitOperation : ''],
             transactionLimitTxn: [(this.searchedAdvancedRequestModelByAdvanceSearch) ? this.searchedAdvancedRequestModelByAdvanceSearch.transactionLimitTxn : '', Validators.compose([digitsOnly])],
-            additionalChargesOption: [(this.searchedAdvancedRequestModelByAdvanceSearch) ? this.searchedAdvancedRequestModelByAdvanceSearch.additionalChargesOption : ''],
-            additionalChargesTxn: [(this.searchedAdvancedRequestModelByAdvanceSearch) ? this.searchedAdvancedRequestModelByAdvanceSearch.additionalChargesTxn : '', Validators.compose([digitsOnly])],
-            lastEntryLogDateOption: [(this.searchedAdvancedRequestModelByAdvanceSearch) ? this.searchedAdvancedRequestModelByAdvanceSearch.lastEntryLogDateOption : ''],
-            lastEntryLogDate: [(this.searchedAdvancedRequestModelByAdvanceSearch) ? this.searchedAdvancedRequestModelByAdvanceSearch.lastEntryLogDate : ''],
-            lastLoginDateOption: [(this.searchedAdvancedRequestModelByAdvanceSearch) ? this.searchedAdvancedRequestModelByAdvanceSearch.lastLoginDateOption : ''],
-            lastLoginDate: [(this.searchedAdvancedRequestModelByAdvanceSearch) ? this.searchedAdvancedRequestModelByAdvanceSearch.lastLoginDate : ''],
+            additionalChargesOperation: [(this.searchedAdvancedRequestModelByAdvanceSearch) ? this.searchedAdvancedRequestModelByAdvanceSearch.additionalChargesOperation : ''],
+            additionalChargesTxn: [(this.searchedAdvancedRequestModelByAdvanceSearch) ? this.searchedAdvancedRequestModelByAdvanceSearch.additionalChargesTxn : '', Validators.compose([digitsOnly])]
         });
     }
 

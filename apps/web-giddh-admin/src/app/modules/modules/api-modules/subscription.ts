@@ -139,29 +139,21 @@ export class GetAllCompaniesRequest {
     status: string[] = []; // "trial","expired"
     expiryFilter?: AdvanceSearchFromTo;
     subscribeOn?: AdvanceSearchFromTo;
-    remainingTxnOption?: string;
+    remainingTxnOpn?: string;
     remainingTxn?: string;
-    transactionLimitOption?: string;
+    transactionLimitOperation?: string;
     transactionLimitTxn?: string;
-    additionalChargesOption?: string;
+    additionalChargesOperation?: string;
     additionalChargesTxn?: string;
-    lastEntryLogDateOption?: string;
-    lastEntryLogDate?: string;
-    lastLoginDateOption?: string;
-    lastLoginDate?: string;
 }
 
 export class CompanyAdvanceSearchRequestSubscriptions {
     expiryFilter?: AdvanceSearchFromTo;
     subscribeOn?: AdvanceSearchFromTo;
-    remainingTxnOption?: string;
+    remainingTxnOpn?: string;
     remainingTxn?: string;
-    transactionLimitOption?: string;
+    transactionLimitOperation?: string;
     transactionLimitTxn?: string;
-    additionalChargesOption?: string;
+    additionalChargesOperation?: string;
     additionalChargesTxn?: string;
-    lastEntryLogDateOption?: string;
-    lastEntryLogDate?: string;
-    lastLoginDateOption?: string;
-    lastLoginDate?: string;
 }

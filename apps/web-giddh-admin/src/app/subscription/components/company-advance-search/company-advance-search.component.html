@@ -1,5 +1,5 @@
 <div class="bg-box" [ngClass]="rightToggle ? 'in': 'out'"></div>
-<div class="rightSlide kot-repring-sidebar" [ngClass]="rightToggle ? 'in': 'out'" (mouseenter)="(defaultLoad) ? (dp.show(); defaultLoad = false) : defaultLoad = false">
+<div class="rightSlide kot-repring-sidebar" [ngClass]="rightToggle ? 'in': 'out'" (mouseenter)="(defaultLoad) ? dp.show() : defaultLoad = false">
     <div class="aside-panel">
 
         <div class="top-right-head">
@@ -21,8 +21,8 @@
                     <label><span>Remaining Transaction</span></label>
                     <div class="d-flex align-items-center">
                         <div class="blue-clr width-100 advance-search-select mr-1">
-                            <sh-select name="remainingTxnOption" autocomplete="false" id="remainingTxnOption"
-                                formControlName="remainingTxnOption" [options]="lessGreaterFilters"
+                            <sh-select name="remainingTxnOpn" autocomplete="false" id="remainingTxnOpn"
+                                formControlName="remainingTxnOpn" [options]="lessGreaterFilters"
                                 [isFilterEnabled]="true" [ItemHeight]="33"></sh-select>
                         </div>
                         <input type="number" formControlName="remainingTxn" digitsOnlyDirective
@@ -33,8 +33,8 @@
                     <label><span>Transaction Limit</span></label>
                     <div class="d-flex align-items-center">
                         <div class="blue-clr width-100 advance-search-select mr-1">
-                            <sh-select name="transactionLimitOption" autocomplete="false" id="transactionLimitOption"
-                                formControlName="transactionLimitOption" [options]="lessGreaterFilters"
+                            <sh-select name="transactionLimitOperation" autocomplete="false" id="transactionLimitOperation"
+                                formControlName="transactionLimitOperation" [options]="lessGreaterFilters"
                                 [isFilterEnabled]="true" [ItemHeight]="33"></sh-select>
                         </div>
                         <input type="number" formControlName="transactionLimitTxn" digitsOnlyDirective
@@ -45,8 +45,8 @@
                     <label><span>Additional Charges</span></label>
                     <div class="d-flex align-items-center">
                         <div class="blue-clr width-100 advance-search-select mr-1">
-                            <sh-select name="additionalChargesOption" autocomplete="false" id="additionalChargesOption"
-                                formControlName="additionalChargesOption" [options]="lessGreaterFilters"
+                            <sh-select name="additionalChargesOperation" autocomplete="false" id="additionalChargesOperation"
+                                formControlName="additionalChargesOperation" [options]="lessGreaterFilters"
                                 [isFilterEnabled]="true" [ItemHeight]="33"></sh-select>
                         </div>
                         <input type="number" formControlName="additionalChargesTxn" digitsOnlyDirective
@@ -61,30 +61,6 @@
                         <span>To</span>
                         <input type="text" formControlName="to" placeholder="End date" readonly
                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker placement="bottom">
-                    </div>
-                </li>
-                <li>
-                    <label><span>Last entry log date</span></label>
-                    <div class="d-flex align-items-center">
-                        <div class="blue-clr width-100 advance-search-select mr-1">
-                            <sh-select name="lastEntryLogDateOption" autocomplete="false" id="lastEntryLogDateOption"
-                                formControlName="lastEntryLogDateOption" [options]="lessGreaterFilters"
-                                [isFilterEnabled]="true" [ItemHeight]="33"></sh-select>
-                        </div>
-                        <input type="text" formControlName="lastEntryLogDate" placeholder="Last entry log date" bsDatepicker readonly
-                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" placement="bottom">
-                    </div>
-                </li>
-                <li>
-                    <label><span>Last login date</span></label>
-                    <div class="d-flex align-items-center">
-                        <div class="blue-clr width-100 advance-search-select mr-1">
-                            <sh-select name="lastLoginDateOption" autocomplete="false" id="lastLoginDateOption"
-                                formControlName="lastLoginDateOption" [options]="lessGreaterFilters"
-                                [isFilterEnabled]="true" [ItemHeight]="33"></sh-select>
-                        </div>
-                        <input type="text" formControlName="lastLoginDate" placeholder="Last login date" bsDatepicker readonly
-                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" placement="bottom">
                     </div>
                 </li>
             </ul>
