@@ -7,7 +7,7 @@ import { SubscriptionComponent } from './subscription-component/subscription.com
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { UserListComponent } from './components/user-list/user-list.component';
 import {BsDatepickerModule, PaginationModule, TooltipModule} from 'ngx-bootstrap';
-
+import { CompanyAdvanceSearchComponent } from './components/company-advance-search/company-advance-search.component';
 import { AdvanceSearchComponent } from './components/advance-search/advance-search.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ClickOutsideModule } from 'ng-click-outside';
@@ -22,7 +22,7 @@ import { ShSelectModule } from '../theme/ng-virtual-select/sh-select.module';
 import { AssignPlanComponent } from './components/assign-plan/assign-plan.component';
 
 @NgModule({
-    declarations: [SubscriptionComponent, SubscriptionContainerComponent, UserListComponent, AdvanceSearchComponent, EditPlanModalComponent, EditSubscriptionsComponent, TimeAgoPipe, UpdateTransactionsComponent, AssignPlanComponent],
+    declarations: [SubscriptionComponent, SubscriptionContainerComponent, UserListComponent, AdvanceSearchComponent, EditPlanModalComponent, EditSubscriptionsComponent, TimeAgoPipe, UpdateTransactionsComponent, AssignPlanComponent, CompanyAdvanceSearchComponent],
     imports: [
         CommonModule,
         SubscriptionRoutingModule,

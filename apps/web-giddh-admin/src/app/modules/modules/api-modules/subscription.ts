@@ -137,4 +137,31 @@ export class GetAllCompaniesRequest {
     planUniqueNames: string[] = [];
     userName: string = '';
     status: string[] = []; // "trial","expired"
+    expiryFilter?: AdvanceSearchFromTo;
+    subscribeOn?: AdvanceSearchFromTo;
+    remainingTxnOption?: string;
+    remainingTxn?: string;
+    transactionLimitOption?: string;
+    transactionLimitTxn?: string;
+    additionalChargesOption?: string;
+    additionalChargesTxn?: string;
+    lastEntryLogDateOption?: string;
+    lastEntryLogDate?: string;
+    lastLoginDateOption?: string;
+    lastLoginDate?: string;
+}
+
+export class CompanyAdvanceSearchRequestSubscriptions {
+    expiryFilter?: AdvanceSearchFromTo;
+    subscribeOn?: AdvanceSearchFromTo;
+    remainingTxnOption?: string;
+    remainingTxn?: string;
+    transactionLimitOption?: string;
+    transactionLimitTxn?: string;
+    additionalChargesOption?: string;
+    additionalChargesTxn?: string;
+    lastEntryLogDateOption?: string;
+    lastEntryLogDate?: string;
+    lastLoginDateOption?: string;
+    lastLoginDate?: string;
 }

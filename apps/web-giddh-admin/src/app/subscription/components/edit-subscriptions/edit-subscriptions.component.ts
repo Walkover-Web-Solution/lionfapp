@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewChild, Input } from "@angular/core";
+import { Component, OnInit, TemplateRef, ViewChild, Input, HostListener } from "@angular/core";
 import { Store, select } from '@ngrx/store';
 import { AppState } from '../../../store';
 import { GeneralService } from '../../../services/general.service';
@@ -7,7 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription, ReplaySubject, Subject, Observable, of as observableOf } from 'rxjs';
 import { takeUntil, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { AdminActions } from '../../../actions/admin.actions';
-import { CommonPaginatedRequest, SubscriberList, AuditLogsRequest, GetAllCompaniesRequest, PAGINATION_COUNT, StatusModel } from '../../../modules/modules/api-modules/subscription';
+import { CommonPaginatedRequest, SubscriberList, AuditLogsRequest, GetAllCompaniesRequest, PAGINATION_COUNT, StatusModel, CompanyAdvanceSearchRequestSubscriptions } from '../../../modules/modules/api-modules/subscription';
 import { SubscriptionService } from '../../../services/subscription.service';
 import { ToasterService } from '../../../services/toaster.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
@@ -27,7 +27,7 @@ export class EditSubscriptionsComponent implements OnInit {
     @Input() public showTaxPopup: boolean = false;
     @Input() public showTaxPopups: boolean = false;
 
-
+    public togglePanelBool: boolean;
     public inlineSearch: any = null;
     public selectedPlanStatus: string[] = [];
     public selectedPlans: string[] = [];
@@ -46,7 +46,8 @@ export class EditSubscriptionsComponent implements OnInit {
         subscriptionId: '',
         planUniqueNames: [],
         userName: '',
-        status: []
+        status: [],
+
     };
 
     public planStatusType: StatusModel = {
@@ -76,7 +77,7 @@ export class EditSubscriptionsComponent implements OnInit {
     public getAllPlansPostRequest: any = {};
     public isAllPlanSelected: boolean = false;
     public isAllPlanTypeSelected: boolean = false;
-
+    public searchedAdvancedRequestModelByAdvanceSearch: CompanyAdvanceSearchRequestSubscriptions;
 
     constructor(private store: Store<AppState>, private modalService: BsModalService, private generalActions: GeneralActions, private toasty: ToasterService, private adminActions: AdminActions, private subscriptionService: SubscriptionService, private router: Router, private generalService: GeneralService, private activateRoute: ActivatedRoute, private plansService: PlansService) {
         this.paginationRequest.from = '';
@@ -110,8 +111,8 @@ export class EditSubscriptionsComponent implements OnInit {
                 this.isDetailsShow = false;
                 this.generalService.setCurrentPageTitle("Companies");
             }
-
         });
+
         this.getAllCompanies();
         if (this.auditLogRequest.entityIdentifier) {
             this.getAuditLogs(this.auditLogRequest);
@@ -480,4 +481,43 @@ export class EditSubscriptionsComponent implements OnInit {
         }
     }
 
+    public advanceSearchRequestEmitter(event) {
+        if (event) {
+            this.searchedAdvancedRequestModelByAdvanceSearch = event;
+            this.getAllCompaniesRequest.subscribeOn = event.subscribeOn;
+            this.getAllCompaniesRequest.remainingTxnOption = event.remainingTxnOption;
+            this.getAllCompaniesRequest.remainingTxn = event.remainingTxn;
+            this.getAllCompaniesRequest.transactionLimitOption = event.transactionLimitOption;
+            this.getAllCompaniesRequest.transactionLimitTxn = event.transactionLimitTxn;
+            this.getAllCompaniesRequest.additionalChargesOption = event.additionalChargesOption;
+            this.getAllCompaniesRequest.additionalChargesTxn = event.additionalChargesTxn;
+            this.getAllCompaniesRequest.expiryFilter = event.expiryFilter;
+            this.getAllCompaniesRequest.lastEntryLogDateOption = event.lastEntryLogDateOption;
+            this.getAllCompaniesRequest.lastEntryLogDate = event.lastEntryLogDate;
+            this.getAllCompaniesRequest.lastLoginDateOption = event.lastLoginDateOption;
+            this.getAllCompaniesRequest.lastLoginDate = event.lastLoginDate;
+            this.getAllCompanies();
+        }
+    }
+
+    public togglePanel() {
+        if (this.togglePanelBool) {
+            this.togglePanelBool = false;
+        } else {
+            this.togglePanelBool = true;
+        }
+        this.toggleBodyClass();
+    }
+
+    public toggleBodyClass() {
+        if (this.togglePanelBool) {
+            document.querySelector('body').classList.add('fixed');
+        } else {
+            document.querySelector('body').classList.remove('fixed');
+        }
+    }
+
+    @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(event: KeyboardEvent) {
+        this.togglePanel();
+    }
 }

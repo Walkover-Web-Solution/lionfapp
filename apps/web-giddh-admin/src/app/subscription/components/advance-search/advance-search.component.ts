@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AdvanceSearchRequestSubscriptions, CommonPaginatedRequest, PAGINATION_COUNT } from '../../../modules/modules/api-modules/subscription';
 import { AppState } from '../../../store';
@@ -9,6 +9,7 @@ import * as moment from 'moment/moment';
 import { GIDDH_DATE_FORMAT } from '../../../shared/defalutformatter/defaultDateFormat';
 import { digitsOnly } from '../../../shared/helper/customValidationhelper';
 import { IOption } from '../../../theme/ng-select/ng-select';
+import { ShSelectComponent } from '../../../theme/ng-virtual-select/sh-select.component';
 
 @Component({
     selector: 'app-advance-search',
@@ -36,6 +37,8 @@ export class AdvanceSearchComponent implements OnInit {
     @Output() public hidePopup: EventEmitter<boolean> = new EventEmitter(true);
     @Output() public advanceSearchRequestEmitter: EventEmitter<AdvanceSearchRequestSubscriptions> = new EventEmitter();
 
+    @ViewChild("remainingTxnOpn") public remainingTxnOpn: ShSelectComponent;
+
     public advanceSearchFilter: CommonPaginatedRequest = new CommonPaginatedRequest();
     public advanceSearchRequest: AdvanceSearchRequestSubscriptions = {
         signUpOnFrom: '',
@@ -56,6 +59,7 @@ export class AdvanceSearchComponent implements OnInit {
     constructor(private fb: FormBuilder, private store: Store<AppState>, private adminActions: AdminActions, private toasty: ToasterService) { }
 
     ngOnInit() {
+        this.remainingTxnOpn.show('');
         this.advanceSearchFilter.count = PAGINATION_COUNT;
         this.advanceSearchFilter.page = 1;
         this.setAdvanceSearch();

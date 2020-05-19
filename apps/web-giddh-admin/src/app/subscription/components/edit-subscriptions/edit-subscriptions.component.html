@@ -36,6 +36,7 @@
         </div>
     </div> -->
     <div>
+        <a class="pull-right btn btn-blue" href="javascript:void(0)" (click)="togglePanel()">Advance Search</a>
         <button *ngIf="showClearFilter" class="ml-1 btn-link" (click)="resetFilters();"><i class="icon icon-loop2"></i>
             Clear Filter</button>
     </div>
@@ -238,6 +239,8 @@
     </div> -->
 </div>
 
+<app-company-advance-search *ngIf="togglePanelBool" [rightToggle]="togglePanelBool" (advanceSearchRequestEmitter)="advanceSearchRequestEmitter($event)" [searchedAdvancedRequestModelByAdvanceSearch]="searchedAdvancedRequestModelByAdvanceSearch" (hidePopup)="hidePopup()">
+</app-company-advance-search>
 
 <ng-template #editPlan>
     <app-editPlan-modal></app-editPlan-modal>
