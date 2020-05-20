@@ -37,9 +37,9 @@ export class UserService {
     /**
     * Get all user data
     */
-    public getAllUserCounts() {
+    public getAllUserCounts(request: any) {
         let url = this.config.apiUrl + SUBSCRIPTION_API.GET_ALL_USER_COUNTS;
-        return this.http.get(url)
+        return this.http.post(url, request)
             .pipe(
                 map((res) => {
                     return res;

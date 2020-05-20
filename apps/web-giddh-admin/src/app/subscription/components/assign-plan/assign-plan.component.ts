@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, ViewChild, ElementRef } from '@angular/core';
 import { IOption } from '../../../theme/ng-select/ng-select';
 import { SubscriptionService } from '../../../services/subscription.service';
 import { ToasterService } from '../../../services/toaster.service';
@@ -17,6 +17,7 @@ export class AssignPlanComponent implements OnInit {
     public countries: IOption[] = [];
     public assignPlanRequest: any = {};
     public plans: IOption[] = [];
+    @ViewChild("emailField") public emailField: ElementRef;
 
     constructor(private subscriptionService: SubscriptionService, private toasty: ToasterService, private plansService: PlansService, private authenticationService: AuthenticationService) {
         this.getCountry();
@@ -28,7 +29,7 @@ export class AssignPlanComponent implements OnInit {
      * @memberof AssignPlanComponent
      */
     ngOnInit(): void {
-
+        this.emailField.nativeElement.focus();
     }
 
     /**
