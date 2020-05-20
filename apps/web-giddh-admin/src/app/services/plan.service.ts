@@ -75,10 +75,9 @@ export class PlansService {
             }), catchError((e) => this.errorHandler.HandleCatch(e)));
     }
 
-
-    public getPlansStats() {
+    public getPlansStats(request: any) {
         let url = this.config.apiUrl + PLANS_API.GET_PLAN_STATS;
-        return this.http.get(url).pipe(
+        return this.http.post(url, request).pipe(
             map((res) => {
                 return res;
             }));
