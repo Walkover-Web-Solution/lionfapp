@@ -12,6 +12,7 @@ import { SubscriptionService } from './subscription.service';
 import { PlansService } from './plan.service';
 import { GeneralService } from './general.service'
 import { AuthenticationService } from './authentication.service';
+import { ColumnFilterService } from './column-filter.service';
 
 /**
  * Do not specify providers for modules that might be imported by a lazy loaded module.
@@ -36,7 +37,8 @@ export class ServiceModule {
                 SubscriptionService,
                 PlansService,
                 AuthenticationService,
-                GeneralService
+                GeneralService,
+                ColumnFilterService
             ]
         };
     }

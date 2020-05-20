@@ -10,6 +10,7 @@ import { ToasterService } from '../../../services/toaster.service';
 import { IOption } from '../../../theme/ng-select/ng-select';
 import { PlansService } from '../../../services/plan.service';
 import { GIDDH_DATE_FORMAT } from '../../../shared/defalutformatter/defaultDateFormat';
+import { AuthenticationService } from '../../../services/authentication.service';
 @Component({
     selector: 'app-user-list',
     templateUrl: './user-list.component.html',
@@ -22,6 +23,7 @@ export class UserListComponent implements OnInit {
     @ViewChild('userMobileField') public userMobileField;
     @ViewChild('userSubscriptionField') public userSubscriptionField;
     @Input() public showTaxPopup: boolean = false;
+    public showCountryPopup: boolean = false;
     @Input() public lastSeen: boolean = false;
     @Input() public owner: boolean = false;
 
@@ -55,6 +57,14 @@ export class UserListComponent implements OnInit {
     public selectedOwners: string[] = [];
     public today: Date;
     public bsConfig: any = { dateInputFormat: GIDDH_DATE_FORMAT, displayMonths: 1 };
+    /** Country list */
+    public countrySource: IOption[] = [];
+    /** Selected countries list */
+    public selectedCountries: string[] = [];
+    /** True, if all country selected */
+    public isAllCountrySelected: boolean = false;
+
+
 
     destroyed$: Observable<any>;
     public onclick(id: string) {
@@ -62,7 +72,7 @@ export class UserListComponent implements OnInit {
         this.expandList = !this.expandList;
     }
 
-    constructor(private generalService: GeneralService, private userService: UserService, private modalService: BsModalService, private router: Router, private toaster: ToasterService, private plansService: PlansService) {
+    constructor(private generalService: GeneralService, private userService: UserService, private modalService: BsModalService, private router: Router, private toaster: ToasterService, private plansService: PlansService, private authenticationService: AuthenticationService) {
         this.today = new Date();
         this.getUserListPostRequest.lastSeen = {};
         this.getUserListPostRequest.lastSeen.operation = "BEFORE";
@@ -84,6 +94,7 @@ export class UserListComponent implements OnInit {
         this.getAllUserData();
         this.getAllSubscriptionTotalData();
         this.getAllPlans();
+        this.getOnboardCountries();
     }
 
     /**
@@ -115,6 +126,15 @@ export class UserListComponent implements OnInit {
         this.lastSeen = isShow ? false : true;
     }
 
+    /**
+    * This will hide/show the country filter option
+    *
+    * @param {boolean} isShow
+    * @memberof UserListComponent
+    */
+    public countryDropdown(isShow: boolean): void {
+        this.showCountryPopup = isShow ? false : true;
+    }
     /**
      * This function is used to put focus on column search
      *
@@ -221,7 +241,8 @@ export class UserListComponent implements OnInit {
      *
      * @memberof UserListComponent
      */
-    public columnSearch(): void {
+    public columnSearch(event?:Event): void {
+let e = event;
         if (this.timeout) {
             clearTimeout(this.timeout);
         }
@@ -260,14 +281,20 @@ export class UserListComponent implements OnInit {
         this.getUserListPostRequest.signUpOnFrom = '';
         this.getUserListPostRequest.signUpOnTo = '';
         this.getUserListPostRequest.userName = '';
+        this.getUserListPostRequest.startedAtFrom = '';
         this.getUserListPostRequest.email = '';
         this.getUserListPostRequest.mobile = '';
         this.getUserListPostRequest.subscriptionId = '';
         this.getUserListPostRequest.planUniqueNames = [];
+        this.getUserListPostRequest.countries = this.selectedCountries = [];
+        this.getUserListPostRequest.startedAtFrom = '';
         this.getUserListRequest.sortBy = '';
         this.getUserListRequest.sortType = '';
         this.inlineSearch = null;
         this.allPlans.forEach(res => {
+            res.additional = false;
+        });
+        this.countrySource.forEach(res => {
             res.additional = false;
         });
         this.isAllPlanSelected = false;
@@ -557,5 +584,85 @@ export class UserListComponent implements OnInit {
             }
         }
         return convertedDate;
+    }
+
+    /**
+    * API call to get all onboarding countries
+    *
+    * @memberof UserListComponent
+    */
+    public getOnboardCountries() {
+        this.authenticationService.getCountry().subscribe(res => {
+            if (res.status === 'success') {
+                if (res.body && res.body.length > 0) {
+                    res.body.forEach(key => {
+                        this.countrySource.push({ label: key.countryName, value: key.alpha2CountryCode, additional: false });
+                    });
+                }
+            } else {
+                this.toaster.clearAllToaster();
+                this.toaster.errorToast(res.message);
+            }
+        });
+    }
+
+    /**
+    * To check all country selected or not
+    *
+    * @memberof UserListComponent
+    */
+    public isAllCountriesSelected() {
+        if (this.countrySource.length === this.selectedCountries.length) {
+            this.isAllCountrySelected = true;
+        } else {
+            this.isAllCountrySelected = false;
+        }
+    }
+
+    /**
+     * Prepare array of selected country for all country selected
+     *
+     * @param {*} event Click event
+     * @memberof UserListComponent
+     */
+    public selectAllCountry(event) {
+        this.selectedCountries = [];
+        if (event.target.checked) {
+            this.countrySource.forEach(res => {
+                this.selectedCountries.push(res.label);
+            });
+            this.countrySource.map(res => {
+                res.additional = true;
+            });
+        } else {
+            this.selectedCountries = [];
+            this.countrySource.map(res => {
+                res.additional = false;
+            });
+        }
+        this.isAllCountriesSelected();
+        this.getUserListRequest.countries = this.selectedCountries;
+        // this.getAllPlans();
+    }
+
+    /**
+    *  To prepare array of selectd country
+    *
+    * @param {*} item Country selected item
+    * @param {*} event Click event
+    * @memberof UserListComponent
+    */
+    public checkedCountryName(item, event) {
+        if (event.target.checked) {
+            if (this.selectedCountries.indexOf(item.label) === -1) {
+                this.selectedCountries.push(item.label);
+            }
+        } else {
+            let index = this.selectedCountries.indexOf(item.label);
+            this.selectedCountries.splice(index, 1);
+        }
+        this.getUserListRequest.countries = this.selectedCountries;
+        this.isAllCountriesSelected();
+        // this.getAllPlans();
     }
 }

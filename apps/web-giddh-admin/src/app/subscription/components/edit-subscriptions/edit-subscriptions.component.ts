@@ -10,11 +10,15 @@ import { AdminActions } from '../../../actions/admin.actions';
 import { CommonPaginatedRequest, SubscriberList, AuditLogsRequest, GetAllCompaniesRequest, PAGINATION_COUNT, StatusModel } from '../../../modules/modules/api-modules/subscription';
 import { SubscriptionService } from '../../../services/subscription.service';
 import { ToasterService } from '../../../services/toaster.service';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import { BsModalRef, BsModalService, BsDropdownDirective } from 'ngx-bootstrap';
 import { IOption } from '../../../theme/ng-select/ng-select';
 import { PlansService } from '../../../services/plan.service';
 import * as moment from 'moment/moment';
 import { GIDDH_DATE_FORMAT } from '../../../shared/defalutformatter/defaultDateFormat';
+import { CompanyFieldFilterColumnNames } from '../../../models/company';
+import { FavouriteColumnPageTypeEnum } from '../../../actions/general/general.const';
+import { ColumnFilterService } from '../../../services/column-filter.service';
+import { cloneDeep } from '../../../lodash-optimized';
 
 @Component({
     selector: 'edit-subscription',
@@ -27,6 +31,7 @@ export class EditSubscriptionsComponent implements OnInit {
     @Input() public showTaxPopup: boolean = false;
     @Input() public showTaxPopups: boolean = false;
 
+    @ViewChild('filterDropDownList') public filterDropDownList: BsDropdownDirective;
 
     public inlineSearch: any = null;
     public selectedPlanStatus: string[] = [];
@@ -48,7 +53,7 @@ export class EditSubscriptionsComponent implements OnInit {
         userName: '',
         status: []
     };
-
+    public showFieldFilter: CompanyFieldFilterColumnNames = new CompanyFieldFilterColumnNames();
     public planStatusType: StatusModel = {
         trial: false,
         active: false,
@@ -60,6 +65,8 @@ export class EditSubscriptionsComponent implements OnInit {
     public searchViaSubscribedOn$ = new Subject<string>();
     public searchViaSubscriptionID$ = new Subject<string>();
     public showClearFilter: boolean = false;
+    /** Page type enum */
+    public pageTypeEnum: FavouriteColumnPageTypeEnum
 
     public isDetailsShow: boolean = false;
     public auditLogRequest: AuditLogsRequest = {
@@ -76,9 +83,12 @@ export class EditSubscriptionsComponent implements OnInit {
     public getAllPlansPostRequest: any = {};
     public isAllPlanSelected: boolean = false;
     public isAllPlanTypeSelected: boolean = false;
+    /** Local storage to save filter */
+    public localStorageKeysForFilters = { pageType: 'pageTypeName', filter: 'Columnfilter' };
 
 
-    constructor(private store: Store<AppState>, private modalService: BsModalService, private generalActions: GeneralActions, private toasty: ToasterService, private adminActions: AdminActions, private subscriptionService: SubscriptionService, private router: Router, private generalService: GeneralService, private activateRoute: ActivatedRoute, private plansService: PlansService) {
+    constructor(private store: Store<AppState>, private modalService: BsModalService, private generalActions: GeneralActions, private toasty: ToasterService, private adminActions: AdminActions, private subscriptionService: SubscriptionService, private router: Router, private generalService: GeneralService, private activateRoute: ActivatedRoute, private plansService: PlansService,
+        private columnFilterService: ColumnFilterService) {
         this.paginationRequest.from = '';
         this.paginationRequest.page = 1;
         this.paginationRequest.count = PAGINATION_COUNT;
@@ -148,6 +158,7 @@ export class EditSubscriptionsComponent implements OnInit {
             this.getAllCompaniesRequest.subscriptionId = term;
             this.getAllCompanies();
         });
+        this.getColumnFilter();
     }
 
     public getAllCompanies() {
@@ -178,24 +189,24 @@ export class EditSubscriptionsComponent implements OnInit {
 
 
     public toggleTaxPopup(action: boolean) {
-      this.showTaxPopup = action;
-  }
-  public toggleTaxPopups(action: boolean) {
-      this.showTaxPopups = action;
-  }
+        this.showTaxPopup = action;
+    }
+    public toggleTaxPopups(action: boolean) {
+        this.showTaxPopups = action;
+    }
 
-  /**
-   * Tax input focus handler
-   *
-   * @memberof TaxControlComponent
-   */
-  public handleInputFocus(isShow:boolean): void {
-      this.showTaxPopup = isShow? false: true;
-  }
+    /**
+     * Tax input focus handler
+     *
+     * @memberof TaxControlComponent
+     */
+    public handleInputFocus(isShow: boolean): void {
+        this.showTaxPopup = isShow ? false : true;
+    }
 
-  public status(isShow:boolean): void {
-    this.showTaxPopups = isShow? false: true;
-  }
+    public status(isShow: boolean): void {
+        this.showTaxPopups = isShow ? false : true;
+    }
 
 
     /**
@@ -389,6 +400,7 @@ export class EditSubscriptionsComponent implements OnInit {
         this.isAllPlanSelected = false;
         this.isAllPlanTypeSelected = false;
         this.getAllCompanies();
+        this.selectAllColumns(true);
 
     }
 
@@ -480,4 +492,69 @@ export class EditSubscriptionsComponent implements OnInit {
         }
     }
 
+    /**
+     * API call to get all filter column
+     *
+     * @memberof EditSubscriptionsComponent
+     */
+    public getColumnFilter(): void {
+        this.columnFilterService.getFavouritePage('ADMIN_COMPANY').subscribe(response => {
+            console.log('getColumnFilter', response);
+            if (response.status === 'success') {
+                if (response.body && response.body.favourite) {
+                    Object.assign(this.showFieldFilter, response.body.favourite);
+                    this.showFieldFilter = cloneDeep(response.body.favourite);
+                }
+            }
+        });
+    }
+
+    /**
+      * API call to update filter column
+      *
+      * @memberof EditSubscriptionsComponent
+      */
+    public updateColumnFilter(): void {
+        this.columnFilterService.updateFavouritePage('ADMIN_COMPANY', this.showFieldFilter).subscribe(response => {
+            console.log('getColumnFilter', response);
+            if (response.status === 'success') {
+                if (response.body && response.body.favourite) {
+                    Object.assign(this.showFieldFilter, response.body.favourite);
+                    this.showFieldFilter = cloneDeep(response.body.favourite);
+                }
+            }
+        });
+    }
+
+    // Column filter methods
+    public hideListItems() {
+        this.filterDropDownList.hide();
+    }
+
+    /**
+     * This will toggle all columns
+     *
+     * @param {boolean} event
+     * @memberof EditSubscriptionsComponent
+     */
+    public selectAllColumns(event: boolean): void {
+        this.showFieldFilter.companyName = event;
+        this.showFieldFilter.userName = event;
+        this.showFieldFilter.subscribedOn = event;
+        this.showFieldFilter.subscriptionId = event;
+        this.showFieldFilter.planName = event;
+        this.showFieldFilter.remainingTransaction = event;
+        this.showFieldFilter.transactionLimit = event;
+        this.showFieldFilter.totalAmount = event;
+        this.showFieldFilter.additionalTransaction = event;
+        this.showFieldFilter.additionalCharges = event;
+        this.showFieldFilter.ratePerTransaction = event;
+        this.showFieldFilter.status = event;
+        this.showFieldFilter.expiry = event;
+        this.updateColumnFilter();
+    }
+    public columnFilter(event, column) {
+        this.showFieldFilter[column] = event;
+        this.updateColumnFilter();
+    }
 }
