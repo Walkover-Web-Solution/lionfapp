@@ -321,7 +321,7 @@
     </div> -->
 </div>
 
-<app-company-advance-search *ngIf="togglePanelBool" [rightToggle]="togglePanelBool" (advanceSearchRequestEmitter)="advanceSearchRequestEmitter($event)" [searchedAdvancedRequestModelByAdvanceSearch]="searchedAdvancedRequestModelByAdvanceSearch" (hidePopup)="hidePopup()">
+<app-company-advance-search *ngIf="togglePanelBool" [rightToggle]="togglePanelBool" (advanceSearchRequestEmitter)="advanceSearchRequestEmitter($event)" [searchedAdvancedRequestModelByAdvanceSearch]="searchedAdvancedRequestModelByAdvanceSearch" (hidePopup)="togglePanel()">
 </app-company-advance-search>
 
 <ng-template #editPlan>
