@@ -390,7 +390,9 @@ export class UserListComponent implements OnInit {
         });
         this.isAllPlanSelected = false;
         this.getUserListRequest.page = 1;
+        this.showClearFilter = false;
         this.getAllSubscriptionTotalData();
+        this.selectAllColumns(true);
         this.getAllUserData();
     }
 
@@ -441,6 +443,7 @@ export class UserListComponent implements OnInit {
     private isAllPlansSelected() {
         if (this.allPlans.length === this.selectedPlans.length) {
             this.isAllPlanSelected = true;
+            this.showClearFilter = true;
         } else {
             this.isAllPlanSelected = false;
         }
@@ -811,7 +814,7 @@ export class UserListComponent implements OnInit {
         if (event.target.checked) {
             if (this.selectedPlanStatus.indexOf(type) === -1) {
                 this.selectedPlanStatus.push(type);
-                // this.showClearFilter = true;
+                this.showClearFilter = true;
             }
         } else {
             let index = this.selectedPlanStatus.indexOf(type);
@@ -872,7 +875,6 @@ export class UserListComponent implements OnInit {
             this.isAllFieldColumnFilterApplied = true;
         } else {
             this.isAllFieldColumnFilterApplied = false;
-
         }
         this.updateColumnFilter();
     }
