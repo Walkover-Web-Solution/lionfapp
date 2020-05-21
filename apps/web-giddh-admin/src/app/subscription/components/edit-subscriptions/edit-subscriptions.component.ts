@@ -144,7 +144,7 @@ export class EditSubscriptionsComponent implements OnInit {
             if (term) {
                 this.showClearFilter = true;
             }
-            this.getAllCompaniesRequest.companyName = term;
+            this.getAllCompaniesRequest.companyName = term.trim();
             this.getAllCompanies();
         });
 
@@ -155,7 +155,7 @@ export class EditSubscriptionsComponent implements OnInit {
             if (term) {
                 this.showClearFilter = true;
             }
-            this.getAllCompaniesRequest.userName = term;
+            this.getAllCompaniesRequest.userName = term.trim();
             this.getAllCompanies();
         });
         this.searchViaSubscriptionID$.pipe(
@@ -165,7 +165,7 @@ export class EditSubscriptionsComponent implements OnInit {
             if (term) {
                 this.showClearFilter = true;
             }
-            this.getAllCompaniesRequest.subscriptionId = term;
+            this.getAllCompaniesRequest.subscriptionId = term.trim();
             this.getAllCompanies();
         });
         this.getColumnFilter();
