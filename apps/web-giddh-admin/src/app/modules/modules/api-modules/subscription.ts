@@ -142,9 +142,9 @@ export class GetAllCompaniesRequest {
     remainingTxnOpn?: string;
     remainingTxn?: string;
     transactionLimitOperation?: string;
-    transactionLimitTxn?: string;
+    transactionLimit?: string;
     additionalChargesOperation?: string;
-    additionalChargesTxn?: string;
+    additionalCharges?: string;
 }
 
 export class CompanyAdvanceSearchRequestSubscriptions {
@@ -153,7 +153,7 @@ export class CompanyAdvanceSearchRequestSubscriptions {
     remainingTxnOpn?: string;
     remainingTxn?: string;
     transactionLimitOperation?: string;
-    transactionLimitTxn?: string;
+    transactionLimit?: string;
     additionalChargesOperation?: string;
-    additionalChargesTxn?: string;
+    additionalCharges?: string;
 }

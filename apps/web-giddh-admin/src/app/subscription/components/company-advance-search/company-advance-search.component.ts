@@ -32,9 +32,9 @@ export class CompanyAdvanceSearchComponent implements OnInit, AfterViewInit {
         remainingTxnOpn: '',
         remainingTxn: '',
         transactionLimitOperation: '',
-        transactionLimitTxn: '',
+        transactionLimit: '',
         additionalChargesOperation: '',
-        additionalChargesTxn: ''
+        additionalCharges: ''
     };
     @Output() public hidePopup: EventEmitter<boolean> = new EventEmitter(true);
     @Output() public advanceSearchRequestEmitter: EventEmitter<CompanyAdvanceSearchRequestSubscriptions> = new EventEmitter();
@@ -52,9 +52,9 @@ export class CompanyAdvanceSearchComponent implements OnInit, AfterViewInit {
         remainingTxnOpn: '',
         remainingTxn: '',
         transactionLimitOperation: '',
-        transactionLimitTxn: '',
+        transactionLimit: '',
         additionalChargesOperation: '',
-        additionalChargesTxn: ''
+        additionalCharges: ''
     };
     public lessGreaterFilters: IOption[] = [{ label: 'Greater than', value: 'GREATER_THAN' }, { label: 'Less than', value: 'LESS_THAN' }, { label: 'Greater than equals to', value: 'GREATER_THAN_OR_EQUALS' }, { label: 'Less than equals to', value: 'LESS_THAN_OR_EQUALS' }];
     public defaultLoad: boolean = true;
@@ -108,9 +108,9 @@ export class CompanyAdvanceSearchComponent implements OnInit, AfterViewInit {
             remainingTxnOpn: [(this.searchedAdvancedRequestModelByAdvanceSearch) ? this.searchedAdvancedRequestModelByAdvanceSearch.remainingTxnOpn : ''],
             remainingTxn: [(this.searchedAdvancedRequestModelByAdvanceSearch) ? this.searchedAdvancedRequestModelByAdvanceSearch.remainingTxn : '', Validators.compose([digitsOnly])],
             transactionLimitOperation: [(this.searchedAdvancedRequestModelByAdvanceSearch) ? this.searchedAdvancedRequestModelByAdvanceSearch.transactionLimitOperation : ''],
-            transactionLimitTxn: [(this.searchedAdvancedRequestModelByAdvanceSearch) ? this.searchedAdvancedRequestModelByAdvanceSearch.transactionLimitTxn : '', Validators.compose([digitsOnly])],
+            transactionLimit: [(this.searchedAdvancedRequestModelByAdvanceSearch) ? this.searchedAdvancedRequestModelByAdvanceSearch.transactionLimit : '', Validators.compose([digitsOnly])],
             additionalChargesOperation: [(this.searchedAdvancedRequestModelByAdvanceSearch) ? this.searchedAdvancedRequestModelByAdvanceSearch.additionalChargesOperation : ''],
-            additionalChargesTxn: [(this.searchedAdvancedRequestModelByAdvanceSearch) ? this.searchedAdvancedRequestModelByAdvanceSearch.additionalChargesTxn : '', Validators.compose([digitsOnly])]
+            additionalCharges: [(this.searchedAdvancedRequestModelByAdvanceSearch) ? this.searchedAdvancedRequestModelByAdvanceSearch.additionalCharges : '', Validators.compose([digitsOnly])]
         });
     }
 
