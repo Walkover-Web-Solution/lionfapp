@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UserService } from '../../../services/user.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { SubscriberList, PAGINATION_COUNT, TotalUsersCount, CommonPaginatedRequest } from '../../../modules/modules/api-modules/subscription';
+import { SubscriberList, PAGINATION_COUNT, TotalUsersCount, CommonPaginatedRequest, StatusModel } from '../../../modules/modules/api-modules/subscription';
 import * as moment from 'moment/moment';
 import { GeneralService } from '../../../services/general.service';
 import { Router } from '@angular/router';
@@ -24,6 +24,7 @@ export class UserListComponent implements OnInit {
     @ViewChild('userSubscriptionField') public userSubscriptionField;
     @Input() public showTaxPopup: boolean = false;
     public showCountryPopup: boolean = false;
+    public showStatusPopups: boolean = false;
     @Input() public lastSeen: boolean = false;
     @Input() public owner: boolean = false;
 
@@ -63,6 +64,15 @@ export class UserListComponent implements OnInit {
     public selectedCountries: string[] = [];
     /** True, if all country selected */
     public isAllCountrySelected: boolean = false;
+    /** selected Plan status array */
+    public selectedPlanStatus: string[] = [];
+    public selectedAllPlanType = ['trial', 'active', 'expired'];
+    public planStatusType: StatusModel = {
+        trial: false,
+        active: false,
+        expired: false
+    };
+    public isAllPlanStatusSelected: boolean = false;
 
 
 
@@ -102,8 +112,14 @@ export class UserListComponent implements OnInit {
      *
      * @memberof TaxControlComponent
      */
-    public handleInputFocus(isShow: boolean): void {
-        this.showTaxPopup = isShow ? false : true;
+    public handleInputFocus(columnType: string, isShow: boolean): void {
+        if (columnType === 'plan') {
+            this.showTaxPopup = isShow ? false : true;
+
+        } else if (columnType === 'status') {
+            this.showStatusPopups = isShow ? false : true;
+
+        }
     }
 
     /**
@@ -242,8 +258,8 @@ export class UserListComponent implements OnInit {
      *
      * @memberof UserListComponent
      */
-    public columnSearch(event?:Event): void {
-let e = event;
+    public columnSearch(event?: Event): void {
+        let e = event;
         if (this.timeout) {
             clearTimeout(this.timeout);
         }
@@ -651,7 +667,8 @@ let e = event;
             });
         }
         this.isAllCountriesSelected();
-        this.getUserListRequest.countries = this.selectedCountries;
+        this.getUserListPostRequest.countries = this.selectedCountries;
+         this.getAllUserData();
         // this.getAllPlans();
     }
 
@@ -671,8 +688,80 @@ let e = event;
             let index = this.selectedCountries.indexOf(item.label);
             this.selectedCountries.splice(index, 1);
         }
-        this.getUserListRequest.countries = this.selectedCountries;
+        this.getUserListPostRequest.countries = this.selectedCountries;
         this.isAllCountriesSelected();
+         this.getAllUserData();
         // this.getAllPlans();
     }
+
+    /**
+  * To check All plans status check
+  *
+  * @param {*} event Event for All plan select checkbox
+  * @memberof UserListComponent
+  */
+    public selectAllPlansStatus(event) {
+        this.selectedPlanStatus = [];
+        if (event.target.checked) {
+            this.selectedPlanStatus = this.selectedAllPlanType;
+            this.isAllPlansStatusSelected(true);
+        } else {
+            this.selectedPlanStatus = []
+            this.isAllPlansStatusSelected(false);
+        }
+        this.getUserListPostRequest.status = this.selectedPlanStatus;
+        this.getAllUserData();
+    }
+
+    /**
+         * To check all plan status selected or not
+         *
+         * @memberof UserListComponent
+         */
+    public isAllPlanStatusTypeSelected() {
+        if (this.selectedPlanStatus.length === 3) {
+            this.isAllPlanStatusSelected = true;
+        } else {
+            this.isAllPlanStatusSelected = false;
+        }
+    }
+
+       /**
+     * Tp prepare array of selected status
+     *
+     * @param {string} type plan status type
+     * @param {*} event Event
+     * @memberof UserListComponent
+     */
+    public checkedPlanStatus(type: string, event) {
+        if (event.target.checked) {
+            if (this.selectedPlanStatus.indexOf(type) === -1) {
+                this.selectedPlanStatus.push(type);
+                // this.showClearFilter = true;
+            }
+        } else {
+            let index = this.selectedPlanStatus.indexOf(type);
+            this.selectedPlanStatus.splice(index, 1)
+        }
+        this.isAllPlansSelected();
+        this.getUserListPostRequest.status = this.selectedPlanStatus;
+         this.getAllUserData();
+    }
+
+    /**
+    * To reset status type model
+    * 
+    * @private
+    * @param {boolean} [isAllStatus] Boolean to check is all plan statu selected or not
+    * @memberof UserListComponent
+    */
+    private isAllPlansStatusSelected(isAllStatus?: boolean) {
+        if (isAllStatus) {
+            this.planStatusType.active = this.planStatusType.expired = this.planStatusType.trial = true;
+        } else {
+            this.planStatusType.active = this.planStatusType.expired = this.planStatusType.trial = false;
+        }
+        this.isAllPlanStatusTypeSelected();
+    }
+
 }
