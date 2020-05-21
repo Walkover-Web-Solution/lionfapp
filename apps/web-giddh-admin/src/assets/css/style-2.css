@@ -807,6 +807,11 @@ input[type="checkbox"]:after {
 .advance-search li input[type="text"]:focus, .advance-search li input[type="number"]:focus {
   outline: none;
 }
+.aside-panel .advance-search .form-control {
+  margin: 0px;
+  width: 100%;
+  height: 28px !important;
+}
 
 .advance-search > li input[type="checkbox"] {
   margin-right: 15px !important;
