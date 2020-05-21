@@ -1,4 +1,4 @@
-export class CompanyFieldFilterColumnNames{
+export class CompanyFieldFilterColumnNames {
     companyName: boolean;
     userName: boolean;
     subscribedOn: boolean;
@@ -12,4 +12,27 @@ export class CompanyFieldFilterColumnNames{
     ratePerTransaction: boolean;
     expiry: boolean;
     status: boolean;
-    }
+}
+
+export class UserFieldFilterColumnNames {
+    addOnTransaction: boolean;
+    additionalCharges: boolean;
+    country: boolean;
+    email: boolean;
+    expiry: boolean;
+    lastSeen: boolean;
+    mobile: boolean;
+    name: boolean;
+    noOfCompany: boolean;
+    owner: boolean;
+    planName: boolean;
+    ratePerTransaction: boolean;
+    remainingTransaction: boolean;
+    signUpOn: boolean;
+    status: boolean;
+    subscribedOn: boolean;
+    subscriptionId: boolean;
+    totalAmount: boolean;
+    transactionLimit: boolean;
+
+}

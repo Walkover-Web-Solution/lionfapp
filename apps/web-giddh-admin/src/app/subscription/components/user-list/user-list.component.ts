@@ -12,6 +12,11 @@ import { PlansService } from '../../../services/plan.service';
 import { GIDDH_DATE_FORMAT } from '../../../shared/defalutformatter/defaultDateFormat';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { cloneDeep } from '../../../lodash-optimized';
+import { ColumnFilterService } from '../../../services/column-filter.service';
+import { FavouriteColumnPageTypeEnum } from '../../../actions/general/general.const';
+import { BsDropdownDirective } from 'ngx-bootstrap';
+import { UserFieldFilterColumnNames } from '../../../models/company';
 @Component({
     selector: 'app-user-list',
     templateUrl: './user-list.component.html',
@@ -75,6 +80,11 @@ export class UserListComponent implements OnInit {
     };
     public showClearFilter: boolean = false;
 
+    @ViewChild('filterDropDownList') public filterDropDownList: BsDropdownDirective;
+    public showFieldFilter: UserFieldFilterColumnNames = new UserFieldFilterColumnNames();
+    public isFieldColumnFilterApplied: boolean;
+    public isAllFieldColumnFilterApplied: boolean;
+
     public isAllPlanStatusSelected: boolean = false;
     public searchViaEmail$ = new Subject<string>();
     public searchViaUserName$ = new Subject<string>();
@@ -82,13 +92,15 @@ export class UserListComponent implements OnInit {
     public searchViaSubscriptionID$ = new Subject<string>();
     public searchViaSubscribedOn$ = new Subject<string>();
 
+
+
     destroyed$: Observable<any>;
     public onclick(id: string) {
         this.openExpanList = id;
         this.expandList = !this.expandList;
     }
 
-    constructor(private generalService: GeneralService, private userService: UserService, private modalService: BsModalService, private router: Router, private toaster: ToasterService, private plansService: PlansService, private authenticationService: AuthenticationService) {
+    constructor(private generalService: GeneralService, private userService: UserService, private modalService: BsModalService, private router: Router, private toaster: ToasterService, private plansService: PlansService, private authenticationService: AuthenticationService, private columnFilterService: ColumnFilterService) {
         this.today = new Date();
         this.getUserListPostRequest.lastSeen = {};
         this.getUserListPostRequest.lastSeen.operation = "BEFORE";
@@ -169,6 +181,8 @@ export class UserListComponent implements OnInit {
             this.getAllSubscriptionTotalData();
             this.getAllUserData();
         });
+        /** To get dynamic column filter  */
+        this.getColumnFilter();
     }
 
     /**
@@ -363,7 +377,7 @@ export class UserListComponent implements OnInit {
         this.getUserListPostRequest.mobile = '';
         this.getUserListPostRequest.subscriptionId = '';
         this.getUserListPostRequest.planUniqueNames = [];
-        this.getUserListPostRequest.countries = this.selectedCountries = [];
+        this.getUserListPostRequest.countryCodes = this.selectedCountries = [];
         this.getUserListPostRequest.startedAtFrom = '';
         this.getUserListRequest.sortBy = '';
         this.getUserListRequest.sortType = '';
@@ -376,7 +390,9 @@ export class UserListComponent implements OnInit {
         });
         this.isAllPlanSelected = false;
         this.getUserListRequest.page = 1;
+        this.showClearFilter = false;
         this.getAllSubscriptionTotalData();
+        this.selectAllColumns(true);
         this.getAllUserData();
     }
 
@@ -427,6 +443,7 @@ export class UserListComponent implements OnInit {
     private isAllPlansSelected() {
         if (this.allPlans.length === this.selectedPlans.length) {
             this.isAllPlanSelected = true;
+            this.showClearFilter = true;
         } else {
             this.isAllPlanSelected = false;
         }
@@ -715,7 +732,7 @@ export class UserListComponent implements OnInit {
         this.selectedCountries = [];
         if (event.target.checked) {
             this.countrySource.forEach(res => {
-                this.selectedCountries.push(res.label);
+                this.selectedCountries.push(res.value);
             });
             this.countrySource.map(res => {
                 res.additional = true;
@@ -727,7 +744,7 @@ export class UserListComponent implements OnInit {
             });
         }
         this.isAllCountriesSelected();
-        this.getUserListPostRequest.countries = this.selectedCountries;
+        this.getUserListPostRequest.countryCodes = this.selectedCountries;
         this.getAllUserData();
         // this.getAllPlans();
     }
@@ -741,14 +758,14 @@ export class UserListComponent implements OnInit {
     */
     public checkedCountryName(item, event) {
         if (event.target.checked) {
-            if (this.selectedCountries.indexOf(item.label) === -1) {
-                this.selectedCountries.push(item.label);
+            if (this.selectedCountries.indexOf(item.value) === -1) {
+                this.selectedCountries.push(item.value);
             }
         } else {
-            let index = this.selectedCountries.indexOf(item.label);
+            let index = this.selectedCountries.indexOf(item.value);
             this.selectedCountries.splice(index, 1);
         }
-        this.getUserListPostRequest.countries = this.selectedCountries;
+        this.getUserListPostRequest.countryCodes = this.selectedCountries;
         this.isAllCountriesSelected();
         this.getAllUserData();
         // this.getAllPlans();
@@ -797,7 +814,7 @@ export class UserListComponent implements OnInit {
         if (event.target.checked) {
             if (this.selectedPlanStatus.indexOf(type) === -1) {
                 this.selectedPlanStatus.push(type);
-                // this.showClearFilter = true;
+                this.showClearFilter = true;
             }
         } else {
             let index = this.selectedPlanStatus.indexOf(type);
@@ -822,6 +839,110 @@ export class UserListComponent implements OnInit {
             this.planStatusType.active = this.planStatusType.expired = this.planStatusType.trial = false;
         }
         this.isAllPlanStatusTypeSelected();
+    }
+    // Column filter methods
+    public hideListItems() {
+        this.filterDropDownList.hide();
+    }
+
+    /**
+ * This will toggle all columns
+ *
+ * @param {boolean} event
+ * @memberof UserListComponent
+ */
+    public selectAllColumns(event: boolean): void {
+        this.showFieldFilter.addOnTransaction = event;
+        this.showFieldFilter.additionalCharges = event;
+        this.showFieldFilter.country = event;
+        this.showFieldFilter.email = event;
+        this.showFieldFilter.expiry = event;
+        this.showFieldFilter.lastSeen = event;
+        this.showFieldFilter.mobile = event;
+        this.showFieldFilter.name = event;
+        this.showFieldFilter.noOfCompany = event;
+        this.showFieldFilter.owner = event;
+        this.showFieldFilter.planName = event;
+        this.showFieldFilter.ratePerTransaction = event;
+        this.showFieldFilter.remainingTransaction = event;
+        this.showFieldFilter.signUpOn = event;
+        this.showFieldFilter.status = event;
+        this.showFieldFilter.subscribedOn = event;
+        this.showFieldFilter.subscriptionId = event;
+        this.showFieldFilter.totalAmount = event;
+        this.showFieldFilter.transactionLimit = event;
+        if (event) {
+            this.isAllFieldColumnFilterApplied = true;
+        } else {
+            this.isAllFieldColumnFilterApplied = false;
+        }
+        this.updateColumnFilter();
+    }
+
+    /**
+     *To apply column toggle filter
+     *
+     * @param {boolean} event boolean is column show or hide
+     * @param {string} column Column name
+     * @memberof UserListComponent
+     */
+    public columnFilter(event: boolean, column: string) {
+        this.showFieldFilter[column] = event;
+        this.updateColumnFilter();
+    }
+
+    /**
+     *To check is any column toggle filter applied
+     *
+     * @returns {boolean}
+     * @memberof UserListComponent
+     */
+    public getShowFieldFilterIsApplied(): boolean {
+        this.isFieldColumnFilterApplied = false;
+        Object.keys(this.showFieldFilter).forEach(key => {
+            if (!this.showFieldFilter[key]) {
+                this.isFieldColumnFilterApplied = true;
+                this.showClearFilter = true
+            }
+        });
+        return this.isFieldColumnFilterApplied;
+    }
+
+    /**
+    * API call to get all filter column
+    *
+    * @memberof UserListComponent
+    */
+    public getColumnFilter(): void {
+        this.columnFilterService.getFavouritePage(FavouriteColumnPageTypeEnum.ADMIN_USER).subscribe(response => {
+            if (response.status === 'success') {
+                if (response.body && response.body.favourite) {
+                    Object.assign(this.showFieldFilter, response.body.favourite);
+                    this.showFieldFilter = cloneDeep(response.body.favourite);
+                }
+                this.getShowFieldFilterIsApplied();
+            } else if (response.status === 'error') {
+                this.toaster.errorToast(response.message);
+            }
+        });
+
+    }
+
+    /**
+      * API call to update filter column
+      *
+      * @memberof UserListComponent
+      */
+    public updateColumnFilter(): void {
+        this.getShowFieldFilterIsApplied();
+        this.columnFilterService.updateFavouritePage(FavouriteColumnPageTypeEnum.ADMIN_USER, this.showFieldFilter).subscribe(response => {
+            if (response.status === 'success') {
+                if (response.body && response.body.favourite) {
+                    Object.assign(this.showFieldFilter, response.body.favourite);
+                    this.showFieldFilter = cloneDeep(response.body.favourite);
+                }
+            }
+        });
     }
 
     /**
