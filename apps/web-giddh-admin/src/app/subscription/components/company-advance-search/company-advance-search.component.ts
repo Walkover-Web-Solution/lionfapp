@@ -32,9 +32,9 @@ export class CompanyAdvanceSearchComponent implements OnInit, AfterViewInit {
         remainingTxnOpn: '',
         remainingTxn: '',
         transactionLimitOperation: '',
-        transactionLimitTxn: '',
+        transactionLimit: '',
         additionalChargesOperation: '',
-        additionalChargesTxn: ''
+        additionalCharges: ''
     };
     @Output() public hidePopup: EventEmitter<boolean> = new EventEmitter(true);
     @Output() public advanceSearchRequestEmitter: EventEmitter<CompanyAdvanceSearchRequestSubscriptions> = new EventEmitter();
@@ -52,9 +52,9 @@ export class CompanyAdvanceSearchComponent implements OnInit, AfterViewInit {
         remainingTxnOpn: '',
         remainingTxn: '',
         transactionLimitOperation: '',
-        transactionLimitTxn: '',
+        transactionLimit: '',
         additionalChargesOperation: '',
-        additionalChargesTxn: ''
+        additionalCharges: ''
     };
     public lessGreaterFilters: IOption[] = [{ label: 'Greater than', value: 'GREATER_THAN' }, { label: 'Less than', value: 'LESS_THAN' }, { label: 'Greater than equals to', value: 'GREATER_THAN_OR_EQUALS' }, { label: 'Less than equals to', value: 'LESS_THAN_OR_EQUALS' }];
     public defaultLoad: boolean = true;
@@ -75,10 +75,22 @@ export class CompanyAdvanceSearchComponent implements OnInit, AfterViewInit {
 
     public advanceSearch() {
         let dataToSend = _.cloneDeep(this.advanceSearchForm.value);
-        dataToSend.expiryFilter.from = dataToSend.expiryFilter.from ? moment(dataToSend.expiryFilter.from).format(GIDDH_DATE_FORMAT) : '';
-        dataToSend.expiryFilter.to = dataToSend.expiryFilter.to ? moment(dataToSend.expiryFilter.to).format(GIDDH_DATE_FORMAT) : '';
-        dataToSend.subscribeOn.from = dataToSend.subscribeOn.from ? moment(dataToSend.subscribeOn.from).format(GIDDH_DATE_FORMAT) : '';
-        dataToSend.subscribeOn.to = dataToSend.subscribeOn.to ? moment(dataToSend.subscribeOn.to).format(GIDDH_DATE_FORMAT) : '';
+
+        if(dataToSend.expiryFilter.from && (!this.searchedAdvancedRequestModelByAdvanceSearch || !this.searchedAdvancedRequestModelByAdvanceSearch.expiryFilter || dataToSend.expiryFilter.from != this.searchedAdvancedRequestModelByAdvanceSearch.expiryFilter.from)) {
+            dataToSend.expiryFilter.from =  moment(dataToSend.expiryFilter.from).format(GIDDH_DATE_FORMAT);
+        }
+
+        if(dataToSend.expiryFilter.to && (!this.searchedAdvancedRequestModelByAdvanceSearch || !this.searchedAdvancedRequestModelByAdvanceSearch.expiryFilter || dataToSend.expiryFilter.to != this.searchedAdvancedRequestModelByAdvanceSearch.expiryFilter.to)) {
+            dataToSend.expiryFilter.to =  moment(dataToSend.expiryFilter.to).format(GIDDH_DATE_FORMAT);
+        }
+
+        if(dataToSend.subscribeOn.from && (!this.searchedAdvancedRequestModelByAdvanceSearch || !this.searchedAdvancedRequestModelByAdvanceSearch.subscribeOn || dataToSend.subscribeOn.from != this.searchedAdvancedRequestModelByAdvanceSearch.subscribeOn.from)) {
+            dataToSend.subscribeOn.from =  moment(dataToSend.subscribeOn.from).format(GIDDH_DATE_FORMAT);
+        }
+
+        if(dataToSend.subscribeOn.to && (!this.searchedAdvancedRequestModelByAdvanceSearch || !this.searchedAdvancedRequestModelByAdvanceSearch.subscribeOn || dataToSend.subscribeOn.to != this.searchedAdvancedRequestModelByAdvanceSearch.subscribeOn.to)) {
+            dataToSend.subscribeOn.to =  moment(dataToSend.subscribeOn.to).format(GIDDH_DATE_FORMAT);
+        }
 
         this.advanceSearchRequestEmitter.emit(dataToSend);
     }
@@ -86,19 +98,19 @@ export class CompanyAdvanceSearchComponent implements OnInit, AfterViewInit {
     public setAdvanceSearch() {
         this.advanceSearchForm = this.fb.group({
             expiryFilter: this.fb.group({
-                from: [(this.searchedAdvancedRequestModelByAdvanceSearch && this.searchedAdvancedRequestModelByAdvanceSearch.expiryFilter) ? this.searchedAdvancedRequestModelByAdvanceSearch.expiryFilter.from: ''],
-                to: [(this.searchedAdvancedRequestModelByAdvanceSearch && this.searchedAdvancedRequestModelByAdvanceSearch.expiryFilter) ? this.searchedAdvancedRequestModelByAdvanceSearch.expiryFilter.to: '']
+                from: [(this.searchedAdvancedRequestModelByAdvanceSearch && this.searchedAdvancedRequestModelByAdvanceSearch.expiryFilter && this.searchedAdvancedRequestModelByAdvanceSearch.expiryFilter.from) ? moment(this.searchedAdvancedRequestModelByAdvanceSearch.expiryFilter.from, GIDDH_DATE_FORMAT).format(GIDDH_DATE_FORMAT) : ''],
+                to: [(this.searchedAdvancedRequestModelByAdvanceSearch && this.searchedAdvancedRequestModelByAdvanceSearch.expiryFilter && this.searchedAdvancedRequestModelByAdvanceSearch.expiryFilter.to) ? moment(this.searchedAdvancedRequestModelByAdvanceSearch.expiryFilter.to, GIDDH_DATE_FORMAT).format(GIDDH_DATE_FORMAT) : '']
             }),
             subscribeOn: this.fb.group({
-                from: [(this.searchedAdvancedRequestModelByAdvanceSearch && this.searchedAdvancedRequestModelByAdvanceSearch.subscribeOn) ? this.searchedAdvancedRequestModelByAdvanceSearch.subscribeOn.from: ''],
-                to: [(this.searchedAdvancedRequestModelByAdvanceSearch && this.searchedAdvancedRequestModelByAdvanceSearch.subscribeOn) ? this.searchedAdvancedRequestModelByAdvanceSearch.subscribeOn.to: '']
+                from: [(this.searchedAdvancedRequestModelByAdvanceSearch && this.searchedAdvancedRequestModelByAdvanceSearch.subscribeOn && this.searchedAdvancedRequestModelByAdvanceSearch.subscribeOn.from) ? moment(this.searchedAdvancedRequestModelByAdvanceSearch.subscribeOn.from, GIDDH_DATE_FORMAT).format(GIDDH_DATE_FORMAT) : ''],
+                to: [(this.searchedAdvancedRequestModelByAdvanceSearch && this.searchedAdvancedRequestModelByAdvanceSearch.subscribeOn && this.searchedAdvancedRequestModelByAdvanceSearch.subscribeOn.to) ? moment(this.searchedAdvancedRequestModelByAdvanceSearch.subscribeOn.to, GIDDH_DATE_FORMAT).format(GIDDH_DATE_FORMAT) : '']
             }),
             remainingTxnOpn: [(this.searchedAdvancedRequestModelByAdvanceSearch) ? this.searchedAdvancedRequestModelByAdvanceSearch.remainingTxnOpn : ''],
             remainingTxn: [(this.searchedAdvancedRequestModelByAdvanceSearch) ? this.searchedAdvancedRequestModelByAdvanceSearch.remainingTxn : '', Validators.compose([digitsOnly])],
             transactionLimitOperation: [(this.searchedAdvancedRequestModelByAdvanceSearch) ? this.searchedAdvancedRequestModelByAdvanceSearch.transactionLimitOperation : ''],
-            transactionLimitTxn: [(this.searchedAdvancedRequestModelByAdvanceSearch) ? this.searchedAdvancedRequestModelByAdvanceSearch.transactionLimitTxn : '', Validators.compose([digitsOnly])],
+            transactionLimit: [(this.searchedAdvancedRequestModelByAdvanceSearch) ? this.searchedAdvancedRequestModelByAdvanceSearch.transactionLimit : '', Validators.compose([digitsOnly])],
             additionalChargesOperation: [(this.searchedAdvancedRequestModelByAdvanceSearch) ? this.searchedAdvancedRequestModelByAdvanceSearch.additionalChargesOperation : ''],
-            additionalChargesTxn: [(this.searchedAdvancedRequestModelByAdvanceSearch) ? this.searchedAdvancedRequestModelByAdvanceSearch.additionalChargesTxn : '', Validators.compose([digitsOnly])]
+            additionalCharges: [(this.searchedAdvancedRequestModelByAdvanceSearch) ? this.searchedAdvancedRequestModelByAdvanceSearch.additionalCharges : '', Validators.compose([digitsOnly])]
         });
     }
 
