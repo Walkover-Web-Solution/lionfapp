@@ -543,6 +543,10 @@ export class EditSubscriptionsComponent implements OnInit {
             this.getAllCompaniesRequest.expiryFilter = event.expiryFilter;
             this.togglePanel();
             this.getAllCompanies();
+
+            if(event.subscribeOn || event.remainingTxnOpn || event.remainingTxn || event.transactionLimitOperation || event.transactionLimit || event.additionalChargesOperation || event.additionalCharges || event.expiryFilter) {
+                this.showClearFilter = true;
+            }
         }
     }
 
