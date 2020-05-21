@@ -31,6 +31,7 @@ export class EditSubscriptionsComponent implements OnInit {
     @ViewChild('companyName') companyName: ElementRef;
     @ViewChild('userName') userName: ElementRef;
     @ViewChild('subscriptionIdSearch') subscriptionIdSearch: ElementRef;
+    @Input() public lastSeen: boolean = false;
 
 
     @Input() public showTaxPopup: boolean = false;
@@ -228,6 +229,10 @@ export class EditSubscriptionsComponent implements OnInit {
     public pageChanged(event) {
         this.paginationRequest.page = event.page;
         this.getAllCompanies();
+    }
+
+    public lastSeenDropdown(isShow: boolean): void {
+      this.lastSeen = isShow ? false : true;
     }
 
     /**

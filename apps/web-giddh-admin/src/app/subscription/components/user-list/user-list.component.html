@@ -225,7 +225,7 @@
                                       <button id="button-basic" dropdownToggle (click)="handleInputFocus('status',showStatusPopups)" type="button" class="btn-multiselect dropdown-toggle pull-right"><span class="fa fa-angle-down"></span>
     </button>
 
-    <ul id="dropdown-basic" class="dropdown-menu pd multiselect-dropdown" [ngStyle]="{'display': showStatusPopups ? 'block': 'none'}">
+    <ul id="dropdown-basic" class="dropdown-menu status pd multiselect-dropdown" [ngStyle]="{'display': showStatusPopups ? 'block': 'none'}">
         <li role="menuitem"><input type="checkbox" [(ngModel)]="isAllPlanStatusSelected" (click)="selectAllPlansStatus($event);">Select all</li>
         <li role="menuitem"><input type="checkbox" [(ngModel)]="planStatusType.trial" name="trial" (click)="checkedPlanStatus('trial', $event);"> Trial
         </li>
