@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { UserService } from '../../../services/user.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { SubscriberList, PAGINATION_COUNT, TotalUsersCount, CommonPaginatedRequest, StatusModel } from '../../../modules/modules/api-modules/subscription';
@@ -11,6 +11,7 @@ import { IOption } from '../../../theme/ng-select/ng-select';
 import { PlansService } from '../../../services/plan.service';
 import { GIDDH_DATE_FORMAT } from '../../../shared/defalutformatter/defaultDateFormat';
 import { AuthenticationService } from '../../../services/authentication.service';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 @Component({
     selector: 'app-user-list',
     templateUrl: './user-list.component.html',
@@ -72,9 +73,14 @@ export class UserListComponent implements OnInit {
         active: false,
         expired: false
     };
+    public showClearFilter: boolean = false;
+
     public isAllPlanStatusSelected: boolean = false;
-
-
+    public searchViaEmail$ = new Subject<string>();
+    public searchViaUserName$ = new Subject<string>();
+    public searchViaMobileNo$ = new Subject<string>();
+    public searchViaSubscriptionID$ = new Subject<string>();
+    public searchViaSubscribedOn$ = new Subject<string>();
 
     destroyed$: Observable<any>;
     public onclick(id: string) {
@@ -105,12 +111,70 @@ export class UserListComponent implements OnInit {
         this.getAllSubscriptionTotalData();
         this.getAllPlans();
         this.getOnboardCountries();
+
+        /** Search using user name  */
+        this.searchViaUserName$.pipe(
+            debounceTime(1000),
+            distinctUntilChanged()
+        ).subscribe(term => {
+            if (term) {
+                this.showClearFilter = true;
+            }
+            this.getUserListPostRequest.userName = term.trim();
+
+            this.getAllSubscriptionTotalData();
+            this.getAllUserData();
+        });
+
+        /** Search using subscription ID  */
+
+        this.searchViaSubscriptionID$.pipe(
+            debounceTime(1000),
+            distinctUntilChanged()
+        ).subscribe(term => {
+            if (term) {
+                this.showClearFilter = true;
+            }
+            this.getUserListPostRequest.subscriptionId = term.trim();
+            this.getAllSubscriptionTotalData();
+            this.getAllUserData();
+        });
+
+        /** Search using email id  */
+
+        this.searchViaEmail$.pipe(
+            debounceTime(1000),
+            distinctUntilChanged()
+        ).subscribe(term => {
+
+            if (term) {
+                this.showClearFilter = true;
+            }
+            this.getUserListPostRequest.email = term.trim();
+
+            this.getAllSubscriptionTotalData();
+            this.getAllUserData();
+        });
+
+        /** Search using mobile number  */
+
+        this.searchViaMobileNo$.pipe(
+            debounceTime(1000),
+            distinctUntilChanged()
+        ).subscribe(term => {
+            if (term) {
+                this.showClearFilter = true;
+            }
+            this.getUserListPostRequest.mobile = term.trim();
+            this.getAllSubscriptionTotalData();
+            this.getAllUserData();
+        });
     }
 
     /**
      * Tax input focus handler
      *
-     * @memberof TaxControlComponent
+     * @memberof UserListComponent
      */
     public handleInputFocus(columnType: string, isShow: boolean): void {
         if (columnType === 'plan') {
@@ -120,6 +184,18 @@ export class UserListComponent implements OnInit {
             this.showStatusPopups = isShow ? false : true;
 
         }
+    }
+
+    /**
+    *  API call to serach by plans subscribed date
+    * 
+    * @memberof UserListComponent
+    */
+    public searchViaSubscribedOn() {
+        this.getUserListPostRequest.startedAtFrom = this.getUserListPostRequest.startedAtFrom ? moment(this.getUserListPostRequest.startedAtFrom).format(GIDDH_DATE_FORMAT) : '';
+        this.showClearFilter = true;
+        this.getAllSubscriptionTotalData();
+        this.getAllUserData();
     }
 
     /**
@@ -253,23 +329,6 @@ export class UserListComponent implements OnInit {
         }
     }
 
-    /**
-     * This function is used to get users by search
-     *
-     * @memberof UserListComponent
-     */
-    public columnSearch(event?: Event): void {
-        let e = event;
-        if (this.timeout) {
-            clearTimeout(this.timeout);
-        }
-
-        this.timeout = setTimeout(() => {
-            this.getUserListRequest.page = 1;
-            this.getAllSubscriptionTotalData();
-            this.getAllUserData();
-        }, 700);
-    }
 
     /**
      * This function is used to open subscription modal
@@ -316,6 +375,7 @@ export class UserListComponent implements OnInit {
             res.additional = false;
         });
         this.isAllPlanSelected = false;
+        this.getUserListRequest.page = 1;
         this.getAllSubscriptionTotalData();
         this.getAllUserData();
     }
@@ -668,7 +728,7 @@ export class UserListComponent implements OnInit {
         }
         this.isAllCountriesSelected();
         this.getUserListPostRequest.countries = this.selectedCountries;
-         this.getAllUserData();
+        this.getAllUserData();
         // this.getAllPlans();
     }
 
@@ -690,7 +750,7 @@ export class UserListComponent implements OnInit {
         }
         this.getUserListPostRequest.countries = this.selectedCountries;
         this.isAllCountriesSelected();
-         this.getAllUserData();
+        this.getAllUserData();
         // this.getAllPlans();
     }
 
@@ -726,13 +786,13 @@ export class UserListComponent implements OnInit {
         }
     }
 
-       /**
-     * Tp prepare array of selected status
-     *
-     * @param {string} type plan status type
-     * @param {*} event Event
-     * @memberof UserListComponent
-     */
+    /**
+  * Tp prepare array of selected status
+  *
+  * @param {string} type plan status type
+  * @param {*} event Event
+  * @memberof UserListComponent
+  */
     public checkedPlanStatus(type: string, event) {
         if (event.target.checked) {
             if (this.selectedPlanStatus.indexOf(type) === -1) {
@@ -745,7 +805,7 @@ export class UserListComponent implements OnInit {
         }
         this.isAllPlansSelected();
         this.getUserListPostRequest.status = this.selectedPlanStatus;
-         this.getAllUserData();
+        this.getAllUserData();
     }
 
     /**
