@@ -824,4 +824,20 @@ export class UserListComponent implements OnInit {
         this.isAllPlanStatusTypeSelected();
     }
 
+    /**
+     * This will export the subscriptions by users
+     *
+     * @memberof UserListComponent
+     */
+    public exportSubscriptionsByUsers(): void {
+        this.userService.exportSubscriptionsByUsers(this.getUserListRequest, this.getUserListPostRequest).subscribe(res => {
+            this.toaster.clearAllToaster();
+
+            if (res.status === 'success') {
+                this.toaster.successToast(res.body);
+            } else {
+                this.toaster.errorToast(res.message);
+            }
+        });
+    }
 }
