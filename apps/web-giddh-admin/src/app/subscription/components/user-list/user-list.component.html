@@ -1,16 +1,20 @@
 <div class="">
     <div class="pageHeader">
-        <div class="form-group">
-            <div class="d-flex align-items-center">
-                <div class="input-group input-date">
-                    <span class="input-group-addon" id="sizing-addon2"><i class="fa fa-calendar pull-right"></i></span>
-                    <input type="text" class="form-control date-range-picker" readonly [(bsValue)]="bsValue" placeholder="Select Date" (bsValueChange)="onChangeFilterDate($event)" bsDaterangepicker>
-                </div>
-                <button class=" btn-link" *ngIf="getUserListPostRequest.signUpOnFrom || showClearFilter  || (getUserListPostRequest.planUniqueNames && getUserListPostRequest.planUniqueNames.length || getUserListPostRequest.lastSeen.days || getUserListPostRequest.lastSeen.from || getUserListPostRequest.lastSeen.operation === 'UNAVAILABLE' || getUserListPostRequest.lastSeen.operation === 'AVAILABLE')"
-                    (click)="resetFilters();"><i class="icon icon-loop2
-              "></i> Clear Filter</button>
-            </div>
+      <div class="d-flex justify-content-between width-100">
+        <div class="d-flex">
+          <div class="input-group input-date">
+            <span class="input-group-addon" id="sizing-addon2"><i class="fa fa-calendar pull-right"></i></span>
+            <input type="text" class="form-control date-range-picker" readonly [(bsValue)]="bsValue" placeholder="Select Date" (bsValueChange)="onChangeFilterDate($event)" bsDaterangepicker>
         </div>
+        <button class=" btn-link" *ngIf="getUserListPostRequest.signUpOnFrom || showClearFilter  || (getUserListPostRequest.planUniqueNames && getUserListPostRequest.planUniqueNames.length || getUserListPostRequest.lastSeen.days || getUserListPostRequest.lastSeen.from || getUserListPostRequest.lastSeen.operation === 'UNAVAILABLE' || getUserListPostRequest.lastSeen.operation === 'AVAILABLE')"
+            (click)="resetFilters();"><i class="icon icon-loop2
+      "></i> Clear Filter</button>
+        </div>
+
+          <div class="pull-right">
+              <a href="javascript:void(0)" class="btn btn-blue mr-1 ml-1 btn-export" (click)="exportSubscriptionsByUsers()">Export</a>
+          </div>
+      </div>
     </div>
     <div class="page-content">
         <div class="table-responsive table-height dropdown-table">

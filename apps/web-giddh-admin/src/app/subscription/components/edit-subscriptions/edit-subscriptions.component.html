@@ -37,7 +37,7 @@
     </div> -->
     <div class="dis pull-left mrR1">
 
-        <div *ngIf="activeTab !== 'aging'" class="btn-group" #filterDropDownList="bs-dropdown" dropdown [autoClose]="false" (clickOutside)="hideListItems()" [tooltip]="'Enable / Disable Column'" [placement]="'right'">
+        <div *ngIf="activeTab !== 'aging'" class="btn-group mt-05" #filterDropDownList="bs-dropdown" dropdown [autoClose]="false" (clickOutside)="hideListItems()" [tooltip]="'Enable / Disable Column'" [placement]="'right'">
             <i dropdownToggle class="icon-options pd cp fs20"></i>
 
             <ul *dropdownMenu class="dropdown-menu dropdown-menu-left" role="menu" [style.width.px]="'200'">
@@ -119,7 +119,7 @@
         </div>
     </div>
     <div>
-        <a class="pull-right btn btn-blue" href="javascript:void(0)" (click)="togglePanel()">Advance Search</a>
+        <a class="pull-right btn btn-blue advance-btn" href="javascript:void(0)" (click)="togglePanel()">Advance Search</a>
         <button *ngIf="showClearFilter" class="ml-1 btn-link" (click)="resetFilters();"><i class="icon icon-loop2"></i>
             Clear Filter</button>
     </div>
@@ -321,7 +321,7 @@
     </div> -->
 </div>
 
-<app-company-advance-search *ngIf="togglePanelBool" [rightToggle]="togglePanelBool" (advanceSearchRequestEmitter)="advanceSearchRequestEmitter($event)" [searchedAdvancedRequestModelByAdvanceSearch]="searchedAdvancedRequestModelByAdvanceSearch" (hidePopup)="hidePopup()">
+<app-company-advance-search *ngIf="togglePanelBool" [rightToggle]="togglePanelBool" (advanceSearchRequestEmitter)="advanceSearchRequestEmitter($event)" [searchedAdvancedRequestModelByAdvanceSearch]="searchedAdvancedRequestModelByAdvanceSearch" (hidePopup)="togglePanel()">
 </app-company-advance-search>
 
 <ng-template #editPlan>

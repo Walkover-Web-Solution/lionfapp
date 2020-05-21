@@ -416,9 +416,9 @@ export class EditSubscriptionsComponent implements OnInit {
         this.getAllCompaniesRequest.remainingTxnOpn = "";
         this.getAllCompaniesRequest.remainingTxn = "";
         this.getAllCompaniesRequest.transactionLimitOperation = "";
-        this.getAllCompaniesRequest.transactionLimitTxn = "";
+        this.getAllCompaniesRequest.transactionLimit = "";
         this.getAllCompaniesRequest.additionalChargesOperation = "";
-        this.getAllCompaniesRequest.additionalChargesTxn = "";
+        this.getAllCompaniesRequest.additionalCharges = "";
     }
 
     /**
@@ -439,7 +439,7 @@ export class EditSubscriptionsComponent implements OnInit {
         this.isAllPlanTypeSelected = false;
         this.getAllCompanies();
         this.selectAllColumns(true);
-
+        this.searchedAdvancedRequestModelByAdvanceSearch = {};
     }
 
     /**
@@ -537,12 +537,16 @@ export class EditSubscriptionsComponent implements OnInit {
             this.getAllCompaniesRequest.remainingTxnOpn = event.remainingTxnOpn;
             this.getAllCompaniesRequest.remainingTxn = event.remainingTxn;
             this.getAllCompaniesRequest.transactionLimitOperation = event.transactionLimitOperation;
-            this.getAllCompaniesRequest.transactionLimitTxn = event.transactionLimitTxn;
+            this.getAllCompaniesRequest.transactionLimit = event.transactionLimit;
             this.getAllCompaniesRequest.additionalChargesOperation = event.additionalChargesOperation;
-            this.getAllCompaniesRequest.additionalChargesTxn = event.additionalChargesTxn;
+            this.getAllCompaniesRequest.additionalCharges = event.additionalCharges;
             this.getAllCompaniesRequest.expiryFilter = event.expiryFilter;
             this.togglePanel();
             this.getAllCompanies();
+
+            if((event.subscribeOn && (event.subscribeOn.from || event.subscribeOn.to)) || event.remainingTxnOpn || event.remainingTxn || event.transactionLimitOperation || event.transactionLimit || event.additionalChargesOperation || event.additionalCharges || (event.expiryFilter && (event.expiryFilter.from || event.expiryFilter.to))) {
+                this.showClearFilter = true;
+            }
         }
     }
 
