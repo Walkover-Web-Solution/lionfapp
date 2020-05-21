@@ -283,15 +283,15 @@
         <tr *ngFor="let item of companiesData">
             <td data-title="Company Name" *ngIf="showFieldFilter.companyName">{{item?.name}}</td>
             <td data-title="User Name" *ngIf="showFieldFilter.userName">{{item?.createdBy?.name}}</td>
-            <td data-title="Subscribeon" *ngIf="showFieldFilter.subscribedOn">{{item?.subscription?.startedAt}}</td>
-            <td data-title="Subcription1" *ngIf="showFieldFilter.subscriptionId">{{item?.subscription?.subscriptionId}}</td>
+            <td data-title="Subscribed On" *ngIf="showFieldFilter.subscribedOn">{{item?.subscription?.startedAt}}</td>
+            <td data-title="Subscription ID" *ngIf="showFieldFilter.subscriptionId">{{item?.subscription?.subscriptionId}}</td>
             <td data-title="Plan Name" *ngIf="showFieldFilter.planName">{{item?.subscription.planDetails?.name}}</td>
             <td data-title="Remaining Transaction" *ngIf="showFieldFilter.remainingTransaction">{{item?.subscription?.transactionsRemaining}}</td>
-            <td data-title="Tranaction" *ngIf="showFieldFilter.transactionLimit">{{item?.subscription?.planDetails?.transactionLimit}}</td>
-            <td data-title="Total" *ngIf="showFieldFilter.totalAmount">{{item?.subscription?.planDetails?.amount}}</td>
-            <td data-title="Additional" *ngIf="showFieldFilter.additionalTransaction">{{item?.subscription?.additionalTransactions}}</td>
-            <td data-title="Additional" *ngIf="showFieldFilter.additionalCharges">{{item?.subscription?.additionalCharges}}</td>
-            <td data-title="rate" *ngIf="showFieldFilter.ratePerTransaction">{{item.subscription?.planDetails?.ratePerExtraTransaction}}</td>
+            <td data-title="Transaction Limit" *ngIf="showFieldFilter.transactionLimit">{{item?.subscription?.planDetails?.transactionLimit}}</td>
+            <td data-title="Total Amount" *ngIf="showFieldFilter.totalAmount">{{item?.subscription?.planDetails?.amount}}</td>
+            <td data-title="Additional Transaction" *ngIf="showFieldFilter.additionalTransaction">{{item?.subscription?.additionalTransactions}}</td>
+            <td data-title="Additional Charges" *ngIf="showFieldFilter.additionalCharges">{{item?.subscription?.additionalCharges}}</td>
+            <td data-title="Rate/Transaction" *ngIf="showFieldFilter.ratePerTransaction">{{item.subscription?.planDetails?.ratePerExtraTransaction}}</td>
             <td data-title="Status" *ngIf="showFieldFilter.status">{{item?.subscription?.status}}</td>
             <td data-title="Expiry" *ngIf="showFieldFilter.expiry">{{item?.subscription?.expiry}}</td>
         </tr>
