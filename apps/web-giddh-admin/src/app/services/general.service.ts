@@ -51,4 +51,30 @@ export class GeneralService {
         this.authService.userSignOut();
         this.router.navigate(['login']);
     }
+
+    /**
+     * API call to get all filter column of an module
+     *
+     * @param {string} pageType Module type
+     * @returns {void}
+     * @memberof GeneralService
+     */
+    // public getColumnFilter(pageType: string): void {
+    //     this.columnFilterService.getFavouritePage(pageType).subscribe(response => {
+    //         return response;
+    //     });
+    // }
+
+    /**
+     * API call to update filter column of an module
+     *
+     * @param {string} pageType Module type
+     * @param {*} body request body
+     * @memberof GeneralService
+     */
+    // public updateColumnFilter(pageType: string, body: any): void {
+    //     this.columnFilterService.updateFavouritePage(pageType, body).subscribe(response => {
+    //         return response;
+    //     });
+    // }
 }
