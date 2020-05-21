@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewChild, Input } from "@angular/core";
+import { Component, OnInit, TemplateRef, ViewChild, Input, HostListener, ElementRef } from "@angular/core";
 import { Store, select } from '@ngrx/store';
 import { AppState } from '../../../store';
 import { GeneralService } from '../../../services/general.service';
@@ -7,14 +7,18 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription, ReplaySubject, Subject, Observable, of as observableOf } from 'rxjs';
 import { takeUntil, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { AdminActions } from '../../../actions/admin.actions';
-import { CommonPaginatedRequest, SubscriberList, AuditLogsRequest, GetAllCompaniesRequest, PAGINATION_COUNT, StatusModel } from '../../../modules/modules/api-modules/subscription';
+import { CommonPaginatedRequest, SubscriberList, AuditLogsRequest, GetAllCompaniesRequest, PAGINATION_COUNT, StatusModel, CompanyAdvanceSearchRequestSubscriptions } from '../../../modules/modules/api-modules/subscription';
 import { SubscriptionService } from '../../../services/subscription.service';
 import { ToasterService } from '../../../services/toaster.service';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import { BsModalRef, BsModalService, BsDropdownDirective } from 'ngx-bootstrap';
 import { IOption } from '../../../theme/ng-select/ng-select';
 import { PlansService } from '../../../services/plan.service';
 import * as moment from 'moment/moment';
 import { GIDDH_DATE_FORMAT } from '../../../shared/defalutformatter/defaultDateFormat';
+import { CompanyFieldFilterColumnNames } from '../../../models/company';
+import { FavouriteColumnPageTypeEnum } from '../../../actions/general/general.const';
+import { ColumnFilterService } from '../../../services/column-filter.service';
+import { cloneDeep } from '../../../lodash-optimized';
 
 @Component({
     selector: 'edit-subscription',
@@ -24,9 +28,16 @@ import { GIDDH_DATE_FORMAT } from '../../../shared/defalutformatter/defaultDateF
 
 export class EditSubscriptionsComponent implements OnInit {
 
+    @ViewChild('companyName') companyName: ElementRef;
+    @ViewChild('userName') userName: ElementRef;
+    @ViewChild('subscriptionIdSearch') subscriptionIdSearch: ElementRef;
+
+
     @Input() public showTaxPopup: boolean = false;
     @Input() public showTaxPopups: boolean = false;
 
+    public togglePanelBool: boolean;
+    @ViewChild('filterDropDownList') public filterDropDownList: BsDropdownDirective;
 
     public inlineSearch: any = null;
     public selectedPlanStatus: string[] = [];
@@ -48,6 +59,9 @@ export class EditSubscriptionsComponent implements OnInit {
         userName: '',
         status: []
     };
+    public showFieldFilter: CompanyFieldFilterColumnNames = new CompanyFieldFilterColumnNames();
+    public isFieldColumnFilterApplied: boolean;
+    public isAllFieldColumnFilterApplied: boolean;
 
     public planStatusType: StatusModel = {
         trial: false,
@@ -60,6 +74,8 @@ export class EditSubscriptionsComponent implements OnInit {
     public searchViaSubscribedOn$ = new Subject<string>();
     public searchViaSubscriptionID$ = new Subject<string>();
     public showClearFilter: boolean = false;
+    /** Page type enum */
+    public pageTypeEnum: FavouriteColumnPageTypeEnum
 
     public isDetailsShow: boolean = false;
     public auditLogRequest: AuditLogsRequest = {
@@ -76,9 +92,13 @@ export class EditSubscriptionsComponent implements OnInit {
     public getAllPlansPostRequest: any = {};
     public isAllPlanSelected: boolean = false;
     public isAllPlanTypeSelected: boolean = false;
+    public searchedAdvancedRequestModelByAdvanceSearch: CompanyAdvanceSearchRequestSubscriptions;
+    /** Local storage to save filter */
+    public localStorageKeysForFilters = { pageType: 'pageTypeName', filter: 'Columnfilter' };
 
 
-    constructor(private store: Store<AppState>, private modalService: BsModalService, private generalActions: GeneralActions, private toasty: ToasterService, private adminActions: AdminActions, private subscriptionService: SubscriptionService, private router: Router, private generalService: GeneralService, private activateRoute: ActivatedRoute, private plansService: PlansService) {
+    constructor(private store: Store<AppState>, private modalService: BsModalService, private generalActions: GeneralActions, private toasty: ToasterService, private adminActions: AdminActions, private subscriptionService: SubscriptionService, private router: Router, private generalService: GeneralService, private activateRoute: ActivatedRoute, private plansService: PlansService,
+        private columnFilterService: ColumnFilterService) {
         this.paginationRequest.from = '';
         this.paginationRequest.page = 1;
         this.paginationRequest.count = PAGINATION_COUNT;
@@ -110,8 +130,8 @@ export class EditSubscriptionsComponent implements OnInit {
                 this.isDetailsShow = false;
                 this.generalService.setCurrentPageTitle("Companies");
             }
-
         });
+
         this.getAllCompanies();
         if (this.auditLogRequest.entityIdentifier) {
             this.getAuditLogs(this.auditLogRequest);
@@ -124,7 +144,7 @@ export class EditSubscriptionsComponent implements OnInit {
             if (term) {
                 this.showClearFilter = true;
             }
-            this.getAllCompaniesRequest.companyName = term;
+            this.getAllCompaniesRequest.companyName = term.trim();
             this.getAllCompanies();
         });
 
@@ -135,7 +155,7 @@ export class EditSubscriptionsComponent implements OnInit {
             if (term) {
                 this.showClearFilter = true;
             }
-            this.getAllCompaniesRequest.userName = term;
+            this.getAllCompaniesRequest.userName = term.trim();
             this.getAllCompanies();
         });
         this.searchViaSubscriptionID$.pipe(
@@ -145,9 +165,10 @@ export class EditSubscriptionsComponent implements OnInit {
             if (term) {
                 this.showClearFilter = true;
             }
-            this.getAllCompaniesRequest.subscriptionId = term;
+            this.getAllCompaniesRequest.subscriptionId = term.trim();
             this.getAllCompanies();
         });
+        this.getColumnFilter();
     }
 
     public getAllCompanies() {
@@ -178,24 +199,24 @@ export class EditSubscriptionsComponent implements OnInit {
 
 
     public toggleTaxPopup(action: boolean) {
-      this.showTaxPopup = action;
-  }
-  public toggleTaxPopups(action: boolean) {
-      this.showTaxPopups = action;
-  }
+        this.showTaxPopup = action;
+    }
+    public toggleTaxPopups(action: boolean) {
+        this.showTaxPopups = action;
+    }
 
-  /**
-   * Tax input focus handler
-   *
-   * @memberof TaxControlComponent
-   */
-  public handleInputFocus(isShow:boolean): void {
-      this.showTaxPopup = isShow? false: true;
-  }
+    /**
+     * Tax input focus handler
+     *
+     * @memberof TaxControlComponent
+     */
+    public handleInputFocus(isShow: boolean): void {
+        this.showTaxPopup = isShow ? false : true;
+    }
 
-  public status(isShow:boolean): void {
-    this.showTaxPopups = isShow? false: true;
-  }
+    public status(isShow: boolean): void {
+        this.showTaxPopups = isShow ? false : true;
+    }
 
 
     /**
@@ -231,6 +252,20 @@ export class EditSubscriptionsComponent implements OnInit {
        */
     public focusOnColumnSearch(inlineSearch) {
         this.inlineSearch = inlineSearch;
+
+        setTimeout(() => {
+            if (inlineSearch === "planName") {
+                this.companyName.nativeElement.focus();
+            }
+
+            if (inlineSearch === "userName") {
+                this.userName.nativeElement.focus();
+            }
+
+            if (inlineSearch === "subId") {
+                this.subscriptionIdSearch.nativeElement.focus();
+            }
+        }, 20);
     }
 
     /**
@@ -370,6 +405,20 @@ export class EditSubscriptionsComponent implements OnInit {
         this.getAllCompaniesRequest.planUniqueNames = [];
         this.getAllCompaniesRequest.userName = '';
         this.getAllCompaniesRequest.status = [];
+        this.getAllCompaniesRequest.expiryFilter = {
+            from: '',
+            to: ''
+        };
+        this.getAllCompaniesRequest.subscribeOn = {
+            from: '',
+            to: ''
+        };
+        this.getAllCompaniesRequest.remainingTxnOpn = "";
+        this.getAllCompaniesRequest.remainingTxn = "";
+        this.getAllCompaniesRequest.transactionLimitOperation = "";
+        this.getAllCompaniesRequest.transactionLimit = "";
+        this.getAllCompaniesRequest.additionalChargesOperation = "";
+        this.getAllCompaniesRequest.additionalCharges = "";
     }
 
     /**
@@ -389,7 +438,8 @@ export class EditSubscriptionsComponent implements OnInit {
         this.isAllPlanSelected = false;
         this.isAllPlanTypeSelected = false;
         this.getAllCompanies();
-
+        this.selectAllColumns(true);
+        this.searchedAdvancedRequestModelByAdvanceSearch = {};
     }
 
     /**
@@ -480,4 +530,142 @@ export class EditSubscriptionsComponent implements OnInit {
         }
     }
 
+    public advanceSearchRequestEmitter(event) {
+        if (event) {
+            this.searchedAdvancedRequestModelByAdvanceSearch = event;
+            this.getAllCompaniesRequest.subscribeOn = event.subscribeOn;
+            this.getAllCompaniesRequest.remainingTxnOpn = event.remainingTxnOpn;
+            this.getAllCompaniesRequest.remainingTxn = event.remainingTxn;
+            this.getAllCompaniesRequest.transactionLimitOperation = event.transactionLimitOperation;
+            this.getAllCompaniesRequest.transactionLimit = event.transactionLimit;
+            this.getAllCompaniesRequest.additionalChargesOperation = event.additionalChargesOperation;
+            this.getAllCompaniesRequest.additionalCharges = event.additionalCharges;
+            this.getAllCompaniesRequest.expiryFilter = event.expiryFilter;
+            this.togglePanel();
+            this.getAllCompanies();
+
+            if((event.subscribeOn && (event.subscribeOn.from || event.subscribeOn.to)) || event.remainingTxnOpn || event.remainingTxn || event.transactionLimitOperation || event.transactionLimit || event.additionalChargesOperation || event.additionalCharges || (event.expiryFilter && (event.expiryFilter.from || event.expiryFilter.to))) {
+                this.showClearFilter = true;
+            }
+        }
+    }
+
+    public togglePanel() {
+        if (this.togglePanelBool) {
+            this.togglePanelBool = false;
+        } else {
+            this.togglePanelBool = true;
+        }
+        this.toggleBodyClass();
+    }
+
+    public toggleBodyClass() {
+        if (this.togglePanelBool) {
+            document.querySelector('body').classList.add('fixed');
+        } else {
+            document.querySelector('body').classList.remove('fixed');
+        }
+    }
+
+    @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(event: KeyboardEvent) {
+        this.togglePanel();
+    }
+    
+    /**
+     * API call to get all filter column
+     *
+     * @memberof EditSubscriptionsComponent
+     */
+    public getColumnFilter(): void {
+        this.columnFilterService.getFavouritePage('ADMIN_COMPANY').subscribe(response => {
+            if (response.status === 'success') {
+                if (response.body && response.body.favourite) {
+                    Object.assign(this.showFieldFilter, response.body.favourite);
+                    this.showFieldFilter = cloneDeep(response.body.favourite);
+                }
+                 this.getShowFieldFilterIsApplied();
+            }
+        });
+         console.log('getShowFieldFilterIsApplied', this.getShowFieldFilterIsApplied());
+    }
+
+    /**
+      * API call to update filter column
+      *
+      * @memberof EditSubscriptionsComponent
+      */
+    public updateColumnFilter(): void {
+        this.getShowFieldFilterIsApplied();
+        this.columnFilterService.updateFavouritePage('ADMIN_COMPANY', this.showFieldFilter).subscribe(response => {
+            if (response.status === 'success') {
+                if (response.body && response.body.favourite) {
+                    Object.assign(this.showFieldFilter, response.body.favourite);
+                    this.showFieldFilter = cloneDeep(response.body.favourite);
+                }
+            }
+        });
+    }
+
+    // Column filter methods
+    public hideListItems() {
+        this.filterDropDownList.hide();
+    }
+
+    /**
+     * This will toggle all columns
+     *
+     * @param {boolean} event
+     * @memberof EditSubscriptionsComponent
+     */
+    public selectAllColumns(event: boolean): void {
+        this.showFieldFilter.companyName = event;
+        this.showFieldFilter.userName = event;
+        this.showFieldFilter.subscribedOn = event;
+        this.showFieldFilter.subscriptionId = event;
+        this.showFieldFilter.planName = event;
+        this.showFieldFilter.remainingTransaction = event;
+        this.showFieldFilter.transactionLimit = event;
+        this.showFieldFilter.totalAmount = event;
+        this.showFieldFilter.additionalTransaction = event;
+        this.showFieldFilter.additionalCharges = event;
+        this.showFieldFilter.ratePerTransaction = event;
+        this.showFieldFilter.status = event;
+        this.showFieldFilter.expiry = event;
+        if (event) {
+            this.isAllFieldColumnFilterApplied = true;
+        } else {
+            this.isAllFieldColumnFilterApplied = false;
+
+        }
+        this.updateColumnFilter();
+    }
+
+    /**
+     *To apply column toggle filter
+     *
+     * @param {boolean} event boolean is column show or hide
+     * @param {string} column Column name
+     * @memberof EditSubscriptionsComponent
+     */
+    public columnFilter(event: boolean, column: string) {
+        this.showFieldFilter[column] = event;
+        this.updateColumnFilter();
+    }
+
+    /**
+     *To check is any column toggle filter applied
+     *
+     * @returns {boolean}
+     * @memberof EditSubscriptionsComponent
+     */
+    public getShowFieldFilterIsApplied(): boolean {
+        this.isFieldColumnFilterApplied = false;
+        Object.keys(this.showFieldFilter).forEach(key => {
+            if (!this.showFieldFilter[key]) {
+                this.isFieldColumnFilterApplied = true;
+                this.showClearFilter = true
+            }
+        });
+        return this.isFieldColumnFilterApplied;
+    }
 }

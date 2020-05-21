@@ -7,7 +7,7 @@
     <div class="clearfix pr-2 pl-2 pt-2 plan-details" *ngIf="planDetails">
         <div class="form-group">
             <label>Plan name</label><br>
-            <input type="text" class="form-control" [(ngModel)]="planDetails.name" placeholder="Plan name">
+            <input type="text" class="form-control" #planName [(ngModel)]="planDetails.name" placeholder="Plan name">
             <!-- <span>{{planDetails.name}}</span> -->
         </div>
         <div class="form-group">

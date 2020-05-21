@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { UserService } from '../../../services/user.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { SubscriberList, PAGINATION_COUNT, TotalUsersCount, CommonPaginatedRequest } from '../../../modules/modules/api-modules/subscription';
+import { SubscriberList, PAGINATION_COUNT, TotalUsersCount, CommonPaginatedRequest, StatusModel } from '../../../modules/modules/api-modules/subscription';
 import * as moment from 'moment/moment';
 import { GeneralService } from '../../../services/general.service';
 import { Router } from '@angular/router';
@@ -10,6 +10,13 @@ import { ToasterService } from '../../../services/toaster.service';
 import { IOption } from '../../../theme/ng-select/ng-select';
 import { PlansService } from '../../../services/plan.service';
 import { GIDDH_DATE_FORMAT } from '../../../shared/defalutformatter/defaultDateFormat';
+import { AuthenticationService } from '../../../services/authentication.service';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { cloneDeep } from '../../../lodash-optimized';
+import { ColumnFilterService } from '../../../services/column-filter.service';
+import { FavouriteColumnPageTypeEnum } from '../../../actions/general/general.const';
+import { BsDropdownDirective } from 'ngx-bootstrap';
+import { UserFieldFilterColumnNames } from '../../../models/company';
 @Component({
     selector: 'app-user-list',
     templateUrl: './user-list.component.html',
@@ -22,6 +29,8 @@ export class UserListComponent implements OnInit {
     @ViewChild('userMobileField') public userMobileField;
     @ViewChild('userSubscriptionField') public userSubscriptionField;
     @Input() public showTaxPopup: boolean = false;
+    public showCountryPopup: boolean = false;
+    public showStatusPopups: boolean = false;
     @Input() public lastSeen: boolean = false;
     @Input() public owner: boolean = false;
 
@@ -55,6 +64,35 @@ export class UserListComponent implements OnInit {
     public selectedOwners: string[] = [];
     public today: Date;
     public bsConfig: any = { dateInputFormat: GIDDH_DATE_FORMAT, displayMonths: 1 };
+    /** Country list */
+    public countrySource: IOption[] = [];
+    /** Selected countries list */
+    public selectedCountries: string[] = [];
+    /** True, if all country selected */
+    public isAllCountrySelected: boolean = false;
+    /** selected Plan status array */
+    public selectedPlanStatus: string[] = [];
+    public selectedAllPlanType = ['trial', 'active', 'expired'];
+    public planStatusType: StatusModel = {
+        trial: false,
+        active: false,
+        expired: false
+    };
+    public showClearFilter: boolean = false;
+
+    @ViewChild('filterDropDownList') public filterDropDownList: BsDropdownDirective;
+    public showFieldFilter: UserFieldFilterColumnNames = new UserFieldFilterColumnNames();
+    public isFieldColumnFilterApplied: boolean;
+    public isAllFieldColumnFilterApplied: boolean;
+
+    public isAllPlanStatusSelected: boolean = false;
+    public searchViaEmail$ = new Subject<string>();
+    public searchViaUserName$ = new Subject<string>();
+    public searchViaMobileNo$ = new Subject<string>();
+    public searchViaSubscriptionID$ = new Subject<string>();
+    public searchViaSubscribedOn$ = new Subject<string>();
+
+
 
     destroyed$: Observable<any>;
     public onclick(id: string) {
@@ -62,7 +100,7 @@ export class UserListComponent implements OnInit {
         this.expandList = !this.expandList;
     }
 
-    constructor(private generalService: GeneralService, private userService: UserService, private modalService: BsModalService, private router: Router, private toaster: ToasterService, private plansService: PlansService) {
+    constructor(private generalService: GeneralService, private userService: UserService, private modalService: BsModalService, private router: Router, private toaster: ToasterService, private plansService: PlansService, private authenticationService: AuthenticationService, private columnFilterService: ColumnFilterService) {
         this.today = new Date();
         this.getUserListPostRequest.lastSeen = {};
         this.getUserListPostRequest.lastSeen.operation = "BEFORE";
@@ -84,15 +122,94 @@ export class UserListComponent implements OnInit {
         this.getAllUserData();
         this.getAllSubscriptionTotalData();
         this.getAllPlans();
+        this.getOnboardCountries();
+
+        /** Search using user name  */
+        this.searchViaUserName$.pipe(
+            debounceTime(1000),
+            distinctUntilChanged()
+        ).subscribe(term => {
+            if (term) {
+                this.showClearFilter = true;
+            }
+            this.getUserListPostRequest.userName = term.trim();
+
+            this.getAllSubscriptionTotalData();
+            this.getAllUserData();
+        });
+
+        /** Search using subscription ID  */
+
+        this.searchViaSubscriptionID$.pipe(
+            debounceTime(1000),
+            distinctUntilChanged()
+        ).subscribe(term => {
+            if (term) {
+                this.showClearFilter = true;
+            }
+            this.getUserListPostRequest.subscriptionId = term.trim();
+            this.getAllSubscriptionTotalData();
+            this.getAllUserData();
+        });
+
+        /** Search using email id  */
+
+        this.searchViaEmail$.pipe(
+            debounceTime(1000),
+            distinctUntilChanged()
+        ).subscribe(term => {
+
+            if (term) {
+                this.showClearFilter = true;
+            }
+            this.getUserListPostRequest.email = term.trim();
+
+            this.getAllSubscriptionTotalData();
+            this.getAllUserData();
+        });
+
+        /** Search using mobile number  */
+
+        this.searchViaMobileNo$.pipe(
+            debounceTime(1000),
+            distinctUntilChanged()
+        ).subscribe(term => {
+            if (term) {
+                this.showClearFilter = true;
+            }
+            this.getUserListPostRequest.mobile = term.trim();
+            this.getAllSubscriptionTotalData();
+            this.getAllUserData();
+        });
+        /** To get dynamic column filter  */
+        this.getColumnFilter();
     }
 
     /**
      * Tax input focus handler
      *
-     * @memberof TaxControlComponent
+     * @memberof UserListComponent
      */
-    public handleInputFocus(isShow: boolean): void {
-        this.showTaxPopup = isShow ? false : true;
+    public handleInputFocus(columnType: string, isShow: boolean): void {
+        if (columnType === 'plan') {
+            this.showTaxPopup = isShow ? false : true;
+
+        } else if (columnType === 'status') {
+            this.showStatusPopups = isShow ? false : true;
+
+        }
+    }
+
+    /**
+    *  API call to serach by plans subscribed date
+    * 
+    * @memberof UserListComponent
+    */
+    public searchViaSubscribedOn() {
+        this.getUserListPostRequest.startedAtFrom = this.getUserListPostRequest.startedAtFrom ? moment(this.getUserListPostRequest.startedAtFrom).format(GIDDH_DATE_FORMAT) : '';
+        this.showClearFilter = true;
+        this.getAllSubscriptionTotalData();
+        this.getAllUserData();
     }
 
     /**
@@ -115,6 +232,15 @@ export class UserListComponent implements OnInit {
         this.lastSeen = isShow ? false : true;
     }
 
+    /**
+    * This will hide/show the country filter option
+    *
+    * @param {boolean} isShow
+    * @memberof UserListComponent
+    */
+    public countryDropdown(isShow: boolean): void {
+        this.showCountryPopup = isShow ? false : true;
+    }
     /**
      * This function is used to put focus on column search
      *
@@ -208,6 +334,7 @@ export class UserListComponent implements OnInit {
         if (dates !== null && !this.defaultLoad) {
             this.getUserListPostRequest.signUpOnFrom = moment(dates[0]).format(GIDDH_DATE_FORMAT);
             this.getUserListPostRequest.signUpOnTo = moment(dates[1]).format(GIDDH_DATE_FORMAT);
+            this.getAllSubscriptionTotalData();
             this.getAllUserData();
         }
 
@@ -216,21 +343,6 @@ export class UserListComponent implements OnInit {
         }
     }
 
-    /**
-     * This function is used to get users by search
-     *
-     * @memberof UserListComponent
-     */
-    public columnSearch(): void {
-        if (this.timeout) {
-            clearTimeout(this.timeout);
-        }
-
-        this.timeout = setTimeout(() => {
-            this.getUserListRequest.page = 1;
-            this.getAllUserData();
-        }, 700);
-    }
 
     /**
      * This function is used to open subscription modal
@@ -260,17 +372,27 @@ export class UserListComponent implements OnInit {
         this.getUserListPostRequest.signUpOnFrom = '';
         this.getUserListPostRequest.signUpOnTo = '';
         this.getUserListPostRequest.userName = '';
+        this.getUserListPostRequest.startedAtFrom = '';
         this.getUserListPostRequest.email = '';
         this.getUserListPostRequest.mobile = '';
         this.getUserListPostRequest.subscriptionId = '';
         this.getUserListPostRequest.planUniqueNames = [];
+        this.getUserListPostRequest.countryCodes = this.selectedCountries = [];
+        this.getUserListPostRequest.startedAtFrom = '';
         this.getUserListRequest.sortBy = '';
         this.getUserListRequest.sortType = '';
         this.inlineSearch = null;
         this.allPlans.forEach(res => {
             res.additional = false;
         });
+        this.countrySource.forEach(res => {
+            res.additional = false;
+        });
         this.isAllPlanSelected = false;
+        this.getUserListRequest.page = 1;
+        this.showClearFilter = false;
+        this.getAllSubscriptionTotalData();
+        this.selectAllColumns(true);
         this.getAllUserData();
     }
 
@@ -280,7 +402,7 @@ export class UserListComponent implements OnInit {
      * @memberof UserListComponent
      */
     public getAllSubscriptionTotalData() {
-        this.userService.getAllUserCounts().subscribe(res => {
+        this.userService.getAllUserCounts(this.getUserListPostRequest).subscribe(res => {
             if (res.status === 'success') {
                 this.totalUsers = res.body;
             } else {
@@ -307,6 +429,7 @@ export class UserListComponent implements OnInit {
         }
         this.getUserListPostRequest.planUniqueNames = this.selectedPlans;
         this.isAllPlansSelected();
+        this.getAllSubscriptionTotalData();
         this.getAllUserData();
     }
 
@@ -320,6 +443,7 @@ export class UserListComponent implements OnInit {
     private isAllPlansSelected() {
         if (this.allPlans.length === this.selectedPlans.length) {
             this.isAllPlanSelected = true;
+            this.showClearFilter = true;
         } else {
             this.isAllPlanSelected = false;
         }
@@ -348,6 +472,7 @@ export class UserListComponent implements OnInit {
         }
         this.isAllPlansSelected();
         this.getUserListPostRequest.planUniqueNames = this.selectedPlans;
+        this.getAllSubscriptionTotalData();
         this.getAllUserData();
     }
 
@@ -369,6 +494,7 @@ export class UserListComponent implements OnInit {
         }
         this.getUserListPostRequest.managerUniqueNames = this.selectedOwners;
         this.isAllOwnersSelected();
+        this.getAllSubscriptionTotalData();
         this.getAllUserData();
     }
 
@@ -409,6 +535,7 @@ export class UserListComponent implements OnInit {
         }
         this.isAllOwnersSelected();
         this.getUserListPostRequest.managerUniqueNames = this.selectedOwners;
+        this.getAllSubscriptionTotalData();
         this.getAllUserData();
     }
 
@@ -451,6 +578,7 @@ export class UserListComponent implements OnInit {
         this.timeoutLastSeen = setTimeout(() => {
             this.lastSeenDropdown(true);
             this.getUserListRequest.page = 1;
+            this.getAllSubscriptionTotalData();
             this.getAllUserData();
             clearTimeout(this.timeoutLastSeen);
         }, 700);
@@ -478,6 +606,7 @@ export class UserListComponent implements OnInit {
         }
         this.getUserListRequest.page = 1;
         this.lastSeenDropdown(true);
+        this.getAllSubscriptionTotalData();
         this.getAllUserData();
     }
 
@@ -520,6 +649,7 @@ export class UserListComponent implements OnInit {
         this.userService.assignLeadOwner(userUniqueName, post).subscribe(res => {
             if (res.status === 'success') {
                 this.toaster.successToast(res.body);
+                this.getAllSubscriptionTotalData();
                 this.getAllUserData();
             } else {
                 this.toaster.errorToast(res.message);
@@ -557,5 +687,278 @@ export class UserListComponent implements OnInit {
             }
         }
         return convertedDate;
+    }
+
+    /**
+    * API call to get all onboarding countries
+    *
+    * @memberof UserListComponent
+    */
+    public getOnboardCountries() {
+        this.authenticationService.getCountry().subscribe(res => {
+            if (res.status === 'success') {
+                if (res.body && res.body.length > 0) {
+                    res.body.forEach(key => {
+                        this.countrySource.push({ label: key.countryName, value: key.alpha2CountryCode, additional: false });
+                    });
+                }
+            } else {
+                this.toaster.clearAllToaster();
+                this.toaster.errorToast(res.message);
+            }
+        });
+    }
+
+    /**
+    * To check all country selected or not
+    *
+    * @memberof UserListComponent
+    */
+    public isAllCountriesSelected() {
+        if (this.countrySource.length === this.selectedCountries.length) {
+            this.isAllCountrySelected = true;
+        } else {
+            this.isAllCountrySelected = false;
+        }
+    }
+
+    /**
+     * Prepare array of selected country for all country selected
+     *
+     * @param {*} event Click event
+     * @memberof UserListComponent
+     */
+    public selectAllCountry(event) {
+        this.selectedCountries = [];
+        if (event.target.checked) {
+            this.countrySource.forEach(res => {
+                this.selectedCountries.push(res.value);
+            });
+            this.countrySource.map(res => {
+                res.additional = true;
+            });
+        } else {
+            this.selectedCountries = [];
+            this.countrySource.map(res => {
+                res.additional = false;
+            });
+        }
+        this.isAllCountriesSelected();
+        this.getUserListPostRequest.countryCodes = this.selectedCountries;
+        this.getAllUserData();
+        // this.getAllPlans();
+    }
+
+    /**
+    *  To prepare array of selectd country
+    *
+    * @param {*} item Country selected item
+    * @param {*} event Click event
+    * @memberof UserListComponent
+    */
+    public checkedCountryName(item, event) {
+        if (event.target.checked) {
+            if (this.selectedCountries.indexOf(item.value) === -1) {
+                this.selectedCountries.push(item.value);
+            }
+        } else {
+            let index = this.selectedCountries.indexOf(item.value);
+            this.selectedCountries.splice(index, 1);
+        }
+        this.getUserListPostRequest.countryCodes = this.selectedCountries;
+        this.isAllCountriesSelected();
+        this.getAllUserData();
+        // this.getAllPlans();
+    }
+
+    /**
+  * To check All plans status check
+  *
+  * @param {*} event Event for All plan select checkbox
+  * @memberof UserListComponent
+  */
+    public selectAllPlansStatus(event) {
+        this.selectedPlanStatus = [];
+        if (event.target.checked) {
+            this.selectedPlanStatus = this.selectedAllPlanType;
+            this.isAllPlansStatusSelected(true);
+        } else {
+            this.selectedPlanStatus = []
+            this.isAllPlansStatusSelected(false);
+        }
+        this.getUserListPostRequest.status = this.selectedPlanStatus;
+        this.getAllUserData();
+    }
+
+    /**
+         * To check all plan status selected or not
+         *
+         * @memberof UserListComponent
+         */
+    public isAllPlanStatusTypeSelected() {
+        if (this.selectedPlanStatus.length === 3) {
+            this.isAllPlanStatusSelected = true;
+        } else {
+            this.isAllPlanStatusSelected = false;
+        }
+    }
+
+    /**
+  * Tp prepare array of selected status
+  *
+  * @param {string} type plan status type
+  * @param {*} event Event
+  * @memberof UserListComponent
+  */
+    public checkedPlanStatus(type: string, event) {
+        if (event.target.checked) {
+            if (this.selectedPlanStatus.indexOf(type) === -1) {
+                this.selectedPlanStatus.push(type);
+                this.showClearFilter = true;
+            }
+        } else {
+            let index = this.selectedPlanStatus.indexOf(type);
+            this.selectedPlanStatus.splice(index, 1)
+        }
+        this.isAllPlansSelected();
+        this.getUserListPostRequest.status = this.selectedPlanStatus;
+        this.getAllUserData();
+    }
+
+    /**
+    * To reset status type model
+    * 
+    * @private
+    * @param {boolean} [isAllStatus] Boolean to check is all plan statu selected or not
+    * @memberof UserListComponent
+    */
+    private isAllPlansStatusSelected(isAllStatus?: boolean) {
+        if (isAllStatus) {
+            this.planStatusType.active = this.planStatusType.expired = this.planStatusType.trial = true;
+        } else {
+            this.planStatusType.active = this.planStatusType.expired = this.planStatusType.trial = false;
+        }
+        this.isAllPlanStatusTypeSelected();
+    }
+    // Column filter methods
+    public hideListItems() {
+        this.filterDropDownList.hide();
+    }
+
+    /**
+ * This will toggle all columns
+ *
+ * @param {boolean} event
+ * @memberof UserListComponent
+ */
+    public selectAllColumns(event: boolean): void {
+        this.showFieldFilter.addOnTransaction = event;
+        this.showFieldFilter.additionalCharges = event;
+        this.showFieldFilter.country = event;
+        this.showFieldFilter.email = event;
+        this.showFieldFilter.expiry = event;
+        this.showFieldFilter.lastSeen = event;
+        this.showFieldFilter.mobile = event;
+        this.showFieldFilter.name = event;
+        this.showFieldFilter.noOfCompany = event;
+        this.showFieldFilter.owner = event;
+        this.showFieldFilter.planName = event;
+        this.showFieldFilter.ratePerTransaction = event;
+        this.showFieldFilter.remainingTransaction = event;
+        this.showFieldFilter.signUpOn = event;
+        this.showFieldFilter.status = event;
+        this.showFieldFilter.subscribedOn = event;
+        this.showFieldFilter.subscriptionId = event;
+        this.showFieldFilter.totalAmount = event;
+        this.showFieldFilter.transactionLimit = event;
+        if (event) {
+            this.isAllFieldColumnFilterApplied = true;
+        } else {
+            this.isAllFieldColumnFilterApplied = false;
+        }
+        this.updateColumnFilter();
+    }
+
+    /**
+     *To apply column toggle filter
+     *
+     * @param {boolean} event boolean is column show or hide
+     * @param {string} column Column name
+     * @memberof UserListComponent
+     */
+    public columnFilter(event: boolean, column: string) {
+        this.showFieldFilter[column] = event;
+        this.updateColumnFilter();
+    }
+
+    /**
+     *To check is any column toggle filter applied
+     *
+     * @returns {boolean}
+     * @memberof UserListComponent
+     */
+    public getShowFieldFilterIsApplied(): boolean {
+        this.isFieldColumnFilterApplied = false;
+        Object.keys(this.showFieldFilter).forEach(key => {
+            if (!this.showFieldFilter[key]) {
+                this.isFieldColumnFilterApplied = true;
+                this.showClearFilter = true
+            }
+        });
+        return this.isFieldColumnFilterApplied;
+    }
+
+    /**
+    * API call to get all filter column
+    *
+    * @memberof UserListComponent
+    */
+    public getColumnFilter(): void {
+        this.columnFilterService.getFavouritePage(FavouriteColumnPageTypeEnum.ADMIN_USER).subscribe(response => {
+            if (response.status === 'success') {
+                if (response.body && response.body.favourite) {
+                    Object.assign(this.showFieldFilter, response.body.favourite);
+                    this.showFieldFilter = cloneDeep(response.body.favourite);
+                }
+                this.getShowFieldFilterIsApplied();
+            } else if (response.status === 'error') {
+                this.toaster.errorToast(response.message);
+            }
+        });
+
+    }
+
+    /**
+      * API call to update filter column
+      *
+      * @memberof UserListComponent
+      */
+    public updateColumnFilter(): void {
+        this.getShowFieldFilterIsApplied();
+        this.columnFilterService.updateFavouritePage(FavouriteColumnPageTypeEnum.ADMIN_USER, this.showFieldFilter).subscribe(response => {
+            if (response.status === 'success') {
+                if (response.body && response.body.favourite) {
+                    Object.assign(this.showFieldFilter, response.body.favourite);
+                    this.showFieldFilter = cloneDeep(response.body.favourite);
+                }
+            }
+        });
+    }
+
+    /**
+     * This will export the subscriptions by users
+     *
+     * @memberof UserListComponent
+     */
+    public exportSubscriptionsByUsers(): void {
+        this.userService.exportSubscriptionsByUsers(this.getUserListRequest, this.getUserListPostRequest).subscribe(res => {
+            this.toaster.clearAllToaster();
+
+            if (res.status === 'success') {
+                this.toaster.successToast(res.body);
+            } else {
+                this.toaster.errorToast(res.message);
+            }
+        });
     }
 }

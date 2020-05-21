@@ -137,4 +137,23 @@ export class GetAllCompaniesRequest {
     planUniqueNames: string[] = [];
     userName: string = '';
     status: string[] = []; // "trial","expired"
+    expiryFilter?: AdvanceSearchFromTo;
+    subscribeOn?: AdvanceSearchFromTo;
+    remainingTxnOpn?: string;
+    remainingTxn?: string;
+    transactionLimitOperation?: string;
+    transactionLimit?: string;
+    additionalChargesOperation?: string;
+    additionalCharges?: string;
+}
+
+export class CompanyAdvanceSearchRequestSubscriptions {
+    expiryFilter?: AdvanceSearchFromTo;
+    subscribeOn?: AdvanceSearchFromTo;
+    remainingTxnOpn?: string;
+    remainingTxn?: string;
+    transactionLimitOperation?: string;
+    transactionLimit?: string;
+    additionalChargesOperation?: string;
+    additionalCharges?: string;
 }

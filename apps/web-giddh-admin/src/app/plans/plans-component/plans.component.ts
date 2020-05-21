@@ -1,14 +1,11 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, HostListener } from '@angular/core';
 import { PlansService } from '../../services/plan.service';
 import * as moment from 'moment/moment';
-import { Router } from '@angular/router';
 import { GeneralService } from '../../services/general.service';
 import { ToasterService } from '../../services/toaster.service';
 import { AuthenticationService } from '../../services/authentication.service';
 import { IOption } from '../../theme/ng-select/ng-select';
 import { PAGINATION_COUNT } from '../../modules/modules/api-modules/subscription';
-
-
 
 @Component({
     selector: 'app-plans',
@@ -17,8 +14,6 @@ import { PAGINATION_COUNT } from '../../modules/modules/api-modules/subscription
 })
 
 export class PlansComponent implements OnInit {
-
-
     @ViewChild('planNameField') public planNameField;
     @Input() public showTaxPopup: boolean = false;
     @Input() public showTaxPopups: boolean = false;
@@ -41,7 +36,6 @@ export class PlansComponent implements OnInit {
     public selectedCountries: string[] = []
     public isAllCountrySelected: boolean = false;
     public PAGINATION_COUNT:number = PAGINATION_COUNT;
-
 
     constructor(private plansService: PlansService, private generalService: GeneralService, private toaster: ToasterService, private authenticationService: AuthenticationService) {
     }
@@ -101,7 +95,6 @@ export class PlansComponent implements OnInit {
     public pageChanged(event: any): void {
         this.getAllPlansRequest.page = event.page;
         this.getAllPlans();
-
     }
 
     /**
@@ -147,6 +140,7 @@ export class PlansComponent implements OnInit {
         if (dates !== null && !this.defaultLoad) {
             this.getAllPlansPostRequest.createdAtFrom = moment(dates[0]).format("DD-MM-YYYY");
             this.getAllPlansPostRequest.createdAtTo = moment(dates[1]).format("DD-MM-YYYY");
+            this.getPlansStats();
             this.getAllPlans();
         }
 
@@ -183,6 +177,7 @@ export class PlansComponent implements OnInit {
 
         this.timeout = setTimeout(() => {
             this.getAllPlansRequest.page = 1;
+            this.getPlansStats();
             this.getAllPlans();
         }, 700);
     }
@@ -208,6 +203,7 @@ export class PlansComponent implements OnInit {
     public hidePlanDetailsPopup() {
         this.selectedPlan = '';
         this.togglePlanDetailsPanelBool = false;
+        this.getPlansStats();
         this.getAllPlans();
         this.toggleBodyClass();
     }
@@ -227,6 +223,7 @@ export class PlansComponent implements OnInit {
         this.countrySource.forEach(res => {
             res.additional = false;
         });
+        this.getPlansStats();
         this.getAllPlans();
     }
 
@@ -262,7 +259,7 @@ export class PlansComponent implements OnInit {
      * @memberof PlansComponent
      */
     public getPlansStats() {
-        this.plansService.getPlansStats().subscribe(res => {
+        this.plansService.getPlansStats(this.getAllPlansPostRequest).subscribe(res => {
             if (res.status === 'success') {
                 this.planStats = res.body;
             }
@@ -325,6 +322,7 @@ export class PlansComponent implements OnInit {
         }
         this.isAllCountriesSelected();
         this.getAllPlansPostRequest.countries = this.selectedCountries;
+        this.getPlansStats();
         this.getAllPlans();
     }
 
@@ -346,6 +344,18 @@ export class PlansComponent implements OnInit {
         }
         this.getAllPlansPostRequest.countries = this.selectedCountries;
         this.isAllCountriesSelected();
+        this.getPlansStats();
         this.getAllPlans();
+    }
+
+    /**
+     * This will close all the popup on ESC button
+     *
+     * @param {KeyboardEvent} event
+     * @memberof PlansComponent
+     */
+    @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(event: KeyboardEvent) {
+        this.hidePopup();
+        this.hidePlanDetailsPopup();
     }
 }
