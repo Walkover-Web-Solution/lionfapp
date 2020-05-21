@@ -1,3 +1,10 @@
 export const GENERAL_ACTIONS = {
   SET_PAGE_HEADER_TITLE: 'SET_PAGE_HEADER_TITLE'
 };
+
+export enum FavouriteColumnPageTypeEnum {
+    ADMIN_COMPANY = 'ADMIN_COMPANY',
+    ADMIN_PLAN = 'ADMIN_PLAN',
+    ADMIN_LICENSE = 'ADMIN_LICENSE',
+    ADMIN_USER = 'ADMIN_USER',
+}
