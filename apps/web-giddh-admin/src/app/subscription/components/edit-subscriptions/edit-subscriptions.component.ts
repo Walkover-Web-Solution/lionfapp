@@ -439,7 +439,7 @@ export class EditSubscriptionsComponent implements OnInit {
         this.isAllPlanTypeSelected = false;
         this.getAllCompanies();
         this.selectAllColumns(true);
-
+        this.searchedAdvancedRequestModelByAdvanceSearch = {};
     }
 
     /**
@@ -544,7 +544,7 @@ export class EditSubscriptionsComponent implements OnInit {
             this.togglePanel();
             this.getAllCompanies();
 
-            if(event.subscribeOn || event.remainingTxnOpn || event.remainingTxn || event.transactionLimitOperation || event.transactionLimit || event.additionalChargesOperation || event.additionalCharges || event.expiryFilter) {
+            if((event.subscribeOn && (event.subscribeOn.from || event.subscribeOn.to)) || event.remainingTxnOpn || event.remainingTxn || event.transactionLimitOperation || event.transactionLimit || event.additionalChargesOperation || event.additionalCharges || (event.expiryFilter && (event.expiryFilter.from || event.expiryFilter.to))) {
                 this.showClearFilter = true;
             }
         }
