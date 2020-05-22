@@ -1,7 +1,7 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { LicenceService } from '../../services/licence.service';
 import { SubscriberList, PAGINATION_COUNT } from '../../modules/modules/api-modules/subscription';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap';
+import { BsModalService, BsModalRef, BsDropdownDirective } from 'ngx-bootstrap';
 import { GeneralService } from '../../services/general.service';
 import { Router } from '@angular/router';
 
@@ -12,11 +12,15 @@ import { Router } from '@angular/router';
 })
 
 export class LicenceKeyComponent implements OnInit {
+
+    @ViewChild('filterDropDownList') public filterDropDownList: BsDropdownDirective;
+
     public items;
     public getAllLicenceKeyRequest: any = {};
     public LicenceKeyRes: SubscriberList = new SubscriberList();
     public modalRef: BsModalRef;
     public subscriptionId: any = '';
+
 
     constructor(private licenseService: LicenceService, private modalService: BsModalService, private generalService: GeneralService, private router: Router) {
 
@@ -72,6 +76,10 @@ export class LicenceKeyComponent implements OnInit {
     public pageChanged(event: any): void {
         this.getAllLicenceKeyRequest.page = event.page;
         this.getAllLicenceKey();
+    }
+
+    public hideListItems() {
+      this.filterDropDownList.hide();
     }
 
     /**

@@ -1,11 +1,68 @@
 <div class="pageHeader">
     <div class="d-flex align-items-center">
+
+      <div class="d-flex">
+        
         <div class="input-group input-date">
             <span class="input-group-addon">
                 <i class="fa fa-calendar pull-right"></i>
             </span>
             <input type="text" placeholder="Select Date" readonly [(bsValue)]="bsValue" (bsValueChange)="onChangeFilterDate($event)" class="form-control date-range-picker" bsDaterangepicker>
         </div>
+
+        <div class="dis pull-left ml-1">
+          <div class="btn-group mt-05" #filterDropDownList="bs-dropdown" dropdown [autoClose]="false" (clickOutside)="hideListItems()" [tooltip]="'Enable / Disable Column'" [placement]="'right'">
+              <i dropdownToggle class="icon-options pd cp fs20"></i>
+  
+              <ul *dropdownMenu class="dropdown-menu dropdown-menu-left top-toggle-dropdown" role="menu" [style.width.px]="'200'">
+                  <li role="menuitem">
+                      <a class="dropdown-item">
+                          <input type="checkbox" name="isAllFieldColumnFilterApplied" [(ngModel)]="isAllFieldColumnFilterApplied" (ngModelChange)="selectAllColumns($event)"> Select All
+                      </a>
+                  </li>
+  
+                  <li role="menuitem">
+                      <a class="dropdown-item">
+                          <input type="checkbox"/> Plan Name
+                      </a>
+                  </li>
+
+                  <li role="menuitem">
+                    <a class="dropdown-item">
+                        <input type="checkbox"/> Created On	
+                    </a>
+                  </li>
+
+                  <li role="menuitem">
+                    <a class="dropdown-item">
+                        <input type="checkbox"/> No of Company
+                    </a>
+                  </li>
+                  <li role="menuitem">
+                    <a class="dropdown-item">
+                        <input type="checkbox"/> Total User
+                    </a>
+                  </li>
+                  <li role="menuitem">
+                    <a class="dropdown-item">
+                        <input type="checkbox"/> Total Amount
+                    </a>
+                  </li>
+                  <li role="menuitem">
+                    <a class="dropdown-item">
+                        <input type="checkbox"/> Expiry In Next 30 Days
+                    </a>
+                  </li>
+                  <li role="menuitem">
+                    <a class="dropdown-item">
+                        <input type="checkbox"/> Country
+                    </a>
+                  </li>
+              </ul>
+          </div>
+      </div>
+      
+      </div>
 
         <button class=" btn-link" *ngIf="getAllPlansPostRequest.planName || getAllPlansPostRequest.countries.length || getAllPlansPostRequest.createdAtFrom" (click)="resetFilters();"><i class="icon icon-loop2
       "></i> Clear Filter</button>

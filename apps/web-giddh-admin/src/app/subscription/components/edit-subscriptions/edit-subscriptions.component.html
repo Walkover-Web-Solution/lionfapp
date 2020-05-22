@@ -40,7 +40,7 @@
         <div *ngIf="activeTab !== 'aging'" class="btn-group mt-05" #filterDropDownList="bs-dropdown" dropdown [autoClose]="false" (clickOutside)="hideListItems()" [tooltip]="'Enable / Disable Column'" [placement]="'right'">
             <i dropdownToggle class="icon-options pd cp fs20"></i>
 
-            <ul *dropdownMenu class="dropdown-menu dropdown-menu-left" role="menu" [style.width.px]="'200'">
+            <ul *dropdownMenu class="dropdown-menu dropdown-menu-left top-toggle-dropdown" role="menu" [style.width.px]="'200'">
                 <li role="menuitem">
                     <a class="dropdown-item">
                         <input type="checkbox" name="isAllFieldColumnFilterApplied" [(ngModel)]="isAllFieldColumnFilterApplied" (ngModelChange)="selectAllColumns($event)"> Select All
@@ -118,6 +118,8 @@
             </ul>
         </div>
     </div>
+
+
     <div>
         <a class="pull-right btn btn-blue advance-btn" href="javascript:void(0)" (click)="togglePanel()">Advance Search</a>
         <button *ngIf="showClearFilter" class="ml-1 btn-link" (click)="resetFilters();"><i class="icon icon-loop2"></i>
