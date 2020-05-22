@@ -32,6 +32,7 @@ export class EditSubscriptionsComponent implements OnInit {
     @ViewChild('userName') userName: ElementRef;
     @ViewChild('subscriptionIdSearch') subscriptionIdSearch: ElementRef;
     @Input() public lastSeen: boolean = false;
+    @Input() public lastEntryDate: boolean = false;
 
 
     @Input() public showTaxPopup: boolean = false;
@@ -234,6 +235,12 @@ export class EditSubscriptionsComponent implements OnInit {
     public lastSeenDropdown(isShow: boolean): void {
       this.lastSeen = isShow ? false : true;
     }
+
+    public lastEntryDateDropdown(isShow: boolean): void {
+      this.lastEntryDate = isShow ? false : true;
+    }
+
+    
 
     /**
      *to sort table 
