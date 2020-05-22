@@ -37,7 +37,7 @@
     </div> -->
     <div class="dis pull-left mrR1">
 
-        <div *ngIf="activeTab !== 'aging'" class="btn-group mt-05" #filterDropDownList="bs-dropdown" dropdown [autoClose]="false" (clickOutside)="hideListItems()" [tooltip]="'Enable / Disable Column'" [placement]="'right'">
+        <div  class="btn-group mt-05" #filterDropDownList="bs-dropdown" dropdown [autoClose]="false" (clickOutside)="hideListItems()" [tooltip]="'Enable / Disable Column'" [placement]="'right'">
             <i dropdownToggle class="icon-options pd cp fs20"></i>
 
             <ul *dropdownMenu class="dropdown-menu dropdown-menu-left top-toggle-dropdown" role="menu" [style.width.px]="'200'">
