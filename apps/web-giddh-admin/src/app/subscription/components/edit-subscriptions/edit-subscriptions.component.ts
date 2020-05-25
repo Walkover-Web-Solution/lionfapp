@@ -59,7 +59,19 @@ export class EditSubscriptionsComponent implements OnInit {
         subscriptionId: '',
         planUniqueNames: [],
         userName: '',
-        status: []
+        status: [],
+        lastEntryAccess: {
+            from: '',
+            to: '',
+            operation: '',
+            days: '',
+        },
+        lastCompanyAccess: {
+            from: '',
+            to: '',
+            operation: '',
+            days: '',
+        },
     };
     public showFieldFilter: CompanyFieldFilterColumnNames = new CompanyFieldFilterColumnNames();
     public isFieldColumnFilterApplied: boolean;
@@ -89,6 +101,8 @@ export class EditSubscriptionsComponent implements OnInit {
         count: '',
         entityIdentifier: '',
     };
+    public today: Date;
+    public bsConfig: any = { dateInputFormat: GIDDH_DATE_FORMAT, displayMonths: 1 };
     public getAllPlansRequest: CommonPaginatedRequest = new CommonPaginatedRequest();
     public allPlans: IOption[] = [];
     public getAllPlansPostRequest: any = {};
@@ -99,17 +113,30 @@ export class EditSubscriptionsComponent implements OnInit {
     public localStorageKeysForFilters = { pageType: 'pageTypeName', filter: 'Columnfilter' };
     public totalCompanies: number;
     public totalUser: number;
+    public timeoutLastCompanyAccess: any;
+    public timeoutLastEntry: any;
+    public tempOperation: any = "";
+    public tempCompanyOperation: any = "";
+
+
 
 
     constructor(private store: Store<AppState>, private modalService: BsModalService, private generalActions: GeneralActions, private toasty: ToasterService, private adminActions: AdminActions, private subscriptionService: SubscriptionService, private router: Router, private generalService: GeneralService, private activateRoute: ActivatedRoute, private plansService: PlansService,
         private columnFilterService: ColumnFilterService) {
         this.paginationRequest.from = '';
         this.paginationRequest.page = 1;
+         this.today = new Date();
         this.paginationRequest.count = PAGINATION_COUNT;
+        this.getAllCompaniesRequest.lastEntryAccess.operation = "BEFORE";
+        this.getAllCompaniesRequest.lastCompanyAccess.operation = "BEFORE";
+        this.tempOperation = "relative_before";
+        this.tempCompanyOperation = "relative_before_2";
 
     }
 
     ngOnInit() {
+        this.resetLastEntryAccessFilter();
+        this.resetLastCompanyAccessFilter();
         if (this.subscriptionService.getGetAllCompanyRequestObject()) {
             this.getAllCompaniesRequest = this.subscriptionService.getGetAllCompanyRequestObject();
         }
@@ -192,6 +219,13 @@ export class EditSubscriptionsComponent implements OnInit {
                         this.companiesData = resp.body.results;
                         if (this.companiesData.length > 0) {
                             this.plansData = this.companiesData[0];
+                            this.companiesData.map(item => {
+                                if (item && item.lastAccessDetails) {
+                                    item.lastAccessDate = this.changeTimeStampToDate(item.lastAccessDetails.lastAccess);
+                                    item.lastEntryAccessDate = this.changeTimeStampToDate(item.lastAccessDetails.lastEntryAccess);
+                                }
+
+                            });
                         } else {
                             this.inlineSearch = null;
                         }
@@ -201,6 +235,38 @@ export class EditSubscriptionsComponent implements OnInit {
                 }
             });
         }
+    }
+
+    /**
+    * To change time stamp into date as Mar 19, 2020 at 10:34AM
+    *
+    * @private
+    * @param {*} timeStamp
+    * @returns {string}
+    * @memberof EditSubscriptionsComponent
+    */
+    private changeTimeStampToDate(timeStamp): string {
+        let convertedDate: string = '';
+        let dateSplitedArray: Array<any>;
+        let hours;
+        let minutes;
+        let newformat;
+        if (timeStamp) {
+            let date = new Date(timeStamp);
+            dateSplitedArray = new Date(timeStamp).toDateString().split(' ');// "Tue Mar 17 2020"
+            hours = date.getHours();
+            minutes = date.getMinutes();
+            // To check whether AM or PM 
+            newformat = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            // To display "0" as "12" 
+            hours = hours ? hours : 12;
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            if (dateSplitedArray.length) {
+                convertedDate = dateSplitedArray[1] + ' ' + dateSplitedArray[2] + ', ' + dateSplitedArray[3] + ' at ' + hours + ':' + minutes + newformat;
+            }
+        }
+        return convertedDate;
     }
 
 
@@ -214,7 +280,7 @@ export class EditSubscriptionsComponent implements OnInit {
     /**
      * Tax input focus handler
      *
-     * @memberof TaxControlComponent
+     * @memberof EditSubscriptionsComponent
      */
     public handleInputFocus(isShow: boolean): void {
         this.showTaxPopup = isShow ? false : true;
@@ -242,7 +308,7 @@ export class EditSubscriptionsComponent implements OnInit {
      * @param {boolean} isShow
      * @memberof EditSubscriptionsComponent
      */
-    public lastSeenDropdown(isShow: boolean): void {
+    public lastEntryDropdown(isShow: boolean): void {
         this.lastSeen = isShow ? false : true;
     }
 
@@ -252,7 +318,7 @@ export class EditSubscriptionsComponent implements OnInit {
      * @param {boolean} isShow
      * @memberof EditSubscriptionsComponent
      */
-    public lastEntryDateDropdown(isShow: boolean): void {
+    public lastCompanyAccessDropdown(isShow: boolean): void {
         this.lastEntryDate = isShow ? false : true;
     }
 
@@ -447,6 +513,9 @@ export class EditSubscriptionsComponent implements OnInit {
         this.getAllCompaniesRequest.transactionLimit = "";
         this.getAllCompaniesRequest.additionalChargesOperation = "";
         this.getAllCompaniesRequest.additionalCharges = "";
+        this.resetLastCompanyAccessFilter();
+        this.resetLastEntryAccessFilter();
+
     }
 
     /**
@@ -455,6 +524,8 @@ export class EditSubscriptionsComponent implements OnInit {
      * @memberof EditSubscriptionsComponent
      */
     public resetFilters() {
+        this.tempOperation = 'relative_before';
+        this.tempCompanyOperation = 'relative_before_2';
         this.resetGellAllCompaniesFilters();
         this.paginationRequest.page = 1;
         this.planStatusType.active = this.planStatusType.expired = this.planStatusType.trial = false;
@@ -596,7 +667,8 @@ export class EditSubscriptionsComponent implements OnInit {
     }
 
     @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(event: KeyboardEvent) {
-        this.togglePanel();
+        this.togglePanelBool = false;
+        this.toggleBodyClass();
     }
 
     /**
@@ -727,6 +799,9 @@ export class EditSubscriptionsComponent implements OnInit {
         this.getAllCompaniesRequest.lastCompanyAccess.days = '';
         this.getAllCompaniesRequest.lastCompanyAccess.from = '';
         this.getAllCompaniesRequest.lastCompanyAccess.to = '';
+        this.getAllCompaniesRequest.lastCompanyAccess.operation = '';
+        console.log('tempCompanyOperation:',this.tempCompanyOperation);
+
     }
 
     /**
@@ -738,5 +813,100 @@ export class EditSubscriptionsComponent implements OnInit {
         this.getAllCompaniesRequest.lastEntryAccess.days = '';
         this.getAllCompaniesRequest.lastEntryAccess.from = '';
         this.getAllCompaniesRequest.lastEntryAccess.to = '';
+        this.getAllCompaniesRequest.lastEntryAccess.operation = '';
+    }
+
+    /**
+   * This will filter the company list based on last entry days
+   *
+   * @param {string} value
+   * @memberof EditSubscriptionsComponent
+   */
+    public onLastEntryDaysChange(value): void {
+        if (this.timeoutLastEntry) {
+            clearTimeout(this.timeoutLastEntry);
+        }
+        this.showClearFilter = true;
+        this.getAllCompaniesRequest.lastEntryAccess.operation = value;
+        this.showClearFilter = true;
+        this.timeoutLastEntry = setTimeout(() => {
+            this.lastEntryDropdown(true);
+            this.paginationRequest.page = 1;
+            this.getAllCompanies();
+            clearTimeout(this.timeoutLastEntry);
+        }, 700);
+    }
+
+    /**
+   * This will filter the company list based on last company access day
+   *
+   * @param {string} value
+   * @memberof EditSubscriptionsComponent
+   */
+    public onLastCompanyAccessDaysChange(value): void {
+        if (this.timeoutLastCompanyAccess) {
+            clearTimeout(this.timeoutLastCompanyAccess);
+        }
+        this.showClearFilter = true;
+        this.getAllCompaniesRequest.lastCompanyAccess.operation = value;
+
+        this.timeoutLastCompanyAccess = setTimeout(() => {
+            this.lastCompanyAccessDropdown(true);
+            this.paginationRequest.page = 1;
+            this.getAllCompanies();
+            clearTimeout(this.timeoutLastCompanyAccess);
+        }, 700);
+    }
+
+    /**
+    * This will filter the company list based on last entry date(s)
+    *
+    * @param {*} date
+    * @param {string} value
+    * @memberof EditSubscriptionsComponent
+    */
+    public onLastEntryDateChange(date: any, value: string): void {
+        this.getAllCompaniesRequest.lastEntryAccess.operation = value;
+
+        if (value === "BETWEEN") {
+            this.getAllCompaniesRequest.lastEntryAccess.from = moment(date[0]).format(GIDDH_DATE_FORMAT);
+            this.getAllCompaniesRequest.lastEntryAccess.to = moment(date[1]).format(GIDDH_DATE_FORMAT);
+        } else if (value === "UNAVAILABLE" || value === "AVAILABLE") {
+            this.getAllCompaniesRequest.lastEntryAccess.from = '';
+            this.getAllCompaniesRequest.lastEntryAccess.to = '';
+        } else {
+            this.getAllCompaniesRequest.lastEntryAccess.from = moment(date).format(GIDDH_DATE_FORMAT);
+            this.getAllCompaniesRequest.lastEntryAccess.to = '';
+        }
+        this.showClearFilter = true;
+        this.paginationRequest.page = 1;
+        this.lastEntryDropdown(true);
+        this.getAllCompanies();
+    }
+
+    /**
+    * This will filter the company list based on last company access date
+    *
+    * @param {*} date
+    * @param {string} value
+    * @memberof EditSubscriptionsComponent
+    */
+    public onLastCompanyAccessDateChange(date: any, value: string): void {
+        this.getAllCompaniesRequest.lastCompanyAccess.operation = value;
+
+        if (value === "BETWEEN") {
+            this.getAllCompaniesRequest.lastCompanyAccess.from = moment(date[0]).format(GIDDH_DATE_FORMAT);
+            this.getAllCompaniesRequest.lastCompanyAccess.to = moment(date[1]).format(GIDDH_DATE_FORMAT);
+        } else if (value === "UNAVAILABLE" || value === "AVAILABLE") {
+            this.getAllCompaniesRequest.lastCompanyAccess.from = '';
+            this.getAllCompaniesRequest.lastCompanyAccess.to = '';
+        } else {
+            this.getAllCompaniesRequest.lastCompanyAccess.from = moment(date).format(GIDDH_DATE_FORMAT);
+            this.getAllCompaniesRequest.lastCompanyAccess.to = '';
+        }
+        this.showClearFilter = true;
+        this.paginationRequest.page = 1;
+        this.lastCompanyAccessDropdown(true);
+        this.getAllCompanies();
     }
 }

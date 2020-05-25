@@ -523,6 +523,7 @@ export class UserListComponent implements OnInit {
         this.getUserListPostRequest.planUniqueNames = [];
         this.getUserListPostRequest.countryCodes = this.selectedCountries = [];
         this.getUserListPostRequest.startedAtFrom = '';
+        this.getUserListPostRequest.managerUniqueNames = [];
         this.getUserListRequest.sortBy = '';
         this.getUserListRequest.sortType = '';
         this.getUserListPostRequest.expiry = '';
@@ -543,6 +544,7 @@ export class UserListComponent implements OnInit {
         this.countrySource.forEach(res => {
             res.additional = false;
         });
+        this.selectedOwners = [];
         this.isAllPlanSelected = false;
         this.getUserListRequest.page = 1;
         this.showClearFilter = false;
