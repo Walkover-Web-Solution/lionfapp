@@ -12,5 +12,6 @@ export const SUBSCRIPTION_API = {
     ASSIGN_MANAGER: 'v2/admin/users/assign-manager?userUniqueName=:userUniqueName',
     UPDATE_TRANSACTIONS: 'v2/admin/subscriptions/increase-transactions?subscriptionId=:subscriptionId',
     ASSIGN_PLAN: 'v2/admin/subscriptions',
-    EXPORT_SUBSCRIPTIONS: 'v2/admin/subscriptions/all-by-user-v2/export?sortBy=:sortBy&sortType=:sortType'
+    EXPORT_SUBSCRIPTIONS: 'v2/admin/subscriptions/all-by-user-v2/export?sortBy=:sortBy&sortType=:sortType',
+    GET_COMPANIES_FOOTER: 'v2/admin/companies-footer',
 };

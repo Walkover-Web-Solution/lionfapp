@@ -88,6 +88,29 @@ export class SubscriptionService {
                     this.errorHandler.HandleCatch(e)));
     }
 
+    public getCompaniesFooter(body: GetAllCompaniesRequest) {
+        let url = SUBSCRIPTION_API.GET_COMPANIES_FOOTER
+        // if (model.sortBy) {
+        //     url = url + '&sortBy=:sortBy';// &sortType=:sortType&
+        //     url = url.replace(':sortBy', model.sortBy);
+        // }
+        // if (model.sortType) {
+        //     url = url + '&sortType=:sortType';
+        //     url = url.replace(':sortType', model.sortType);
+        // }
+        // if (model.page) {
+        //     url = url.replace(':page', model.page);
+        // }
+        return this.http.post(this.config.apiUrl + url, body)
+            .pipe(
+                map((resp) => {
+                    return resp;
+                }),
+                catchError((e) =>
+                    this.errorHandler.HandleCatch(e)));
+    }
+
+
     public getAuditLog(model) {
         return this.http.get(this.config.apiUrl + SUBSCRIPTION_API.GET_AUDIT_LOGS, model)
             .pipe(
