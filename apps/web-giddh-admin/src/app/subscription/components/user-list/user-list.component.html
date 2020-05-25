@@ -1,128 +1,128 @@
 <div class="">
     <div class="pageHeader">
         <div class="d-flex justify-content-between width-100">
-            
-          <div class="d-flex">
-            <div class="dis mr-1">
 
-              <div  class="btn-group mt-05" #filterDropDownList="bs-dropdown" dropdown [autoClose]="false" (clickOutside)="hideListItems()" [tooltip]="'Enable / Disable Column'" [placement]="'right'">
-                  <i dropdownToggle class="icon-options pd cp fs20"></i>
+            <div class="d-flex">
+                <div class="dis mr-1">
 
-                  <ul *dropdownMenu class="dropdown-menu dropdown-menu-left" role="menu" [style.width.px]="'200'">
-                      <li role="menuitem">
-                          <a class="dropdown-item">
-                              <input type="checkbox" name="isAllFieldColumnFilterApplied" [(ngModel)]="isAllFieldColumnFilterApplied" (ngModelChange)="selectAllColumns($event)"> Select All
-                          </a>
-                      </li>
+                    <div class="btn-group mt-05" #filterDropDownList="bs-dropdown" dropdown [autoClose]="false" (clickOutside)="hideListItems()" [tooltip]="'Enable / Disable Column'" [placement]="'right'">
+                        <i dropdownToggle class="icon-options pd cp fs20"></i>
 
-                      <li role="menuitem">
-                          <a class="dropdown-item">
-                              <input type="checkbox" name="field_filter.companyName" (ngModelChange)="columnFilter($event, 'signUpOn')" [(ngModel)]="showFieldFilter.signUpOn" /> Signup Date
+                        <ul *dropdownMenu class="dropdown-menu dropdown-menu-left" role="menu" [style.width.px]="'200'">
+                            <li role="menuitem">
+                                <a class="dropdown-item">
+                                    <input type="checkbox" name="isAllFieldColumnFilterApplied" [(ngModel)]="isAllFieldColumnFilterApplied" (ngModelChange)="selectAllColumns($event)"> Select All
+                                </a>
+                            </li>
 
-                          </a>
-                      </li>
+                            <li role="menuitem">
+                                <a class="dropdown-item">
+                                    <input type="checkbox" name="field_filter.companyName" (ngModelChange)="columnFilter($event, 'signUpOn')" [(ngModel)]="showFieldFilter.signUpOn" /> Signup On
 
-                      <li role="menuitem">
-                          <a class="dropdown-item">
-                              <input type="checkbox" name="field_filter.userName" (ngModelChange)="columnFilter($event, 'owner')" [(ngModel)]="showFieldFilter.owner" /> Owner
-                          </a>
-                      </li>
-                      <li role="menuitem">
-                          <a class="dropdown-item">
-                              <input type="checkbox" name="field_filter.userName" (ngModelChange)="columnFilter($event, 'name')" [(ngModel)]="showFieldFilter.name" /> Name
-                          </a>
-                      </li>
-                      <li role="menuitem">
-                          <a class="dropdown-item">
-                              <input type="checkbox" name="field_filter.userName" (ngModelChange)="columnFilter($event, 'email')" [(ngModel)]="showFieldFilter.email" /> Email
-                          </a>
-                      </li>
-                      <li role="menuitem">
-                          <a class="dropdown-item">
-                              <input type="checkbox" name="field_filter.userName" (ngModelChange)="columnFilter($event, 'mobile')" [(ngModel)]="showFieldFilter.mobile" /> Mobile
-                          </a>
-                      </li>
-                      <li role="menuitem">
-                          <a class="dropdown-item">
-                              <input type="checkbox" name="field_filter.subscriptionId" (ngModelChange)="columnFilter($event, 'subscriptionId')" [(ngModel)]="showFieldFilter.subscriptionId" /> subscription ID</a>
-                      </li>
-                      <li role="menuitem">
-                          <a class="dropdown-item">
-                              <input type="checkbox" name="field_filter.subscribedOn" (ngModelChange)="columnFilter($event, 'subscribedOn')" [(ngModel)]="showFieldFilter.subscribedOn" /> Subscribed On</a>
-                      </li>
+                                </a>
+                            </li>
 
-
-
-                      <li role="menuitem">
-                          <a class="dropdown-item">
-                              <input type="checkbox" name="field_filter.planName" (ngModelChange)="columnFilter($event, 'planName')" [(ngModel)]="showFieldFilter.planName" /> Plan Name</a>
-                      </li>
-                      <li role="menuitem">
-                          <a class="dropdown-item">
-                              <input type="checkbox" name="field_filter.planName" (ngModelChange)="columnFilter($event, 'noOfCompany')" [(ngModel)]="showFieldFilter.noOfCompany" /> Companies</a>
-                      </li>
-                      <li role="menuitem">
-                          <a class="dropdown-item">
-                              <input type="checkbox" name="field_filter.transactionLimit" (ngModelChange)="columnFilter($event, 'transactionLimit')" [(ngModel)]="showFieldFilter.transactionLimit" /> Transaction Limit
-                          </a>
-                      </li>
-                      <li role="menuitem">
-                          <a class="dropdown-item">
-                              <input type="checkbox" name="field_filter.remainingTransaction" (ngModelChange)="columnFilter($event, 'remainingTransaction')" [(ngModel)]="showFieldFilter.remainingTransaction" /> Remaining Transaction</a>
-                      </li>
+                            <li role="menuitem">
+                                <a class="dropdown-item">
+                                    <input type="checkbox" name="field_filter.userName" (ngModelChange)="columnFilter($event, 'owner')" [(ngModel)]="showFieldFilter.owner" /> Owner
+                                </a>
+                            </li>
+                            <li role="menuitem">
+                                <a class="dropdown-item">
+                                    <input type="checkbox" name="field_filter.userName" (ngModelChange)="columnFilter($event, 'name')" [(ngModel)]="showFieldFilter.name" /> Name
+                                </a>
+                            </li>
+                            <li role="menuitem">
+                                <a class="dropdown-item">
+                                    <input type="checkbox" name="field_filter.userName" (ngModelChange)="columnFilter($event, 'email')" [(ngModel)]="showFieldFilter.email" /> Email
+                                </a>
+                            </li>
+                            <li role="menuitem">
+                                <a class="dropdown-item">
+                                    <input type="checkbox" name="field_filter.userName" (ngModelChange)="columnFilter($event, 'mobile')" [(ngModel)]="showFieldFilter.mobile" /> Mobile
+                                </a>
+                            </li>
+                            <li role="menuitem">
+                                <a class="dropdown-item">
+                                    <input type="checkbox" name="field_filter.subscriptionId" (ngModelChange)="columnFilter($event, 'subscriptionId')" [(ngModel)]="showFieldFilter.subscriptionId" /> subscription ID</a>
+                            </li>
+                            <li role="menuitem">
+                                <a class="dropdown-item">
+                                    <input type="checkbox" name="field_filter.subscribedOn" (ngModelChange)="columnFilter($event, 'subscribedOn')" [(ngModel)]="showFieldFilter.subscribedOn" /> Subscribed On</a>
+                            </li>
 
 
 
-                      <li role="menuitem">
-                          <a class="dropdown-item">
-                              <input type="checkbox" name="field_filter.addOnTransaction" (ngModelChange)="columnFilter($event, 'addOnTransaction')" [(ngModel)]="showFieldFilter.addOnTransaction" /> AddOn Transactio</a>
-                      </li>
+                            <li role="menuitem">
+                                <a class="dropdown-item">
+                                    <input type="checkbox" name="field_filter.planName" (ngModelChange)="columnFilter($event, 'planName')" [(ngModel)]="showFieldFilter.planName" /> Plan Name</a>
+                            </li>
+                            <li role="menuitem">
+                                <a class="dropdown-item">
+                                    <input type="checkbox" name="field_filter.planName" (ngModelChange)="columnFilter($event, 'noOfCompany')" [(ngModel)]="showFieldFilter.noOfCompany" /> Companies</a>
+                            </li>
+                            <li role="menuitem">
+                                <a class="dropdown-item">
+                                    <input type="checkbox" name="field_filter.transactionLimit" (ngModelChange)="columnFilter($event, 'transactionLimit')" [(ngModel)]="showFieldFilter.transactionLimit" /> Transaction Limit
+                                </a>
+                            </li>
+                            <li role="menuitem">
+                                <a class="dropdown-item">
+                                    <input type="checkbox" name="field_filter.remainingTransaction" (ngModelChange)="columnFilter($event, 'remainingTransaction')" [(ngModel)]="showFieldFilter.remainingTransaction" /> Remaining Transaction</a>
+                            </li>
 
-                      <li role="menuitem">
-                          <a class="dropdown-item">
-                              <input type="checkbox" name="field_filter.additionalCharges" (ngModelChange)="columnFilter($event, 'additionalCharges')" [(ngModel)]="showFieldFilter.additionalCharges" /> Additional Charges
-                          </a>
-                      </li>
 
-                      <li role="menuitem">
-                          <a class="dropdown-item">
-                              <input type="checkbox" name="field_filter.ratePerTransaction" (ngModelChange)="columnFilter($event, 'ratePerTransaction')" [(ngModel)]="showFieldFilter.ratePerTransaction" /> Rate/Transaction</a>
-                      </li>
-                      <li role="menuitem">
-                          <a class="dropdown-item">
-                              <input type="checkbox" name="field_filter.country" (ngModelChange)="columnFilter($event, 'country')" [(ngModel)]="showFieldFilter.country" /> Country
-                          </a>
-                      </li>
-                      <li role="menuitem">
-                          <a class="dropdown-item">
-                              <input type="checkbox" name="field_filter.expiry" (ngModelChange)="columnFilter($event, 'expiry')" [(ngModel)]="showFieldFilter.expiry" /> Expiry
-                          </a>
-                      </li>
-                      <li role="menuitem">
-                          <a class="dropdown-item">
-                              <input type="checkbox" name="field_filter.status" (ngModelChange)="columnFilter($event, 'status')" [(ngModel)]="showFieldFilter.status" /> Status
-                          </a>
-                      </li>
-                      <li role="menuitem">
-                          <a class="dropdown-item">
-                              <input type="checkbox" name="field_filter.lastSeen" (ngModelChange)="columnFilter($event, 'lastSeen')" [(ngModel)]="showFieldFilter.lastSeen" /> Last seen
-                          </a>
-                      </li>
 
-                  </ul>
-              </div>
-          </div>
+                            <li role="menuitem">
+                                <a class="dropdown-item">
+                                    <input type="checkbox" name="field_filter.addOnTransaction" (ngModelChange)="columnFilter($event, 'addOnTransaction')" [(ngModel)]="showFieldFilter.addOnTransaction" /> AddOn Transactio</a>
+                            </li>
 
-          <div class="d-flex">
-              <div class="input-group input-date">
-                  <span class="input-group-addon" id="sizing-addon2"><i class="fa fa-calendar pull-right"></i></span>
-                  <input type="text" class="form-control date-range-picker" readonly [(bsValue)]="bsValue" placeholder="Select Date" (bsValueChange)="onChangeFilterDate($event)" bsDaterangepicker>
-              </div>
-              <button class=" btn-link" *ngIf="getUserListPostRequest.signUpOnFrom || showClearFilter  || (getUserListPostRequest.planUniqueNames && getUserListPostRequest.planUniqueNames.length || getUserListPostRequest.lastSeen.days || getUserListPostRequest.lastSeen.from || getUserListPostRequest.lastSeen.operation === 'UNAVAILABLE' || getUserListPostRequest.lastSeen.operation === 'AVAILABLE')"
-                  (click)="resetFilters();"><i class="icon icon-loop2
-    "></i> Clear Filter</button>
-          </div>
-          </div>
+                            <li role="menuitem">
+                                <a class="dropdown-item">
+                                    <input type="checkbox" name="field_filter.additionalCharges" (ngModelChange)="columnFilter($event, 'additionalCharges')" [(ngModel)]="showFieldFilter.additionalCharges" /> Additional Charges
+                                </a>
+                            </li>
+
+                            <li role="menuitem">
+                                <a class="dropdown-item">
+                                    <input type="checkbox" name="field_filter.ratePerTransaction" (ngModelChange)="columnFilter($event, 'ratePerTransaction')" [(ngModel)]="showFieldFilter.ratePerTransaction" /> Rate/Transaction</a>
+                            </li>
+                            <li role="menuitem">
+                                <a class="dropdown-item">
+                                    <input type="checkbox" name="field_filter.country" (ngModelChange)="columnFilter($event, 'country')" [(ngModel)]="showFieldFilter.country" /> Country
+                                </a>
+                            </li>
+                            <li role="menuitem">
+                                <a class="dropdown-item">
+                                    <input type="checkbox" name="field_filter.expiry" (ngModelChange)="columnFilter($event, 'expiry')" [(ngModel)]="showFieldFilter.expiry" /> Expiry
+                                </a>
+                            </li>
+                            <li role="menuitem">
+                                <a class="dropdown-item">
+                                    <input type="checkbox" name="field_filter.status" (ngModelChange)="columnFilter($event, 'status')" [(ngModel)]="showFieldFilter.status" /> Status
+                                </a>
+                            </li>
+                            <li role="menuitem">
+                                <a class="dropdown-item">
+                                    <input type="checkbox" name="field_filter.lastSeen" (ngModelChange)="columnFilter($event, 'lastSeen')" [(ngModel)]="showFieldFilter.lastSeen" /> Last seen
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="d-flex">
+                    <div class="input-group input-date">
+                        <span class="input-group-addon" id="sizing-addon2"><i class="fa fa-calendar pull-right"></i></span>
+                        <input type="text" class="form-control date-range-picker" readonly [(bsValue)]="bsValue" placeholder="Select Date" (bsValueChange)="onChangeFilterDate($event)" bsDaterangepicker>
+                    </div>
+                    <button class=" btn-link" *ngIf="getUserListPostRequest.signUpOnFrom || showClearFilter  || (getUserListPostRequest.planUniqueNames && getUserListPostRequest.planUniqueNames.length || getUserListPostRequest.lastSeen.days || getUserListPostRequest.lastSeen.from || getUserListPostRequest.lastSeen.operation === 'UNAVAILABLE' || getUserListPostRequest.lastSeen.operation === 'AVAILABLE')"
+                        (click)="resetFilters();"><i class="icon icon-loop2
+"></i> Clear Filter</button>
+                </div>
+            </div>
 
             <div class="pull-right">
                 <a href="javascript:void(0)" class="btn btn-blue mr-1 ml-1 btn-export" (click)="exportSubscriptionsByUsers()">Export</a>
@@ -134,12 +134,25 @@
             <table class="table table-bordered basic subscrib-list-table card-list-table">
                 <thead>
                     <tr (clickOutside)="inlineSearch = null">
-                        <th *ngIf="showFieldFilter.signUpOn">
+                        <!-- <th *ngIf="showFieldFilter.signUpOn">
                             Signup Date
+                        </th> -->
+
+                        <th class="table-search" *ngIf="showFieldFilter.owner">
+                            <div [hidden]="inlineSearch == 'subscribersSignup'|| getUserListPostRequest.signUpOnFrom">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <span>Signup On</span>
+                                    <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('subscribersSignup')"></i>
+                                </div>
+                            </div>
+                            <div class="input-container" [hidden]="inlineSearch !== 'subscribersSignup' && !getUserListPostRequest.signUpOnFrom">
+                                <input type="text" placement="bottom" placeholder="Signup on" readonly class="form-control w100" #subscribersSignupField [(ngModel)]="getUserListPostRequest.signUpOnFrom" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" (ngModelChange)="searchViaDate('signUpOnFrom')"
+                                    bsDatepicker name="signUpOnFrom" />
+                            </div>
                         </th>
 
                         <th class="table-dropdown" *ngIf="showFieldFilter.owner">
-                            <span class="pr c-dropdown align-center" [ngClass]="{'open': owner}" [attachOutsideOnClick]="true" (clickOutside)="ownerFocus(true)">
+                            <span class="pr c-dropdown align-center" [ngClass]="{ 'open': owner}" [attachOutsideOnClick]="true" (clickOutside)="ownerFocus(true)">
                                 <label>Owner</label>
 
                                 <div class="btn-group pull-right" dropdown [autoClose]="true" placement="left">
@@ -148,7 +161,7 @@
                                             class="fa fa-angle-down"></span>
                             </button>
 
-                            <ul id="dropdown-owner" class="dropdown-menu pd multiselect-dropdown" [ngStyle]="{'display': owner ? 'block': 'none'}">
+                            <ul id="dropdown-owner" class="dropdown-menu pd multiselect-dropdown" [ngStyle]="{ 'display': owner ? 'block': 'none'}">
                                 <li role="menuitem" *ngIf="adminUsersList?.length"><input type="checkbox" [(ngModel)]="isAllOwnerSelected" (click)="selectAllOwners($event);">Select all
                                 </li>
                                 <ng-container *ngFor="let adminUser of adminUsersList;">
@@ -163,77 +176,77 @@
         </th>
 
         <th class="table-search" *ngIf="showFieldFilter.name">
-            <div [hidden]="inlineSearch == 'userName' || getUserListPostRequest.userName">
+            <div [hidden]="inlineSearch=='userName' || getUserListPostRequest.userName">
                 <div class="d-flex align-items-center justify-content-between">
                     <span>Name</span>
-                    <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('userName')"></i>
+                    <i class="fa fa-search pull-right" (click)="focusOnColumnSearch( 'userName')"></i>
                 </div>
             </div>
-            <div class="input-container" [hidden]="inlineSearch !== 'userName' && !getUserListPostRequest.userName">
+            <div class="input-container" [hidden]="inlineSearch !=='userName' && !getUserListPostRequest.userName">
                 <input type="text" placeholder="Name" class="form-control w100" #userNameField name="userName" [(ngModel)]="getUserListPostRequest.userName" (ngModelChange)="searchViaUserName$.next($event)" />
             </div>
         </th>
 
         <th class="table-search" *ngIf="showFieldFilter.email">
-            <div [hidden]="inlineSearch == 'userEmail' || getUserListPostRequest.email">
+            <div [hidden]="inlineSearch=='userEmail' || getUserListPostRequest.email">
                 <div class="d-flex align-items-center justify-content-between">
                     <span>Email</span>
-                    <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('userEmail')"></i>
+                    <i class="fa fa-search pull-right" (click)="focusOnColumnSearch( 'userEmail')"></i>
                 </div>
             </div>
-            <div class="input-container" [hidden]="inlineSearch !== 'userEmail' && !getUserListPostRequest.email">
+            <div class="input-container" [hidden]="inlineSearch !=='userEmail' && !getUserListPostRequest.email">
                 <input type="text" placeholder="Email" class="form-control w100" #userEmailField name="userEmail" [(ngModel)]="getUserListPostRequest.email" (ngModelChange)="searchViaEmail$.next($event)" />
             </div>
         </th>
 
         <th class="table-search" *ngIf="showFieldFilter.mobile">
-            <div [hidden]="inlineSearch == 'userMobile' || getUserListPostRequest.mobile">
+            <div [hidden]="inlineSearch=='userMobile' || getUserListPostRequest.mobile">
                 <div class="d-flex align-items-center justify-content-between">
                     <span>Mobile</span>
-                    <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('userMobile')"></i>
+                    <i class="fa fa-search pull-right" (click)="focusOnColumnSearch( 'userMobile')"></i>
                 </div>
             </div>
-            <div class="input-container" [hidden]="inlineSearch !== 'userMobile' && !getUserListPostRequest.mobile">
+            <div class="input-container" [hidden]="inlineSearch !=='userMobile' && !getUserListPostRequest.mobile">
                 <input type="text" placeholder="Mobile" class="form-control w100" #userMobileField name="userMobile" [(ngModel)]="getUserListPostRequest.mobile" (ngModelChange)="searchViaMobileNo$.next($event)" />
             </div>
         </th>
 
         <th class="table-search" *ngIf="showFieldFilter.subscriptionId">
-            <div [hidden]="inlineSearch == 'userSubscription' || getUserListPostRequest.subscriptionId">
+            <div [hidden]="inlineSearch=='userSubscription' || getUserListPostRequest.subscriptionId">
                 <div class="d-flex align-items-center justify-content-between">
                     <span>Subscription ID</span>
-                    <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('userSubscription')"></i>
+                    <i class="fa fa-search pull-right" (click)="focusOnColumnSearch( 'userSubscription')"></i>
                 </div>
             </div>
-            <div class="input-container" [hidden]="inlineSearch !== 'userSubscription' && !getUserListPostRequest.subscriptionId">
+            <div class="input-container" [hidden]="inlineSearch !=='userSubscription' && !getUserListPostRequest.subscriptionId">
                 <input type="text" placeholder="Subscription" class="form-control w100" #userSubscriptionField name="userSubscription" [(ngModel)]="getUserListPostRequest.subscriptionId" (ngModelChange)="searchViaSubscriptionID$.next($event)" />
             </div>
         </th>
-        <!-- "Subscribed On" column div -->
+        <!--"Subscribed On" column div -->
         <th class="table-search" *ngIf="showFieldFilter.subscribedOn">
-            <div [hidden]="inlineSearch == 'subscribOn' || getUserListPostRequest.startedAtFrom">
+            <div [hidden]="inlineSearch=='subscribOn' || getUserListPostRequest.startedAtFrom">
                 <div class="d-flex align-items-center justify-content-between">
                     <span>Subscribed On</span>
-                    <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('subscribOn')"></i>
+                    <i class="fa fa-search pull-right" (click)="focusOnColumnSearch( 'subscribOn')"></i>
                 </div>
             </div>
-            <div class="input-container" placement="bottom" [hidden]="inlineSearch !== 'subscribOn' && !getUserListPostRequest.startedAtFrom">
-                <input type="text" placeholder="Subscribe on" class="form-control w100" #subscribOnField readonly [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker [(ngModel)]="getUserListPostRequest.startedAtFrom" (ngModelChange)="searchViaSubscribedOn()"
+            <div class="input-container" placement="bottom" [hidden]="inlineSearch !=='subscribOn' && !getUserListPostRequest.startedAtFrom">
+                <input type="text" placeholder="Subscribe on" class="form-control w100" #subscribOnField readonly [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker [(ngModel)]="getUserListPostRequest.startedAtFrom" (ngModelChange)="searchViaDate('startedAtFrom')"
                     name="startedAtFrom" />
             </div>
         </th>
-        <!-- "Plan Name" column div -->
+        <!--"Plan Name" column div -->
         <th class="table-dropdown" *ngIf="showFieldFilter.planName">
-            <span class="pr c-dropdown align-center" [ngClass]="{'open': showTaxPopup}" [attachOutsideOnClick]="true" (clickOutside)="handleInputFocus('plan',true)">
+            <span class="pr c-dropdown align-center" [ngClass]="{ 'open': showTaxPopup}" [attachOutsideOnClick]="true" (clickOutside)="handleInputFocus( 'plan',true)">
                                 <label>Plan Name</label>
 
                                 <div class="btn-group pull-right" dropdown [autoClose]="true" placement="left">
-                                    <button id="button-basic" dropdownToggle (click)="handleInputFocus('plan',showTaxPopup)"
+                                    <button id="button-basic" dropdownToggle (click)="handleInputFocus( 'plan',showTaxPopup)"
                                         type="button" class="btn-multiselect dropdown-toggle pull-right"><span
                                             class="fa fa-angle-down"></span>
             </button>
 
-            <ul id="dropdown-plan" class="dropdown-menu pd multiselect-dropdown" [ngStyle]="{'display': showTaxPopup ? 'block': 'none'}">
+            <ul id="dropdown-plan" class="dropdown-menu pd multiselect-dropdown" [ngStyle]="{ 'display': showTaxPopup ? 'block': 'none'}">
                 <li role="menuitem" *ngIf="allPlans?.length"><input type="checkbox" [(ngModel)]="isAllPlanSelected" (click)="selectAllPlans($event);">Select all
                 </li>
                 <ng-container *ngFor="let item of allPlans">
@@ -244,74 +257,108 @@
     </div>
     </span>
     </th>
-    <!-- "Companies" column div -->
-    <th (click)="sortBy('NO_OF_COMPANIES')" *ngIf="showFieldFilter.noOfCompany">
-        <div class="align-center">Companies <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getUserListRequest.sortType === 'desc' && getUserListRequest.sortBy === 'NO_OF_COMPANIES', 'icon-icon-sort-down': (getUserListRequest.sortType === 'asc' && getUserListRequest.sortBy === 'NO_OF_COMPANIES') || getUserListRequest.sortBy !== 'NO_OF_COMPANIES'}"></i>
+    <!--"Companies" column div -->
+    <th (click)="sortBy( 'NO_OF_COMPANIES')" *ngIf="showFieldFilter.noOfCompany">
+        <div class="align-center">Companies <i [ngClass]="{ 'fa pull-right': 1===1 , 'icon-icon-sort-up': getUserListRequest.sortType==='desc' && getUserListRequest.sortBy==='NO_OF_COMPANIES' , 'icon-icon-sort-down': (getUserListRequest.sortType==='asc'
+                                    && getUserListRequest.sortBy==='NO_OF_COMPANIES' ) || getUserListRequest.sortBy !=='NO_OF_COMPANIES' }"></i>
         </div>
     </th>
     <!-- Transaction Limit column div -->
-    <th *ngIf="showFieldFilter.transactionLimit">
-        <div class="d-flex align-items-center justify-content-between">
-            Transaction Limit
-            <a (click)="sortBy('TRANSACTION_LIMIT')" class="text-black">
-                <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getUserListRequest.sortType === 'desc' && getUserListRequest.sortBy === 'TRANSACTION_LIMIT', 'icon-icon-sort-down
-': (getUserListRequest.sortType === 'asc' && getUserListRequest.sortBy === 'TRANSACTION_LIMIT') || getUserListRequest.sortBy !== 'TRANSACTION_LIMIT'}"></i>
-            </a>
+
+    <th class="table-search" *ngIf="showFieldFilter.transactionLimit">
+        <div [hidden]="inlineSearch=='transactionLimit' || getUserListPostRequest.transactionLimit">
+            <div class="d-flex align-items-center justify-content-between">
+                <span>Transaction Limit</span>
+                <i class="fa fa-search pull-right" (click)="focusOnColumnSearch( 'transactionLimit')"></i>
+            </div>
+        </div>
+        <div class="input-container" placement="bottom" [hidden]="inlineSearch !=='transactionLimit' && !getUserListPostRequest.transactionLimit">
+            <input type="text" placeholder="Transaction limit" class="form-control w100" #transactionLimitField name="transactionLimit" [(ngModel)]="getUserListPostRequest.transactionLimit" (ngModelChange)="transactionLimit$.next($event)" />
         </div>
     </th>
+
+
     <!-- Remaining Transaction column div -->
-    <th *ngIf="showFieldFilter.remainingTransaction">
-        <div class="d-flex align-items-center justify-content-between">
-            Remaining Transaction
-            <a (click)="sortBy('REMAINING_TRANSACTIONS')" class="text-black">
-                <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getUserListRequest.sortType === 'desc' && getUserListRequest.sortBy === 'REMAINING_TRANSACTIONS', 'icon-icon-sort-down
-': (getUserListRequest.sortType === 'asc' && getUserListRequest.sortBy === 'REMAINING_TRANSACTIONS') || getUserListRequest.sortBy !== 'REMAINING_TRANSACTIONS'}"></i>
-            </a>
+
+    <th class="table-search" *ngIf="showFieldFilter.remainingTransaction">
+        <div [hidden]="inlineSearch=='remainingTransaction' || getUserListPostRequest.remainingTransaction">
+            <div class="d-flex align-items-center justify-content-between">
+                <span>Remaining Transaction</span>
+                <i class="fa fa-search pull-right" (click)="focusOnColumnSearch( 'remainingTransaction')"></i>
+            </div>
+        </div>
+        <div class="input-container" placement="bottom" [hidden]="inlineSearch !=='remainingTransaction' && !getUserListPostRequest.remainingTransaction">
+            <input type="text" placeholder="Remaining transaction" class="form-control w100" #remainingTransaction name="remainingTransaction" [(ngModel)]="getUserListPostRequest.remainingTransaction" (ngModelChange)="remainingTransaction$.next($event)" />
         </div>
     </th>
     <!-- AddOn Transaction column div -->
-    <th *ngIf="showFieldFilter.addOnTransaction">
-        <div class="d-flex align-items-center justify-content-between">
-            AddOn Transaction
-            <a (click)="sortBy('ADDON_TRANSACTIONS')" class="text-black">
-                <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getUserListRequest.sortType === 'desc' && getUserListRequest.sortBy === 'ADDON_TRANSACTIONS', 'icon-icon-sort-down
-': (getUserListRequest.sortType === 'asc' && getUserListRequest.sortBy === 'ADDON_TRANSACTIONS') || getUserListRequest.sortBy !== 'ADDON_TRANSACTIONS'}"></i>
-            </a>
+
+    <th class="table-search" *ngIf="showFieldFilter.addOnTransaction">
+        <div [hidden]="inlineSearch=='addOnTransaction' || getUserListPostRequest.addOnTransaction">
+            <div class="d-flex align-items-center justify-content-between">
+                <span>AddOn Transaction</span>
+                <i class="fa fa-search pull-right" (click)="focusOnColumnSearch( 'addOnTransaction')"></i>
+            </div>
+        </div>
+        <div class="input-container" placement="bottom" [hidden]="inlineSearch !=='addOnTransaction' && !getUserListPostRequest.addOnTransaction">
+            <input type="text" placeholder="AddOn transaction" class="form-control w100" #addOnTransaction name="addOnTransaction" [(ngModel)]="getUserListPostRequest.addOnTransaction" (ngModelChange)="addOnTransaction$.next($event)" />
         </div>
     </th>
     <!-- Additional Charges column div -->
 
-    <th *ngIf="showFieldFilter.additionalCharges">
+    <!-- <th *ngIf="showFieldFilter.additionalCharges">
         <div class="d-flex align-items-center justify-content-between">
             Additional Charges
-            <a (click)="sortBy('ADDITIONAL_CHARGES')" class="text-black">
-                <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getUserListRequest.sortType === 'desc' && getUserListRequest.sortBy === 'ADDITIONAL_CHARGES', 'icon-icon-sort-down
-': (getUserListRequest.sortType === 'asc' && getUserListRequest.sortBy === 'ADDITIONAL_CHARGES') || getUserListRequest.sortBy !== 'ADDITIONAL_CHARGES'}"></i>
+            <a (click)="sortBy( 'ADDITIONAL_CHARGES')" class="text-black">
+                <i [ngClass]="{ 'fa pull-right': 1===1 , 'icon-icon-sort-up': getUserListRequest.sortType==='desc' && getUserListRequest.sortBy==='ADDITIONAL_CHARGES' , 'icon-icon-sort-down
+': (getUserListRequest.sortType==='asc' && getUserListRequest.sortBy==='ADDITIONAL_CHARGES' ) || getUserListRequest.sortBy !=='ADDITIONAL_CHARGES' }"></i>
             </a>
+        </div>
+    </th> -->
+
+    <th class="table-search" *ngIf="showFieldFilter.additionalCharges">
+        <div [hidden]="inlineSearch=='additionalCharges' || getUserListPostRequest.additionalCharges">
+            <div class="d-flex align-items-center justify-content-between">
+                <span>Additional Charges</span>
+                <i class="fa fa-search pull-right" (click)="focusOnColumnSearch( 'additionalCharges')"></i>
+            </div>
+        </div>
+        <div class="input-container" placement="bottom" [hidden]="inlineSearch !=='additionalCharges' && !getUserListPostRequest.additionalCharges">
+            <input type="text" placeholder="Additional charge" class="form-control w100" #additionalCharges name="additionalCharges" [(ngModel)]="getUserListPostRequest.additionalCharges" (ngModelChange)="additionalCharges$.next($event)" />
         </div>
     </th>
     <!-- Rate/Transaction column div -->
-
-    <th *ngIf="showFieldFilter.ratePerTransaction">
-        <div class="d-flex align-items-center justify-content-between">
-            Rate/Transaction
-            <a (click)="sortBy('RATE_PER_EXTRA_TRANSACTION')" class="text-black">
-                <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getUserListRequest.sortType === 'desc' && getUserListRequest.sortBy === 'RATE_PER_EXTRA_TRANSACTION', 'icon-icon-sort-down
-': (getUserListRequest.sortType === 'asc' && getUserListRequest.sortBy === 'RATE_PER_EXTRA_TRANSACTION') || getUserListRequest.sortBy !== 'RATE_PER_EXTRA_TRANSACTION'}"></i>
-            </a>
+    <th class="table-search" *ngIf="showFieldFilter.ratePerTransaction">
+        <div [hidden]="inlineSearch=='ratePerTransaction' || getUserListPostRequest.ratePerTransaction">
+            <div class="d-flex align-items-center justify-content-between">
+                <span> Rate/Transaction</span>
+                <i class="fa fa-search pull-right" (click)="focusOnColumnSearch( 'ratePerTransaction')"></i>
+            </div>
+        </div>
+        <div class="input-container" placement="bottom" [hidden]="inlineSearch !=='ratePerTransaction' && !getUserListPostRequest.ratePerTransaction">
+            <input type="text" placeholder="Additional charge" class="form-control w100" #ratePerTransaction name="ratePerTransaction" [(ngModel)]="getUserListPostRequest.ratePerTransaction" (ngModelChange)="ratePerTransaction$.next($event)" />
         </div>
     </th>
+    <!-- <th *ngIf="showFieldFilter.ratePerTransaction">
+        <div class="d-flex align-items-center justify-content-between">
+            Rate/Transaction
+            <a (click)="sortBy( 'RATE_PER_EXTRA_TRANSACTION')" class="text-black">
+                <i [ngClass]="{ 'fa pull-right': 1===1 , 'icon-icon-sort-up': getUserListRequest.sortType==='desc' && getUserListRequest.sortBy==='RATE_PER_EXTRA_TRANSACTION' , 'icon-icon-sort-down
+': (getUserListRequest.sortType==='asc' && getUserListRequest.sortBy==='RATE_PER_EXTRA_TRANSACTION' ) || getUserListRequest.sortBy !=='RATE_PER_EXTRA_TRANSACTION' }"></i>
+            </a>
+        </div>
+    </th> -->
 
     <!--Country  -->
     <th class="table-dropdown" *ngIf="showFieldFilter.country">
-        <span class="pr c-dropdown" [ngClass]="{'open': showCountryPopup}" [attachOutsideOnClick]="true" (clickOutside)="countryDropdown(true)">
+        <span class="pr c-dropdown" [ngClass]="{ 'open': showCountryPopup}" [attachOutsideOnClick]="true" (clickOutside)="countryDropdown(true)">
                         <label>Country</label>
 
                         <div class="btn-group pull-right" dropdown [autoClose]="true" placement="left">
                           <button id="button-basic" dropdownToggle (click)="countryDropdown(showCountryPopup)" type="button" class="btn-multiselect dropdown-toggle pull-right"><span class="fa fa-angle-down"></span>
         </button>
 
-        <ul class="dropdown-menu pd multiselect-dropdown" [ngStyle]="{'display': showCountryPopup ? 'block': 'none'}">
+        <ul class="dropdown-menu pd multiselect-dropdown" [ngStyle]="{ 'display': showCountryPopup ? 'block': 'none'}">
             <li role="menuitem" *ngIf="countrySource?.length"><input type="checkbox" [(ngModel)]="isAllCountrySelected" (click)="selectAllCountry($event);">Select all</li>
             <ng-container *ngFor="let item of countrySource">
                 <li role="menuitem"><input type="checkbox" [(ngModel)]="item.additional" name="additional" (click)="checkedCountryName(item, $event);">{{item.label}}</li>
@@ -321,45 +368,52 @@
 </div>
 </span>
 </th>
-<th *ngIf="showFieldFilter.expiry">
-    <div class="d-flex align-items-center justify-content-between">
-        Expiry
-        <a (click)="sortBy('EXPIRY')" class="text-black">
-            <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getUserListRequest.sortType === 'desc' && getUserListRequest.sortBy === 'EXPIRY', 'icon-icon-sort-down
-': (getUserListRequest.sortType === 'asc' && getUserListRequest.sortBy === 'EXPIRY') || getUserListRequest.sortBy !== 'EXPIRY'}"></i>
-        </a>
+<!-- Expiry column div -->
+<th class="table-search" *ngIf="showFieldFilter.expiry">
+    <div [hidden]="inlineSearch == 'expiry'|| getUserListPostRequest.expiry">
+        <div class="d-flex align-items-center justify-content-between">
+            <span>Expiry</span>
+            <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('expiry')"></i>
+        </div>
+    </div>
+    <div class="input-container" [hidden]="inlineSearch !== 'expiry' && !getUserListPostRequest.expiry">
+        <input type="text" placement="bottom" placeholder="expiry" readonly class="form-control w100" #expirySearch [(ngModel)]="getUserListPostRequest.expiry" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" (ngModelChange)="searchViaDate('expiry')" bsDatepicker
+            name="expiry" />
     </div>
 </th>
+<!-- status column div -->
 <th class="table-dropdown" *ngIf="showFieldFilter.status">
-    <span class="pr c-dropdown" [ngClass]="{'open': showStatusPopups}" [attachOutsideOnClick]="true" (clickOutside)="handleInputFocus('status',true)">
+    <span class="pr c-dropdown" [ngClass]="{ 'open': showStatusPopups}" [attachOutsideOnClick]="true" (clickOutside)="handleInputFocus( 'status',true)">
                                     <label>Status</label>
 
                                     <div class="btn-group pull-right" dropdown [autoClose]="true" placement="left">
-                                      <button id="button-basic" dropdownToggle (click)="handleInputFocus('status',showStatusPopups)" type="button" class="btn-multiselect dropdown-toggle pull-right"><span class="fa fa-angle-down"></span>
+                                      <button id="button-basic" dropdownToggle (click)="handleInputFocus( 'status',showStatusPopups)" type="button" class="btn-multiselect dropdown-toggle pull-right"><span class="fa fa-angle-down"></span>
     </button>
 
-    <ul id="dropdown-basic" class="dropdown-menu status pd multiselect-dropdown" [ngStyle]="{'display': showStatusPopups ? 'block': 'none'}">
+    <ul id="dropdown-basic" class="dropdown-menu status pd multiselect-dropdown" [ngStyle]="{ 'display': showStatusPopups ? 'block': 'none'}">
         <li role="menuitem"><input type="checkbox" [(ngModel)]="isAllPlanStatusSelected" (click)="selectAllPlansStatus($event);">Select all</li>
-        <li role="menuitem"><input type="checkbox" [(ngModel)]="planStatusType.trial" name="trial" (click)="checkedPlanStatus('trial', $event);"> Trial
+        <li role="menuitem"><input type="checkbox" [(ngModel)]="planStatusType.trial" name="trial" (click)="checkedPlanStatus( 'trial', $event);"> Trial
         </li>
-        <li role="menuitem"><input type="checkbox" [(ngModel)]="planStatusType.active" name="active" (click)="checkedPlanStatus('active', $event);"> Active
+        <li role="menuitem"><input type="checkbox" [(ngModel)]="planStatusType.active" name="active" (click)="checkedPlanStatus( 'active', $event);"> Active
         </li>
-        <li role="menuitem"><input type="checkbox" [(ngModel)]="planStatusType.expired" name="expired" (click)="checkedPlanStatus('expired', $event);"> Expired
+        <li role="menuitem"><input type="checkbox" [(ngModel)]="planStatusType.expired" name="expired" (click)="checkedPlanStatus( 'expired', $event);"> Expired
         </li>
     </ul>
     </div>
     </span>
 </th>
 
+<!-- Last seen column div -->
+
 <th class="table-dropdown" *ngIf="showFieldFilter.lastSeen">
-    <span class="pr c-dropdown align-center" [ngClass]="{'open': lastSeen}" [attachOutsideOnClick]="true" (clickOutside)="lastSeenDropdown(true)">
+    <span class="pr c-dropdown align-center" [ngClass]="{ 'open': lastSeen}" [attachOutsideOnClick]="true" (clickOutside)="lastSeenDropdown(true)">
                                 <label>last seen</label>
                                 <div class="btn-group pull-right" dropdown [autoClose]="true" placement="left">
                                     <button id="button-basic" dropdownToggle (click)="lastSeenDropdown(lastSeen)"
                                         type="button" class="btn-multiselect dropdown-toggle pull-right"><span
                                             class="fa fa-angle-down"></span>
     </button>
-    <ul id="dropdown-basic" class="dropdown-menu pd multiselect-dropdown" [ngStyle]="{'display': lastSeen ? 'block': 'none'}">
+    <ul id="dropdown-basic" class="dropdown-menu pd multiselect-dropdown" [ngStyle]="{ 'display': lastSeen ? 'block': 'none'}">
         <ng-container>
             <li role="menuitem">
                 <div class="clearfix mb-1">
@@ -371,13 +425,13 @@
                                                                 (ngModelChange)="resetLastSeenFilter()"
                                                                 value="relative_before">
                                                             <label for="morethan" class="radio-custom-label"
-                                                                [ngClass]="{'last-seen-radio-checked': tempOperation === 'relative_before'}"><span
+                                                                [ngClass]="{ 'last-seen-radio-checked': tempOperation==='relative_before' }"><span
                                                                     class="radio-checked"></span>More than
                         </label>
                         </span>
 
-                        <div class="d-flex mb-1 align-items-center" *ngIf="tempOperation === 'relative_before'">
-                            <input type="number" class="form-control mr-1" [(ngModel)]="getUserListPostRequest.lastSeen.days" (ngModelChange)="onLastSeenDaysChange('BEFORE')">
+                        <div class="d-flex mb-1 align-items-center" *ngIf="tempOperation==='relative_before'">
+                            <input type="number" class="form-control mr-1" [(ngModel)]="getUserListPostRequest.lastSeen.days" (ngModelChange)="onLastSeenDaysChange( 'BEFORE')">
                             <span class="nowrap">Days ago</span>
                         </div>
 
@@ -387,13 +441,13 @@
                                                                 (ngModelChange)="resetLastSeenFilter()"
                                                                 value="relative_after">
                                                             <label for="lessthan" class="radio-custom-label"
-                                                                [ngClass]="{'last-seen-radio-checked': tempOperation === 'relative_after'}"><span
+                                                                [ngClass]="{ 'last-seen-radio-checked': tempOperation==='relative_after' }"><span
                                                                     class="radio-checked"></span>Less than
                         </label>
                         </span>
 
-                        <div class="d-flex mb-1 align-items-center" *ngIf="tempOperation === 'relative_after'">
-                            <input type="number" class="form-control mr-1" [(ngModel)]="getUserListPostRequest.lastSeen.days" (ngModelChange)="onLastSeenDaysChange('AFTER')">
+                        <div class="d-flex mb-1 align-items-center" *ngIf="tempOperation==='relative_after'">
+                            <input type="number" class="form-control mr-1" [(ngModel)]="getUserListPostRequest.lastSeen.days" (ngModelChange)="onLastSeenDaysChange( 'AFTER')">
                             <span class="nowrap">Days ago</span>
                         </div>
 
@@ -403,12 +457,12 @@
                                                                 (ngModelChange)="resetLastSeenFilter()"
                                                                 value="relative_on">
                                                             <label for="Exactly" class="radio-custom-label"
-                                                                [ngClass]="{'last-seen-radio-checked': tempOperation === 'relative_on'}"><span
+                                                                [ngClass]="{ 'last-seen-radio-checked': tempOperation==='relative_on' }"><span
                                                                     class="radio-checked"></span>Exactly</label>
                         </span>
 
-                        <div class="d-flex mb-1 align-items-center" *ngIf="tempOperation === 'relative_on'">
-                            <input type="number" class="form-control mr-1" [(ngModel)]="getUserListPostRequest.lastSeen.days" (ngModelChange)="onLastSeenDaysChange('ON')">
+                        <div class="d-flex mb-1 align-items-center" *ngIf="tempOperation==='relative_on'">
+                            <input type="number" class="form-control mr-1" [(ngModel)]="getUserListPostRequest.lastSeen.days" (ngModelChange)="onLastSeenDaysChange( 'ON')">
                             <span class="nowrap">Days ago</span>
                         </div>
                     </div>
@@ -424,10 +478,10 @@
                                                                 (ngModelChange)="resetLastSeenFilter()"
                                                                 value="absolute_after">
                                                             <label for="after" class="radio-custom-label"
-                                                                [ngClass]="{'last-seen-radio-checked': tempOperation === 'absolute_after'}"><span
+                                                                [ngClass]="{ 'last-seen-radio-checked': tempOperation==='absolute_after' }"><span
                                                                     class="radio-checked"></span> After</label>
                         </span>
-                        <div class="mt-1 mb-1" *ngIf="tempOperation === 'absolute_after'">
+                        <div class="mt-1 mb-1" *ngIf="tempOperation==='absolute_after'">
                             <bs-datepicker-inline (bsValueChange)="onLastSeenDateChange($event, 'AFTER')">
                             </bs-datepicker-inline>
                         </div>
@@ -437,10 +491,10 @@
                                                                 (ngModelChange)="resetLastSeenFilter()"
                                                                 value="absolute_before">
                                                             <label for="before" class="radio-custom-label"
-                                                                [ngClass]="{'last-seen-radio-checked': tempOperation === 'absolute_before'}"><span
+                                                                [ngClass]="{ 'last-seen-radio-checked': tempOperation==='absolute_before' }"><span
                                                                     class="radio-checked"></span>Before</label>
                         </span>
-                        <div class="mt-1 mb-1" *ngIf="tempOperation === 'absolute_before'">
+                        <div class="mt-1 mb-1" *ngIf="tempOperation==='absolute_before'">
                             <bs-datepicker-inline (bsValueChange)="onLastSeenDateChange($event, 'BEFORE')">
                             </bs-datepicker-inline>
                         </div>
@@ -450,10 +504,10 @@
                                                                 (ngModelChange)="resetLastSeenFilter()"
                                                                 value="absolute_on">
                                                             <label for="on" class="radio-custom-label"
-                                                                [ngClass]="{'last-seen-radio-checked': tempOperation === 'absolute_on'}"><span
+                                                                [ngClass]="{ 'last-seen-radio-checked': tempOperation==='absolute_on' }"><span
                                                                     class="radio-checked"></span>On</label>
                         </span>
-                        <div class="clearfix mb-1" *ngIf="tempOperation === 'absolute_on'">
+                        <div class="clearfix mb-1" *ngIf="tempOperation==='absolute_on'">
                             <bs-datepicker-inline (bsValueChange)="onLastSeenDateChange($event, 'ON')">
                             </bs-datepicker-inline>
                         </div>
@@ -463,10 +517,10 @@
                                                                 (ngModelChange)="resetLastSeenFilter()"
                                                                 value="absolute_between">
                                                             <label for="between" class="radio-custom-label"
-                                                                [ngClass]="{'last-seen-radio-checked': tempOperation === 'absolute_between'}"><span
+                                                                [ngClass]="{ 'last-seen-radio-checked': tempOperation==='absolute_between' }"><span
                                                                     class="radio-checked"></span>Between</label>
                         </span>
-                        <div class="clearfix mb-1" *ngIf="tempOperation === 'absolute_between'">
+                        <div class="clearfix mb-1" *ngIf="tempOperation==='absolute_between'">
                             <bs-daterangepicker-inline [maxDate]="today" [bsConfig]="bsConfig" (bsValueChange)="onLastSeenDateChange($event, 'BETWEEN')">
                             </bs-daterangepicker-inline>
                         </div>
@@ -476,7 +530,7 @@
                                                                 (ngModelChange)="resetLastSeenFilter(); onLastSeenDateChange($event, 'UNAVAILABLE')"
                                                                 value="UNAVAILABLE">
                                                             <label for="isunknown" class="radio-custom-label"
-                                                                [ngClass]="{'last-seen-radio-checked': tempOperation === 'UNAVAILABLE'}"><span
+                                                                [ngClass]="{ 'last-seen-radio-checked': tempOperation==='UNAVAILABLE' }"><span
                                                                     class="radio-checked"></span>Is unknown</label>
                         </span>
 
@@ -486,7 +540,7 @@
                                                                 (ngModelChange)="resetLastSeenFilter(); onLastSeenDateChange($event, 'AVAILABLE')"
                                                                 value="AVAILABLE">
                                                             <label for="any-value" class="radio-custom-label"
-                                                                [ngClass]="{'last-seen-radio-checked': tempOperation === 'AVAILABLE'}"><span
+                                                                [ngClass]="{ 'last-seen-radio-checked': tempOperation==='AVAILABLE' }"><span
                                                                     class="radio-checked"></span>Has any value
                         </label>
                         </span>
@@ -524,9 +578,10 @@
             {{userSubscription.userDetails.email?userSubscription.userDetails.email:'-'}}</td>
         <td data-title="Mobile" class="nowrap" *ngIf="showFieldFilter.mobile">
             {{userSubscription.userDetails.mobileno?userSubscription.userDetails.mobileno:'-'}}</td>
-        <td data-title="Subscription ID" *ngIf="userSubscription.subscriptions.length === 1 && showFieldFilter.subscriptionId"><a href="javascript:void(0)" (click)="openEditSubscription(userSubscription.subscriptions[0].subscriptionId, 'subscriptionId');">{{ userSubscription.subscriptions[0].subscriptionId}}</a>
+        <td data-title="Subscription ID" *ngIf="userSubscription.subscriptions.length===1 && showFieldFilter.subscriptionId"><a href="javascript:void(0)" (click)="openEditSubscription(userSubscription.subscriptions[0].subscriptionId,
+                                    'subscriptionId');">{{ userSubscription.subscriptions[0].subscriptionId}}</a>
         </td>
-        <td data-title="Subscription ID" *ngIf="userSubscription.subscriptions.length > 1 && showFieldFilter.subscriptionId"><a href="javascript:void(0)" (click)="userSubscription.showInner = !userSubscription.showInner">Multiple</a>
+        <td data-title="Subscription ID" *ngIf="userSubscription.subscriptions.length> 1 && showFieldFilter.subscriptionId"><a href="javascript:void(0)" (click)="userSubscription.showInner = !userSubscription.showInner">Multiple</a>
         </td>
         <td data-title="Subscribed On" *ngIf="userSubscription.subscriptions.length === 1 && showFieldFilter.subscribedOn">
             {{userSubscription.subscriptions[0].startedAt}}
