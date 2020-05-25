@@ -534,6 +534,8 @@ export class UserListComponent implements OnInit {
         this.getUserListPostRequest.ratePerExtraTxn = '';
         this.getUserListPostRequest.additionalCharges = '';
         this.resetAdvanceOperationLimitFilter();
+        this.isAllPlanStatusFilterApplied();
+        this.isAllColumnFilterApplied();
 
         this.allPlans.forEach(res => {
             res.additional = false;
@@ -927,6 +929,7 @@ export class UserListComponent implements OnInit {
             if (this.selectedCountries.indexOf(item.value) === -1) {
                 this.selectedCountries.push(item.value);
             }
+            this.showClearFilter = true;
         } else {
             let index = this.selectedCountries.indexOf(item.value);
             this.selectedCountries.splice(index, 1);
@@ -947,6 +950,7 @@ export class UserListComponent implements OnInit {
         this.selectedPlanStatus = [];
         if (event.target.checked) {
             this.selectedPlanStatus = this.selectedAllPlanType;
+            this.showClearFilter = true;
             this.isAllPlansStatusSelected(true);
         } else {
             this.selectedPlanStatus = []
@@ -986,9 +990,19 @@ export class UserListComponent implements OnInit {
             let index = this.selectedPlanStatus.indexOf(type);
             this.selectedPlanStatus.splice(index, 1)
         }
-        this.isAllPlansSelected();
+        this.isAllPlanStatusTypeSelected()
+        this.isAllPlanStatusFilterApplied();
         this.getUserListPostRequest.status = this.selectedPlanStatus;
         this.getAllUserData();
+    }
+
+     /**
+     *To check all plan status applied true
+     *
+     * @memberof UserListComponent
+     */
+    public isAllPlanStatusFilterApplied() {
+        this.isAllPlanStatusSelected = Object.keys(this.selectedPlanStatus).every((k) => this.selectedPlanStatus[k]);
     }
 
     /**

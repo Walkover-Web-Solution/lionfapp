@@ -92,6 +92,8 @@ export class StatusModel {
 export class AdvanceSearchFromTo {
     from: any;
     to: any;
+    operation?: string;
+    days?: string;
 }
 
 export class AdvanceSearchRequestSubscriptions {
@@ -145,6 +147,8 @@ export class GetAllCompaniesRequest {
     transactionLimit?: string;
     additionalChargesOperation?: string;
     additionalCharges?: string;
+    lastCompanyAccess?:AdvanceSearchFromTo;
+    lastEntryAccess?: AdvanceSearchFromTo;
 }
 
 export class CompanyAdvanceSearchRequestSubscriptions {

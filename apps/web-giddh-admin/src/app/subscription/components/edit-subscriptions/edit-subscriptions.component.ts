@@ -97,6 +97,8 @@ export class EditSubscriptionsComponent implements OnInit {
     public searchedAdvancedRequestModelByAdvanceSearch: CompanyAdvanceSearchRequestSubscriptions;
     /** Local storage to save filter */
     public localStorageKeysForFilters = { pageType: 'pageTypeName', filter: 'Columnfilter' };
+    public totalCompanies: number;
+    public totalUser: number;
 
 
     constructor(private store: Store<AppState>, private modalService: BsModalService, private generalActions: GeneralActions, private toasty: ToasterService, private adminActions: AdminActions, private subscriptionService: SubscriptionService, private router: Router, private generalService: GeneralService, private activateRoute: ActivatedRoute, private plansService: PlansService,
@@ -171,6 +173,7 @@ export class EditSubscriptionsComponent implements OnInit {
             this.getAllCompanies();
         });
         this.getColumnFilter();
+        this.getCompanyFooter();
     }
 
     public getAllCompanies() {
@@ -180,6 +183,7 @@ export class EditSubscriptionsComponent implements OnInit {
             } else if (this.getAllCompaniesRequest && this.getAllCompaniesRequest.planUniqueNames && this.getAllCompaniesRequest.planUniqueNames.length) {
                 this.showClearFilter = true;
             }
+            this.getCompanyFooter();
             this.subscriptionService.getAllCompanies(this.getAllCompaniesRequest, this.paginationRequest).subscribe(resp => {
                 if (resp) {
                     if (resp.status === 'success') {
@@ -195,7 +199,7 @@ export class EditSubscriptionsComponent implements OnInit {
                         this.toasty.errorToast(resp.message)
                     }
                 }
-            });;
+            });
         }
     }
 
@@ -698,5 +702,41 @@ export class EditSubscriptionsComponent implements OnInit {
             }
         });
         return this.isFieldColumnFilterApplied;
+    }
+
+    public getCompanyFooter() {
+        this.subscriptionService.getCompaniesFooter(this.getAllCompaniesRequest).subscribe(resp => {
+            if (resp) {
+                if (resp.status === 'success' && resp.body) {
+                    this.totalCompanies = resp.body.totalCompanies;
+                    this.totalUser = resp.body.totalUsers;
+                } else {
+                    this.toasty.errorToast(resp.message)
+                }
+            }
+        });;
+    }
+
+
+    /**
+    * This will reset the last seen filters
+    *
+    * @memberof EditSubscriptionsComponent
+    */
+    public resetLastCompanyAccessFilter(): void {
+        this.getAllCompaniesRequest.lastCompanyAccess.days = '';
+        this.getAllCompaniesRequest.lastCompanyAccess.from = '';
+        this.getAllCompaniesRequest.lastCompanyAccess.to = '';
+    }
+
+    /**
+    * This will reset the last seen filters
+    *
+    * @memberof EditSubscriptionsComponent
+    */
+    public resetLastEntryAccessFilter(): void {
+        this.getAllCompaniesRequest.lastEntryAccess.days = '';
+        this.getAllCompaniesRequest.lastEntryAccess.from = '';
+        this.getAllCompaniesRequest.lastEntryAccess.to = '';
     }
 }
