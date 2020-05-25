@@ -6,6 +6,8 @@ import { ToasterService } from '../../services/toaster.service';
 import { AuthenticationService } from '../../services/authentication.service';
 import { IOption } from '../../theme/ng-select/ng-select';
 import { PAGINATION_COUNT } from '../../modules/modules/api-modules/subscription';
+import { BsDropdownDirective } from 'ngx-bootstrap';
+
 
 @Component({
     selector: 'app-plans',
@@ -17,6 +19,7 @@ export class PlansComponent implements OnInit {
     @ViewChild('planNameField') public planNameField;
     @Input() public showTaxPopup: boolean = false;
     @Input() public showTaxPopups: boolean = false;
+    @ViewChild('filterDropDownList') public filterDropDownList: BsDropdownDirective;
 
     public plansData: any;
     public plansDataResults: any;
@@ -128,6 +131,10 @@ export class PlansComponent implements OnInit {
         this.getAllPlansRequest.page = 1;
         this.getAllPlansRequest.sortBy = column;
         this.getAllPlans();
+    }
+
+    public hideListItems() {
+      this.filterDropDownList.hide();
     }
 
     /**

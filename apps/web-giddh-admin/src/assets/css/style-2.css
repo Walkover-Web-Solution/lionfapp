@@ -731,14 +731,17 @@ input[type="checkbox"]:after {
     font-size: 14px !important;
     border-color: #dcdcdc !important;
 }
-.pageHeader {
+.pageHeader, .custom-page-header {
   align-items: center;
   display: flex;
   width: 100%;
   justify-content: space-between;
   margin-bottom: 20px;
 }
-
+.top-toggle-dropdown {
+  height: 235px;
+  overflow-y: auto;
+}
 .modal-bg {
     background: rgba(0, 0, 0, 0.5);
     position: fixed;
@@ -836,7 +839,7 @@ input[type="checkbox"]:after {
     padding-right: 40px;
 }
 
-.pageHeader h5 {
+.pageHeader h5, .page-header h5 {
     font-size: 18px;
     color: #303030;
 }

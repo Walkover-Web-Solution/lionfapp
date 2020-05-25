@@ -1,7 +1,96 @@
 <div class="clearfix">
-    <div class="pageHeader justify-flex-end">
-        <a href="javascript:;" [routerLink]="['/admin/license-key/generate']" class="btn btn-blue">Generate</a>
-    </div>
+
+  <div class="custom-page-header">
+    
+    <div class="dis pull-left">
+      <div class="btn-group mt-05" #filterDropDownList="bs-dropdown" dropdown [autoClose]="false" (clickOutside)="hideListItems()" [tooltip]="'Enable / Disable Column'" [placement]="'right'">
+          <i dropdownToggle class="icon-options pd cp fs20"></i>
+
+          <ul *dropdownMenu class="dropdown-menu dropdown-menu-left top-toggle-dropdown" role="menu" [style.width.px]="'200'">
+              <li role="menuitem">
+                  <a class="dropdown-item">
+                      <input type="checkbox" name="isAllFieldColumnFilterApplied" [(ngModel)]="isAllFieldColumnFilterApplied" (ngModelChange)="selectAllColumns($event)"> Select All
+                  </a>
+              </li>
+
+              <li role="menuitem">
+                  <a class="dropdown-item">
+                      <input type="checkbox"/> Subscribed On	
+                  </a>
+              </li>
+
+              <li role="menuitem">
+                <a class="dropdown-item">
+                    <input type="checkbox"/> Sub ID	
+                </a>
+              </li>
+
+              <li role="menuitem">
+                <a class="dropdown-item">
+                    <input type="checkbox"/> User Name	
+                </a>
+              </li>
+              <li role="menuitem">
+                <a class="dropdown-item">
+                    <input type="checkbox"/> Plan
+                </a>
+              </li>
+              <li role="menuitem">
+                <a class="dropdown-item">
+                    <input type="checkbox"/> No of Company
+                </a>
+              </li>
+              <li role="menuitem">
+                <a class="dropdown-item">
+                    <input type="checkbox"/> Balance
+                </a>
+              </li>
+              <li role="menuitem">
+                <a class="dropdown-item">
+                    <input type="checkbox"/> Transaction Limit
+                </a>
+              </li>
+
+
+              <li role="menuitem">
+                <a class="dropdown-item">
+                    <input type="checkbox"/> License Key	
+                </a>
+              </li>
+
+              <li role="menuitem">
+                <a class="dropdown-item">
+                    <input type="checkbox"/> Status
+                </a>
+              </li>
+
+              <li role="menuitem">
+                <a class="dropdown-item">
+                    <input type="checkbox"/> Expiry
+                </a>
+              </li>
+
+              <li role="menuitem">
+                <a class="dropdown-item">
+                    <input type="checkbox"/> Total Amount	
+                </a>
+              </li>
+
+              <li role="menuitem">
+                <a class="dropdown-item">
+                    <input type="checkbox"/> Comments
+                </a>
+              </li>
+          </ul>
+      </div>
+  </div>
+
+  <div class="justify-flex-end">
+    <a href="javascript:;" [routerLink]="['/admin/license-key/generate']" class="btn btn-blue">Generate</a>
+  </div>
+  </div>
+
+    
     <div class="page-content">
         <div class="table-responsive">
             <table class="table table-bordered basic subscrib-list-table card-list-table table-striped">
