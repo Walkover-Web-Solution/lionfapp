@@ -28,6 +28,17 @@ export class UserListComponent implements OnInit {
     @ViewChild('userEmailField') public userEmailField;
     @ViewChild('userMobileField') public userMobileField;
     @ViewChild('userSubscriptionField') public userSubscriptionField;
+    @ViewChild('transactionLimitField') public transactionLimitField;
+    @ViewChild('remainingTransaction') public remainingTransaction;
+    @ViewChild('addOnTransaction') public addOnTransaction;
+    @ViewChild('additionalCharges') public additionalCharges;
+    @ViewChild('ratePerTransaction') public ratePerTransaction;
+    @ViewChild('expirySearch') public expirySearch;
+    @ViewChild('subscribersSignupField') public subscribersSignupField;
+
+
+
+
     @Input() public showTaxPopup: boolean = false;
     public showCountryPopup: boolean = false;
     public showStatusPopups: boolean = false;
@@ -91,6 +102,13 @@ export class UserListComponent implements OnInit {
     public searchViaMobileNo$ = new Subject<string>();
     public searchViaSubscriptionID$ = new Subject<string>();
     public searchViaSubscribedOn$ = new Subject<string>();
+
+    public transactionLimit$ = new Subject<string>();
+    public remainingTransaction$ = new Subject<string>();
+
+    public addOnTransaction$ = new Subject<string>();
+    public additionalCharges$ = new Subject<string>();
+    public ratePerExtraTxn$ = new Subject<string>();
 
 
 
@@ -181,6 +199,95 @@ export class UserListComponent implements OnInit {
             this.getAllSubscriptionTotalData();
             this.getAllUserData();
         });
+
+        /** Search using transaction limit  */
+
+        this.transactionLimit$.pipe(
+            debounceTime(1000),
+            distinctUntilChanged()
+        ).subscribe(term => {
+            this.getUserListPostRequest.transactionLimitOperation = 'EQUALS';
+            if (term) {
+                this.showClearFilter = true;
+            } else {
+                delete this.getUserListPostRequest.transactionLimitOperation;
+            }
+            this.getUserListPostRequest.transactionLimit = term.trim();
+
+            this.getAllSubscriptionTotalData();
+            this.getAllUserData();
+        });
+
+        /** Search using remaining transaction  */
+
+        this.remainingTransaction$.pipe(
+            debounceTime(1000),
+            distinctUntilChanged()
+        ).subscribe(term => {
+            this.getUserListPostRequest.remainingTxnOpn = 'EQUALS';
+            if (term) {
+                this.showClearFilter = true;
+            } else {
+                delete this.getUserListPostRequest.remainingTxnOpn;
+            }
+            this.getUserListPostRequest.remainingTxn = term.trim();
+            this.getAllSubscriptionTotalData();
+            this.getAllUserData();
+        });
+
+        /** Search using addOn transaction  */
+
+        this.addOnTransaction$.pipe(
+            debounceTime(1000),
+            distinctUntilChanged()
+        ).subscribe(term => {
+            this.getUserListPostRequest.addOnTxnOpn = 'EQUALS';
+            if (term) {
+                this.showClearFilter = true;
+            } else {
+                delete this.getUserListPostRequest.addOnTxnOpn;
+            }
+            this.getUserListPostRequest.addOnTxn = term.trim();
+            this.getAllSubscriptionTotalData();
+            this.getAllUserData();
+        });
+
+        /** Search using addOn transaction  */
+
+        this.ratePerExtraTxn$.pipe(
+            debounceTime(1000),
+            distinctUntilChanged()
+        ).subscribe(term => {
+            this.getUserListPostRequest.ratePerExtraTxnOpn = 'EQUALS';
+            if (term) {
+                this.showClearFilter = true;
+            } else {
+                delete this.getUserListPostRequest.ratePerExtraTxnOpn;
+            }
+            this.getUserListPostRequest.ratePerExtraTxn = term.trim();
+            this.getAllSubscriptionTotalData();
+            this.getAllUserData();
+        });
+
+        /** Search using additional charges  */
+
+        this.additionalCharges$.pipe(
+            debounceTime(1000),
+            distinctUntilChanged()
+        ).subscribe(term => {
+
+
+            if (term) {
+                this.getUserListPostRequest.additionalChargesOperation = 'EQUALS';
+                this.showClearFilter = true;
+            } else {
+                delete this.getUserListPostRequest.additionalChargesOperation;
+            }
+            this.getUserListPostRequest.additionalCharges = term.trim();
+            this.getAllSubscriptionTotalData();
+            this.getAllUserData();
+        });
+
         /** To get dynamic column filter  */
         this.getColumnFilter();
     }
@@ -205,8 +312,16 @@ export class UserListComponent implements OnInit {
     * 
     * @memberof UserListComponent
     */
-    public searchViaSubscribedOn() {
-        this.getUserListPostRequest.startedAtFrom = this.getUserListPostRequest.startedAtFrom ? moment(this.getUserListPostRequest.startedAtFrom).format(GIDDH_DATE_FORMAT) : '';
+    public searchViaDate(type: string) {
+        if (type === 'startedAtFrom') {
+            this.getUserListPostRequest.startedAtFrom = this.getUserListPostRequest.startedAtFrom && this.getUserListPostRequest.startedAtFrom ? moment(this.getUserListPostRequest.startedAtFrom).format(GIDDH_DATE_FORMAT) : '';
+
+        } else if (type === 'signUpOnFrom') {
+            this.getUserListPostRequest.signUpOnFrom = this.getUserListPostRequest.signUpOnFrom ? moment(this.getUserListPostRequest.signUpOnFrom).format(GIDDH_DATE_FORMAT) : '';
+        }
+        else if (type === 'expiry') {
+            this.getUserListPostRequest.expiry = this.getUserListPostRequest.expiry ? moment(this.getUserListPostRequest.expiry).format(GIDDH_DATE_FORMAT) : '';
+        }
         this.showClearFilter = true;
         this.getAllSubscriptionTotalData();
         this.getAllUserData();
@@ -263,6 +378,35 @@ export class UserListComponent implements OnInit {
             if (this.inlineSearch === 'userSubscription') {
                 this.userSubscriptionField.nativeElement.focus();
             }
+
+            if (this.inlineSearch === 'transactionLimit') {
+                this.transactionLimitField.nativeElement.focus();
+            }
+            if (this.inlineSearch === 'remainingTransaction') {
+                this.remainingTransaction.nativeElement.focus();
+            }
+
+            if (this.inlineSearch === 'addOnTransaction') {
+                this.addOnTransaction.nativeElement.focus();
+            }
+            if (this.inlineSearch === 'additionalCharges') {
+                this.additionalCharges.nativeElement.focus();
+            }
+
+            if (this.inlineSearch === 'ratePerTransaction') {
+                this.ratePerTransaction.nativeElement.focus();
+            }
+            if (this.inlineSearch === 'expiry') {
+                this.expirySearch.nativeElement.focus();
+            }
+
+            if (this.inlineSearch === 'subscribersSignup') {
+                this.subscribersSignupField.nativeElement.focus();
+            }
+
+
+
+
         }, 200);
     }
 
@@ -382,7 +526,18 @@ export class UserListComponent implements OnInit {
         this.getUserListPostRequest.managerUniqueNames = [];
         this.getUserListRequest.sortBy = '';
         this.getUserListRequest.sortType = '';
+        this.getUserListPostRequest.expiry = '';
         this.inlineSearch = null;
+
+        this.getUserListPostRequest.transactionLimitField = '';
+        this.getUserListPostRequest.remainingTxn = '';
+        this.getUserListPostRequest.addOnTxn = '';
+        this.getUserListPostRequest.ratePerExtraTxn = '';
+        this.getUserListPostRequest.additionalCharges = '';
+        this.resetAdvanceOperationLimitFilter();
+        this.isAllPlanStatusFilterApplied();
+        this.isAllColumnFilterApplied();
+
         this.allPlans.forEach(res => {
             res.additional = false;
         });
@@ -396,6 +551,19 @@ export class UserListComponent implements OnInit {
         this.getAllSubscriptionTotalData();
         this.selectAllColumns(true);
         this.getAllUserData();
+    }
+
+    /**
+     *To rest all advance operation limit filter
+     *
+     * @memberof UserListComponent
+     */
+    public resetAdvanceOperationLimitFilter() {
+        delete this.getUserListPostRequest.transactionLimitOperation;
+        delete this.getUserListPostRequest.remainingTxnOpn;
+        delete this.getUserListPostRequest.additionalChargesOperation;
+        delete this.getUserListPostRequest.ratePerExtraTxnOpn;
+        delete this.getUserListPostRequest.addOnTxnOpn;
     }
 
     /**
@@ -763,6 +931,7 @@ export class UserListComponent implements OnInit {
             if (this.selectedCountries.indexOf(item.value) === -1) {
                 this.selectedCountries.push(item.value);
             }
+            this.showClearFilter = true;
         } else {
             let index = this.selectedCountries.indexOf(item.value);
             this.selectedCountries.splice(index, 1);
@@ -783,6 +952,7 @@ export class UserListComponent implements OnInit {
         this.selectedPlanStatus = [];
         if (event.target.checked) {
             this.selectedPlanStatus = this.selectedAllPlanType;
+            this.showClearFilter = true;
             this.isAllPlansStatusSelected(true);
         } else {
             this.selectedPlanStatus = []
@@ -822,9 +992,19 @@ export class UserListComponent implements OnInit {
             let index = this.selectedPlanStatus.indexOf(type);
             this.selectedPlanStatus.splice(index, 1)
         }
-        this.isAllPlansSelected();
+        this.isAllPlanStatusTypeSelected()
+        this.isAllPlanStatusFilterApplied();
         this.getUserListPostRequest.status = this.selectedPlanStatus;
         this.getAllUserData();
+    }
+
+     /**
+     *To check all plan status applied true
+     *
+     * @memberof UserListComponent
+     */
+    public isAllPlanStatusFilterApplied() {
+        this.isAllPlanStatusSelected = Object.keys(this.selectedPlanStatus).every((k) => this.selectedPlanStatus[k]);
     }
 
     /**
@@ -873,11 +1053,7 @@ export class UserListComponent implements OnInit {
         this.showFieldFilter.subscriptionId = event;
         this.showFieldFilter.totalAmount = event;
         this.showFieldFilter.transactionLimit = event;
-        if (event) {
-            this.isAllFieldColumnFilterApplied = true;
-        } else {
-            this.isAllFieldColumnFilterApplied = false;
-        }
+        this.isAllColumnFilterApplied();
         this.updateColumnFilter();
     }
 
@@ -890,7 +1066,9 @@ export class UserListComponent implements OnInit {
      */
     public columnFilter(event: boolean, column: string) {
         this.showFieldFilter[column] = event;
+        this.isAllColumnFilterApplied();
         this.updateColumnFilter();
+
     }
 
     /**
@@ -911,6 +1089,15 @@ export class UserListComponent implements OnInit {
     }
 
     /**
+     *To check all column filter applied true
+     *
+     * @memberof UserListComponent
+     */
+    public isAllColumnFilterApplied() {
+        this.isAllFieldColumnFilterApplied = Object.keys(this.showFieldFilter).every((k) => this.showFieldFilter[k]);
+    }
+
+    /**
     * API call to get all filter column
     *
     * @memberof UserListComponent
@@ -926,6 +1113,7 @@ export class UserListComponent implements OnInit {
             } else if (response.status === 'error') {
                 this.toaster.errorToast(response.message);
             }
+             this.isAllColumnFilterApplied();
         });
 
     }
@@ -938,12 +1126,13 @@ export class UserListComponent implements OnInit {
     public updateColumnFilter(): void {
         this.getShowFieldFilterIsApplied();
         this.columnFilterService.updateFavouritePage(FavouriteColumnPageTypeEnum.ADMIN_USER, this.showFieldFilter).subscribe(response => {
-            if (response.status === 'success') {
+            if (response && response.status === 'success') {
                 if (response.body && response.body.favourite) {
                     Object.assign(this.showFieldFilter, response.body.favourite);
                     this.showFieldFilter = cloneDeep(response.body.favourite);
                 }
             }
+             this.isAllColumnFilterApplied();
         });
     }
 
