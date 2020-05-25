@@ -800,8 +800,6 @@ export class EditSubscriptionsComponent implements OnInit {
         this.getAllCompaniesRequest.lastCompanyAccess.from = '';
         this.getAllCompaniesRequest.lastCompanyAccess.to = '';
         this.getAllCompaniesRequest.lastCompanyAccess.operation = '';
-        console.log('tempCompanyOperation:',this.tempCompanyOperation);
-
     }
 
     /**

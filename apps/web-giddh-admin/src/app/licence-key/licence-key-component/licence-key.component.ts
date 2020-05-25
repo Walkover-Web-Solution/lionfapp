@@ -258,7 +258,6 @@ export class LicenceKeyComponent implements OnInit {
             if (this.showFieldFilter[item]) {
                 this.colSpanCount++;
             }
-            console.log('this.colSpanCount', this.colSpanCount);
-        })
+        });
     }
 }
