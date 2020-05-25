@@ -568,7 +568,8 @@ export class EditSubscriptionsComponent implements OnInit {
     }
 
     @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(event: KeyboardEvent) {
-        this.togglePanel();
+        this.togglePanelBool = false;
+        this.toggleBodyClass();
     }
     
     /**
