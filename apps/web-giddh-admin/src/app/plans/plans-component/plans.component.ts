@@ -493,6 +493,5 @@ export class PlansComponent implements OnInit {
                 this.colSpanCount++;
             }
         });
-        console.log('this.colSpanCount', this.colSpanCount);
     }
 }
