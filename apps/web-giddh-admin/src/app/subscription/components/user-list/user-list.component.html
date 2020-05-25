@@ -281,27 +281,27 @@
     <!-- Remaining Transaction column div -->
 
     <th class="table-search" *ngIf="showFieldFilter.remainingTransaction">
-        <div [hidden]="inlineSearch=='remainingTransaction' || getUserListPostRequest.remainingTransaction">
+        <div [hidden]="inlineSearch=='remainingTransaction' || getUserListPostRequest.remainingTxn">
             <div class="d-flex align-items-center justify-content-between">
                 <span>Remaining Transaction</span>
                 <i class="fa fa-search pull-right" (click)="focusOnColumnSearch( 'remainingTransaction')"></i>
             </div>
         </div>
-        <div class="input-container" placement="bottom" [hidden]="inlineSearch !=='remainingTransaction' && !getUserListPostRequest.remainingTransaction">
-            <input type="text" placeholder="Remaining transaction" class="form-control w100" #remainingTransaction name="remainingTransaction" [(ngModel)]="getUserListPostRequest.remainingTransaction" (ngModelChange)="remainingTransaction$.next($event)" />
+        <div class="input-container" placement="bottom" [hidden]="inlineSearch !=='remainingTransaction' && !getUserListPostRequest.remainingTxn">
+            <input type="text" placeholder="Remaining transaction" class="form-control w100" #remainingTransaction name="remainingTransaction" [(ngModel)]="getUserListPostRequest.remainingTxn" (ngModelChange)="remainingTransaction$.next($event)" />
         </div>
     </th>
     <!-- AddOn Transaction column div -->
 
     <th class="table-search" *ngIf="showFieldFilter.addOnTransaction">
-        <div [hidden]="inlineSearch=='addOnTransaction' || getUserListPostRequest.addOnTransaction">
+        <div [hidden]="inlineSearch=='addOnTransaction' || getUserListPostRequest.addOnTxn">
             <div class="d-flex align-items-center justify-content-between">
                 <span>AddOn Transaction</span>
                 <i class="fa fa-search pull-right" (click)="focusOnColumnSearch( 'addOnTransaction')"></i>
             </div>
         </div>
-        <div class="input-container" placement="bottom" [hidden]="inlineSearch !=='addOnTransaction' && !getUserListPostRequest.addOnTransaction">
-            <input type="text" placeholder="AddOn transaction" class="form-control w100" #addOnTransaction name="addOnTransaction" [(ngModel)]="getUserListPostRequest.addOnTransaction" (ngModelChange)="addOnTransaction$.next($event)" />
+        <div class="input-container" placement="bottom" [hidden]="inlineSearch !=='addOnTransaction' && !getUserListPostRequest.addOnTxn">
+            <input type="text" placeholder="AddOn transaction" class="form-control w100" #addOnTransaction name="addOnTransaction" [(ngModel)]="getUserListPostRequest.addOnTxn" (ngModelChange)="addOnTransaction$.next($event)" />
         </div>
     </th>
     <!-- Additional Charges column div -->
@@ -329,14 +329,14 @@
     </th>
     <!-- Rate/Transaction column div -->
     <th class="table-search" *ngIf="showFieldFilter.ratePerTransaction">
-        <div [hidden]="inlineSearch=='ratePerTransaction' || getUserListPostRequest.ratePerTransaction">
+        <div [hidden]="inlineSearch=='ratePerTransaction' || getUserListPostRequest.ratePerExtraTxn">
             <div class="d-flex align-items-center justify-content-between">
                 <span> Rate/Transaction</span>
                 <i class="fa fa-search pull-right" (click)="focusOnColumnSearch( 'ratePerTransaction')"></i>
             </div>
         </div>
-        <div class="input-container" placement="bottom" [hidden]="inlineSearch !=='ratePerTransaction' && !getUserListPostRequest.ratePerTransaction">
-            <input type="text" placeholder="Additional charge" class="form-control w100" #ratePerTransaction name="ratePerTransaction" [(ngModel)]="getUserListPostRequest.ratePerTransaction" (ngModelChange)="ratePerTransaction$.next($event)" />
+        <div class="input-container" placement="bottom" [hidden]="inlineSearch !=='ratePerTransaction' && !getUserListPostRequest.ratePerExtraTxn">
+            <input type="text" placeholder="Additional charge" class="form-control w100" #ratePerTransaction name="ratePerTransaction" [(ngModel)]="getUserListPostRequest.ratePerExtraTxn" (ngModelChange)="ratePerTransaction$.next($event)" />
         </div>
     </th>
     <!-- <th *ngIf="showFieldFilter.ratePerTransaction">

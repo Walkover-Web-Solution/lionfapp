@@ -232,15 +232,27 @@ export class EditSubscriptionsComponent implements OnInit {
         this.getAllCompanies();
     }
 
+    /**
+     * Toggle last seen pop up
+     *
+     * @param {boolean} isShow
+     * @memberof EditSubscriptionsComponent
+     */
     public lastSeenDropdown(isShow: boolean): void {
-      this.lastSeen = isShow ? false : true;
+        this.lastSeen = isShow ? false : true;
     }
 
+    /**
+     * Toggle last Entry date pop up
+     *
+     * @param {boolean} isShow
+     * @memberof EditSubscriptionsComponent
+     */
     public lastEntryDateDropdown(isShow: boolean): void {
-      this.lastEntryDate = isShow ? false : true;
+        this.lastEntryDate = isShow ? false : true;
     }
 
-    
+
 
     /**
      *to sort table 
@@ -556,7 +568,7 @@ export class EditSubscriptionsComponent implements OnInit {
             this.togglePanel();
             this.getAllCompanies();
 
-            if((event.subscribeOn && (event.subscribeOn.from || event.subscribeOn.to)) || event.remainingTxnOpn || event.remainingTxn || event.transactionLimitOperation || event.transactionLimit || event.additionalChargesOperation || event.additionalCharges || (event.expiryFilter && (event.expiryFilter.from || event.expiryFilter.to))) {
+            if ((event.subscribeOn && (event.subscribeOn.from || event.subscribeOn.to)) || event.remainingTxnOpn || event.remainingTxn || event.transactionLimitOperation || event.transactionLimit || event.additionalChargesOperation || event.additionalCharges || (event.expiryFilter && (event.expiryFilter.from || event.expiryFilter.to))) {
                 this.showClearFilter = true;
             }
         }
@@ -582,7 +594,7 @@ export class EditSubscriptionsComponent implements OnInit {
     @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(event: KeyboardEvent) {
         this.togglePanel();
     }
-    
+
     /**
      * API call to get all filter column
      *
@@ -595,17 +607,17 @@ export class EditSubscriptionsComponent implements OnInit {
                     Object.assign(this.showFieldFilter, response.body.favourite);
                     this.showFieldFilter = cloneDeep(response.body.favourite);
                 }
-                 this.getShowFieldFilterIsApplied();
+                this.getShowFieldFilterIsApplied();
             }
+            this.isAllColumnFilterApplied();
         });
-         console.log('getShowFieldFilterIsApplied', this.getShowFieldFilterIsApplied());
     }
 
     /**
-      * API call to update filter column
-      *
-      * @memberof EditSubscriptionsComponent
-      */
+    * API call to update filter column
+    *
+    * @memberof EditSubscriptionsComponent
+    */
     public updateColumnFilter(): void {
         this.getShowFieldFilterIsApplied();
         this.columnFilterService.updateFavouritePage('ADMIN_COMPANY', this.showFieldFilter).subscribe(response => {
@@ -615,6 +627,8 @@ export class EditSubscriptionsComponent implements OnInit {
                     this.showFieldFilter = cloneDeep(response.body.favourite);
                 }
             }
+            this.isAllColumnFilterApplied();
+
         });
     }
 
@@ -643,13 +657,17 @@ export class EditSubscriptionsComponent implements OnInit {
         this.showFieldFilter.ratePerTransaction = event;
         this.showFieldFilter.status = event;
         this.showFieldFilter.expiry = event;
-        if (event) {
-            this.isAllFieldColumnFilterApplied = true;
-        } else {
-            this.isAllFieldColumnFilterApplied = false;
-
-        }
+        this.isAllColumnFilterApplied();
         this.updateColumnFilter();
+    }
+
+    /**
+     *To check all column filter applied true
+     *
+     * @memberof EditSubscriptionsComponent
+     */
+    public isAllColumnFilterApplied() {
+        this.isAllFieldColumnFilterApplied = Object.keys(this.showFieldFilter).every((k) => this.showFieldFilter[k]);
     }
 
     /**
@@ -661,6 +679,7 @@ export class EditSubscriptionsComponent implements OnInit {
      */
     public columnFilter(event: boolean, column: string) {
         this.showFieldFilter[column] = event;
+        this.isAllColumnFilterApplied();
         this.updateColumnFilter();
     }
 

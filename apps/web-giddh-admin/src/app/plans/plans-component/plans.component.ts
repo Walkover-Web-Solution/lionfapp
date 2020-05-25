@@ -144,6 +144,11 @@ export class PlansComponent implements OnInit {
         this.getAllPlans();
     }
 
+    /**
+     * To hide column filter pop up
+     *
+     * @memberof PlansComponent
+     */
     public hideListItems() {
         this.filterDropDownList.hide();
     }
@@ -394,6 +399,7 @@ export class PlansComponent implements OnInit {
             } else if (response.status === 'error') {
                 this.toaster.errorToast(response.message);
             }
+            this.isAllColumnFilterApplied();
             this.getColspanCount();
         });
 
@@ -443,6 +449,7 @@ export class PlansComponent implements OnInit {
     */
     public columnFilter(event: boolean, column: string) {
         this.showFieldFilter[column] = event;
+        this.isAllColumnFilterApplied();
         this.updateColumnFilter();
     }
 
@@ -460,14 +467,19 @@ export class PlansComponent implements OnInit {
         this.showFieldFilter.totalAmount = event;
         this.showFieldFilter.expiry = event;
         this.showFieldFilter.country = event;
-
-        if (event) {
-            this.isAllFieldColumnFilterApplied = true;
-        } else {
-            this.isAllFieldColumnFilterApplied = false;
-        }
+        this.isAllColumnFilterApplied();
         this.updateColumnFilter();
     }
+
+      /**
+     *To check all column filter applied true
+     *
+     * @memberof PlansComponent
+     */
+    public isAllColumnFilterApplied() {
+        this.isAllFieldColumnFilterApplied = Object.keys(this.showFieldFilter).every((k) => this.showFieldFilter[k]);
+    }
+    
 
     /**
     * To get count of colspan

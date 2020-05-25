@@ -108,7 +108,7 @@ export class UserListComponent implements OnInit {
 
     public addOnTransaction$ = new Subject<string>();
     public additionalCharges$ = new Subject<string>();
-
+    public ratePerExtraTxn$ = new Subject<string>();
 
 
 
@@ -230,7 +230,7 @@ export class UserListComponent implements OnInit {
             } else {
                 delete this.getUserListPostRequest.remainingTxnOpn;
             }
-            this.getUserListPostRequest.remainingTransaction = term.trim();
+            this.getUserListPostRequest.remainingTxn = term.trim();
             this.getAllSubscriptionTotalData();
             this.getAllUserData();
         });
@@ -241,13 +241,30 @@ export class UserListComponent implements OnInit {
             debounceTime(1000),
             distinctUntilChanged()
         ).subscribe(term => {
-            // this.getUserListPostRequest.addOnTransaction = 'EQUALS';
+            this.getUserListPostRequest.addOnTxnOpn = 'EQUALS';
             if (term) {
                 this.showClearFilter = true;
             } else {
-                //delete this.getUserListPostRequest.addOnTransaction;
+                delete this.getUserListPostRequest.addOnTxnOpn;
             }
-            this.getUserListPostRequest.addOnTransaction = term.trim();
+            this.getUserListPostRequest.addOnTxn = term.trim();
+            this.getAllSubscriptionTotalData();
+            this.getAllUserData();
+        });
+
+        /** Search using addOn transaction  */
+
+        this.ratePerExtraTxn$.pipe(
+            debounceTime(1000),
+            distinctUntilChanged()
+        ).subscribe(term => {
+            this.getUserListPostRequest.ratePerExtraTxnOpn = 'EQUALS';
+            if (term) {
+                this.showClearFilter = true;
+            } else {
+                delete this.getUserListPostRequest.ratePerExtraTxnOpn;
+            }
+            this.getUserListPostRequest.ratePerExtraTxn = term.trim();
             this.getAllSubscriptionTotalData();
             this.getAllUserData();
         });
@@ -512,9 +529,9 @@ export class UserListComponent implements OnInit {
         this.inlineSearch = null;
 
         this.getUserListPostRequest.transactionLimitField = '';
-        this.getUserListPostRequest.remainingTransaction = '';
-        this.getUserListPostRequest.addOnTransaction = '';
-        this.getUserListPostRequest.ratePerTransaction = '';
+        this.getUserListPostRequest.remainingTxn = '';
+        this.getUserListPostRequest.addOnTxn = '';
+        this.getUserListPostRequest.ratePerExtraTxn = '';
         this.getUserListPostRequest.additionalCharges = '';
         this.resetAdvanceOperationLimitFilter();
 
@@ -542,7 +559,7 @@ export class UserListComponent implements OnInit {
         delete this.getUserListPostRequest.remainingTxnOpn;
         delete this.getUserListPostRequest.additionalChargesOperation;
         delete this.getUserListPostRequest.ratePerExtraTxnOpn;
-
+        delete this.getUserListPostRequest.addOnTxnOpn;
     }
 
     /**
@@ -1020,11 +1037,7 @@ export class UserListComponent implements OnInit {
         this.showFieldFilter.subscriptionId = event;
         this.showFieldFilter.totalAmount = event;
         this.showFieldFilter.transactionLimit = event;
-        if (event) {
-            this.isAllFieldColumnFilterApplied = true;
-        } else {
-            this.isAllFieldColumnFilterApplied = false;
-        }
+        this.isAllColumnFilterApplied();
         this.updateColumnFilter();
     }
 
@@ -1037,7 +1050,9 @@ export class UserListComponent implements OnInit {
      */
     public columnFilter(event: boolean, column: string) {
         this.showFieldFilter[column] = event;
+        this.isAllColumnFilterApplied();
         this.updateColumnFilter();
+
     }
 
     /**
@@ -1058,6 +1073,15 @@ export class UserListComponent implements OnInit {
     }
 
     /**
+     *To check all column filter applied true
+     *
+     * @memberof UserListComponent
+     */
+    public isAllColumnFilterApplied() {
+        this.isAllFieldColumnFilterApplied = Object.keys(this.showFieldFilter).every((k) => this.showFieldFilter[k]);
+    }
+
+    /**
     * API call to get all filter column
     *
     * @memberof UserListComponent
@@ -1073,6 +1097,7 @@ export class UserListComponent implements OnInit {
             } else if (response.status === 'error') {
                 this.toaster.errorToast(response.message);
             }
+             this.isAllColumnFilterApplied();
         });
 
     }
@@ -1091,6 +1116,7 @@ export class UserListComponent implements OnInit {
                     this.showFieldFilter = cloneDeep(response.body.favourite);
                 }
             }
+             this.isAllColumnFilterApplied();
         });
     }
 

@@ -91,6 +91,11 @@ export class LicenceKeyComponent implements OnInit {
         this.getAllLicenceKey();
     }
 
+    /**
+     *To hide column filter pop up
+     *
+     * @memberof LicenceKeyComponent
+     */
     public hideListItems() {
         this.filterDropDownList.hide();
     }
@@ -174,6 +179,7 @@ export class LicenceKeyComponent implements OnInit {
                 }
             }
             this.getColspanCount();
+            this.isAllColumnFilterApplied();
         });
     }
 
@@ -203,6 +209,7 @@ export class LicenceKeyComponent implements OnInit {
      */
     public columnFilter(event: boolean, column: string) {
         this.showFieldFilter[column] = event;
+        this.isAllColumnFilterApplied()
         this.updateColumnFilter();
     }
 
@@ -226,13 +233,20 @@ export class LicenceKeyComponent implements OnInit {
         this.showFieldFilter.expiry = event;
         this.showFieldFilter.totalAmount = event;
         this.showFieldFilter.comments = event;
-        if (event) {
-            this.isAllFieldColumnFilterApplied = true;
-        } else {
-            this.isAllFieldColumnFilterApplied = false;
-        }
+        this.isAllColumnFilterApplied()
         this.updateColumnFilter();
     }
+
+    /**
+    *To check all column filter applied true
+    *
+    * @memberof LicenceKeyComponent
+    */
+    public isAllColumnFilterApplied() {
+        this.isAllFieldColumnFilterApplied = Object.keys(this.showFieldFilter).every((k) => this.showFieldFilter[k]);
+    }
+
+
     /**
      * To get count of colspan
      *
