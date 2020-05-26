@@ -6,7 +6,7 @@
         <span aria-hidden="true">&times;</span>
     </button>
 </div> -->
-<div class="modal-body pb-110">
+<div class="pb-110">
     <!-- <div class="row" *ngIf="plansData && plansData?.subscription">
         <div class="col-sm-6 font-14">
             <p class="mb-0">{{plansData?.subscription?.userDetails?.name}}</p>
@@ -35,113 +35,115 @@
             <h3 class="text-orange">{{plansData?.subscription?.planDetails?.amount}}/-</h3>
         </div>
     </div> -->
-    <div class="dis pull-left mrR1">
+    <div class="d-flex justify-content-between">
+        <div class="dis mr-1">
+            <div class="btn-group mt-05" #filterDropDownList="bs-dropdown" dropdown [autoClose]="false" (clickOutside)="hideListItems()" [tooltip]="'Enable / Disable Column'" [placement]="'right'">
+                <i dropdownToggle class="icon-options pd cp fs20"></i>
 
-        <div class="btn-group mt-05" #filterDropDownList="bs-dropdown" dropdown [autoClose]="false" (clickOutside)="hideListItems()" [tooltip]="'Enable / Disable Column'" [placement]="'right'">
-            <i dropdownToggle class="icon-options pd cp fs20"></i>
+                <ul *dropdownMenu class="dropdown-menu dropdown-menu-left top-toggle-dropdown" role="menu" [style.width.px]="'200'">
+                    <li role="menuitem">
+                        <a class="dropdown-item">
+                            <input type="checkbox" name="isAllFieldColumnFilterApplied" [(ngModel)]="isAllFieldColumnFilterApplied" (ngModelChange)="selectAllColumns($event)"> Select All
+                        </a>
+                    </li>
 
-            <ul *dropdownMenu class="dropdown-menu dropdown-menu-left top-toggle-dropdown" role="menu" [style.width.px]="'200'">
-                <li role="menuitem">
-                    <a class="dropdown-item">
-                        <input type="checkbox" name="isAllFieldColumnFilterApplied" [(ngModel)]="isAllFieldColumnFilterApplied" (ngModelChange)="selectAllColumns($event)"> Select All
-                    </a>
-                </li>
+                    <li role="menuitem">
+                        <a class="dropdown-item">
+                            <input type="checkbox" name="companyName" (ngModelChange)="columnFilter($event, 'companyName')" [(ngModel)]="showFieldFilter.companyName" /> Company Name
+                        </a>
+                    </li>
 
-                <li role="menuitem">
-                    <a class="dropdown-item">
-                        <input type="checkbox" name="field_filter.companyName" (ngModelChange)="columnFilter($event, 'companyName')" [(ngModel)]="showFieldFilter.companyName" /> Company Name
-                    </a>
-                </li>
+                    <li role="menuitem">
+                        <a class="dropdown-item">
+                            <input type="checkbox" name="userName" (ngModelChange)="columnFilter($event, 'userName')" [(ngModel)]="showFieldFilter.userName" /> Name
+                        </a>
+                    </li>
 
-                <li role="menuitem">
-                    <a class="dropdown-item">
-                        <input type="checkbox" name="field_filter.userName" (ngModelChange)="columnFilter($event, 'userName')" [(ngModel)]="showFieldFilter.userName" /> Name
-                    </a>
-                </li>
+                    <li role="menuitem">
+                        <a class="dropdown-item">
+                            <input type="checkbox" name="subscribedOn" (ngModelChange)="columnFilter($event, 'subscribedOn')" [(ngModel)]="showFieldFilter.subscribedOn" /> Subscribed On</a>
+                    </li>
 
-                <li role="menuitem">
-                    <a class="dropdown-item">
-                        <input type="checkbox" name="field_filter.subscribedOn" (ngModelChange)="columnFilter($event, 'subscribedOn')" [(ngModel)]="showFieldFilter.subscribedOn" /> Subscribed On</a>
-                </li>
+                    <li role="menuitem">
+                        <a class="dropdown-item">
+                            <input type="checkbox" name="subscriptionId" (ngModelChange)="columnFilter($event, 'subscriptionId')" [(ngModel)]="showFieldFilter.subscriptionId" /> subscription ID</a>
+                    </li>
 
-                <li role="menuitem">
-                    <a class="dropdown-item">
-                        <input type="checkbox" name="field_filter.subscriptionId" (ngModelChange)="columnFilter($event, 'subscriptionId')" [(ngModel)]="showFieldFilter.subscriptionId" /> subscription ID</a>
-                </li>
+                    <li role="menuitem">
+                        <a class="dropdown-item">
+                            <input type="checkbox" name="planName" (ngModelChange)="columnFilter($event, 'planName')" [(ngModel)]="showFieldFilter.planName" /> Plan Name</a>
+                    </li>
 
-                <li role="menuitem">
-                    <a class="dropdown-item">
-                        <input type="checkbox" name="field_filter.planName" (ngModelChange)="columnFilter($event, 'planName')" [(ngModel)]="showFieldFilter.planName" /> Plan Name</a>
-                </li>
-
-                <li role="menuitem">
-                    <a class="dropdown-item">
-                        <input type="checkbox" name="field_filter.remainingTransaction" (ngModelChange)="columnFilter($event, 'remainingTransaction')" [(ngModel)]="showFieldFilter.remainingTransaction" /> Remaining Transaction</a>
-                </li>
-                <li role="menuitem">
-                    <a class="dropdown-item">
-                        <input type="checkbox" name="field_filter.transactionLimit" (ngModelChange)="columnFilter($event, 'transactionLimit')" [(ngModel)]="showFieldFilter.transactionLimit" /> Transaction Limit
-                    </a>
-                </li>
+                    <li role="menuitem">
+                        <a class="dropdown-item">
+                            <input type="checkbox" name="remainingTransaction" (ngModelChange)="columnFilter($event, 'remainingTransaction')" [(ngModel)]="showFieldFilter.remainingTransaction" /> Remaining Transaction</a>
+                    </li>
+                    <li role="menuitem">
+                        <a class="dropdown-item">
+                            <input type="checkbox" name="transactionLimit" (ngModelChange)="columnFilter($event, 'transactionLimit')" [(ngModel)]="showFieldFilter.transactionLimit" /> Transaction Limit
+                        </a>
+                    </li>
 
 
-                <li role="menuitem">
-                    <a class="dropdown-item">
-                        <input type="checkbox" name="field_filter.totalAmount" (ngModelChange)="columnFilter($event, 'totalAmount')" [(ngModel)]="showFieldFilter.totalAmount" /> Total Amount</a>
-                </li>
+                    <li role="menuitem">
+                        <a class="dropdown-item">
+                            <input type="checkbox" name="totalAmount" (ngModelChange)="columnFilter($event, 'totalAmount')" [(ngModel)]="showFieldFilter.totalAmount" /> Total Amount</a>
+                    </li>
 
-                <li role="menuitem">
-                    <a class="dropdown-item">
-                        <input type="checkbox" name="field_filter.additionalTransaction" (ngModelChange)="columnFilter($event, 'additionalTransaction')" [(ngModel)]="showFieldFilter.additionalTransaction" /> Additional Transaction</a>
-                </li>
-                <li role="menuitem">
-                    <a class="dropdown-item">
-                        <input type="checkbox" name="field_filter.additionalCharges" (ngModelChange)="columnFilter($event, 'additionalCharges')" [(ngModel)]="showFieldFilter.additionalCharges" /> Additional Charges
-                    </a>
-                </li>
+                    <li role="menuitem">
+                        <a class="dropdown-item">
+                            <input type="checkbox" name="additionalTransaction" (ngModelChange)="columnFilter($event, 'additionalTransaction')" [(ngModel)]="showFieldFilter.additionalTransaction" /> Additional Transaction</a>
+                    </li>
+                    <li role="menuitem">
+                        <a class="dropdown-item">
+                            <input type="checkbox" name="additionalCharges" (ngModelChange)="columnFilter($event, 'additionalCharges')" [(ngModel)]="showFieldFilter.additionalCharges" /> Additional Charges
+                        </a>
+                    </li>
 
-                <li role="menuitem">
-                    <a class="dropdown-item">
-                        <input type="checkbox" name="field_filter.ratePerTransaction" (ngModelChange)="columnFilter($event, 'ratePerTransaction')" [(ngModel)]="showFieldFilter.ratePerTransaction" /> Rate/Transaction</a>
-                </li>
-                <li role="menuitem">
-                    <a class="dropdown-item">
-                        <input type="checkbox" name="field_filter.status" (ngModelChange)="columnFilter($event, 'status')" [(ngModel)]="showFieldFilter.status" /> Status
-                    </a>
-                </li>
-                <li role="menuitem">
-                    <a class="dropdown-item">
-                        <input type="checkbox" name="field_filter.expiry" (ngModelChange)="columnFilter($event, 'expiry')" [(ngModel)]="showFieldFilter.expiry" /> Expiry
-                    </a>
-                </li>
+                    <li role="menuitem">
+                        <a class="dropdown-item">
+                            <input type="checkbox" name="ratePerTransaction" (ngModelChange)="columnFilter($event, 'ratePerTransaction')" [(ngModel)]="showFieldFilter.ratePerTransaction" /> Rate/Transaction</a>
+                    </li>
+                    <li role="menuitem">
+                        <a class="dropdown-item">
+                            <input type="checkbox" name="status" (ngModelChange)="columnFilter($event, 'status')" [(ngModel)]="showFieldFilter.status" /> Status
+                        </a>
+                    </li>
+                    <li role="menuitem">
+                        <a class="dropdown-item">
+                            <input type="checkbox" name="expiry" (ngModelChange)="columnFilter($event, 'expiry')" [(ngModel)]="showFieldFilter.expiry" /> Expiry
+                        </a>
+                    </li>
 
-                <li role="menuitem">
-                    <a class="dropdown-item">
-                        <input type="checkbox" name="field_filter.lastEntry" (ngModelChange)="columnFilter($event, 'lastEntry')" [(ngModel)]="showFieldFilter.lastEntry" /> Last Entry Date
-                    </a>
-                </li>
-                <li role="menuitem">
-                    <a class="dropdown-item">
-                        <input type="checkbox" name="field_filter.lastAccess" (ngModelChange)="columnFilter($event, 'lastAccess')" [(ngModel)]="showFieldFilter.lastAccess" /> Last Login Date
-                    </a>
-                </li>
+                    <li role="menuitem">
+                        <a class="dropdown-item">
+                            <input type="checkbox" name="lastEntry" (ngModelChange)="columnFilter($event, 'lastEntry')" [(ngModel)]="showFieldFilter.lastEntry" /> Last Entry Date
+                        </a>
+                    </li>
+                    <li role="menuitem">
+                        <a class="dropdown-item">
+                            <input type="checkbox" name="lastAccess" (ngModelChange)="columnFilter($event, 'lastAccess')" [(ngModel)]="showFieldFilter.lastAccess" /> Last Login Date
+                        </a>
+                    </li>
 
-            </ul>
+                </ul>
+            </div>
         </div>
-    </div>
-
-
-    <div>
-        <a class="pull-right btn btn-blue advance-btn" href="javascript:void(0)" (click)="togglePanel()">Advance Search</a>
-        <button *ngIf="showClearFilter" class="ml-1 btn-link" (click)="resetFilters();"><i class="icon icon-loop2"></i>
-            Clear Filter</button>
+        <!-- <div class="clearfix">
+            <button *ngIf="showClearFilter" class="btn btn-filter" (click)="resetFilters();"><i class="icon icon-loop2"></i>
+        Clear Filter</button>
+        </div> -->
+        <button class=" btn-link" *ngIf="showClearFilter" (click)="resetFilters();"><i class="icon icon-loop2
+"></i> Clear Filter</button>
+        <div>
+            <a class="btn btn-blue" href="javascript:void(0)" (click)="togglePanel()">Advance Search</a>
+        </div>
     </div>
     <div class="row" *ngIf="isDetailsShow">
         <div class="pull-right">
             <a href="javascript:void(0)" [routerLink]="['/admin/subscription']" routerLinkActive="router-link-active" class="btn btn-blue mr-1">Back</a>
         </div>
     </div>
-
     <div class="clearfix">
         <tabset class="custom-tabs">
             <tab heading="Companies" id="tab1">
@@ -199,7 +201,7 @@
                                     </div>
                                 </th>
 
-                                <th class="table-dropdown border-blue" *ngIf="showFieldFilter.planName">
+                                <th class="table-dropdown " *ngIf="showFieldFilter.planName">
 
                                     <span class="pr c-dropdown" [ngClass]="{'open': showTaxPopup}" [attachOutsideOnClick]="true" (clickOutside)="toggleTaxPopup(false)">
                                     <label>Plan Name</label>
@@ -594,6 +596,9 @@
     </span>
 </th>
 
+<th class="min-width-110">
+    Permission
+</th>
 
 </tr>
 </thead>
@@ -621,6 +626,9 @@
             <div class="d-inline-block" [tooltip]="item.lastAccessDate" [placement]="'top'">
                 {{ (item?.lastAccessDetails?.lastAccess) ? (item?.lastAccessDetails?.lastAccess | timeAgo) : '-' }}
             </div>
+        </td>
+        <td>
+            <button type="button" class="btn btn-blue btn-sm" (click)="getPermissionOfCompany(item.uniqueName, permissionModal)">View</button>
         </td>
     </tr>
     <tr *ngIf="companiesData.length === 0">
@@ -678,3 +686,17 @@
 <ng-template #editPlan>
     <app-editPlan-modal></app-editPlan-modal>
 </ng-template>
+
+<!-- Permission start -->
+<ng-template #permissionModal>
+    <div class="modal-header top-right-head">
+        <h4 class="modal-title pull-left">Permission</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <i class="icon-cross"></i>
+    </button>
+    </div>
+    <div class="modal-body">
+        {{permissionResponse | json}}
+    </div>
+</ng-template>
+<!-- Permission end -->

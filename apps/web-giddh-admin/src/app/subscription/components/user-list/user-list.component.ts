@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { UserService } from '../../../services/user.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { SubscriberList, PAGINATION_COUNT, TotalUsersCount, CommonPaginatedRequest, StatusModel } from '../../../modules/modules/api-modules/subscription';
+import { SubscriberList, PAGINATION_COUNT, TotalUsersCount, CommonPaginatedRequest, StatusModel, TotalSubscribers } from '../../../modules/modules/api-modules/subscription';
 import * as moment from 'moment/moment';
 import { GeneralService } from '../../../services/general.service';
 import { Router } from '@angular/router';
@@ -17,6 +17,7 @@ import { ColumnFilterService } from '../../../services/column-filter.service';
 import { FavouriteColumnPageTypeEnum } from '../../../actions/general/general.const';
 import { BsDropdownDirective } from 'ngx-bootstrap';
 import { UserFieldFilterColumnNames } from '../../../models/company';
+import { SubscriptionService } from '../../../services/subscription.service';
 @Component({
     selector: 'app-user-list',
     templateUrl: './user-list.component.html',
@@ -84,6 +85,7 @@ export class UserListComponent implements OnInit {
     /** selected Plan status array */
     public selectedPlanStatus: string[] = [];
     public selectedAllPlanType = ['trial', 'active', 'expired'];
+    public totalUsersSubsription: TotalSubscribers;
     public planStatusType: StatusModel = {
         trial: false,
         active: false,
@@ -118,9 +120,10 @@ export class UserListComponent implements OnInit {
         this.expandList = !this.expandList;
     }
 
-    constructor(private generalService: GeneralService, private userService: UserService, private modalService: BsModalService, private router: Router, private toaster: ToasterService, private plansService: PlansService, private authenticationService: AuthenticationService, private columnFilterService: ColumnFilterService) {
+    constructor(private generalService: GeneralService, private userService: UserService, private modalService: BsModalService, private router: Router, private toaster: ToasterService, private plansService: PlansService,
+     private authenticationService: AuthenticationService, private columnFilterService: ColumnFilterService,  private subscriptionService: SubscriptionService,) {
         this.today = new Date();
-        this.getUserListPostRequest.lastSeen = {};
+        this.getUserListPostRequest.lastSeen = {}
         this.getUserListPostRequest.lastSeen.operation = "BEFORE";
         this.tempOperation = "relative_before";
         this.getAllAdminUsers();
@@ -572,13 +575,22 @@ export class UserListComponent implements OnInit {
      * @memberof UserListComponent
      */
     public getAllSubscriptionTotalData() {
-        this.userService.getAllUserCounts(this.getUserListPostRequest).subscribe(res => {
+        this.subscriptionService.getAllTotalSubscriptions(this.getUserListPostRequest).subscribe(res => {
             if (res.status === 'success') {
-                this.totalUsers = res.body;
+                this.totalUsersSubsription = res.body;
             } else {
-                this.toaster.errorToast(res.message)
+                  this.toaster.errorToast(res.message)
             }
         });
+        // this.userService.getAllUserCounts(this.getUserListPostRequest).subscribe(res => {
+        //     if (res.status === 'success') {
+        //         this.totalUsers = res.body;
+        //     } else {
+        //         this.toaster.errorToast(res.message)
+        //     }
+        // });
+
+         
     }
 
     /**
