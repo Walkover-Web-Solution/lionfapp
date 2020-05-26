@@ -1,20 +1,16 @@
 <div class="">
     <div class="pageHeader">
         <div class="d-flex justify-content-between width-100">
-
             <div class="d-flex">
                 <div class="dis mr-1">
-
                     <div class="btn-group mt-05" #filterDropDownList="bs-dropdown" dropdown [autoClose]="false" (clickOutside)="hideListItems()" [tooltip]="'Enable / Disable Column'" [placement]="'right'">
                         <i dropdownToggle class="icon-options pd cp fs20"></i>
-
-                        <ul *dropdownMenu class="dropdown-menu dropdown-menu-left" role="menu" [style.width.px]="'200'">
+                        <ul *dropdownMenu class="dropdown-menu dropdown-menu-left top-toggle-dropdown" role="menu" [style.width.px]="'200'">
                             <li role="menuitem">
                                 <a class="dropdown-item">
                                     <input type="checkbox" name="isAllFieldColumnFilterApplied" [(ngModel)]="isAllFieldColumnFilterApplied" (ngModelChange)="selectAllColumns($event)"> Select All
                                 </a>
                             </li>
-
                             <li role="menuitem">
                                 <a class="dropdown-item">
                                     <input type="checkbox" name="signUpOn" (ngModelChange)="columnFilter($event, 'signUpOn')" [(ngModel)]="showFieldFilter.signUpOn" /> Signup On
@@ -138,7 +134,7 @@
                             Signup Date
                         </th> -->
 
-                        <th class="table-search" *ngIf="showFieldFilter.owner">
+                        <th class="table-search min-width-110" *ngIf="showFieldFilter.owner">
                             <div [hidden]="inlineSearch == 'subscribersSignup'|| getUserListPostRequest.signUpOnFrom">
                                 <div class="d-flex align-items-center justify-content-between">
                                     <span>Signup On</span>
@@ -555,7 +551,7 @@
         </td>
         <td data-title="Name" *ngIf="showFieldFilter.name">{{userSubscription.userDetails.name}}</td>
 
-        <td data-title="Email" *ngIf="showFieldFilter.email">
+        <td data-title="Email" *ngIf="showFieldFilter.email" class="nowrap">
             {{userSubscription.userDetails.email?userSubscription.userDetails.email:'-'}}</td>
         <td data-title="Mobile" class="nowrap" *ngIf="showFieldFilter.mobile">
             {{userSubscription.userDetails.mobileno?userSubscription.userDetails.mobileno:'-'}}</td>
