@@ -33,8 +33,8 @@ export class SubscriptionService {
     /**
         * get all total for subscriptions
         */
-    public getAllTotalSubscriptions() {
-        return this.http.get(this.config.apiUrl + SUBSCRIPTION_API.GET_SUBSCRIPTION_TOTAL)
+    public getAllTotalSubscriptions(model: any) {
+        return this.http.post(this.config.apiUrl + SUBSCRIPTION_API.GET_SUBSCRIPTION_TOTAL, model)
             .pipe(
                 map((res) => {
                     return res;
