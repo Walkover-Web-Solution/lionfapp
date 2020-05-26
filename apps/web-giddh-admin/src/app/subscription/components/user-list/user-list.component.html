@@ -1,20 +1,16 @@
 <div class="">
     <div class="pageHeader">
         <div class="d-flex justify-content-between width-100">
-
             <div class="d-flex">
                 <div class="dis mr-1">
-
                     <div class="btn-group mt-05" #filterDropDownList="bs-dropdown" dropdown [autoClose]="false" (clickOutside)="hideListItems()" [tooltip]="'Enable / Disable Column'" [placement]="'right'">
                         <i dropdownToggle class="icon-options pd cp fs20"></i>
-
                         <ul *dropdownMenu class="dropdown-menu dropdown-menu-left top-toggle-dropdown" role="menu" [style.width.px]="'200'">
                             <li role="menuitem">
                                 <a class="dropdown-item">
                                     <input type="checkbox" name="isAllFieldColumnFilterApplied" [(ngModel)]="isAllFieldColumnFilterApplied" (ngModelChange)="selectAllColumns($event)"> Select All
                                 </a>
                             </li>
-
                             <li role="menuitem">
                                 <a class="dropdown-item">
                                     <input type="checkbox" name="signUpOn" (ngModelChange)="columnFilter($event, 'signUpOn')" [(ngModel)]="showFieldFilter.signUpOn" /> Signup On
