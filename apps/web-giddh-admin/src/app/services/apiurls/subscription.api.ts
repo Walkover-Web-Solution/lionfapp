@@ -14,4 +14,5 @@ export const SUBSCRIPTION_API = {
     ASSIGN_PLAN: 'v2/admin/subscriptions',
     EXPORT_SUBSCRIPTIONS: 'v2/admin/subscriptions/all-by-user-v2/export?sortBy=:sortBy&sortType=:sortType',
     GET_COMPANIES_FOOTER: 'v2/admin/companies-footer',
+    GET_COMPANIES_PERMISSION:'v2/admin/company-permissions?companyUniqueName=:companyUniqueName'
 };

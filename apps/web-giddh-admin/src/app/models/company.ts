@@ -12,6 +12,8 @@ export class CompanyFieldFilterColumnNames {
     ratePerTransaction: boolean;
     expiry: boolean;
     status: boolean;
+    lastAccess: boolean;
+    lastEntry: boolean;
 }
 
 export class UserFieldFilterColumnNames {
