@@ -115,6 +115,17 @@
                     </a>
                 </li>
 
+                <li role="menuitem">
+                    <a class="dropdown-item">
+                        <input type="checkbox" name="field_filter.lastEntry" (ngModelChange)="columnFilter($event, 'lastEntry')" [(ngModel)]="showFieldFilter.lastEntry" /> Last Entry Date
+                    </a>
+                </li>
+                <li role="menuitem">
+                    <a class="dropdown-item">
+                        <input type="checkbox" name="field_filter.lastAccess" (ngModelChange)="columnFilter($event, 'lastAccess')" [(ngModel)]="showFieldFilter.lastAccess" /> Last Login Date
+                    </a>
+                </li>
+
             </ul>
         </div>
     </div>
@@ -282,7 +293,7 @@
 
 
 
-    <th class="table-dropdown">
+    <th class="table-dropdown" *ngIf="showFieldFilter.lastEntry">
         <span class="pr c-dropdown align-center" [ngClass]="{'open': lastSeen}" [attachOutsideOnClick]="true" (clickOutside)="lastEntryDropdown(true)">
                               <label>Last entry date</label>
                               <div class="btn-group pull-right" dropdown [autoClose]="true" placement="left">
@@ -290,7 +301,7 @@
                                       type="button" class="btn-multiselect dropdown-toggle pull-right"><span
                                           class="fa fa-angle-down"></span>
         </button>
-        <ul id="dropdown-basic" class="dropdown-menu pd multiselect-dropdown last-seet-dropdow" [ngStyle]="{'display': lastSeen ? 'block': 'none'}">
+        <ul id="dropdown-basic" class="dropdown-menu pd multiselect-dropdown last-seet-dropdow" *ngIf="lastSeen" [ngStyle]="{'display': lastSeen ? 'block': 'none'}">
             <ng-container>
                 <li role="menuitem">
                     <div class="clearfix mb-1">
@@ -432,7 +443,7 @@
 </span>
 </th>
 
-<th class="table-dropdown">
+<th class="table-dropdown" *ngIf="showFieldFilter.lastAccess">
     <span class="pr c-dropdown align-center" [ngClass]="{'open': lastEntryDate}" [attachOutsideOnClick]="true" (clickOutside)="lastCompanyAccessDropdown(true)">
                               <label>Last login date</label>
                               <div class="btn-group pull-right" dropdown [autoClose]="true" placement="left">
@@ -440,7 +451,7 @@
                                       type="button" class="btn-multiselect dropdown-toggle pull-right"><span
                                           class="fa fa-angle-down"></span>
     </button>
-    <ul id="dropdown-basic" class="dropdown-menu pd multiselect-dropdown last-seet-dropdow" [ngStyle]="{'display': lastEntryDate ? 'block': 'none'}">
+    <ul id="dropdown-basic" class="dropdown-menu pd multiselect-dropdown last-seet-dropdow" *ngIf="lastEntryDate" [ngStyle]="{'display': lastEntryDate ? 'block': 'none'}">
         <ng-container>
             <li role="menuitem">
                 <div class="clearfix mb-1">
@@ -603,12 +614,12 @@
         <td data-title="Rate/Transaction" *ngIf="showFieldFilter.ratePerTransaction">{{item.subscription?.planDetails?.ratePerExtraTransaction}}</td>
         <td data-title="Status" *ngIf="showFieldFilter.status">{{item?.subscription?.status}}</td>
         <td data-title="Expiry" *ngIf="showFieldFilter.expiry">{{item?.subscription?.expiry}}</td>
-        <td data-title="Last Entry Date">
+        <td data-title="Last Entry Date" *ngIf="showFieldFilter.lastEntry">
             <div class="d-inline-block" [tooltip]="item.lastEntryAccessDate" [placement]="'top'">
                 {{ (item?.lastAccessDetails?.lastEntryAccess) ? (item?.lastAccessDetails?.lastEntryAccess | timeAgo) : '-' }}
             </div>
         </td>
-        <td data-title="Last Login Date">
+        <td data-title="Last Login Date" *ngIf="showFieldFilter.lastAccess">
             <div class="d-inline-block" [tooltip]="item.lastAccessDate" [placement]="'top'">
                 {{ (item?.lastAccessDetails?.lastAccess) ? (item?.lastAccessDetails?.lastAccess | timeAgo) : '-' }}
             </div>

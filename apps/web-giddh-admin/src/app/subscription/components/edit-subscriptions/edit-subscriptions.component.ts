@@ -123,7 +123,7 @@ export class EditSubscriptionsComponent implements OnInit {
         private columnFilterService: ColumnFilterService) {
         this.paginationRequest.from = '';
         this.paginationRequest.page = 1;
-         this.today = new Date();
+        this.today = new Date();
         this.paginationRequest.count = PAGINATION_COUNT;
         this.getAllCompaniesRequest.lastEntryAccess.operation = "BEFORE";
         this.getAllCompaniesRequest.lastCompanyAccess.operation = "BEFORE";
@@ -736,6 +736,9 @@ export class EditSubscriptionsComponent implements OnInit {
         this.showFieldFilter.ratePerTransaction = event;
         this.showFieldFilter.status = event;
         this.showFieldFilter.expiry = event;
+        this.showFieldFilter.lastAccess = event;
+        this.showFieldFilter.lastEntry = event;
+
         this.isAllColumnFilterApplied();
         this.updateColumnFilter();
     }
@@ -779,12 +782,35 @@ export class EditSubscriptionsComponent implements OnInit {
         return this.isFieldColumnFilterApplied;
     }
 
+    /**
+     *get company footer total data
+     *
+     * @memberof EditSubscriptionsComponent
+     */
     public getCompanyFooter() {
         this.subscriptionService.getCompaniesFooter(this.getAllCompaniesRequest).subscribe(resp => {
             if (resp) {
                 if (resp.status === 'success' && resp.body) {
                     this.totalCompanies = resp.body.totalCompanies;
                     this.totalUser = resp.body.totalUsers;
+                } else {
+                    this.toasty.errorToast(resp.message)
+                }
+            }
+        });;
+    }
+
+    /**
+     *Get company permisiion
+     *
+     * @param {string} companyUniqueName
+     * @memberof EditSubscriptionsComponent
+     */
+    public getPermissionOfCompany(companyUniqueName: string) {
+        this.subscriptionService.getCompaniesPermission(companyUniqueName).subscribe(resp => {
+            if (resp) {
+                if (resp.status === 'success') {
+                    console.log('resp permission', resp);
                 } else {
                     this.toasty.errorToast(resp.message)
                 }
