@@ -88,20 +88,38 @@ export class SubscriptionService {
                     this.errorHandler.HandleCatch(e)));
     }
 
+    /**
+     * To get company footer data
+     *
+     * @param {GetAllCompaniesRequest} body
+     * @returns
+     * @memberof SubscriptionService
+     */
     public getCompaniesFooter(body: GetAllCompaniesRequest) {
         let url = SUBSCRIPTION_API.GET_COMPANIES_FOOTER
-        // if (model.sortBy) {
-        //     url = url + '&sortBy=:sortBy';// &sortType=:sortType&
-        //     url = url.replace(':sortBy', model.sortBy);
-        // }
-        // if (model.sortType) {
-        //     url = url + '&sortType=:sortType';
-        //     url = url.replace(':sortType', model.sortType);
-        // }
-        // if (model.page) {
-        //     url = url.replace(':page', model.page);
-        // }
         return this.http.post(this.config.apiUrl + url, body)
+            .pipe(
+                map((resp) => {
+                    return resp;
+                }),
+                catchError((e) =>
+                    this.errorHandler.HandleCatch(e)));
+    }
+
+    /**
+    * To get company permission
+    *
+    * @param {string} companyUniqueName company unique name
+    * @returns
+    * @memberof SubscriptionService
+    */
+    public getCompaniesPermission(companyUniqueName: string) {
+        let url = SUBSCRIPTION_API.GET_COMPANIES_PERMISSION;
+
+        if (companyUniqueName) {
+            url = url.replace(':companyUniqueName', companyUniqueName);
+        }
+        return this.http.get(this.config.apiUrl + url)
             .pipe(
                 map((resp) => {
                     return resp;
