@@ -138,7 +138,7 @@
                             Signup Date
                         </th> -->
 
-                        <th class="table-search" *ngIf="showFieldFilter.owner">
+                        <th class="table-search min-width-110" *ngIf="showFieldFilter.owner">
                             <div [hidden]="inlineSearch == 'subscribersSignup'|| getUserListPostRequest.signUpOnFrom">
                                 <div class="d-flex align-items-center justify-content-between">
                                     <span>Signup On</span>
@@ -555,7 +555,7 @@
         </td>
         <td data-title="Name" *ngIf="showFieldFilter.name">{{userSubscription.userDetails.name}}</td>
 
-        <td data-title="Email" *ngIf="showFieldFilter.email">
+        <td data-title="Email" *ngIf="showFieldFilter.email" class="nowrap">
             {{userSubscription.userDetails.email?userSubscription.userDetails.email:'-'}}</td>
         <td data-title="Mobile" class="nowrap" *ngIf="showFieldFilter.mobile">
             {{userSubscription.userDetails.mobileno?userSubscription.userDetails.mobileno:'-'}}</td>
