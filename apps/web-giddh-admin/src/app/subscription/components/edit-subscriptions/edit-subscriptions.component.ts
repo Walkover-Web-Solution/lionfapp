@@ -54,26 +54,7 @@ export class EditSubscriptionsComponent implements OnInit {
     public companiesAllRes: SubscriberList = new SubscriberList();
     public subscriptionsAuditLogs = [];
     public subscriptionsAuditLogsResponse: any;
-    public getAllCompaniesRequest: GetAllCompaniesRequest = {
-        startedAtFrom: '',
-        companyName: '',
-        subscriptionId: '',
-        planUniqueNames: [],
-        userName: '',
-        status: [],
-        lastEntryAccess: {
-            from: '',
-            to: '',
-            operation: '',
-            days: '',
-        },
-        lastCompanyAccess: {
-            from: '',
-            to: '',
-            operation: '',
-            days: '',
-        },
-    };
+    public getAllCompaniesRequest: GetAllCompaniesRequest;
     public showFieldFilter: CompanyFieldFilterColumnNames = new CompanyFieldFilterColumnNames();
     public isFieldColumnFilterApplied: boolean;
     public isAllFieldColumnFilterApplied: boolean;
@@ -125,6 +106,8 @@ export class EditSubscriptionsComponent implements OnInit {
         this.paginationRequest.from = '';
         this.paginationRequest.page = 1;
         this.today = new Date();
+        this.getAllCompaniesRequest = new GetAllCompaniesRequest();
+        this.resetGellAllCompaniesFilters();
         this.paginationRequest.count = PAGINATION_COUNT;
         this.getAllCompaniesRequest.lastEntryAccess.operation = "BEFORE";
         this.getAllCompaniesRequest.lastCompanyAccess.operation = "BEFORE";
@@ -449,7 +432,7 @@ export class EditSubscriptionsComponent implements OnInit {
             let index = this.selectedPlanStatus.indexOf(type);
             this.selectedPlanStatus.splice(index, 1)
         }
-        this.isAllPlansSelected();
+        this.isAllPlanStatusTypeSelected();
         this.getAllCompaniesRequest.status = this.selectedPlanStatus;
         this.getAllCompanies();
     }
@@ -466,11 +449,12 @@ export class EditSubscriptionsComponent implements OnInit {
             if (this.selectedPlans.indexOf(item.value) === -1) {
                 this.selectedPlans.push(item.value);
             }
+            this.showClearFilter = true;
         } else {
             let index = this.selectedPlans.indexOf(item.value);
             this.selectedPlans.splice(index, 1);
         }
-        this.isAllPlansStatusSelected();
+        this.isAllPlansSelected();
         this.getAllCompaniesRequest.planUniqueNames = this.selectedPlans;
         this.getAllCompanies();
     }
@@ -484,37 +468,6 @@ export class EditSubscriptionsComponent implements OnInit {
         this.getAllCompaniesRequest.startedAtFrom = this.getAllCompaniesRequest.startedAtFrom ? moment(this.getAllCompaniesRequest.startedAtFrom).format(GIDDH_DATE_FORMAT) : '';
         this.showClearFilter = true;
         this.getAllCompanies();
-    }
-
-    /**
-     * Reset company filter
-     *
-     * @memberof EditSubscriptionsComponent
-     */
-    public resetGellAllCompaniesFilters() {
-        this.getAllCompaniesRequest.startedAtFrom = '';
-        this.getAllCompaniesRequest.companyName = '';
-        this.getAllCompaniesRequest.subscriptionId = '';
-        this.getAllCompaniesRequest.planUniqueNames = [];
-        this.getAllCompaniesRequest.userName = '';
-        this.getAllCompaniesRequest.status = [];
-        this.getAllCompaniesRequest.expiryFilter = {
-            from: '',
-            to: ''
-        };
-        this.getAllCompaniesRequest.subscribeOn = {
-            from: '',
-            to: ''
-        };
-        this.getAllCompaniesRequest.remainingTxnOpn = "";
-        this.getAllCompaniesRequest.remainingTxn = "";
-        this.getAllCompaniesRequest.transactionLimitOperation = "";
-        this.getAllCompaniesRequest.transactionLimit = "";
-        this.getAllCompaniesRequest.additionalChargesOperation = "";
-        this.getAllCompaniesRequest.additionalCharges = "";
-        this.resetLastCompanyAccessFilter();
-        this.resetLastEntryAccessFilter();
-
     }
 
     /**
@@ -807,7 +760,7 @@ export class EditSubscriptionsComponent implements OnInit {
             if (resp) {
                 if (resp.status === 'success') {
                     this.permissionResponse = resp.body;
-                     this.modalRef = this.modalService.show(permissionModal);
+                    this.modalRef = this.modalService.show(permissionModal);
                 } else {
                     this.toasty.errorToast(resp.message)
                 }
@@ -932,5 +885,51 @@ export class EditSubscriptionsComponent implements OnInit {
         this.paginationRequest.page = 1;
         this.lastCompanyAccessDropdown(true);
         this.getAllCompanies();
+    }
+
+    /**
+     *Reset company filter
+     *
+     * @memberof EditSubscriptionsComponent
+     */
+    public resetGellAllCompaniesFilters() {
+        this.getAllCompaniesRequest = {
+            startedAtFrom: '',
+            companyName: '',
+            subscriptionId: '',
+            planUniqueNames: [],
+            userName: '',
+            status: [],
+            expiryFilter: {
+                from: '',
+                to: '',
+                operation: '',
+                days: '',
+            },
+            subscribeOn: {
+                from: '',
+                to: '',
+                operation: '',
+                days: '',
+            },
+            remainingTxnOpn: '',
+            remainingTxn: '',
+            transactionLimitOperation: '',
+            transactionLimit: '',
+            additionalChargesOperation: '',
+            additionalCharges: '',
+            lastEntryAccess: {
+                from: '',
+                to: '',
+                operation: '',
+                days: '',
+            },
+            lastCompanyAccess: {
+                from: '',
+                to: '',
+                operation: '',
+                days: '',
+            },
+        };
     }
 }

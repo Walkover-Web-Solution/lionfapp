@@ -201,7 +201,7 @@
                                     </div>
                                 </th>
 
-                                <th class="table-dropdown " *ngIf="showFieldFilter.planName">
+                                <th class="table-dropdown " *ngIf="showFieldFilter.planName" [ngClass]="{'border-blue': selectedPlans && selectedPlans.length>0}">
 
                                     <span class="pr c-dropdown" [ngClass]="{'open': showTaxPopup}" [attachOutsideOnClick]="true" (clickOutside)="toggleTaxPopup(false)">
                                     <label>Plan Name</label>
@@ -265,7 +265,7 @@
                         <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': paginationRequest.sortType === 'desc' && paginationRequest.sortBy === 'RATE_PER_EXTRA_TRANSACTION', 'icon-icon-sort-down': (paginationRequest.sortType === 'asc' && paginationRequest.sortBy === 'RATE_PER_EXTRA_TRANSACTION') || paginationRequest.sortBy !== 'RATE_PER_EXTRA_TRANSACTION'}"></i>
                     </a>
                 </th>
-                <th class="table-dropdown" *ngIf="showFieldFilter.status">
+                <th class="table-dropdown" *ngIf="showFieldFilter.status" [ngClass]="{'border-blue': selectedPlanStatus && selectedPlanStatus.length>0}">
                     <span class="pr c-dropdown" [ngClass]="{'open': showTaxPopups}" [attachOutsideOnClick]="true" (clickOutside)="toggleTaxPopups(false)">
                                     <label>Status</label>
 
