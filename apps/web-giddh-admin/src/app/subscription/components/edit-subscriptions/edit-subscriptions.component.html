@@ -119,7 +119,6 @@
         </div>
     </div>
 
-
     <div>
         <a class="pull-right btn btn-blue advance-btn" href="javascript:void(0)" (click)="togglePanel()">Advance Search</a>
         <button *ngIf="showClearFilter" class="ml-1 btn-link" (click)="resetFilters();"><i class="icon icon-loop2"></i>
@@ -583,6 +582,9 @@
     </span>
 </th>
 
+<th class="min-width-101">
+  Permission
+</th>
 
 </tr>
 </thead>
@@ -610,6 +612,9 @@
             <div class="d-inline-block" [tooltip]="item.lastAccessDate" [placement]="'top'">
                 {{ (item?.lastAccessDetails?.lastAccess) ? (item?.lastAccessDetails?.lastAccess | timeAgo) : '-' }}
             </div>
+        </td>
+        <td>
+          <button type="button" class="btn btn-blue btn-sm" (click)="openModal(permissionModal)">View</button>
         </td>
     </tr>
     <tr *ngIf="companiesData.length === 0">
@@ -667,3 +672,17 @@
 <ng-template #editPlan>
     <app-editPlan-modal></app-editPlan-modal>
 </ng-template>
+
+<!-- Permission start -->
+<ng-template #permissionModal>
+  <div class="modal-header top-right-head">
+    <h4 class="modal-title pull-left">Modal</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <i class="icon-cross"></i>
+    </button>
+  </div>
+  <div class="modal-body">
+    This is a modal.
+  </div>
+</ng-template>
+<!-- Permission end -->

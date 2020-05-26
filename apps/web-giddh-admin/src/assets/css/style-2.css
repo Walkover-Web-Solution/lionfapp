@@ -1088,6 +1088,13 @@ bs-datepicker-container {
   color: #5b64c9!important;
   background: #eeeff9!important;
 }
+.min-width-101 {
+  min-width: 101px !important;
+}
+.multiselect-dropdown {
+  max-width: 200px !important;
+  min-width: 200px !important;
+}
 @media(max-width:1600px) {
   .basic>thead>tr>th {
     min-width: 200px;

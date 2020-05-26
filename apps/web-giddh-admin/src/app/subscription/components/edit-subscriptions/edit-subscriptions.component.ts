@@ -50,6 +50,7 @@ export class EditSubscriptionsComponent implements OnInit {
     public companiesData = [];
     public plansData: any = {};
     public modalRefEdit: BsModalRef;
+    public modalRef: BsModalRef;
     public companiesAllRes: SubscriberList = new SubscriberList();
     public subscriptionsAuditLogs = [];
     public subscriptionsAuditLogsResponse: any;
@@ -117,9 +118,6 @@ export class EditSubscriptionsComponent implements OnInit {
     public timeoutLastEntry: any;
     public tempOperation: any = "";
     public tempCompanyOperation: any = "";
-
-
-
 
     constructor(private store: Store<AppState>, private modalService: BsModalService, private generalActions: GeneralActions, private toasty: ToasterService, private adminActions: AdminActions, private subscriptionService: SubscriptionService, private router: Router, private generalService: GeneralService, private activateRoute: ActivatedRoute, private plansService: PlansService,
         private columnFilterService: ColumnFilterService) {
@@ -409,6 +407,11 @@ export class EditSubscriptionsComponent implements OnInit {
             Object.assign({}, { class: 'gray modal-lg' })
         );
     }
+
+    openModal(permissionModal: TemplateRef<any>) {
+      this.modalRef = this.modalService.show(permissionModal);
+    }
+  
 
     /**
      * This function is used to get all plans to show in dropdown
