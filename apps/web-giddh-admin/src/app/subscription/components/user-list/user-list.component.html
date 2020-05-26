@@ -71,7 +71,7 @@
 
                             <li role="menuitem">
                                 <a class="dropdown-item">
-                                    <input type="checkbox" name="addOnTransaction" (ngModelChange)="columnFilter($event, 'addOnTransaction')" [(ngModel)]="showFieldFilter.addOnTransaction" /> AddOn Transactio</a>
+                                    <input type="checkbox" name="addOnTransaction" (ngModelChange)="columnFilter($event, 'addOnTransaction')" [(ngModel)]="showFieldFilter.addOnTransaction" /> AddOn Transaction</a>
                             </li>
 
                             <li role="menuitem">
@@ -232,7 +232,7 @@
             </div>
         </th>
         <!--"Plan Name" column div -->
-        <th class="table-dropdown" *ngIf="showFieldFilter.planName">
+        <th class="table-dropdown" [ngClass]="{'border-blue': selectedPlans && selectedPlans.length>0}" *ngIf="showFieldFilter.planName">
             <span class="pr c-dropdown align-center" [ngClass]="{ 'open': showTaxPopup}" [attachOutsideOnClick]="true" (clickOutside)="handleInputFocus( 'plan',true)">
                                 <label>Plan Name</label>
 
@@ -327,7 +327,7 @@
     </th>
 
     <!--Country  -->
-    <th class="table-dropdown" *ngIf="showFieldFilter.country">
+    <th class="table-dropdown" [ngClass]="{'border-blue': selectedCountries && selectedCountries.length>0}" *ngIf="showFieldFilter.country">
         <span class="pr c-dropdown" [ngClass]="{ 'open': showCountryPopup}" [attachOutsideOnClick]="true" (clickOutside)="countryDropdown(true)">
                         <label>Country</label>
 
@@ -359,7 +359,7 @@
     </div>
 </th>
 <!-- status column div -->
-<th class="table-dropdown" *ngIf="showFieldFilter.status">
+<th class="table-dropdown" [ngClass]="{'border-blue': selectedPlanStatus && selectedPlanStatus.length>0}" *ngIf="showFieldFilter.status">
     <span class="pr c-dropdown" [ngClass]="{ 'open': showStatusPopups}" [attachOutsideOnClick]="true" (clickOutside)="handleInputFocus( 'status',true)">
                                     <label>Status</label>
 

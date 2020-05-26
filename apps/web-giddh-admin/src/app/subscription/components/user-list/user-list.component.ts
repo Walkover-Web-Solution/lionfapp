@@ -121,7 +121,7 @@ export class UserListComponent implements OnInit {
     }
 
     constructor(private generalService: GeneralService, private userService: UserService, private modalService: BsModalService, private router: Router, private toaster: ToasterService, private plansService: PlansService,
-     private authenticationService: AuthenticationService, private columnFilterService: ColumnFilterService,  private subscriptionService: SubscriptionService,) {
+        private authenticationService: AuthenticationService, private columnFilterService: ColumnFilterService, private subscriptionService: SubscriptionService, ) {
         this.today = new Date();
         this.getUserListPostRequest.lastSeen = {}
         this.getUserListPostRequest.lastSeen.operation = "BEFORE";
@@ -538,9 +538,8 @@ export class UserListComponent implements OnInit {
         this.getUserListPostRequest.ratePerExtraTxn = '';
         this.getUserListPostRequest.additionalCharges = '';
         this.resetAdvanceOperationLimitFilter();
-        this.isAllPlanStatusFilterApplied();
         this.isAllColumnFilterApplied();
-
+        this.selectedPlans = [];
         this.allPlans.forEach(res => {
             res.additional = false;
         });
@@ -548,6 +547,7 @@ export class UserListComponent implements OnInit {
             res.additional = false;
         });
         this.selectedOwners = [];
+        this.selectedPlanStatus= [];
         this.isAllPlanSelected = false;
         this.getUserListRequest.page = 1;
         this.showClearFilter = false;
@@ -579,7 +579,7 @@ export class UserListComponent implements OnInit {
             if (res.status === 'success') {
                 this.totalUsersSubsription = res.body;
             } else {
-                  this.toaster.errorToast(res.message)
+                this.toaster.errorToast(res.message)
             }
         });
         // this.userService.getAllUserCounts(this.getUserListPostRequest).subscribe(res => {
@@ -590,7 +590,7 @@ export class UserListComponent implements OnInit {
         //     }
         // });
 
-         
+
     }
 
     /**
@@ -1004,21 +1004,12 @@ export class UserListComponent implements OnInit {
             let index = this.selectedPlanStatus.indexOf(type);
             this.selectedPlanStatus.splice(index, 1)
         }
-        this.isAllPlanStatusTypeSelected()
-        this.isAllPlanStatusFilterApplied();
+        this.isAllPlanStatusTypeSelected();
         this.getUserListPostRequest.status = this.selectedPlanStatus;
         this.getAllUserData();
     }
 
-     /**
-     *To check all plan status applied true
-     *
-     * @memberof UserListComponent
-     */
-    public isAllPlanStatusFilterApplied() {
-        this.isAllPlanStatusSelected = Object.keys(this.selectedPlanStatus).every((k) => this.selectedPlanStatus[k]);
-    }
-
+    
     /**
     * To reset status type model
     * 
@@ -1125,7 +1116,7 @@ export class UserListComponent implements OnInit {
             } else if (response.status === 'error') {
                 this.toaster.errorToast(response.message);
             }
-             this.isAllColumnFilterApplied();
+            this.isAllColumnFilterApplied();
         });
 
     }
@@ -1144,7 +1135,7 @@ export class UserListComponent implements OnInit {
                     this.showFieldFilter = cloneDeep(response.body.favourite);
                 }
             }
-             this.isAllColumnFilterApplied();
+            this.isAllColumnFilterApplied();
         });
     }
 
