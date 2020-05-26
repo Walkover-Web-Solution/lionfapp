@@ -611,9 +611,9 @@
         <td data-title="No. of Companies" *ngIf="showFieldFilter.noOfCompany">{{userSubscriptionInner.companyCount}}</td>
         <td data-title="Transaction Limit" *ngIf="showFieldFilter.transactionLimit">{{userSubscriptionInner.planDetails.transactionLimit}}
         </td>
-        <td data-title="Remaining Transaction" *ngIf="showFieldFilter.remainingTransaction">{{userSubscriptionInner.planDetails.remainingTransactions}}
+        <td data-title="Remaining Transaction" *ngIf="showFieldFilter.remainingTransaction">{{userSubscriptionInner.remainingTransactions}}
         </td>
-        <td data-title="AddOn Transaction" *ngIf="showFieldFilter.addOnTransaction">{{userSubscriptionInner.planDetails.addOnTransactions}}
+        <td data-title="AddOn Transaction" *ngIf="showFieldFilter.addOnTransaction">{{userSubscriptionInner.addOnTransactions}}
         </td>
         <td data-title="Additional Charges" *ngIf="showFieldFilter.additionalCharges">{{userSubscriptionInner.additionalCharges}}
         </td>
@@ -645,7 +645,7 @@
     </div>
 </div>
 <!-- Footer -->
-<div class="page-footer">
+<!-- <div class="page-footer">
     <div class="row">
         <div class="col-md-1 col-sm-3 wrap-row">
             <div class="userNumber">
@@ -680,8 +680,51 @@
             </div>
         </div>
     </div>
+</div> -->
+
+<div class="page-footer">
+    <div class="row">
+        <div class="col-md-1 col-sm-3 wrap-row">
+            <div class="userNumber">
+                <h4>{{totalUsersSubsription?.total}}</h4>
+            </div>
+            <div class="aboutUser">
+                <p>Total Subscriptions</p>
+            </div>
+        </div>
+        <div class="col-md-1 col-sm-3 wrap-row">
+            <div class="userNumber">
+                <h4>{{totalUsersSubsription?.active}}</h4>
+            </div>
+            <div class="aboutUser">
+                <p>Paid Subscriptions</p>
+            </div>
+        </div>
+        <div class="col-md-1 col-sm-2 wrap-row">
+            <div class="userNumber">
+                <h4>{{totalUsersSubsription?.inactive}}</h4>
+            </div>
+            <div class="aboutUser">
+                <p>Not in use</p>
+            </div>
+        </div>
+        <div class="col-md-1 col-sm-2 wrap-row">
+            <div class="userNumber">
+                <h4>{{totalUsersSubsription?.totalUser}}</h4>
+            </div>
+            <div class="aboutUser">
+                <p>Total User</p>
+            </div>
+        </div>
+        <div class="col-md-1 col-sm-2 wrap-row">
+            <div class="userNumber">
+                <h4>{{totalUsersSubsription?.trial}}</h4>
+            </div>
+            <div class="aboutUser">
+                <p>Trial</p>
+            </div>
+        </div>
+    </div>
 </div>
-
-
 </div>
 </div>

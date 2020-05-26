@@ -66,7 +66,8 @@ export class LoginComponent implements OnInit {
                         localStorage.setItem('session', JSON.stringify(res.body));
                         this.generalService.sessionId = session.id;
                         this.generalService.user = res.body.user;
-                        this.router.navigate(['admin/subscription']);
+                        // this.router.navigate(['admin/subscription']); due to removed subscription page
+                        this.router.navigate(['admin/subscription/users']);
                     } else {
                         this._toaster.errorToast(res.message);
                     }

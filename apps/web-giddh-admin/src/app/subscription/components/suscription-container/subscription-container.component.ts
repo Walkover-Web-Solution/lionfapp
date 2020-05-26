@@ -263,7 +263,7 @@ export class SubscriptionContainerComponent implements OnInit {
     }
 
     public getAllSubscriptionTotalData() {
-        this.subscriptionService.getAllTotalSubscriptions().subscribe(res => {
+        this.subscriptionService.getAllTotalSubscriptions(this.advanceSearchRequest).subscribe(res => {
             if (res.status === 'success') {
                 this.totalSubscriber = res.body;
             } else {

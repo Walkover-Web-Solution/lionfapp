@@ -75,6 +75,8 @@ export class TotalSubscribers {
     inactive: number;
     active: number;
     trial: number
+    expired?: number
+    totalUser?: number
 }
 
 export class TotalUsersCount {
@@ -110,8 +112,8 @@ export class AdvanceSearchRequestSubscriptions {
     planName?: string;
     userName?: string;
     email?: string;
-    mobile?: string; 
-    planUniqueNames? : string[];
+    mobile?: string;
+    planUniqueNames?: string[];
     remainingTxnOpn?: string;
 }
 export class UpdateSubscriptionModel {
@@ -147,7 +149,7 @@ export class GetAllCompaniesRequest {
     transactionLimit?: string;
     additionalChargesOperation?: string;
     additionalCharges?: string;
-    lastCompanyAccess?:AdvanceSearchFromTo;
+    lastCompanyAccess?: AdvanceSearchFromTo;
     lastEntryAccess?: AdvanceSearchFromTo;
 }
 
