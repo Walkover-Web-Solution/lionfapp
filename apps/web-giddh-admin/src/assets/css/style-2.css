@@ -1,5 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
-
 body {
     font-family: 'Lato', sans-serif;
     margin: 0;
@@ -328,7 +327,6 @@ a {
     color: #fff;
 }
 
-
 /*btn end*/
 
 .basic {
@@ -378,9 +376,7 @@ a {
 .basic>tbody>tr>td {
   word-break: break-all;
 }
-
 /* table end */
-
 
 /* form start */
 
@@ -424,20 +420,7 @@ body {
 .transform-none {
   text-transform: initial !important;
 }
-
-​ ​
 /* checkbox css start */
-
-
-/* input[type="checkbox"] { position: absolute; opacity: 0; z-index: -1; }
-input[type="checkbox"]+span {color: #000; }
-input[type="checkbox"]+span:before {content: '';display: inline-block;width: 18px;margin-right: 0.5em;vertical-align: middle;height: 18px;border: 2px solid #ccc;border-radius: 2px;line-height: 15px;font-size: 12px;text-align: center;}
-input[type="checkbox"]:checked+span:before {content: '\f00c';font-family: FontAwesome;}
-input[type="checkbox"]:focus+span:before { outline: 1px dotted #aaa; }
-input[type="checkbox"]:disabled+span { color: #999; }
-input[type="checkbox"]:not(:disabled)+span:hover:before { text-shadow: 0 1px 2px #77F;} */
-​
-
 input[type="checkbox"]{
   position: relative !important;
   top: 2px !important;
@@ -506,14 +489,9 @@ input[type="checkbox"]:after {
     cursor: pointer;
     border-radius: 2px;
 }
-
-
 /* checkbox css end */
 
-
-
 /* radio button css start */
-
 .radio-custom {
   opacity: 0;
   position: absolute;
@@ -532,19 +510,6 @@ input[type="checkbox"]:after {
   display: inline-flex !important;
   align-items: center;
 }
-/* .radio-custom + .radio-custom-label:before {
-  content: "";
-  background: #fff;
-  border: 1px solid #ccc;
-  display: inline-block;
-  vertical-align: middle;
-  width: 15px;
-  height: 15px;
-  padding: 2px;
-  margin-right: 5px;
-  border-radius: 2px;
-  text-align: center;
-} */
 .checkbox-custom + .checkbox-custom-label:after {
   transform: rotate(-45deg) scale(0, 0);
   content: "";
@@ -1108,20 +1073,20 @@ bs-datepicker-container {
 .btn-filter i {
   margin-right: 3px;
 }
+#remainingTxnOpn input.form-control.selectedVal.cp, #remainingTxnOpn .header.open input.form-control {
+  margin-left: 0;
+  width: 100%;
+}
 @media(max-width:1600px) {
   .basic>thead>tr>th {
     min-width: 200px;
   }
 }
-
-
 @media (min-width: 992px) {
   .modal-lg {
       width: 90%;
   }
 }
-
-
 /* responsive css */
 @media(max-width:767px) {
   .card-list-table {
@@ -1134,7 +1099,7 @@ bs-datepicker-container {
  }
   .card-list-table thead {
     display: none;
- }
+  }
   .card-list-table tbody tr {
     box-shadow: 0 0 5px rgba(0,0,0,.1);
     background: #fff;
@@ -1145,7 +1110,7 @@ bs-datepicker-container {
     margin: 0 auto 20px;
     width: 100%;
     max-width: 100%;
- }
+  }
   .card-list-table tbody td {
     border: 0!important;
     display: block;
@@ -1159,10 +1124,10 @@ bs-datepicker-container {
     white-space: inherit;
     margin-bottom: 5px;
 
- }
+  }
   .card-list-table tbody td:first-of-type::after {
     visibility: hidden;
- }
+  }
   .card-list-table tbody td:after {
     content: '';
     width: calc(100% - 30px);
@@ -1174,7 +1139,7 @@ bs-datepicker-container {
     left: 0;
     right: 0;
     top: -6px;
- }
+  }
   .card-list-table tbody td:before {
     color:rgba(0,0,0,.55);
     text-transform: capitalize;
@@ -1195,7 +1160,7 @@ bs-datepicker-container {
     font-size: 0.85em;
     color: rgba(0, 0, 0, .35);
     letter-spacing: 0.5pt;
- }
+  }
  .basic > tbody > tr:hover td {
     background: transparent;
   }
@@ -1217,8 +1182,4 @@ bs-datepicker-container {
   .rightSlide {
     width: 90%;
   }
-}
-#remainingTxnOpn input.form-control.selectedVal.cp, #remainingTxnOpn .header.open input.form-control {
-    margin-left: 0;
-    width: 100%;
 }

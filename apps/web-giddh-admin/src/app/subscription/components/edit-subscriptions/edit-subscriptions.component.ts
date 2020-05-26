@@ -407,12 +407,9 @@ export class EditSubscriptionsComponent implements OnInit {
             Object.assign({}, { class: 'gray modal-lg' })
         );
     }
-
     openModal(permissionModal: TemplateRef<any>) {
       this.modalRef = this.modalService.show(permissionModal);
     }
-  
-
     /**
      * This function is used to get all plans to show in dropdown
      *
