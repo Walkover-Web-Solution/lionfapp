@@ -117,6 +117,8 @@ export class EditSubscriptionsComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.getAllCompaniesRequest = new GetAllCompaniesRequest();
+        this.resetGellAllCompaniesFilters();
         this.resetLastEntryAccessFilter();
         this.resetLastCompanyAccessFilter();
         if (this.subscriptionService.getGetAllCompanyRequestObject()) {
@@ -778,10 +780,13 @@ export class EditSubscriptionsComponent implements OnInit {
     * @memberof EditSubscriptionsComponent
     */
     public resetLastCompanyAccessFilter(): void {
-        this.getAllCompaniesRequest.lastCompanyAccess.days = '';
-        this.getAllCompaniesRequest.lastCompanyAccess.from = '';
-        this.getAllCompaniesRequest.lastCompanyAccess.to = '';
-        this.getAllCompaniesRequest.lastCompanyAccess.operation = '';
+        if (this.getAllCompaniesRequest && this.getAllCompaniesRequest.lastCompanyAccess) {
+            this.getAllCompaniesRequest.lastCompanyAccess.days = '';
+            this.getAllCompaniesRequest.lastCompanyAccess.from = '';
+            this.getAllCompaniesRequest.lastCompanyAccess.to = '';
+            this.getAllCompaniesRequest.lastCompanyAccess.operation = '';
+        }
+
     }
 
     /**
@@ -790,10 +795,13 @@ export class EditSubscriptionsComponent implements OnInit {
     * @memberof EditSubscriptionsComponent
     */
     public resetLastEntryAccessFilter(): void {
-        this.getAllCompaniesRequest.lastEntryAccess.days = '';
-        this.getAllCompaniesRequest.lastEntryAccess.from = '';
-        this.getAllCompaniesRequest.lastEntryAccess.to = '';
-        this.getAllCompaniesRequest.lastEntryAccess.operation = '';
+        if (this.getAllCompaniesRequest && this.getAllCompaniesRequest.lastEntryAccess) {
+            this.getAllCompaniesRequest.lastEntryAccess.days = '';
+            this.getAllCompaniesRequest.lastEntryAccess.from = '';
+            this.getAllCompaniesRequest.lastEntryAccess.to = '';
+            this.getAllCompaniesRequest.lastEntryAccess.operation = '';
+        }
+
     }
 
     /**

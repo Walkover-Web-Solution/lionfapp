@@ -301,7 +301,7 @@
 
 
 
-    <th class="table-dropdown" *ngIf="showFieldFilter.lastEntry">
+    <th class="table-dropdown" *ngIf="showFieldFilter.lastEntry" [ngClass]="{'border-blue': ((getAllCompaniesRequest && getAllCompaniesRequest.lastEntryAccess) && (getAllCompaniesRequest.lastEntryAccess.days || getAllCompaniesRequest.lastEntryAccess.from || getAllCompaniesRequest.lastEntryAccess.operation === 'UNAVAILABLE' || getAllCompaniesRequest.lastEntryAccess.operation === 'AVAILABLE'))}">
         <span class="pr c-dropdown align-center" [ngClass]="{'open': lastSeen}" [attachOutsideOnClick]="true" (clickOutside)="lastEntryDropdown(true)">
                               <label>Last entry date</label>
                               <div class="btn-group pull-right" dropdown [autoClose]="true" placement="left">
@@ -451,7 +451,8 @@
 </span>
 </th>
 
-<th class="table-dropdown" *ngIf="showFieldFilter.lastAccess">
+<th class="table-dropdown" [ngClass]="{'border-blue': ((getAllCompaniesRequest && getAllCompaniesRequest.lastCompanyAccess ) && (getAllCompaniesRequest.lastCompanyAccess.days || getAllCompaniesRequest.lastCompanyAccess.from || getAllCompaniesRequest.lastCompanyAccess.operation === 'UNAVAILABLE' || getAllCompaniesRequest.lastCompanyAccess.operation === 'AVAILABLE'))}"
+    *ngIf="showFieldFilter.lastAccess">
     <span class="pr c-dropdown align-center" [ngClass]="{'open': lastEntryDate}" [attachOutsideOnClick]="true" (clickOutside)="lastCompanyAccessDropdown(true)">
                               <label>Last login date</label>
                               <div class="btn-group pull-right" dropdown [autoClose]="true" placement="left">
