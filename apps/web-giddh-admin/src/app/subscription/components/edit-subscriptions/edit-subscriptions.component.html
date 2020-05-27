@@ -301,7 +301,7 @@
 
 
 
-    <th class="table-dropdown" *ngIf="showFieldFilter.lastEntry">
+    <th class="table-dropdown" *ngIf="showFieldFilter.lastEntry" [ngClass]="{'border-blue': ((getAllCompaniesRequest && getAllCompaniesRequest.lastEntryAccess) && (getAllCompaniesRequest.lastEntryAccess.days || getAllCompaniesRequest.lastEntryAccess.from || getAllCompaniesRequest.lastEntryAccess.operation === 'UNAVAILABLE' || getAllCompaniesRequest.lastEntryAccess.operation === 'AVAILABLE'))}">
         <span class="pr c-dropdown align-center" [ngClass]="{'open': lastSeen}" [attachOutsideOnClick]="true" (clickOutside)="lastEntryDropdown(true)">
                               <label>Last entry date</label>
                               <div class="btn-group pull-right" dropdown [autoClose]="true" placement="left">
@@ -327,7 +327,7 @@
                             </span>
 
                             <div class="d-flex mb-1 align-items-center" *ngIf="tempOperation === 'relative_before'">
-                                <input type="number" class="form-control mr-1" [(ngModel)]="getAllCompaniesRequest.lastEntryAccess.days" (ngModelChange)="onLastEntryDaysChange('BEFORE')">
+                                <input type="text" class="form-control mr-1" [(ngModel)]="getAllCompaniesRequest.lastEntryAccess.days" (ngModelChange)="onLastEntryDaysChange('BEFORE')">
                                 <span class="nowrap">Days ago</span>
                             </div>
 
@@ -343,7 +343,7 @@
                             </span>
 
                             <div class="d-flex mb-1 align-items-center" *ngIf="tempOperation === 'relative_after'">
-                                <input type="number" class="form-control mr-1" [(ngModel)]="getAllCompaniesRequest.lastEntryAccess.days" (ngModelChange)="onLastEntryDaysChange('AFTER')">
+                                <input type="text" class="form-control mr-1" [(ngModel)]="getAllCompaniesRequest.lastEntryAccess.days" (ngModelChange)="onLastEntryDaysChange('AFTER')">
                                 <span class="nowrap">Days ago</span>
                             </div>
 
@@ -358,7 +358,7 @@
                             </span>
 
                             <div class="d-flex mb-1 align-items-center" *ngIf="tempOperation === 'relative_on'">
-                                <input type="number" class="form-control mr-1" [(ngModel)]="getAllCompaniesRequest.lastEntryAccess.days" (ngModelChange)="onLastEntryDaysChange('ON')">
+                                <input type="text" class="form-control mr-1" [(ngModel)]="getAllCompaniesRequest.lastEntryAccess.days" (ngModelChange)="onLastEntryDaysChange('ON')">
                                 <span class="nowrap">Days ago</span>
                             </div>
                         </div>
@@ -451,7 +451,8 @@
 </span>
 </th>
 
-<th class="table-dropdown" *ngIf="showFieldFilter.lastAccess">
+<th class="table-dropdown" [ngClass]="{'border-blue': ((getAllCompaniesRequest && getAllCompaniesRequest.lastCompanyAccess ) && (getAllCompaniesRequest.lastCompanyAccess.days || getAllCompaniesRequest.lastCompanyAccess.from || getAllCompaniesRequest.lastCompanyAccess.operation === 'UNAVAILABLE' || getAllCompaniesRequest.lastCompanyAccess.operation === 'AVAILABLE'))}"
+    *ngIf="showFieldFilter.lastAccess">
     <span class="pr c-dropdown align-center" [ngClass]="{'open': lastEntryDate}" [attachOutsideOnClick]="true" (clickOutside)="lastCompanyAccessDropdown(true)">
                               <label>Last login date</label>
                               <div class="btn-group pull-right" dropdown [autoClose]="true" placement="left">
