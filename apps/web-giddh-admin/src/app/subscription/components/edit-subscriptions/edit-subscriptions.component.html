@@ -327,7 +327,7 @@
                             </span>
 
                             <div class="d-flex mb-1 align-items-center" *ngIf="tempOperation === 'relative_before'">
-                                <input type="text" class="form-control mr-1" [(ngModel)]="getAllCompaniesRequest.lastEntryAccess.days" (ngModelChange)="onLastEntryDaysChange('BEFORE')">
+                                <input type="number" class="form-control mr-1" [(ngModel)]="getAllCompaniesRequest.lastEntryAccess.days" (ngModelChange)="onLastEntryDaysChange('BEFORE')">
                                 <span class="nowrap">Days ago</span>
                             </div>
 
@@ -343,7 +343,7 @@
                             </span>
 
                             <div class="d-flex mb-1 align-items-center" *ngIf="tempOperation === 'relative_after'">
-                                <input type="text" class="form-control mr-1" [(ngModel)]="getAllCompaniesRequest.lastEntryAccess.days" (ngModelChange)="onLastEntryDaysChange('AFTER')">
+                                <input type="number" class="form-control mr-1" [(ngModel)]="getAllCompaniesRequest.lastEntryAccess.days" (ngModelChange)="onLastEntryDaysChange('AFTER')">
                                 <span class="nowrap">Days ago</span>
                             </div>
 
@@ -358,7 +358,7 @@
                             </span>
 
                             <div class="d-flex mb-1 align-items-center" *ngIf="tempOperation === 'relative_on'">
-                                <input type="text" class="form-control mr-1" [(ngModel)]="getAllCompaniesRequest.lastEntryAccess.days" (ngModelChange)="onLastEntryDaysChange('ON')">
+                                <input type="number" class="form-control mr-1" [(ngModel)]="getAllCompaniesRequest.lastEntryAccess.days" (ngModelChange)="onLastEntryDaysChange('ON')">
                                 <span class="nowrap">Days ago</span>
                             </div>
                         </div>
