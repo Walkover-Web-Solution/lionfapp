@@ -479,6 +479,8 @@ export class EditSubscriptionsComponent implements OnInit {
         this.tempOperation = 'relative_before';
         this.tempCompanyOperation = 'relative_before_2';
         this.resetGellAllCompaniesFilters();
+        this.selectedPlans = [];
+        this.selectedPlanStatus = [];
         this.paginationRequest.page = 1;
         this.planStatusType.active = this.planStatusType.expired = this.planStatusType.trial = false;
         this.allPlans.forEach(res => {
@@ -488,9 +490,9 @@ export class EditSubscriptionsComponent implements OnInit {
         this.isAllPlanStatusTypeSelected();
         this.isAllPlanSelected = false;
         this.isAllPlanTypeSelected = false;
-        this.getAllCompanies();
         this.selectAllColumns(true);
         this.searchedAdvancedRequestModelByAdvanceSearch = {};
+        this.getAllCompanies();
     }
 
     /**
@@ -680,13 +682,14 @@ export class EditSubscriptionsComponent implements OnInit {
         this.showFieldFilter.remainingTransaction = event;
         this.showFieldFilter.transactionLimit = event;
         this.showFieldFilter.totalAmount = event;
-        this.showFieldFilter.additionalTransaction = event;
+        this.showFieldFilter.addOnTransactions = event;
         this.showFieldFilter.additionalCharges = event;
         this.showFieldFilter.ratePerTransaction = event;
         this.showFieldFilter.status = event;
         this.showFieldFilter.expiry = event;
         this.showFieldFilter.lastAccess = event;
         this.showFieldFilter.lastEntry = event;
+        this.showFieldFilter.permissions = event;
 
         this.isAllColumnFilterApplied();
         this.updateColumnFilter();

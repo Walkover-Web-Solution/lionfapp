@@ -7,13 +7,14 @@ export class CompanyFieldFilterColumnNames {
     remainingTransaction: boolean;
     transactionLimit: boolean;
     totalAmount: boolean;
-    additionalTransaction: boolean;
+    addOnTransactions: boolean;
     additionalCharges: boolean;
     ratePerTransaction: boolean;
     expiry: boolean;
     status: boolean;
     lastAccess: boolean;
     lastEntry: boolean;
+    permissions: boolean;
 }
 
 export class UserFieldFilterColumnNames {

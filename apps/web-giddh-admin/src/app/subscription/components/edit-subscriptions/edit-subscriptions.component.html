@@ -92,7 +92,7 @@
 
                     <li role="menuitem">
                         <a class="dropdown-item">
-                            <input type="checkbox" name="additionalTransaction" (ngModelChange)="columnFilter($event, 'additionalTransaction')" [(ngModel)]="showFieldFilter.additionalTransaction" /> Additional Transaction</a>
+                            <input type="checkbox" name="addOnTransactions" (ngModelChange)="columnFilter($event, 'addOnTransactions')" [(ngModel)]="showFieldFilter.addOnTransactions" /> AddOn Transaction</a>
                     </li>
                     <li role="menuitem">
                         <a class="dropdown-item">
@@ -123,6 +123,11 @@
                     <li role="menuitem">
                         <a class="dropdown-item">
                             <input type="checkbox" name="lastAccess" (ngModelChange)="columnFilter($event, 'lastAccess')" [(ngModel)]="showFieldFilter.lastAccess" /> Last Login Date
+                        </a>
+                    </li>
+                    <li role="menuitem">
+                        <a class="dropdown-item">
+                            <input type="checkbox" name="permissions" (ngModelChange)="columnFilter($event, 'permissions')" [(ngModel)]="showFieldFilter.permissions" /> Permissions
                         </a>
                     </li>
 
@@ -250,7 +255,7 @@
                         <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': paginationRequest.sortType === 'desc' && paginationRequest.sortBy === 'TOTAL_AMOUNT', 'icon-icon-sort-down': (paginationRequest.sortType === 'asc' && paginationRequest.sortBy === 'TOTAL_AMOUNT') || paginationRequest.sortBy !== 'TOTAL_AMOUNT'}"></i>
                     </a>
                 </th>
-                <th *ngIf="showFieldFilter.additionalTransaction">Additional Transaction
+                <th *ngIf="showFieldFilter.addOnTransactions">AddOn Transaction
                     <a (click)="sortBy('ADDITIONAL_TRANSACTIONS')" class="text-black">
                         <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': paginationRequest.sortType === 'desc' && paginationRequest.sortBy === 'ADDITIONAL_TRANSACTIONS', 'icon-icon-sort-down': (paginationRequest.sortType === 'asc' && paginationRequest.sortBy === 'ADDITIONAL_TRANSACTIONS') || paginationRequest.sortBy !== 'ADDITIONAL_TRANSACTIONS'}"></i>
                     </a>
@@ -596,7 +601,7 @@
     </span>
 </th>
 
-<th class="min-width-110">
+<th class="min-width-110" *ngIf="showFieldFilter.permissions">
     Permission
 </th>
 
@@ -612,7 +617,7 @@
         <td data-title="Remaining Transaction" *ngIf="showFieldFilter.remainingTransaction">{{item?.subscription?.transactionsRemaining}}</td>
         <td data-title="Transaction Limit" *ngIf="showFieldFilter.transactionLimit">{{item?.subscription?.planDetails?.transactionLimit}}</td>
         <td data-title="Total Amount" *ngIf="showFieldFilter.totalAmount">{{item?.subscription?.planDetails?.amount}}</td>
-        <td data-title="Additional Transaction" *ngIf="showFieldFilter.additionalTransaction">{{item?.subscription?.additionalTransactions}}</td>
+        <td data-title="AddOn Transaction" *ngIf="showFieldFilter.addOnTransactions">{{item?.subscription?.addOnTransactions}}</td>
         <td data-title="Additional Charges" *ngIf="showFieldFilter.additionalCharges">{{item?.subscription?.additionalCharges}}</td>
         <td data-title="Rate/Transaction" *ngIf="showFieldFilter.ratePerTransaction">{{item.subscription?.planDetails?.ratePerExtraTransaction}}</td>
         <td data-title="Status" *ngIf="showFieldFilter.status">{{item?.subscription?.status}}</td>
@@ -627,12 +632,12 @@
                 {{ (item?.lastAccessDetails?.lastAccess) ? (item?.lastAccessDetails?.lastAccess | timeAgo) : '-' }}
             </div>
         </td>
-        <td>
+        <td data-title="Permissions" *ngIf="showFieldFilter.permissions">
             <button type="button" class="btn btn-blue btn-sm" (click)="getPermissionOfCompany(item.uniqueName, permissionModal)">View</button>
         </td>
     </tr>
     <tr *ngIf="companiesData.length === 0">
-        <td colspan="15" align="center">No records found.</td>
+        <td colspan="16" align="center">No records found.</td>
     </tr>
 </tbody>
 </table>
