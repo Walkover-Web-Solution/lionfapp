@@ -419,6 +419,7 @@ export class UserListComponent implements OnInit {
      * @memberof UserListComponent
      */
     public getAllUserData() {
+        this.getAllSubscriptionTotalData();
         this.userService.getAllSubscriptionsByUser(this.getUserListRequest, this.getUserListPostRequest).subscribe(res => {
             if (res.status === 'success') {
                 this.userlistRes = res.body;
@@ -481,7 +482,7 @@ export class UserListComponent implements OnInit {
         if (dates !== null && !this.defaultLoad) {
             this.getUserListPostRequest.signUpOnFrom = moment(dates[0]).format(GIDDH_DATE_FORMAT);
             this.getUserListPostRequest.signUpOnTo = moment(dates[1]).format(GIDDH_DATE_FORMAT);
-            this.getAllSubscriptionTotalData();
+            // this.getAllSubscriptionTotalData();
             this.getAllUserData();
         }
 
@@ -523,15 +524,15 @@ export class UserListComponent implements OnInit {
         this.getUserListPostRequest.email = '';
         this.getUserListPostRequest.mobile = '';
         this.getUserListPostRequest.subscriptionId = '';
-        this.getUserListPostRequest.planUniqueNames = [];
+        this.getUserListPostRequest.planUniqueNames = this.selectedPlans = [];
         this.getUserListPostRequest.countryCodes = this.selectedCountries = [];
+        this.getUserListPostRequest.status = this.selectedPlanStatus = [];
         this.getUserListPostRequest.startedAtFrom = '';
         this.getUserListPostRequest.managerUniqueNames = [];
         this.getUserListRequest.sortBy = '';
         this.getUserListRequest.sortType = '';
         this.getUserListPostRequest.expiry = '';
         this.inlineSearch = null;
-
         this.getUserListPostRequest.transactionLimitField = '';
         this.getUserListPostRequest.remainingTxn = '';
         this.getUserListPostRequest.addOnTxn = '';
@@ -539,6 +540,7 @@ export class UserListComponent implements OnInit {
         this.getUserListPostRequest.additionalCharges = '';
         this.resetAdvanceOperationLimitFilter();
         this.isAllColumnFilterApplied();
+        this.isAllPlansStatusSelected(false);
         this.selectedPlans = [];
         this.allPlans.forEach(res => {
             res.additional = false;
@@ -547,11 +549,13 @@ export class UserListComponent implements OnInit {
             res.additional = false;
         });
         this.selectedOwners = [];
-        this.selectedPlanStatus= [];
+        this.adminUsersList.map(res => {
+            res.additional = false;
+        });
         this.isAllPlanSelected = false;
         this.getUserListRequest.page = 1;
         this.showClearFilter = false;
-        this.getAllSubscriptionTotalData();
+        // this.getAllSubscriptionTotalData();
         this.selectAllColumns(true);
         this.getAllUserData();
     }
@@ -611,7 +615,7 @@ export class UserListComponent implements OnInit {
         }
         this.getUserListPostRequest.planUniqueNames = this.selectedPlans;
         this.isAllPlansSelected();
-        this.getAllSubscriptionTotalData();
+        // this.getAllSubscriptionTotalData();
         this.getAllUserData();
     }
 
@@ -654,7 +658,7 @@ export class UserListComponent implements OnInit {
         }
         this.isAllPlansSelected();
         this.getUserListPostRequest.planUniqueNames = this.selectedPlans;
-        this.getAllSubscriptionTotalData();
+        // this.getAllSubscriptionTotalData();
         this.getAllUserData();
     }
 
@@ -676,7 +680,7 @@ export class UserListComponent implements OnInit {
         }
         this.getUserListPostRequest.managerUniqueNames = this.selectedOwners;
         this.isAllOwnersSelected();
-        this.getAllSubscriptionTotalData();
+        // this.getAllSubscriptionTotalData();
         this.getAllUserData();
     }
 
@@ -717,7 +721,7 @@ export class UserListComponent implements OnInit {
         }
         this.isAllOwnersSelected();
         this.getUserListPostRequest.managerUniqueNames = this.selectedOwners;
-        this.getAllSubscriptionTotalData();
+        // this.getAllSubscriptionTotalData();
         this.getAllUserData();
     }
 
@@ -760,7 +764,7 @@ export class UserListComponent implements OnInit {
         this.timeoutLastSeen = setTimeout(() => {
             this.lastSeenDropdown(true);
             this.getUserListRequest.page = 1;
-            this.getAllSubscriptionTotalData();
+            // this.getAllSubscriptionTotalData();
             this.getAllUserData();
             clearTimeout(this.timeoutLastSeen);
         }, 700);
@@ -788,7 +792,7 @@ export class UserListComponent implements OnInit {
         }
         this.getUserListRequest.page = 1;
         this.lastSeenDropdown(true);
-        this.getAllSubscriptionTotalData();
+        // this.getAllSubscriptionTotalData();
         this.getAllUserData();
     }
 
@@ -831,7 +835,7 @@ export class UserListComponent implements OnInit {
         this.userService.assignLeadOwner(userUniqueName, post).subscribe(res => {
             if (res.status === 'success') {
                 this.toaster.successToast(res.body);
-                this.getAllSubscriptionTotalData();
+                // this.getAllSubscriptionTotalData();
                 this.getAllUserData();
             } else {
                 this.toaster.errorToast(res.message);
@@ -1009,7 +1013,7 @@ export class UserListComponent implements OnInit {
         this.getAllUserData();
     }
 
-    
+
     /**
     * To reset status type model
     * 
