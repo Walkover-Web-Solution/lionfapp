@@ -119,35 +119,43 @@
 "></i> Clear Filter</button>
                 </div>
             </div>
-
-            <div class="pull-right">
-                <a href="javascript:void(0)" class="btn btn-blue mr-1 ml-1 btn-export" (click)="exportSubscriptionsByUsers()">Export</a>
+            <div class="clearfix">
+                <button class="pull-right btn btn-blue" (click)="openAssignPlanPopup = !openAssignPlanPopup">Assign Plan</button>
+                <button class="pull-right btn btn-blue mr-1" *ngIf="editSubscriptionIdTransaction" (click)="openUpdateTransactionPopup = !openUpdateTransactionPopup">Update Transactions</button>
+                <button class="pull-right btn btn-blue" (click)="exportSubscriptionsByUsers() ">Export</button>
             </div>
+            <!-- <div class="pull-right">
+                <button class="pull-right btn btn-blue" (click)="openAssignPlanPopup = !openAssignPlanPopup">Assign Plan</button>
+            </div>
+            <div class="pull-right ">
+                <a href="javascript:void(0) " class="btn btn-blue mr-1 ml-1 btn-export " (click)="exportSubscriptionsByUsers() ">Export</a>
+                <button class="pull-right btn btn-blue" (click)="exportSubscriptionsByUsers() ">Export</button>
+            </div> -->
         </div>
     </div>
-    <div class="page-content">
-        <div class="table-responsive table-height dropdown-table">
-            <table class="table table-bordered basic subscrib-list-table card-list-table">
+    <div class="page-content ">
+        <div class="table-responsive table-height dropdown-table ">
+            <table class="table table-bordered basic subscrib-list-table card-list-table ">
                 <thead>
-                    <tr (clickOutside)="inlineSearch = null">
-                        <!-- <th *ngIf="showFieldFilter.signUpOn">
+                    <tr (clickOutside)="inlineSearch=null ">
+                        <!-- <th *ngIf="showFieldFilter.signUpOn ">
                             Signup Date
                         </th> -->
 
-                        <th class="table-search min-width-110" *ngIf="showFieldFilter.signUpOn">
-                            <div [hidden]="inlineSearch == 'subscribersSignup'|| getUserListPostRequest.signUpOnFrom">
-                                <div class="d-flex align-items-center justify-content-between">
+                        <th class="table-search min-width-110 " *ngIf="showFieldFilter.signUpOn ">
+                            <div [hidden]="inlineSearch=='subscribersSignup' || getUserListPostRequest.signUpOnFrom ">
+                                <div class="d-flex align-items-center justify-content-between ">
                                     <span>Signup On</span>
-                                    <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('subscribersSignup')"></i>
+                                    <i class="fa fa-search pull-right " (click)="focusOnColumnSearch( 'subscribersSignup') "></i>
                                 </div>
                             </div>
-                            <div class="input-container" [hidden]="inlineSearch !== 'subscribersSignup' && !getUserListPostRequest.signUpOnFrom">
-                                <input type="text" placement="bottom" placeholder="Signup on" readonly class="form-control w100" #subscribersSignupField [(ngModel)]="getUserListPostRequest.signUpOnFrom" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" (ngModelChange)="searchViaDate('signUpOnFrom')"
-                                    bsDatepicker name="signUpOnFrom" />
+                            <div class="input-container " [hidden]="inlineSearch !=='subscribersSignup' && !getUserListPostRequest.signUpOnFrom ">
+                                <input type="text " placement="bottom " placeholder="Signup on " readonly class="form-control w100 " #subscribersSignupField [(ngModel)]="getUserListPostRequest.signUpOnFrom " [bsConfig]="{ dateInputFormat:
+                    'DD/MM/YYYY' } " (ngModelChange)="searchViaDate( 'signUpOnFrom') " bsDatepicker name="signUpOnFrom " />
                             </div>
                         </th>
 
-                        <th class="table-dropdown" [ngClass]="{'border-blue': selectedOwners && selectedOwners.length>0}" *ngIf="showFieldFilter.owner">
+                        <th class="table-dropdown " [ngClass]="{ 'border-blue': selectedOwners && selectedOwners.length>0}" *ngIf="showFieldFilter.owner">
                             <span class="pr c-dropdown align-center" [ngClass]="{ 'open': owner}" [attachOutsideOnClick]="true" (clickOutside)="ownerFocus(true)">
                                 <label>Owner</label>
 
@@ -537,7 +545,9 @@
 </thead>
 <tbody *ngFor="let userSubscription of userSubscriptionData">
     <tr>
-        <td data-title="Signup Date" *ngIf="showFieldFilter.signUpOn">{{userSubscription.userDetails.signUpOn}}</td>
+        <td data-title="Signup Date" *ngIf="userSubscription.subscriptions.length > 1 && showFieldFilter.signUpOn">{{userSubscription.userDetails.signUpOn}}</td>
+        <td data-title="Signup Date" *ngIf="userSubscription.subscriptions.length=== 1 && showFieldFilter.signUpOn" (mouseenter)="showRadioButton(userSubscription.subscriptions[0].subscriptionId)" (mouseleave)="hideRadioButton()"><span *ngIf="visibleSubscriptionRadioButton === userSubscription.subscriptionId || editSubscriptionIdTransaction === userSubscription.subscriptionId"><input type="radio" name="checkedSubscriptions" (click)="editSubscriptionTransactions(userSubscription.subscriptions[0].subscriptionId)"></span><span>{{userSubscription.userDetails.signUpOn}}</span></td>
+
         <td data-title="Owner" *ngIf="showFieldFilter.owner">
             <div class="btn-group owner-dropdown" dropdown>
                 <a href="javascript:void(0)" id="button-animated" dropdownToggle aria-controls="dropdown-animated"><span
@@ -598,7 +608,9 @@
         </td>
     </tr>
     <tr [hidden]="userSubscription.subscriptions?.length === 1 || !userSubscription.showInner" *ngFor="let userSubscriptionInner of userSubscription.subscriptions;">
-        <td data-title="Signup Date" *ngIf="showFieldFilter.signUpOn">&nbsp;</td>
+        <!-- <td data-title="Signup Date" *ngIf="showFieldFilter.signUpOn">&nbsp;</td> -->
+        <td data-title="Signup Date" *ngIf="userSubscription.subscriptions.length=== 1 && showFieldFilter.signUpOn" (mouseenter)="showRadioButton(userSubscriptionInner.subscriptionId)" (mouseleave)="hideRadioButton()"><span *ngIf="visibleSubscriptionRadioButton === userSubscriptionInner.subscriptionId || editSubscriptionIdTransaction === userSubscriptionInner.subscriptionId"><input type="radio" name="checkedSubscriptions" (click)="editSubscriptionTransactions(userSubscriptionInner.subscriptionId)"></span><span>&nbsp;</span></td>
+
         <td data-title="Owner" *ngIf="showFieldFilter.owner">&nbsp;</td>
         <td data-title="Name" *ngIf="showFieldFilter.name">&nbsp;</td>
         <td data-title="Email" *ngIf="showFieldFilter.email">&nbsp;</td>
@@ -736,4 +748,12 @@
     </div>
 </div>
 </div>
+</div>
+
+<div class="bg-box" *ngIf="openUpdateTransactionPopup || openAssignPlanPopup"></div>
+<div class="rightSlide kot-repring-sidebar" *ngIf="openUpdateTransactionPopup">
+    <app-update-transactions [subscriptionId]="editSubscriptionIdTransaction" (hideUpdateTransactionPopup)="hideUpdateTransactionPopup()"></app-update-transactions>
+</div>
+<div class="rightSlide kot-repring-sidebar" *ngIf="openAssignPlanPopup">
+    <app-assign-plan (hideAssignPlanPopup)="hideAssignPlanPopup()"></app-assign-plan>
 </div>

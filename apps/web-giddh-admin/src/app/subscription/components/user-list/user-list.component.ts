@@ -91,13 +91,14 @@ export class UserListComponent implements OnInit {
         active: false,
         expired: false
     };
+    public openAssignPlanPopup: boolean = false;
+    public openUpdateTransactionPopup: boolean = false;
     public showClearFilter: boolean = false;
 
     @ViewChild('filterDropDownList') public filterDropDownList: BsDropdownDirective;
     public showFieldFilter: UserFieldFilterColumnNames = new UserFieldFilterColumnNames();
     public isFieldColumnFilterApplied: boolean;
     public isAllFieldColumnFilterApplied: boolean;
-
     public isAllPlanStatusSelected: boolean = false;
     public searchViaEmail$ = new Subject<string>();
     public searchViaUserName$ = new Subject<string>();
@@ -111,7 +112,8 @@ export class UserListComponent implements OnInit {
     public addOnTransaction$ = new Subject<string>();
     public additionalCharges$ = new Subject<string>();
     public ratePerExtraTxn$ = new Subject<string>();
-
+    public editSubscriptionIdTransaction: string = '';
+    public visibleSubscriptionRadioButton: string = '';
 
 
     destroyed$: Observable<any>;
@@ -1158,5 +1160,55 @@ export class UserListComponent implements OnInit {
                 this.toaster.errorToast(res.message);
             }
         });
+    }
+
+    /**
+     * This will hide the assign plan popup
+     *
+     * @memberof UserListComponent
+     */
+    public hideAssignPlanPopup(): void {
+        this.openAssignPlanPopup = false;
+        this.getAllUserData();
+    }
+
+     /**
+     * This will hide the update transactions popup
+     *
+     * @memberof UserListComponent
+     */
+    public hideUpdateTransactionPopup(): void {
+        this.openUpdateTransactionPopup = false;
+        this.editSubscriptionIdTransaction = '';
+         this.getAllUserData();
+    }
+
+     /**
+     * This will set the subscription id to be used in popup
+     *
+     * @param {*} subscriptionId
+     * @memberof UserListComponent
+     */
+    public editSubscriptionTransactions(subscriptionId) {
+        this.editSubscriptionIdTransaction = subscriptionId;
+    }
+
+     /**
+     * This will show radio button on mouseover
+     *
+     * @param {*} subscription
+     * @memberof UserListComponent
+     */
+    public showRadioButton(subscriptionId) {
+        this.visibleSubscriptionRadioButton = subscriptionId;
+    }
+
+    /**
+     * This will hide the radio button on mouseleave
+     *
+     * @memberof UserListComponent
+     */
+    public hideRadioButton() {
+        this.visibleSubscriptionRadioButton = '';
     }
 }
