@@ -54,7 +54,44 @@ export class EditSubscriptionsComponent implements OnInit {
     public companiesAllRes: SubscriberList = new SubscriberList();
     public subscriptionsAuditLogs = [];
     public subscriptionsAuditLogsResponse: any;
-    public getAllCompaniesRequest: GetAllCompaniesRequest;
+    public getAllCompaniesRequest: GetAllCompaniesRequest = {
+            startedAtFrom: '',
+            companyName: '',
+            subscriptionId: '',
+            planUniqueNames: [],
+            userName: '',
+            status: [],
+            expiryFilter: {
+                from: '',
+                to: '',
+                operation: '',
+                days: '',
+            },
+            subscribeOn: {
+                from: '',
+                to: '',
+                operation: '',
+                days: '',
+            },
+            remainingTxnOpn: '',
+            remainingTxn: '',
+            transactionLimitOperation: '',
+            transactionLimit: '',
+            additionalChargesOperation: '',
+            additionalCharges: '',
+            lastEntryAccess: {
+                from: '',
+                to: '',
+                operation: 'BEFORE',
+                days: '',
+            },
+            lastCompanyAccess: {
+                from: '',
+                to: '',
+                operation: 'BEFORE',
+                days: '',
+            }
+    };
     public showFieldFilter: CompanyFieldFilterColumnNames = new CompanyFieldFilterColumnNames();
     public isFieldColumnFilterApplied: boolean;
     public isAllFieldColumnFilterApplied: boolean;
@@ -106,8 +143,6 @@ export class EditSubscriptionsComponent implements OnInit {
         this.paginationRequest.from = '';
         this.paginationRequest.page = 1;
         this.today = new Date();
-        this.getAllCompaniesRequest = new GetAllCompaniesRequest();
-        this.resetGellAllCompaniesFilters();
         this.paginationRequest.count = PAGINATION_COUNT;
         this.getAllCompaniesRequest.lastEntryAccess.operation = "BEFORE";
         this.getAllCompaniesRequest.lastCompanyAccess.operation = "BEFORE";
@@ -117,8 +152,6 @@ export class EditSubscriptionsComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.getAllCompaniesRequest = new GetAllCompaniesRequest();
-        this.resetGellAllCompaniesFilters();
         this.resetLastEntryAccessFilter();
         this.resetLastCompanyAccessFilter();
         if (this.subscriptionService.getGetAllCompanyRequestObject()) {
@@ -480,7 +513,7 @@ export class EditSubscriptionsComponent implements OnInit {
     public resetFilters() {
         this.tempOperation = 'relative_before';
         this.tempCompanyOperation = 'relative_before_2';
-        this.resetGellAllCompaniesFilters();
+        this.resetGetAllCompaniesFilters();
         this.selectedPlans = [];
         this.selectedPlanStatus = [];
         this.paginationRequest.page = 1;
@@ -903,7 +936,7 @@ export class EditSubscriptionsComponent implements OnInit {
      *
      * @memberof EditSubscriptionsComponent
      */
-    public resetGellAllCompaniesFilters() {
+    public resetGetAllCompaniesFilters() {
         this.getAllCompaniesRequest = {
             startedAtFrom: '',
             companyName: '',
@@ -932,13 +965,13 @@ export class EditSubscriptionsComponent implements OnInit {
             lastEntryAccess: {
                 from: '',
                 to: '',
-                operation: '',
+                operation: 'BEFORE',
                 days: '',
             },
             lastCompanyAccess: {
                 from: '',
                 to: '',
-                operation: '',
+                operation: 'BEFORE',
                 days: '',
             },
         };
