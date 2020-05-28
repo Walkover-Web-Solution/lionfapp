@@ -1,48 +1,139 @@
 <div class="clearfix">
-    <div class="pageHeader justify-flex-end">
-        <a href="javascript:;" [routerLink]="['/admin/license-key/generate']" class="btn btn-blue">Generate</a>
+
+    <div class="custom-page-header">
+
+        <div class="dis pull-left" (clickOutside)="hideListItems()">
+            <div class="btn-group mt-05" #filterDropDownList="bs-dropdown" dropdown [autoClose]="false" (clickOutside)="hideListItems()" [tooltip]="'Enable / Disable Column'" [placement]="'right'">
+                <i dropdownToggle class="icon-options pd cp fs20"></i>
+
+                <ul *dropdownMenu class="dropdown-menu dropdown-menu-left top-toggle-dropdown" role="menu" [style.width.px]="'200'">
+                    <li role="menuitem">
+                        <a class="dropdown-item">
+                            <input type="checkbox" name="isAllFieldColumnFilterApplied" [(ngModel)]="isAllFieldColumnFilterApplied" (ngModelChange)="selectAllColumns($event)"> Select All
+                        </a>
+                    </li>
+
+                    <li role="menuitem">
+                        <a class="dropdown-item">
+                            <input type="checkbox" name="subscribedOn" (ngModelChange)="columnFilter($event, 'subscribedOn')" [(ngModel)]="showFieldFilter.subscribedOn" /> Subscribed On
+                        </a>
+                    </li>
+
+                    <li role="menuitem">
+                        <a class="dropdown-item">
+                            <input type="checkbox" name="subscriptionId" (ngModelChange)="columnFilter($event, 'subscriptionId')" [(ngModel)]="showFieldFilter.subscriptionId" /> Sub ID
+                        </a>
+                    </li>
+
+                    <li role="menuitem">
+                        <a class="dropdown-item">
+                            <input type="checkbox" name="userName" (ngModelChange)="columnFilter($event, 'userName')" [(ngModel)]="showFieldFilter.userName" /> User Name
+                        </a>
+                    </li>
+                    <li role="menuitem">
+                        <a class="dropdown-item">
+                            <input type="checkbox" name="planName" (ngModelChange)="columnFilter($event, 'planName')" [(ngModel)]="showFieldFilter.planName" /> Plan
+                        </a>
+                    </li>
+                    <li role="menuitem">
+                        <a class="dropdown-item">
+                            <input type="checkbox" name="noOfCompany" (ngModelChange)="columnFilter($event, 'noOfCompany')" [(ngModel)]="showFieldFilter.noOfCompany" /> No of Company
+                        </a>
+                    </li>
+                    <li role="menuitem">
+                        <a class="dropdown-item">
+                            <input type="checkbox" name="balance" (ngModelChange)="columnFilter($event, 'balance')" [(ngModel)]="showFieldFilter.balance" /> Balance
+                        </a>
+                    </li>
+                    <li role="menuitem">
+                        <a class="dropdown-item">
+                            <input type="checkbox" name="transactionLimit" (ngModelChange)="columnFilter($event, 'transactionLimit')" [(ngModel)]="showFieldFilter.transactionLimit" /> Transaction Limit
+                        </a>
+                    </li>
+
+
+                    <li role="menuitem">
+                        <a class="dropdown-item">
+                            <input type="checkbox" name="licenseKey" (ngModelChange)="columnFilter($event, 'licenseKey')" [(ngModel)]="showFieldFilter.licenseKey" /> License Key
+                        </a>
+                    </li>
+
+                    <li role="menuitem">
+                        <a class="dropdown-item">
+                            <input type="checkbox" name="status" (ngModelChange)="columnFilter($event, 'status')" [(ngModel)]="showFieldFilter.status" /> Status
+                        </a>
+                    </li>
+
+                    <li role="menuitem">
+                        <a class="dropdown-item">
+                            <input type="checkbox" name="expiry" (ngModelChange)="columnFilter($event, 'expiry')" [(ngModel)]="showFieldFilter.expiry" /> Expiry
+                        </a>
+                    </li>
+
+                    <li role="menuitem">
+                        <a class="dropdown-item">
+                            <input type="checkbox" name="totalAmount" (ngModelChange)="columnFilter($event, 'totalAmount')" [(ngModel)]="showFieldFilter.totalAmount" /> Total Amount
+                        </a>
+                    </li>
+
+                    <li role="menuitem">
+                        <a class="dropdown-item">
+                            <input type="checkbox" name="comments" (ngModelChange)="columnFilter($event, 'comments')" [(ngModel)]="showFieldFilter.comments" /> Comments
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <button class=" btn-link" *ngIf="showClearFilter" (click)="resetFilters();"><i class="icon icon-loop2
+    "></i> Clear Filter</button>
+        <div class="justify-flex-end">
+            <a href="javascript:;" [routerLink]="['/admin/license-key/generate']" class="btn btn-blue">Generate</a>
+        </div>
     </div>
+
+
     <div class="page-content">
-        <div class="table-responsive">
+        <div class="table-responsive table-height">
             <table class="table table-bordered basic subscrib-list-table card-list-table table-striped">
                 <thead>
                     <tr>
-                        <th>
+                        <th *ngIf="showFieldFilter.subscribedOn">
                             Subscribed On
                         </th>
-                        <th>Sub ID</th>
-                        <th>User Name</th>
-                        <th>Plan</th>
-                        <th class="transform-none" (click)="sortBy('currentcompanycount')">No of Company <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getAllLicenceKeyRequest.sort === 'desc' && getAllLicenceKeyRequest.sortBy === 'currentcompanycount', 'icon-icon-sort-down': (getAllLicenceKeyRequest.sort === 'asc' && getAllLicenceKeyRequest.sortBy === 'currentcompanycount') || getAllLicenceKeyRequest.sortBy !== 'currentcompanycount'}"></i></th>
-                        <th (click)="sortBy('balance')">Remaining Transaction <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getAllLicenceKeyRequest.sort === 'desc' && getAllLicenceKeyRequest.sortBy === 'balance', 'icon-icon-sort-down': (getAllLicenceKeyRequest.sort === 'asc' && getAllLicenceKeyRequest.sortBy === 'balance') || getAllLicenceKeyRequest.sortBy !== 'balance'}"></i></th>
-                        <th (click)="sortBy('transactionlimit')">Transaction Limit <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getAllLicenceKeyRequest.sort === 'desc' && getAllLicenceKeyRequest.sortBy === 'transactionlimit', 'icon-icon-sort-down': (getAllLicenceKeyRequest.sort === 'asc' && getAllLicenceKeyRequest.sortBy === 'transactionlimit') || getAllLicenceKeyRequest.sortBy !== 'transactionlimit'}"></i></th>
-                        <th>License Key </th>
-                        <th (click)="sortBy('status')">Status <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getAllLicenceKeyRequest.sort === 'desc' && getAllLicenceKeyRequest.sortBy === 'status', 'icon-icon-sort-down': (getAllLicenceKeyRequest.sort === 'asc' && getAllLicenceKeyRequest.sortBy === 'status') || getAllLicenceKeyRequest.sortBy !== 'status'}"></i></th>
-                        <th>Expiry</th>
-                        <th>Total Amount</th>
-                        <th width="15%">Comments</th>
+                        <th *ngIf="showFieldFilter.subscriptionId">Sub ID</th>
+                        <th *ngIf="showFieldFilter.userName">User Name</th>
+                        <th *ngIf="showFieldFilter.planName">Plan</th>
+                        <th *ngIf="showFieldFilter.noOfCompany" class="transform-none" (click)="sortBy('currentcompanycount')">No of Company <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getAllLicenceKeyRequest.sort === 'desc' && getAllLicenceKeyRequest.sortBy === 'currentcompanycount', 'icon-icon-sort-down': (getAllLicenceKeyRequest.sort === 'asc' && getAllLicenceKeyRequest.sortBy === 'currentcompanycount') || getAllLicenceKeyRequest.sortBy !== 'currentcompanycount'}"></i></th>
+                        <th *ngIf="showFieldFilter.balance" (click)="sortBy('balance')">Balance <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getAllLicenceKeyRequest.sort === 'desc' && getAllLicenceKeyRequest.sortBy === 'balance', 'icon-icon-sort-down': (getAllLicenceKeyRequest.sort === 'asc' && getAllLicenceKeyRequest.sortBy === 'balance') || getAllLicenceKeyRequest.sortBy !== 'balance'}"></i></th>
+                        <th *ngIf="showFieldFilter.transactionLimit" (click)="sortBy('transactionlimit')">Transaction Limit <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getAllLicenceKeyRequest.sort === 'desc' && getAllLicenceKeyRequest.sortBy === 'transactionlimit', 'icon-icon-sort-down': (getAllLicenceKeyRequest.sort === 'asc' && getAllLicenceKeyRequest.sortBy === 'transactionlimit') || getAllLicenceKeyRequest.sortBy !== 'transactionlimit'}"></i></th>
+                        <th *ngIf="showFieldFilter.licenseKey">License Key </th>
+                        <th *ngIf="showFieldFilter.status" (click)="sortBy('status')">Status <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getAllLicenceKeyRequest.sort === 'desc' && getAllLicenceKeyRequest.sortBy === 'status', 'icon-icon-sort-down': (getAllLicenceKeyRequest.sort === 'asc' && getAllLicenceKeyRequest.sortBy === 'status') || getAllLicenceKeyRequest.sortBy !== 'status'}"></i></th>
+                        <th *ngIf="showFieldFilter.expiry">Expiry</th>
+                        <th *ngIf="showFieldFilter.totalAmount">Total Amount</th>
+                        <th *ngIf="showFieldFilter.comments" width="15%">Comments</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let item of items">
-                        <td data-title="Sub. on">{{item.subOn? item.subOn : '-'}}</td>
-                        <td data-title="Sub ID"><a (click)="openEditSubscription( item.subscriptionId)">{{item.subscriptionId? item.subscriptionId: '-'}}</a></td>
-                        <td data-title="User Name">{{item.user?.name?item.user?.name:'-'}}</td>
-                        <td data-title="Plan">{{item.planName?item.planName:'-'}}</td>
-                        <td data-title="No of Company">{{item.currentCompanyCount?item.currentCompanyCount:'-'}}</td>
-                        <!-- This is actualy remaining Tx balance binded as remaining Tx from backend after discussed with rajat  -->
-                        <td data-title="Transaction Limit">{{item.balance?item.balance:'-'}}</td>
-                        <td data-title="Balance">{{item.transactionLimit?item.transactionLimit:'-'}}</td>
-                        <td data-title="License Key">{{item.licenceKey ? item.licenceKey : '**********'}}</td>
-                        <td data-title="Status">{{item.licenceKeyStatus?item.licenceKeyStatus:'-'}}</td>
-                        <td data-title="Expiry">{{item.subExpiry?item.subExpiry:'-'}}</td>
-                        <td data-title="Total Amount">{{item.amount?item.amount:'-'}}</td>
-                        <td data-title="Comments"><span *ngIf="!item.expanded">{{item.comments | slice:0:100}}</span><span *ngIf="item.comments && item.comments.length > 100 && !item.expanded">...</span><span *ngIf="item.expanded">{{item.comments}}</span>&nbsp;
+                        <td *ngIf="showFieldFilter.subscribedOn" data-title="Sub. on">{{item.subOn? item.subOn : '-'}}</td>
+                        <td *ngIf="showFieldFilter.subscriptionId" data-title="Sub ID"><a (click)="openEditSubscription( item.subscriptionId)">{{item.subscriptionId? item.subscriptionId: '-'}}</a></td>
+                        <td *ngIf="showFieldFilter.userName" data-title="User Name">{{item.user?.name?item.user?.name:'-'}}</td>
+                        <td *ngIf="showFieldFilter.planName" data-title="Plan">{{item.planName?item.planName:'-'}}</td>
+                        <td *ngIf="showFieldFilter.noOfCompany" data-title="No of Company">{{item.currentCompanyCount?item.currentCompanyCount:'-'}}</td>
+                        <td *ngIf="showFieldFilter.balance" data-title="Transaction Limit">{{item.balance?item.balance:'-'}}</td>
+                        <td *ngIf="showFieldFilter.transactionLimit" data-title="Balance">{{item.transactionLimit?item.transactionLimit:'-'}}</td>
+                        <td *ngIf="showFieldFilter.licenseKey" data-title="License Key">{{item.licenceKey ? item.licenceKey : '**********'}}</td>
+                        <td *ngIf="showFieldFilter.status" data-title="Status">{{item.licenceKeyStatus?item.licenceKeyStatus:'-'}}</td>
+                        <td *ngIf="showFieldFilter.expiry" data-title="Expiry">{{item.subExpiry?item.subExpiry:'-'}}</td>
+                        <td *ngIf="showFieldFilter.totalAmount" data-title="Total Amount">{{item.amount?item.amount:'-'}}</td>
+                        <td *ngIf="showFieldFilter.comments" data-title="Comments"><span *ngIf="!item.expanded">{{item.comments | slice:0:100}}</span><span *ngIf="item.comments && item.comments.length > 100 && !item.expanded">...</span><span *ngIf="item.expanded">{{item.comments}}</span>&nbsp;
                             <a href="javascript:;" *ngIf="item.comments && item.comments.length > 100" (click)="item.expanded = !item.expanded" [ngClass]="{'fa': 1 === 1, 'fa-arrows-alt': !item.expanded, 'fa-expand': item.expanded}" title="{{item.expanded ? 'Collapse' : 'Expand'}}"></a>
                         </td>
                     </tr>
                     <tr *ngIf="!items || items.length === 0">
-                        <td colspan="12" align="center">No records found.</td>
+                        <td colspan="12" align="center">
+                            <h3>No records found.</h3>
+                        </td>
                     </tr>
                 </tbody>
             </table>

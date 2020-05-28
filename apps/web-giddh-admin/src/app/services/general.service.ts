@@ -51,4 +51,5 @@ export class GeneralService {
         this.authService.userSignOut();
         this.router.navigate(['login']);
     }
+
 }

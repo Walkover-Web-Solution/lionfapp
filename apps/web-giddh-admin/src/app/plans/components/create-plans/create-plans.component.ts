@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { PlansService } from '../../../services/plan.service';
 import { NgForm } from '@angular/forms';
 import { ToasterService } from '../../../services/toaster.service';
@@ -13,7 +13,7 @@ import { IOption } from '../../../theme/ng-select/option.interface';
 export class CreatePlansComponent implements OnInit {
     /** Form instance */
     @ViewChild('createPlanForm') createPlanForm: NgForm;
-
+    @ViewChild("planName") public planName: ElementRef;
     @Input() public rightToggle: boolean = false;
     @Output() public hidePopup: EventEmitter<boolean> = new EventEmitter(true);
 
@@ -34,7 +34,7 @@ export class CreatePlansComponent implements OnInit {
      * @memberof CreatePlansComponent
      */
     ngOnInit() {
-
+        this.planName.nativeElement.focus();
     }
 
     /**
@@ -134,5 +134,15 @@ export class CreatePlansComponent implements OnInit {
      */
     public closePopup() {
         this.hidePopup.emit();
+    }
+
+    /**
+     * This will close all the popup on ESC button
+     *
+     * @param {KeyboardEvent} event
+     * @memberof CreatePlansComponent
+     */
+    @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(event: KeyboardEvent) {
+        this.closePopup();
     }
 }

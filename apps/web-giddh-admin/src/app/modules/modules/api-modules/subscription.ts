@@ -75,6 +75,8 @@ export class TotalSubscribers {
     inactive: number;
     active: number;
     trial: number
+    expired?: number
+    totalUser?: number
 }
 
 export class TotalUsersCount {
@@ -92,6 +94,8 @@ export class StatusModel {
 export class AdvanceSearchFromTo {
     from: any;
     to: any;
+    operation?: string;
+    days?: string;
 }
 
 export class AdvanceSearchRequestSubscriptions {
@@ -108,8 +112,8 @@ export class AdvanceSearchRequestSubscriptions {
     planName?: string;
     userName?: string;
     email?: string;
-    mobile?: string; 
-    planUniqueNames? : string[];
+    mobile?: string;
+    planUniqueNames?: string[];
     remainingTxnOpn?: string;
 }
 export class UpdateSubscriptionModel {
@@ -137,4 +141,25 @@ export class GetAllCompaniesRequest {
     planUniqueNames: string[] = [];
     userName: string = '';
     status: string[] = []; // "trial","expired"
+    expiryFilter?: AdvanceSearchFromTo;
+    subscribeOn?: AdvanceSearchFromTo;
+    remainingTxnOpn?: string;
+    remainingTxn?: string;
+    transactionLimitOperation?: string;
+    transactionLimit?: string;
+    additionalChargesOperation?: string;
+    additionalCharges?: string;
+    lastCompanyAccess?: AdvanceSearchFromTo;
+    lastEntryAccess?: AdvanceSearchFromTo;
+}
+
+export class CompanyAdvanceSearchRequestSubscriptions {
+    expiryFilter?: AdvanceSearchFromTo;
+    subscribeOn?: AdvanceSearchFromTo;
+    remainingTxnOpn?: string;
+    remainingTxn?: string;
+    transactionLimitOperation?: string;
+    transactionLimit?: string;
+    additionalChargesOperation?: string;
+    additionalCharges?: string;
 }

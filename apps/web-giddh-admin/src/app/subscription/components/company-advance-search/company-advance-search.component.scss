@@ -1,0 +1,12 @@
+.blue-clr {
+    color: #36A1E9;
+}
+.advance-search li {
+  display: block;
+}
+.advance-search li input[type="text"], .advance-search li input[type="number"] {
+  width: 100%;
+}
+.advance-search li input[type="text"]:first-child, .advance-search li input[type="number"]:first-child {
+  margin-left: 0px;
+}

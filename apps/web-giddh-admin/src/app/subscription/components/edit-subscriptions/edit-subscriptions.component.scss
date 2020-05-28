@@ -6,5 +6,33 @@
     overflow-y: auto;
 }
 .dropdown-table {
-  min-height: 240px;
+  min-height: 320px;
+  max-height: calc(100vh - 380px);
+  margin-bottom: 20px;
+}
+.advance-btn {
+  position: relative;
+  top: -8px;
+}
+.last-seen-radio span {
+  display: block;
+  margin-bottom: 5px;
+}
+#dropdown-basic {
+  max-width: 330px;
+  min-width: 330px;
+}
+.last-seet-dropdow {
+  max-height: initial;
+}
+.pb-110 {
+  padding-bottom: 120px;
+}
+.btn-sm {
+  padding: 4px 10px;
+  font-size: 13px;
+}
+.border-blue {
+  outline: #1A2482 solid 1px;
+  border: 1px solid #1A2482 !important;
 }

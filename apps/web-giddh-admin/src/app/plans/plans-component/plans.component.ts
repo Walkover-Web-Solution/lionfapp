@@ -1,13 +1,16 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, HostListener } from '@angular/core';
 import { PlansService } from '../../services/plan.service';
 import * as moment from 'moment/moment';
-import { Router } from '@angular/router';
 import { GeneralService } from '../../services/general.service';
 import { ToasterService } from '../../services/toaster.service';
 import { AuthenticationService } from '../../services/authentication.service';
 import { IOption } from '../../theme/ng-select/ng-select';
 import { PAGINATION_COUNT } from '../../modules/modules/api-modules/subscription';
-
+import { BsDropdownDirective } from 'ngx-bootstrap';
+import { ColumnFilterService } from '../../services/column-filter.service';
+import { FavouriteColumnPageTypeEnum } from '../../actions/general/general.const';
+import { cloneDeep } from '../../lodash-optimized';
+import { PlanFieldFilterColumnNames } from '../../models/company';
 
 
 @Component({
@@ -17,11 +20,15 @@ import { PAGINATION_COUNT } from '../../modules/modules/api-modules/subscription
 })
 
 export class PlansComponent implements OnInit {
-
-
     @ViewChild('planNameField') public planNameField;
     @Input() public showTaxPopup: boolean = false;
     @Input() public showTaxPopups: boolean = false;
+    @ViewChild('filterDropDownList') public filterDropDownList: BsDropdownDirective;
+    public showFieldFilter: PlanFieldFilterColumnNames = new PlanFieldFilterColumnNames();
+    public isFieldColumnFilterApplied: boolean;
+    public isAllFieldColumnFilterApplied: boolean;
+    public showClearFilter: boolean = false;
+    public colSpanCount: number;
 
     public plansData: any;
     public plansDataResults: any;
@@ -40,10 +47,9 @@ export class PlansComponent implements OnInit {
     public countrySource: IOption[] = [];
     public selectedCountries: string[] = []
     public isAllCountrySelected: boolean = false;
-    public PAGINATION_COUNT:number = PAGINATION_COUNT;
+    public PAGINATION_COUNT: number = PAGINATION_COUNT;
 
-
-    constructor(private plansService: PlansService, private generalService: GeneralService, private toaster: ToasterService, private authenticationService: AuthenticationService) {
+    constructor(private plansService: PlansService, private generalService: GeneralService, private toaster: ToasterService, private authenticationService: AuthenticationService, private columnFilterService: ColumnFilterService) {
     }
 
     /**
@@ -61,6 +67,8 @@ export class PlansComponent implements OnInit {
         this.getPlansStats();
         this.getAllPlans();
         this.getOnboardCountries();
+        /** To get dynamic column filter  */
+        this.getColumnFilter();
     }
 
     /**
@@ -101,7 +109,6 @@ export class PlansComponent implements OnInit {
     public pageChanged(event: any): void {
         this.getAllPlansRequest.page = event.page;
         this.getAllPlans();
-
     }
 
     /**
@@ -138,6 +145,15 @@ export class PlansComponent implements OnInit {
     }
 
     /**
+     * To hide column filter pop up
+     *
+     * @memberof PlansComponent
+     */
+    public hideListItems() {
+        this.filterDropDownList.hide();
+    }
+
+    /**
      * This function is used to filter by date
      *
      * @param {*} dates
@@ -147,6 +163,7 @@ export class PlansComponent implements OnInit {
         if (dates !== null && !this.defaultLoad) {
             this.getAllPlansPostRequest.createdAtFrom = moment(dates[0]).format("DD-MM-YYYY");
             this.getAllPlansPostRequest.createdAtTo = moment(dates[1]).format("DD-MM-YYYY");
+            this.getPlansStats();
             this.getAllPlans();
         }
 
@@ -183,6 +200,7 @@ export class PlansComponent implements OnInit {
 
         this.timeout = setTimeout(() => {
             this.getAllPlansRequest.page = 1;
+            this.getPlansStats();
             this.getAllPlans();
         }, 700);
     }
@@ -208,6 +226,7 @@ export class PlansComponent implements OnInit {
     public hidePlanDetailsPopup() {
         this.selectedPlan = '';
         this.togglePlanDetailsPanelBool = false;
+        this.getPlansStats();
         this.getAllPlans();
         this.toggleBodyClass();
     }
@@ -227,6 +246,8 @@ export class PlansComponent implements OnInit {
         this.countrySource.forEach(res => {
             res.additional = false;
         });
+        this.selectAllColumns(true);
+        this.getPlansStats();
         this.getAllPlans();
     }
 
@@ -262,7 +283,7 @@ export class PlansComponent implements OnInit {
      * @memberof PlansComponent
      */
     public getPlansStats() {
-        this.plansService.getPlansStats().subscribe(res => {
+        this.plansService.getPlansStats(this.getAllPlansPostRequest).subscribe(res => {
             if (res.status === 'success') {
                 this.planStats = res.body;
             }
@@ -325,6 +346,7 @@ export class PlansComponent implements OnInit {
         }
         this.isAllCountriesSelected();
         this.getAllPlansPostRequest.countries = this.selectedCountries;
+        this.getPlansStats();
         this.getAllPlans();
     }
 
@@ -346,6 +368,130 @@ export class PlansComponent implements OnInit {
         }
         this.getAllPlansPostRequest.countries = this.selectedCountries;
         this.isAllCountriesSelected();
+        this.getPlansStats();
         this.getAllPlans();
+    }
+
+    /**
+     * This will close all the popup on ESC button
+     *
+     * @param {KeyboardEvent} event
+     * @memberof PlansComponent
+     */
+    @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(event: KeyboardEvent) {
+        this.hidePopup();
+        this.hidePlanDetailsPopup();
+    }
+
+    /**
+  * API call to get all filter column
+  *
+  * @memberof PlansComponent
+  */
+    public getColumnFilter(): void {
+        this.columnFilterService.getFavouritePage(FavouriteColumnPageTypeEnum.ADMIN_PLAN).subscribe(response => {
+            if (response.status === 'success') {
+                if (response.body && response.body.favourite) {
+                    Object.assign(this.showFieldFilter, response.body.favourite);
+                    this.showFieldFilter = cloneDeep(response.body.favourite);
+                }
+                this.getShowFieldFilterIsApplied();
+            } else if (response.status === 'error') {
+                this.toaster.errorToast(response.message);
+            }
+            this.isAllColumnFilterApplied();
+            this.getColspanCount();
+        });
+
+    }
+
+    /**
+      * API call to update filter column
+      *
+      * @memberof PlansComponent
+      */
+    public updateColumnFilter(): void {
+        this.getShowFieldFilterIsApplied();
+        this.columnFilterService.updateFavouritePage(FavouriteColumnPageTypeEnum.ADMIN_PLAN, this.showFieldFilter).subscribe(response => {
+            if (response && response.status === 'success') {
+                if (response.body && response.body.favourite) {
+                    Object.assign(this.showFieldFilter, response.body.favourite);
+                    this.showFieldFilter = cloneDeep(response.body.favourite);
+                }
+            }
+            this.getColspanCount();
+        });
+    }
+
+    /**
+    *To check is any column toggle filter applied
+    *
+    * @returns {boolean}
+    * @memberof PlansComponent
+    */
+    public getShowFieldFilterIsApplied(): boolean {
+        this.isFieldColumnFilterApplied = false;
+        Object.keys(this.showFieldFilter).forEach(key => {
+            if (!this.showFieldFilter[key]) {
+                this.isFieldColumnFilterApplied = true;
+                this.showClearFilter = true
+            }
+        });
+        return this.isFieldColumnFilterApplied;
+    }
+
+    /**
+    *To apply column toggle filter
+    *
+    * @param {boolean} event boolean is column show or hide
+    * @param {string} column Column name
+    * @memberof PlansComponent
+    */
+    public columnFilter(event: boolean, column: string) {
+        this.showFieldFilter[column] = event;
+        this.isAllColumnFilterApplied();
+        this.updateColumnFilter();
+    }
+
+    /**
+    * This will toggle all columns
+    *
+    * @param {boolean} event
+    * @memberof PlansComponent
+    */
+    public selectAllColumns(event: boolean): void {
+        this.showFieldFilter.planName = event;
+        this.showFieldFilter.createdOn = event;
+        this.showFieldFilter.noOfCompany = event;
+        this.showFieldFilter.totalUser = event;
+        this.showFieldFilter.totalAmount = event;
+        this.showFieldFilter.expiry = event;
+        this.showFieldFilter.country = event;
+        this.isAllColumnFilterApplied();
+        this.updateColumnFilter();
+    }
+
+      /**
+     *To check all column filter applied true
+     *
+     * @memberof PlansComponent
+     */
+    public isAllColumnFilterApplied() {
+        this.isAllFieldColumnFilterApplied = Object.keys(this.showFieldFilter).every((k) => this.showFieldFilter[k]);
+    }
+    
+
+    /**
+    * To get count of colspan
+    *
+    * @memberof PlansComponent
+    */
+    public getColspanCount() {
+        this.colSpanCount = 0;
+        Object.keys(this.showFieldFilter).forEach(item => {
+            if (this.showFieldFilter[item]) {
+                this.colSpanCount++;
+            }
+        });
     }
 }

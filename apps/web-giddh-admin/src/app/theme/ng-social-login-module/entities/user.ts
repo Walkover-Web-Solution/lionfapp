@@ -20,3 +20,5 @@ export class LinkedInResponse {
   public lastName: string;
   public pictureUrl: string;
 }
+
+
