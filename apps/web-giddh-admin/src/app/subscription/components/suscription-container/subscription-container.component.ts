@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, TemplateRef, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, Input, HostListener } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { SubscriptionService } from '../../../services/subscription.service';
 import { AppState } from '../../../store';
@@ -263,7 +263,7 @@ export class SubscriptionContainerComponent implements OnInit {
     }
 
     public getAllSubscriptionTotalData() {
-        this.subscriptionService.getAllTotalSubscriptions().subscribe(res => {
+        this.subscriptionService.getAllTotalSubscriptions(this.advanceSearchRequest).subscribe(res => {
             if (res.status === 'success') {
                 this.totalSubscriber = res.body;
             } else {
@@ -573,5 +573,17 @@ export class SubscriptionContainerComponent implements OnInit {
      */
     public hideRadioButton() {
         this.visibleSubscriptionRadioButton = '';
+    }
+
+    /**
+     * This will close all the popup on ESC button
+     *
+     * @param {KeyboardEvent} event
+     * @memberof SubscriptionContainerComponent
+     */
+    @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(event: KeyboardEvent) {
+        this.hideAssignPlanPopup();
+        this.hideUpdateTransactionPopup();
+        this.hidePopup();
     }
 }

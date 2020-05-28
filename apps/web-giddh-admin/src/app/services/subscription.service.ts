@@ -5,6 +5,7 @@ import { SUBSCRIPTION_API } from './apiurls/subscription.api';
 import { ErrorHandler } from './catchManager/catchmanger';
 import { IServiceConfigArgs, ServiceConfig } from './service.config';
 import { CommonPaginatedRequest, AdvanceSearchRequestSubscriptions, UpdateSubscriptionModel, GetAllCompaniesRequest } from '../modules/modules/api-modules/subscription';
+import { Observable } from 'rxjs';
 
 
 @Injectable()
@@ -33,8 +34,8 @@ export class SubscriptionService {
     /**
         * get all total for subscriptions
         */
-    public getAllTotalSubscriptions() {
-        return this.http.get(this.config.apiUrl + SUBSCRIPTION_API.GET_SUBSCRIPTION_TOTAL)
+    public getAllTotalSubscriptions(model: any) {
+        return this.http.post(this.config.apiUrl + SUBSCRIPTION_API.GET_SUBSCRIPTION_TOTAL, model)
             .pipe(
                 map((res) => {
                     return res;
@@ -87,6 +88,47 @@ export class SubscriptionService {
                 catchError((e) =>
                     this.errorHandler.HandleCatch(e)));
     }
+
+    /**
+     * To get company footer data
+     *
+     * @param {GetAllCompaniesRequest} body
+     * @returns
+     * @memberof SubscriptionService
+     */
+    public getCompaniesFooter(body: GetAllCompaniesRequest):  Observable<any> {
+        let url = SUBSCRIPTION_API.GET_COMPANIES_FOOTER
+        return this.http.post(this.config.apiUrl + url, body)
+            .pipe(
+                map((resp) => {
+                    return resp;
+                }),
+                catchError((e) =>
+                    this.errorHandler.HandleCatch(e)));
+    }
+
+    /**
+    * To get company permission
+    *
+    * @param {string} companyUniqueName company unique name
+    * @returns
+    * @memberof SubscriptionService
+    */
+    public getCompaniesPermission(companyUniqueName: string):  Observable<any>  {
+        let url = SUBSCRIPTION_API.GET_COMPANIES_PERMISSION;
+
+        if (companyUniqueName) {
+            url = url.replace(':companyUniqueName', companyUniqueName);
+        }
+        return this.http.get(this.config.apiUrl + url)
+            .pipe(
+                map((resp) => {
+                    return resp;
+                }),
+                catchError((e) =>
+                    this.errorHandler.HandleCatch(e)));
+    }
+
 
     public getAuditLog(model) {
         return this.http.get(this.config.apiUrl + SUBSCRIPTION_API.GET_AUDIT_LOGS, model)

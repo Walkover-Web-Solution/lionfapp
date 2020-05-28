@@ -4,20 +4,13 @@
 .table-search {
   width: 18%;
 }
-.page-content {
-  padding-bottom: 140px;
-}
 .my-dropdown {
   right: 0 !important;
 }
-.multiselect-dropdown {
-  max-height: 200px;
-  overflow-y: auto;
+.table-height {
+  min-height: 320px;
+  max-height: calc(100vh - 350px);
 }
-.dropdown-table {
-  min-height: 240px;
+.page-content {
+  padding-bottom: 90px;
 }
-/* .table-height {
-  max-height: calc(100vh - 370px);
-  overflow-y: auto;
-} */

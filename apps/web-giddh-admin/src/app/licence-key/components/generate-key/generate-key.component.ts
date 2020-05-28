@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { PlansService } from '../../../services/plan.service';
 import { CommonPaginatedRequest, PAGINATION_COUNT } from '../../../modules/modules/api-modules/subscription';
 import { NgForm } from '@angular/forms';
@@ -20,6 +20,7 @@ import { AuthenticationService } from '../../../services/authentication.service'
 export class GenerateKeyComponent implements OnInit {
     /** Form instance */
     @ViewChild('generateKeysForm') generateKeysForm: NgForm;
+    @ViewChild('noOfKeys') noOfKeys: ElementRef;
 
     public getAllPlansPostRequest: any = {};
     public getAllPlansRequest: CommonPaginatedRequest = new CommonPaginatedRequest();
@@ -50,6 +51,7 @@ export class GenerateKeyComponent implements OnInit {
      */
     ngOnInit(): void {
         this.generalService.setCurrentPageTitle("License Keys > Generate");
+        this.noOfKeys.nativeElement.focus();
     }
 
     /**

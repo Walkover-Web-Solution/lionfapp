@@ -1,435 +1,744 @@
 <div class="">
     <div class="pageHeader">
-        <div class="form-group">
-            <div class="d-flex align-items-center">
-                <div class="input-group input-date">
-                    <span class="input-group-addon" id="sizing-addon2"><i class="fa fa-calendar pull-right"></i></span>
-                    <input type="text" class="form-control date-range-picker" readonly [(bsValue)]="bsValue"
-                        placeholder="Select Date" (bsValueChange)="onChangeFilterDate($event)" bsDaterangepicker>
+        <div class="d-flex justify-content-between width-100">
+            <div class="d-flex">
+                <div class="dis mr-1">
+                    <div class="btn-group mt-05" #filterDropDownList="bs-dropdown" dropdown [autoClose]="false" (clickOutside)="hideListItems()" [tooltip]="'Enable / Disable Column'" [placement]="'right'">
+                        <i dropdownToggle class="icon-options pd cp fs20"></i>
+                        <ul *dropdownMenu class="dropdown-menu dropdown-menu-left top-toggle-dropdown" role="menu" [style.width.px]="'200'">
+                            <li role="menuitem">
+                                <a class="dropdown-item">
+                                    <input type="checkbox" name="isAllFieldColumnFilterApplied" [(ngModel)]="isAllFieldColumnFilterApplied" (ngModelChange)="selectAllColumns($event)"> Select All
+                                </a>
+                            </li>
+                            <li role="menuitem">
+                                <a class="dropdown-item">
+                                    <input type="checkbox" name="signUpOn" (ngModelChange)="columnFilter($event, 'signUpOn')" [(ngModel)]="showFieldFilter.signUpOn" /> Signup On
+
+                                </a>
+                            </li>
+
+                            <li role="menuitem">
+                                <a class="dropdown-item">
+                                    <input type="checkbox" name="userName" (ngModelChange)="columnFilter($event, 'owner')" [(ngModel)]="showFieldFilter.owner" /> Owner
+                                </a>
+                            </li>
+                            <li role="menuitem">
+                                <a class="dropdown-item">
+                                    <input type="checkbox" name="name" (ngModelChange)="columnFilter($event, 'name')" [(ngModel)]="showFieldFilter.name" /> Name
+                                </a>
+                            </li>
+                            <li role="menuitem">
+                                <a class="dropdown-item">
+                                    <input type="checkbox" name="email" (ngModelChange)="columnFilter($event, 'email')" [(ngModel)]="showFieldFilter.email" /> Email
+                                </a>
+                            </li>
+                            <li role="menuitem">
+                                <a class="dropdown-item">
+                                    <input type="checkbox" name="mobile" (ngModelChange)="columnFilter($event, 'mobile')" [(ngModel)]="showFieldFilter.mobile" /> Mobile
+                                </a>
+                            </li>
+                            <li role="menuitem">
+                                <a class="dropdown-item">
+                                    <input type="checkbox" name="subscriptionId" (ngModelChange)="columnFilter($event, 'subscriptionId')" [(ngModel)]="showFieldFilter.subscriptionId" /> subscription ID</a>
+                            </li>
+                            <li role="menuitem">
+                                <a class="dropdown-item">
+                                    <input type="checkbox" name="subscribedOn" (ngModelChange)="columnFilter($event, 'subscribedOn')" [(ngModel)]="showFieldFilter.subscribedOn" /> Subscribed On</a>
+                            </li>
+
+
+
+                            <li role="menuitem">
+                                <a class="dropdown-item">
+                                    <input type="checkbox" name="planName" (ngModelChange)="columnFilter($event, 'planName')" [(ngModel)]="showFieldFilter.planName" /> Plan Name</a>
+                            </li>
+                            <li role="menuitem">
+                                <a class="dropdown-item">
+                                    <input type="checkbox" name="noOfCompany" (ngModelChange)="columnFilter($event, 'noOfCompany')" [(ngModel)]="showFieldFilter.noOfCompany" /> Companies</a>
+                            </li>
+                            <li role="menuitem">
+                                <a class="dropdown-item">
+                                    <input type="checkbox" name="transactionLimit" (ngModelChange)="columnFilter($event, 'transactionLimit')" [(ngModel)]="showFieldFilter.transactionLimit" /> Transaction Limit
+                                </a>
+                            </li>
+                            <li role="menuitem">
+                                <a class="dropdown-item">
+                                    <input type="checkbox" name="remainingTransaction" (ngModelChange)="columnFilter($event, 'remainingTransaction')" [(ngModel)]="showFieldFilter.remainingTransaction" /> Remaining Transaction</a>
+                            </li>
+
+
+
+                            <li role="menuitem">
+                                <a class="dropdown-item">
+                                    <input type="checkbox" name="addOnTransaction" (ngModelChange)="columnFilter($event, 'addOnTransaction')" [(ngModel)]="showFieldFilter.addOnTransaction" /> AddOn Transaction</a>
+                            </li>
+
+                            <li role="menuitem">
+                                <a class="dropdown-item">
+                                    <input type="checkbox" name="additionalCharges" (ngModelChange)="columnFilter($event, 'additionalCharges')" [(ngModel)]="showFieldFilter.additionalCharges" /> Additional Charges
+                                </a>
+                            </li>
+
+                            <li role="menuitem">
+                                <a class="dropdown-item">
+                                    <input type="checkbox" name="ratePerTransaction" (ngModelChange)="columnFilter($event, 'ratePerTransaction')" [(ngModel)]="showFieldFilter.ratePerTransaction" /> Rate/Transaction</a>
+                            </li>
+                            <li role="menuitem">
+                                <a class="dropdown-item">
+                                    <input type="checkbox" name="country" (ngModelChange)="columnFilter($event, 'country')" [(ngModel)]="showFieldFilter.country" /> Country
+                                </a>
+                            </li>
+                            <li role="menuitem">
+                                <a class="dropdown-item">
+                                    <input type="checkbox" name="expiry" (ngModelChange)="columnFilter($event, 'expiry')" [(ngModel)]="showFieldFilter.expiry" /> Expiry
+                                </a>
+                            </li>
+                            <li role="menuitem">
+                                <a class="dropdown-item">
+                                    <input type="checkbox" name="status" (ngModelChange)="columnFilter($event, 'status')" [(ngModel)]="showFieldFilter.status" /> Status
+                                </a>
+                            </li>
+                            <li role="menuitem">
+                                <a class="dropdown-item">
+                                    <input type="checkbox" name="lastSeen" (ngModelChange)="columnFilter($event, 'lastSeen')" [(ngModel)]="showFieldFilter.lastSeen" /> Last seen
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
                 </div>
-                <button class=" btn-link"
-                    *ngIf="getUserListPostRequest.signUpOnFrom || getUserListPostRequest.userName || getUserListPostRequest.email || getUserListPostRequest.mobile || getUserListPostRequest.subscriptionId || (getUserListPostRequest.planUniqueNames && getUserListPostRequest.planUniqueNames.length || getUserListPostRequest.lastSeen.days || getUserListPostRequest.lastSeen.from || getUserListPostRequest.lastSeen.operation === 'UNAVAILABLE' || getUserListPostRequest.lastSeen.operation === 'AVAILABLE')"
-                    (click)="resetFilters();"><i class="icon icon-loop2
-              "></i> Clear Filter</button>
+
+                <div class="d-flex">
+                    <div class="input-group input-date">
+                        <span class="input-group-addon" id="sizing-addon2"><i class="fa fa-calendar pull-right"></i></span>
+                        <input type="text" class="form-control date-range-picker" readonly [(bsValue)]="bsValue" placeholder="Select Date" (bsValueChange)="onChangeFilterDate($event)" bsDaterangepicker>
+                    </div>
+                    <button class=" btn-link" *ngIf="getUserListPostRequest.signUpOnFrom || showClearFilter  || (getUserListPostRequest.planUniqueNames && getUserListPostRequest.planUniqueNames.length || getUserListPostRequest.lastSeen.days || getUserListPostRequest.lastSeen.from || getUserListPostRequest.lastSeen.operation === 'UNAVAILABLE' || getUserListPostRequest.lastSeen.operation === 'AVAILABLE' || (selectedOwners && selectedOwners.length>0))"
+                        (click)="resetFilters();"><i class="icon icon-loop2
+"></i> Clear Filter</button>
+                </div>
+            </div>
+
+            <div class="pull-right">
+                <a href="javascript:void(0)" class="btn btn-blue mr-1 ml-1 btn-export" (click)="exportSubscriptionsByUsers()">Export</a>
             </div>
         </div>
     </div>
     <div class="page-content">
+      <div class="clearfix">
         <div class="table-responsive table-height dropdown-table">
             <table class="table table-bordered basic subscrib-list-table card-list-table">
                 <thead>
                     <tr (clickOutside)="inlineSearch = null">
-                        <th>
+                        <!-- <th *ngIf="showFieldFilter.signUpOn">
                             Signup Date
+                        </th> -->
+
+                        <th class="table-search min-width-110" *ngIf="showFieldFilter.signUpOn">
+                            <div [hidden]="inlineSearch == 'subscribersSignup'|| getUserListPostRequest.signUpOnFrom">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <span>Signup On</span>
+                                    <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('subscribersSignup')"></i>
+                                </div>
+                            </div>
+                            <div class="input-container" [hidden]="inlineSearch !== 'subscribersSignup' && !getUserListPostRequest.signUpOnFrom">
+                                <input type="text" placement="bottom" placeholder="Signup on" readonly class="form-control w100" #subscribersSignupField [(ngModel)]="getUserListPostRequest.signUpOnFrom" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" (ngModelChange)="searchViaDate('signUpOnFrom')"
+                                    bsDatepicker name="signUpOnFrom" />
+                            </div>
                         </th>
 
-                        <th class="table-dropdown">
-                            <span class="pr c-dropdown align-center" [ngClass]="{'open': owner}"
-                                [attachOutsideOnClick]="true" (clickOutside)="ownerFocus(true)">
+                        <th class="table-dropdown" [ngClass]="{'border-blue': selectedOwners && selectedOwners.length>0}" *ngIf="showFieldFilter.owner">
+                            <span class="pr c-dropdown align-center" [ngClass]="{ 'open': owner}" [attachOutsideOnClick]="true" (clickOutside)="ownerFocus(true)">
                                 <label>Owner</label>
 
                                 <div class="btn-group pull-right" dropdown [autoClose]="true" placement="left">
                                     <button id="button-basic" dropdownToggle (click)="ownerFocus(owner)" type="button"
                                         class="btn-multiselect dropdown-toggle pull-right"><span
                                             class="fa fa-angle-down"></span>
-                                    </button>
+                            </button>
 
-                                    <ul id="dropdown-owner" class="dropdown-menu pd multiselect-dropdown"
-                                        [ngStyle]="{'display': owner ? 'block': 'none'}">
-                                        <li role="menuitem" *ngIf="adminUsersList?.length"><input type="checkbox"
-                                                [(ngModel)]="isAllOwnerSelected"
-                                                (click)="selectAllOwners($event);">Select
-                                            all</li>
-                                        <ng-container *ngFor="let adminUser of adminUsersList;">
-                                            <li role="menuitem">
-                                                <input type="checkbox" [(ngModel)]="adminUser.additional"
-                                                    name="additional"
-                                                    (click)="checkedOwnerName(adminUser, $event);">{{adminUser.name}}
-                                            </li>
-                                        </ng-container>
-                                        <li *ngIf="adminUsersList && adminUsersList.length==0">No results found</li>
-                                    </ul>
-                                </div>
-                            </span>
-                        </th>
+                            <ul id="dropdown-owner" class="dropdown-menu pd multiselect-dropdown" [ngStyle]="{ 'display': owner ? 'block': 'none'}">
+                                <li role="menuitem" *ngIf="adminUsersList?.length"><input type="checkbox" [(ngModel)]="isAllOwnerSelected" (click)="selectAllOwners($event);">Select all
+                                </li>
+                                <ng-container *ngFor="let adminUser of adminUsersList;">
+                                    <li role="menuitem">
+                                        <input type="checkbox" [(ngModel)]="adminUser.additional" name="additional" (click)="checkedOwnerName(adminUser, $event);">{{adminUser.name}}
+                                    </li>
+                                </ng-container>
+                                <li *ngIf="adminUsersList && adminUsersList.length==0">No results found</li>
+                            </ul>
+        </div>
+        </span>
+        </th>
 
-                        <th class="table-search">
-                            <div [hidden]="inlineSearch == 'userName'">
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <span>Name</span>
-                                    <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('userName')"></i>
-                                </div>
-                            </div>
-                            <div class="input-container" [hidden]="inlineSearch !== 'userName'">
-                                <input type="text" placeholder="Name" class="form-control w100" #userNameField
-                                    name="userName" [(ngModel)]="getUserListPostRequest.userName"
-                                    (keypress)="columnSearch()" (keydown)="columnSearch()" />
-                            </div>
-                        </th>
+        <th class="table-search" *ngIf="showFieldFilter.name">
+            <div [hidden]="inlineSearch=='userName' || getUserListPostRequest.userName">
+                <div class="d-flex align-items-center justify-content-between">
+                    <span>Name</span>
+                    <i class="fa fa-search pull-right" (click)="focusOnColumnSearch( 'userName')"></i>
+                </div>
+            </div>
+            <div class="input-container" [hidden]="inlineSearch !=='userName' && !getUserListPostRequest.userName">
+                <input type="text" placeholder="Name" class="form-control w100" #userNameField name="userName" [(ngModel)]="getUserListPostRequest.userName" (ngModelChange)="searchViaUserName$.next($event)" />
+            </div>
+        </th>
 
-                        <th class="table-search">
-                            <div [hidden]="inlineSearch == 'userEmail'">
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <span>Email</span>
-                                    <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('userEmail')"></i>
-                                </div>
-                            </div>
-                            <div class="input-container" [hidden]="inlineSearch !== 'userEmail'">
-                                <input type="text" placeholder="Email" class="form-control w100" #userEmailField
-                                    name="userEmail" [(ngModel)]="getUserListPostRequest.email"
-                                    (keypress)="columnSearch()" (keydown)="columnSearch()" />
-                            </div>
-                        </th>
+        <th class="table-search" *ngIf="showFieldFilter.email">
+            <div [hidden]="inlineSearch=='userEmail' || getUserListPostRequest.email">
+                <div class="d-flex align-items-center justify-content-between">
+                    <span>Email</span>
+                    <i class="fa fa-search pull-right" (click)="focusOnColumnSearch( 'userEmail')"></i>
+                </div>
+            </div>
+            <div class="input-container" [hidden]="inlineSearch !=='userEmail' && !getUserListPostRequest.email">
+                <input type="text" placeholder="Email" class="form-control w100" #userEmailField name="userEmail" [(ngModel)]="getUserListPostRequest.email" (ngModelChange)="searchViaEmail$.next($event)" />
+            </div>
+        </th>
 
-                        <th class="table-search">
-                            <div [hidden]="inlineSearch == 'userMobile'">
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <span>Mobile</span>
-                                    <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('userMobile')"></i>
-                                </div>
-                            </div>
-                            <div class="input-container" [hidden]="inlineSearch !== 'userMobile'">
-                                <input type="text" placeholder="Mobile" class="form-control w100" #userMobileField
-                                    name="userMobile" [(ngModel)]="getUserListPostRequest.mobile"
-                                    (keypress)="columnSearch()" (keydown)="columnSearch()" />
-                            </div>
-                        </th>
+        <th class="table-search" *ngIf="showFieldFilter.mobile">
+            <div [hidden]="inlineSearch=='userMobile' || getUserListPostRequest.mobile">
+                <div class="d-flex align-items-center justify-content-between">
+                    <span>Mobile</span>
+                    <i class="fa fa-search pull-right" (click)="focusOnColumnSearch( 'userMobile')"></i>
+                </div>
+            </div>
+            <div class="input-container" [hidden]="inlineSearch !=='userMobile' && !getUserListPostRequest.mobile">
+                <input type="text" placeholder="Mobile" class="form-control w100" #userMobileField name="userMobile" [(ngModel)]="getUserListPostRequest.mobile" (ngModelChange)="searchViaMobileNo$.next($event)" />
+            </div>
+        </th>
 
-                        <th class="table-search">
-                            <div [hidden]="inlineSearch == 'userSubscription'">
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <span>Subscription ID</span>
-                                    <i class="fa fa-search pull-right"
-                                        (click)="focusOnColumnSearch('userSubscription')"></i>
-                                </div>
-                            </div>
-                            <div class="input-container" [hidden]="inlineSearch !== 'userSubscription'">
-                                <input type="text" placeholder="Subscription" class="form-control w100"
-                                    #userSubscriptionField name="userSubscription"
-                                    [(ngModel)]="getUserListPostRequest.subscriptionId" (keypress)="columnSearch()"
-                                    (keydown)="columnSearch()" />
-                            </div>
-                        </th>
-
-                        <th class="table-dropdown">
-                            <span class="pr c-dropdown align-center" [ngClass]="{'open': showTaxPopup}"
-                                [attachOutsideOnClick]="true" (clickOutside)="handleInputFocus(true)">
+        <th class="table-search" *ngIf="showFieldFilter.subscriptionId">
+            <div [hidden]="inlineSearch=='userSubscription' || getUserListPostRequest.subscriptionId">
+                <div class="d-flex align-items-center justify-content-between">
+                    <span>Subscription ID</span>
+                    <i class="fa fa-search pull-right" (click)="focusOnColumnSearch( 'userSubscription')"></i>
+                </div>
+            </div>
+            <div class="input-container" [hidden]="inlineSearch !=='userSubscription' && !getUserListPostRequest.subscriptionId">
+                <input type="text" placeholder="Subscription" class="form-control w100" #userSubscriptionField name="userSubscription" [(ngModel)]="getUserListPostRequest.subscriptionId" (ngModelChange)="searchViaSubscriptionID$.next($event)" />
+            </div>
+        </th>
+        <!--"Subscribed On" column div -->
+        <th class="table-search" *ngIf="showFieldFilter.subscribedOn">
+            <div [hidden]="inlineSearch=='subscribOn' || getUserListPostRequest.startedAtFrom">
+                <div class="d-flex align-items-center justify-content-between">
+                    <span>Subscribed On</span>
+                    <i class="fa fa-search pull-right" (click)="focusOnColumnSearch( 'subscribOn')"></i>
+                </div>
+            </div>
+            <div class="input-container" placement="bottom" [hidden]="inlineSearch !=='subscribOn' && !getUserListPostRequest.startedAtFrom">
+                <input type="text" placeholder="Subscribe on" class="form-control w100" #subscribOnField readonly [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker [(ngModel)]="getUserListPostRequest.startedAtFrom" (ngModelChange)="searchViaDate('startedAtFrom')"
+                    name="startedAtFrom" />
+            </div>
+        </th>
+        <!--"Plan Name" column div -->
+        <th class="table-dropdown" [ngClass]="{'border-blue': selectedPlans && selectedPlans.length>0}" *ngIf="showFieldFilter.planName">
+            <span class="pr c-dropdown align-center" [ngClass]="{ 'open': showTaxPopup}" [attachOutsideOnClick]="true" (clickOutside)="handleInputFocus( 'plan',true)">
                                 <label>Plan Name</label>
 
                                 <div class="btn-group pull-right" dropdown [autoClose]="true" placement="left">
-                                    <button id="button-basic" dropdownToggle (click)="handleInputFocus(showTaxPopup)"
+                                    <button id="button-basic" dropdownToggle (click)="handleInputFocus( 'plan',showTaxPopup)"
                                         type="button" class="btn-multiselect dropdown-toggle pull-right"><span
                                             class="fa fa-angle-down"></span>
-                                    </button>
+            </button>
 
-                                    <ul id="dropdown-plan" class="dropdown-menu pd multiselect-dropdown"
-                                        [ngStyle]="{'display': showTaxPopup ? 'block': 'none'}">
-                                        <li role="menuitem" *ngIf="allPlans?.length"><input type="checkbox"
-                                                [(ngModel)]="isAllPlanSelected" (click)="selectAllPlans($event);">Select
-                                            all</li>
-                                        <ng-container *ngFor="let item of allPlans">
-                                            <li role="menuitem"><input type="checkbox" [(ngModel)]="item.additional"
-                                                    name="additional"
-                                                    (click)="checkedPlanName(item, $event);">{{item.label}}</li>
-                                        </ng-container>
-                                        <li *ngIf="allPlans.length==0">No results found</li>
-                                    </ul>
-                                </div>
-                            </span>
-                        </th>
+            <ul id="dropdown-plan" class="dropdown-menu pd multiselect-dropdown" [ngStyle]="{ 'display': showTaxPopup ? 'block': 'none'}">
+                <li role="menuitem" *ngIf="allPlans?.length"><input type="checkbox" [(ngModel)]="isAllPlanSelected" (click)="selectAllPlans($event);">Select all
+                </li>
+                <ng-container *ngFor="let item of allPlans">
+                    <li role="menuitem"><input type="checkbox" [(ngModel)]="item.additional" name="additional" (click)="checkedPlanName(item, $event);">{{item.label}}</li>
+                </ng-container>
+                <li *ngIf="allPlans.length==0">No results found</li>
+            </ul>
+    </div>
+    </span>
+    </th>
+    <!--"Companies" column div -->
+    <th (click)="sortBy( 'NO_OF_COMPANIES')" *ngIf="showFieldFilter.noOfCompany">
+        <div class="align-center">Companies <i [ngClass]="{ 'fa pull-right': 1===1 , 'icon-icon-sort-up': getUserListRequest.sortType==='desc' && getUserListRequest.sortBy==='NO_OF_COMPANIES' , 'icon-icon-sort-down': (getUserListRequest.sortType==='asc'
+                                    && getUserListRequest.sortBy==='NO_OF_COMPANIES' ) || getUserListRequest.sortBy !=='NO_OF_COMPANIES' }"></i>
+        </div>
+    </th>
+    <!-- Transaction Limit column div -->
 
-                        <th (click)="sortBy('NO_OF_COMPANIES')">
-                            <div class="align-center">Companies <i
-                                    [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getUserListRequest.sortType === 'desc' && getUserListRequest.sortBy === 'NO_OF_COMPANIES', 'icon-icon-sort-down': (getUserListRequest.sortType === 'asc' && getUserListRequest.sortBy === 'NO_OF_COMPANIES') || getUserListRequest.sortBy !== 'NO_OF_COMPANIES'}"></i>
-                            </div>
-                        </th>
-                        <th (click)="sortBy('TOTAL_AMOUNT')">
-                            <div class="align-center">Total Amount <i
-                                    [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getUserListRequest.sortType === 'desc' && getUserListRequest.sortBy === 'TOTAL_AMOUNT', 'icon-icon-sort-down': (getUserListRequest.sortType === 'asc' && getUserListRequest.sortBy === 'TOTAL_AMOUNT') || getUserListRequest.sortBy !== 'TOTAL_AMOUNT'}"></i>
-                            </div>
-                        </th>
+    <th class="table-search" *ngIf="showFieldFilter.transactionLimit">
+        <div [hidden]="inlineSearch=='transactionLimit' || getUserListPostRequest.transactionLimit">
+            <div class="d-flex align-items-center justify-content-between">
+                <span>Transaction Limit</span>
+                <i class="fa fa-search pull-right" (click)="focusOnColumnSearch( 'transactionLimit')"></i>
+            </div>
+        </div>
+        <div class="input-container" placement="bottom" [hidden]="inlineSearch !=='transactionLimit' && !getUserListPostRequest.transactionLimit">
+            <input type="text" placeholder="Transaction limit" class="form-control w100" #transactionLimitField name="transactionLimit" [(ngModel)]="getUserListPostRequest.transactionLimit" (ngModelChange)="transactionLimit$.next($event)" />
+        </div>
+    </th>
 
-                        <th class="table-dropdown">
-                            <span class="pr c-dropdown align-center" [ngClass]="{'open': lastSeen}"
-                                [attachOutsideOnClick]="true" (clickOutside)="lastSeenDropdown(true)">
+
+    <!-- Remaining Transaction column div -->
+
+    <th class="table-search" *ngIf="showFieldFilter.remainingTransaction">
+        <div [hidden]="inlineSearch=='remainingTransaction' || getUserListPostRequest.remainingTxn">
+            <div class="d-flex align-items-center justify-content-between">
+                <span>Remaining Transaction</span>
+                <i class="fa fa-search pull-right" (click)="focusOnColumnSearch( 'remainingTransaction')"></i>
+            </div>
+        </div>
+        <div class="input-container" placement="bottom" [hidden]="inlineSearch !=='remainingTransaction' && !getUserListPostRequest.remainingTxn">
+            <input type="text" placeholder="Remaining transaction" class="form-control w100" #remainingTransaction name="remainingTransaction" [(ngModel)]="getUserListPostRequest.remainingTxn" (ngModelChange)="remainingTransaction$.next($event)" />
+        </div>
+    </th>
+    <!-- AddOn Transaction column div -->
+
+    <th class="table-search" *ngIf="showFieldFilter.addOnTransaction">
+        <div [hidden]="inlineSearch=='addOnTransaction' || getUserListPostRequest.addOnTxn">
+            <div class="d-flex align-items-center justify-content-between">
+                <span>AddOn Transaction</span>
+                <i class="fa fa-search pull-right" (click)="focusOnColumnSearch( 'addOnTransaction')"></i>
+            </div>
+        </div>
+        <div class="input-container" placement="bottom" [hidden]="inlineSearch !=='addOnTransaction' && !getUserListPostRequest.addOnTxn">
+            <input type="text" placeholder="AddOn transaction" class="form-control w100" #addOnTransaction name="addOnTransaction" [(ngModel)]="getUserListPostRequest.addOnTxn" (ngModelChange)="addOnTransaction$.next($event)" />
+        </div>
+    </th>
+    <!-- Additional Charges column div -->
+
+    <th class="table-search" *ngIf="showFieldFilter.additionalCharges">
+        <div [hidden]="inlineSearch=='additionalCharges' || getUserListPostRequest.additionalCharges">
+            <div class="d-flex align-items-center justify-content-between">
+                <span>Additional Charges</span>
+                <i class="fa fa-search pull-right" (click)="focusOnColumnSearch( 'additionalCharges')"></i>
+            </div>
+        </div>
+        <div class="input-container" placement="bottom" [hidden]="inlineSearch !=='additionalCharges' && !getUserListPostRequest.additionalCharges">
+            <input type="text" placeholder="Additional charge" class="form-control w100" #additionalCharges name="additionalCharges" [(ngModel)]="getUserListPostRequest.additionalCharges" (ngModelChange)="additionalCharges$.next($event)" />
+        </div>
+    </th>
+    <!-- Rate/Transaction column div -->
+    <th class="table-search" *ngIf="showFieldFilter.ratePerTransaction">
+        <div [hidden]="inlineSearch=='ratePerTransaction' || getUserListPostRequest.ratePerExtraTxn">
+            <div class="d-flex align-items-center justify-content-between">
+                <span> Rate/Transaction</span>
+                <i class="fa fa-search pull-right" (click)="focusOnColumnSearch( 'ratePerTransaction')"></i>
+            </div>
+        </div>
+        <div class="input-container" placement="bottom" [hidden]="inlineSearch !=='ratePerTransaction' && !getUserListPostRequest.ratePerExtraTxn">
+            <input type="text" placeholder="Additional charge" class="form-control w100" #ratePerTransaction name="ratePerTransaction" [(ngModel)]="getUserListPostRequest.ratePerExtraTxn" (ngModelChange)="ratePerExtraTxn$.next($event)" />
+        </div>
+    </th>
+
+    <!--Country  -->
+    <th class="table-dropdown" [ngClass]="{'border-blue': selectedCountries && selectedCountries.length>0}" *ngIf="showFieldFilter.country">
+        <span class="pr c-dropdown" [ngClass]="{ 'open': showCountryPopup}" [attachOutsideOnClick]="true" (clickOutside)="countryDropdown(true)">
+                        <label>Country</label>
+
+                        <div class="btn-group pull-right" dropdown [autoClose]="true" placement="left">
+                          <button id="button-basic" dropdownToggle (click)="countryDropdown(showCountryPopup)" type="button" class="btn-multiselect dropdown-toggle pull-right"><span class="fa fa-angle-down"></span>
+        </button>
+
+        <ul class="dropdown-menu pd multiselect-dropdown" [ngStyle]="{ 'display': showCountryPopup ? 'block': 'none'}">
+            <li role="menuitem" *ngIf="countrySource?.length"><input type="checkbox" [(ngModel)]="isAllCountrySelected" (click)="selectAllCountry($event);">Select all</li>
+            <ng-container *ngFor="let item of countrySource">
+                <li role="menuitem"><input type="checkbox" [(ngModel)]="item.additional" name="additional" (click)="checkedCountryName(item, $event);">{{item.label}}</li>
+            </ng-container>
+            <li *ngIf="countrySource.length==0">No results found</li>
+        </ul>
+</div>
+</span>
+</th>
+<!-- Expiry column div -->
+<th class="table-search" *ngIf="showFieldFilter.expiry">
+    <div [hidden]="inlineSearch == 'expiry'|| getUserListPostRequest.expiry">
+        <div class="d-flex align-items-center justify-content-between">
+            <span>Expiry</span>
+            <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('expiry')"></i>
+        </div>
+    </div>
+    <div class="input-container" [hidden]="inlineSearch !== 'expiry' && !getUserListPostRequest.expiry">
+        <input type="text" placement="bottom" placeholder="expiry" readonly class="form-control w100" #expirySearch [(ngModel)]="getUserListPostRequest.expiry" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" (ngModelChange)="searchViaDate('expiry')" bsDatepicker
+            name="expiry" />
+    </div>
+</th>
+<!-- status column div -->
+<th class="table-dropdown" [ngClass]="{'border-blue': selectedPlanStatus && selectedPlanStatus.length>0}" *ngIf="showFieldFilter.status">
+    <span class="pr c-dropdown" [ngClass]="{ 'open': showStatusPopups}" [attachOutsideOnClick]="true" (clickOutside)="handleInputFocus( 'status',true)">
+                                    <label>Status</label>
+
+                                    <div class="btn-group pull-right" dropdown [autoClose]="true" placement="left">
+                                      <button id="button-basic" dropdownToggle (click)="handleInputFocus( 'status',showStatusPopups)" type="button" class="btn-multiselect dropdown-toggle pull-right"><span class="fa fa-angle-down"></span>
+    </button>
+
+    <ul id="dropdown-basic" class="dropdown-menu status pd multiselect-dropdown" [ngStyle]="{ 'display': showStatusPopups ? 'block': 'none'}">
+        <li role="menuitem"><input type="checkbox" [(ngModel)]="isAllPlanStatusSelected" (click)="selectAllPlansStatus($event);">Select all</li>
+        <li role="menuitem"><input type="checkbox" [(ngModel)]="planStatusType.trial" name="trial" (click)="checkedPlanStatus( 'trial', $event);"> Trial
+        </li>
+        <li role="menuitem"><input type="checkbox" [(ngModel)]="planStatusType.active" name="active" (click)="checkedPlanStatus( 'active', $event);"> Active
+        </li>
+        <li role="menuitem"><input type="checkbox" [(ngModel)]="planStatusType.expired" name="expired" (click)="checkedPlanStatus( 'expired', $event);"> Expired
+        </li>
+    </ul>
+    </div>
+    </span>
+</th>
+
+<!-- Last seen column div -->
+
+<th class="table-dropdown" [ngClass]="{'border-blue': (getUserListPostRequest.lastSeen.days || getUserListPostRequest.lastSeen.from || getUserListPostRequest.lastSeen.operation === 'UNAVAILABLE' || getUserListPostRequest.lastSeen.operation === 'AVAILABLE')}"
+    *ngIf="showFieldFilter.lastSeen">
+    <span class="pr c-dropdown align-center" [ngClass]="{ 'open': lastSeen}" [attachOutsideOnClick]="true" (clickOutside)="lastSeenDropdown(true)">
                                 <label>last seen</label>
                                 <div class="btn-group pull-right" dropdown [autoClose]="true" placement="left">
                                     <button id="button-basic" dropdownToggle (click)="lastSeenDropdown(lastSeen)"
                                         type="button" class="btn-multiselect dropdown-toggle pull-right"><span
                                             class="fa fa-angle-down"></span>
-                                    </button>
-                                    <ul id="dropdown-basic" class="dropdown-menu pd multiselect-dropdown"
-                                        [ngStyle]="{'display': lastSeen ? 'block': 'none'}">
-                                        <ng-container>
-                                            <li role="menuitem">
-                                                <div class="clearfix mb-1">
-                                                    <p class="mb-05 mt-05">Relative</p>
-                                                    <div class="last-seen-radio">
-                                                        <span>
+    </button>
+    <ul id="dropdown-basic" class="dropdown-menu pd multiselect-dropdown" [ngStyle]="{ 'display': lastSeen ? 'block': 'none'}">
+        <ng-container>
+            <li role="menuitem">
+                <div class="clearfix mb-1">
+                    <p class="mb-05 mt-05">Relative</p>
+                    <div class="last-seen-radio">
+                        <span>
                                                             <input id="morethan" class="radio-custom" type="radio"
                                                                 name="lastseen" [(ngModel)]="tempOperation"
                                                                 (ngModelChange)="resetLastSeenFilter()"
                                                                 value="relative_before">
                                                             <label for="morethan" class="radio-custom-label"
-                                                                [ngClass]="{'last-seen-radio-checked': tempOperation === 'relative_before'}"><span
-                                                                    class="radio-checked"></span>More
-                                                                than</label>
-                                                        </span>
+                                                                [ngClass]="{ 'last-seen-radio-checked': tempOperation==='relative_before' }"><span
+                                                                    class="radio-checked"></span>More than
+                        </label>
+                        </span>
 
-                                                        <div class="d-flex mb-1 align-items-center"
-                                                            *ngIf="tempOperation === 'relative_before'">
-                                                            <input type="number" class="form-control mr-1"
-                                                                [(ngModel)]="getUserListPostRequest.lastSeen.days"
-                                                                (ngModelChange)="onLastSeenDaysChange('BEFORE')">
-                                                            <span class="nowrap">Days ago</span>
-                                                        </div>
+                        <div class="d-flex mb-1 align-items-center" *ngIf="tempOperation==='relative_before'">
+                            <input type="number" class="form-control mr-1" [(ngModel)]="getUserListPostRequest.lastSeen.days" (ngModelChange)="onLastSeenDaysChange( 'BEFORE')">
+                            <span class="nowrap">Days ago</span>
+                        </div>
 
-                                                        <span>
+                        <span>
                                                             <input id="lessthan" class="radio-custom" type="radio"
                                                                 name="lastseen" [(ngModel)]="tempOperation"
                                                                 (ngModelChange)="resetLastSeenFilter()"
                                                                 value="relative_after">
                                                             <label for="lessthan" class="radio-custom-label"
-                                                                [ngClass]="{'last-seen-radio-checked': tempOperation === 'relative_after'}"><span
-                                                                    class="radio-checked"></span>Less
-                                                                than</label>
-                                                        </span>
+                                                                [ngClass]="{ 'last-seen-radio-checked': tempOperation==='relative_after' }"><span
+                                                                    class="radio-checked"></span>Less than
+                        </label>
+                        </span>
 
-                                                        <div class="d-flex mb-1 align-items-center"
-                                                            *ngIf="tempOperation === 'relative_after'">
-                                                            <input type="number" class="form-control mr-1"
-                                                                [(ngModel)]="getUserListPostRequest.lastSeen.days"
-                                                                (ngModelChange)="onLastSeenDaysChange('AFTER')">
-                                                            <span class="nowrap">Days ago</span>
-                                                        </div>
+                        <div class="d-flex mb-1 align-items-center" *ngIf="tempOperation==='relative_after'">
+                            <input type="number" class="form-control mr-1" [(ngModel)]="getUserListPostRequest.lastSeen.days" (ngModelChange)="onLastSeenDaysChange( 'AFTER')">
+                            <span class="nowrap">Days ago</span>
+                        </div>
 
-                                                        <span>
+                        <span>
                                                             <input id="Exactly" class="radio-custom" type="radio"
                                                                 name="lastseen" [(ngModel)]="tempOperation"
                                                                 (ngModelChange)="resetLastSeenFilter()"
                                                                 value="relative_on">
                                                             <label for="Exactly" class="radio-custom-label"
-                                                                [ngClass]="{'last-seen-radio-checked': tempOperation === 'relative_on'}"><span
+                                                                [ngClass]="{ 'last-seen-radio-checked': tempOperation==='relative_on' }"><span
                                                                     class="radio-checked"></span>Exactly</label>
-                                                        </span>
+                        </span>
 
-                                                        <div class="d-flex mb-1 align-items-center"
-                                                            *ngIf="tempOperation === 'relative_on'">
-                                                            <input type="number" class="form-control mr-1"
-                                                                [(ngModel)]="getUserListPostRequest.lastSeen.days"
-                                                                (ngModelChange)="onLastSeenDaysChange('ON')">
-                                                            <span class="nowrap">Days ago</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                        <div class="d-flex mb-1 align-items-center" *ngIf="tempOperation==='relative_on'">
+                            <input type="number" class="form-control mr-1" [(ngModel)]="getUserListPostRequest.lastSeen.days" (ngModelChange)="onLastSeenDaysChange( 'ON')">
+                            <span class="nowrap">Days ago</span>
+                        </div>
+                    </div>
+                </div>
 
-                                                <div class="clearfix mb-1 date-scroll">
-                                                    <p class="mb-05 mt-05">Absolute</p>
-                                                    <div class="last-seen-radio">
+                <div class="clearfix mb-1 date-scroll">
+                    <p class="mb-05 mt-05">Absolute</p>
+                    <div class="last-seen-radio">
 
-                                                        <span>
+                        <span>
                                                             <input id="after" class="radio-custom" type="radio"
                                                                 name="lastseen" [(ngModel)]="tempOperation"
                                                                 (ngModelChange)="resetLastSeenFilter()"
                                                                 value="absolute_after">
                                                             <label for="after" class="radio-custom-label"
-                                                                [ngClass]="{'last-seen-radio-checked': tempOperation === 'absolute_after'}"><span
+                                                                [ngClass]="{ 'last-seen-radio-checked': tempOperation==='absolute_after' }"><span
                                                                     class="radio-checked"></span> After</label>
-                                                        </span>
-                                                        <div class="mt-1 mb-1" *ngIf="tempOperation === 'absolute_after'">
-                                                          <bs-datepicker-inline
-                                                            (bsValueChange)="onLastSeenDateChange($event, 'AFTER')">
-                                                          </bs-datepicker-inline>
-                                                        </div>
-                                                        <span>
+                        </span>
+                        <div class="mt-1 mb-1" *ngIf="tempOperation==='absolute_after'">
+                            <bs-datepicker-inline (bsValueChange)="onLastSeenDateChange($event, 'AFTER')">
+                            </bs-datepicker-inline>
+                        </div>
+                        <span>
                                                             <input id="before" class="radio-custom" type="radio"
                                                                 name="lastseen" [(ngModel)]="tempOperation"
                                                                 (ngModelChange)="resetLastSeenFilter()"
                                                                 value="absolute_before">
                                                             <label for="before" class="radio-custom-label"
-                                                                [ngClass]="{'last-seen-radio-checked': tempOperation === 'absolute_before'}"><span
+                                                                [ngClass]="{ 'last-seen-radio-checked': tempOperation==='absolute_before' }"><span
                                                                     class="radio-checked"></span>Before</label>
-                                                        </span>
-                                                        <div class="mt-1 mb-1" *ngIf="tempOperation === 'absolute_before'">
-                                                          <bs-datepicker-inline
-                                                              (bsValueChange)="onLastSeenDateChange($event, 'BEFORE')">
-                                                          </bs-datepicker-inline>
-                                                        </div>
-                                                        <span>
+                        </span>
+                        <div class="mt-1 mb-1" *ngIf="tempOperation==='absolute_before'">
+                            <bs-datepicker-inline (bsValueChange)="onLastSeenDateChange($event, 'BEFORE')">
+                            </bs-datepicker-inline>
+                        </div>
+                        <span>
                                                             <input id="on" class="radio-custom" type="radio"
                                                                 name="lastseen" [(ngModel)]="tempOperation"
                                                                 (ngModelChange)="resetLastSeenFilter()"
                                                                 value="absolute_on">
                                                             <label for="on" class="radio-custom-label"
-                                                                [ngClass]="{'last-seen-radio-checked': tempOperation === 'absolute_on'}"><span
+                                                                [ngClass]="{ 'last-seen-radio-checked': tempOperation==='absolute_on' }"><span
                                                                     class="radio-checked"></span>On</label>
-                                                        </span>
-                                                        <div class="clearfix mb-1" *ngIf="tempOperation === 'absolute_on'">
-                                                          <bs-datepicker-inline
-                                                            (bsValueChange)="onLastSeenDateChange($event, 'ON')">
-                                                        </bs-datepicker-inline>
-                                                        </div>
-                                                        <span>
+                        </span>
+                        <div class="clearfix mb-1" *ngIf="tempOperation==='absolute_on'">
+                            <bs-datepicker-inline (bsValueChange)="onLastSeenDateChange($event, 'ON')">
+                            </bs-datepicker-inline>
+                        </div>
+                        <span>
                                                             <input id="between" class="radio-custom" type="radio"
                                                                 name="lastseen" [(ngModel)]="tempOperation"
                                                                 (ngModelChange)="resetLastSeenFilter()"
                                                                 value="absolute_between">
                                                             <label for="between" class="radio-custom-label"
-                                                                [ngClass]="{'last-seen-radio-checked': tempOperation === 'absolute_between'}"><span
+                                                                [ngClass]="{ 'last-seen-radio-checked': tempOperation==='absolute_between' }"><span
                                                                     class="radio-checked"></span>Between</label>
-                                                        </span>
-                                                        <div class="clearfix mb-1" *ngIf="tempOperation === 'absolute_between'">
-                                                          <bs-daterangepicker-inline [maxDate]="today" [bsConfig]="bsConfig" (bsValueChange)="onLastSeenDateChange($event, 'BETWEEN')">
-                                                          </bs-daterangepicker-inline>
-                                                        </div>
-                                                        <span>
+                        </span>
+                        <div class="clearfix mb-1" *ngIf="tempOperation==='absolute_between'">
+                            <bs-daterangepicker-inline [maxDate]="today" [bsConfig]="bsConfig" (bsValueChange)="onLastSeenDateChange($event, 'BETWEEN')">
+                            </bs-daterangepicker-inline>
+                        </div>
+                        <span>
                                                             <input id="isunknown" class="radio-custom" type="radio"
                                                                 name="lastseen" [(ngModel)]="tempOperation"
                                                                 (ngModelChange)="resetLastSeenFilter(); onLastSeenDateChange($event, 'UNAVAILABLE')"
                                                                 value="UNAVAILABLE">
                                                             <label for="isunknown" class="radio-custom-label"
-                                                                [ngClass]="{'last-seen-radio-checked': tempOperation === 'UNAVAILABLE'}"><span
+                                                                [ngClass]="{ 'last-seen-radio-checked': tempOperation==='UNAVAILABLE' }"><span
                                                                     class="radio-checked"></span>Is unknown</label>
-                                                        </span>
+                        </span>
 
-                                                        <span>
+                        <span>
                                                             <input id="any-value" class="radio-custom" type="radio"
                                                                 name="lastseen" [(ngModel)]="tempOperation"
                                                                 (ngModelChange)="resetLastSeenFilter(); onLastSeenDateChange($event, 'AVAILABLE')"
                                                                 value="AVAILABLE">
                                                             <label for="any-value" class="radio-custom-label"
-                                                                [ngClass]="{'last-seen-radio-checked': tempOperation === 'AVAILABLE'}"><span
-                                                                    class="radio-checked"></span>Has any
-                                                                value</label>
-                                                        </span>
-                                                    </div>
-                                                </div>
+                                                                [ngClass]="{ 'last-seen-radio-checked': tempOperation==='AVAILABLE' }"><span
+                                                                    class="radio-checked"></span>Has any value
+                        </label>
+                        </span>
+                    </div>
+                </div>
 
-                                            </li>
-                                        </ng-container>
-                                        <li *ngIf="allPlans.length==0">No results found</li>
-                                    </ul>
-                                </div>
-                            </span>
-                        </th>
+            </li>
+        </ng-container>
+        <li *ngIf="allPlans.length==0">No results found</li>
+    </ul>
+    </div>
+    </span>
+</th>
 
-                    </tr>
-                </thead>
-                <tbody *ngFor="let userSubscription of userSubscriptionData">
-                    <tr>
-                        <td data-title="Signup Date">{{userSubscription.userDetails.signUpOn}}</td>
-                        <td data-title="Owner">
-                            <div class="btn-group owner-dropdown" dropdown>
-                                <a href="javaascript:void(0)" id="button-animated" dropdownToggle
-                                    aria-controls="dropdown-animated"><span
+</tr>
+</thead>
+<tbody *ngFor="let userSubscription of userSubscriptionData">
+    <tr>
+        <td data-title="Signup Date" *ngIf="showFieldFilter.signUpOn">{{userSubscription.userDetails.signUpOn}}</td>
+        <td data-title="Owner" *ngIf="showFieldFilter.owner">
+            <div class="btn-group owner-dropdown" dropdown>
+                <a href="javascript:void(0)" id="button-animated" dropdownToggle aria-controls="dropdown-animated"><span
                                         *ngIf="userSubscription.userDetails.managerDetails.name">{{userSubscription.userDetails.managerDetails.name}}</span><span
                                         *ngIf="!userSubscription.userDetails.managerDetails.name">Unassigned</span></a>
-                                <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu" role="menu"
-                                    aria-labelledby="button-animated">
-                                    <li *ngFor="let adminUser of adminUsersList;" role="menuitem">
-                                        <a class="dropdown-item" href="javascript:;"
-                                            (click)="assignLeadOwner(userSubscription.userDetails.uniqueName, adminUser.uniqueName);">{{adminUser.name}}</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                        <td data-title="Name">{{userSubscription.userDetails.name}}</td>
+                <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-animated">
+                    <li *ngFor="let adminUser of adminUsersList;" role="menuitem">
+                        <a class="dropdown-item" href="javascript:;" (click)="assignLeadOwner(userSubscription.userDetails.uniqueName, adminUser.uniqueName);">{{adminUser.name}}</a>
+                    </li>
+                </ul>
+            </div>
+        </td>
+        <td data-title="Name" *ngIf="showFieldFilter.name">{{userSubscription.userDetails.name}}</td>
 
-                        <td data-title="Email">
-                            {{userSubscription.userDetails.email?userSubscription.userDetails.email:'-'}}</td>
-                        <td data-title="Mobile" class="nowrap">
-                            {{userSubscription.userDetails.mobileno?userSubscription.userDetails.mobileno:'-'}}</td>
-                        <td data-title="Subscription ID" *ngIf="userSubscription.subscriptions.length === 1"><a
-                                href="javascript:void(0)"
-                                (click)="openEditSubscription(userSubscription.subscriptions[0].subscriptionId, 'subscriptionId');">{{ userSubscription.subscriptions[0].subscriptionId}}</a>
-                        </td>
-                        <td data-title="Subscription ID" *ngIf="userSubscription.subscriptions.length > 1"><a
-                                href="javascript:void(0)"
-                                (click)="userSubscription.showInner = !userSubscription.showInner">Multiple</a>
-                        </td>
-                        <td data-title="Plan Name"><span
-                                *ngIf="userSubscription.subscriptions?.length > 0">{{userSubscription.subscriptions[0].planDetails.name}}</span>
-                        </td>
-                        <td data-title="No. of Companies">{{userSubscription.totalCompanies}}</td>
-                        <td data-title="Total Amount">{{userSubscription.totalAmount}}/- <a href="javascript:void(0)"
-                                *ngIf="userSubscription.subscriptions?.length > 1"
-                                (click)="userSubscription.showInner = !userSubscription.showInner"
-                                class="d-inline-block pull-right"><span
+        <td data-title="Email" *ngIf="showFieldFilter.email" class="nowrap">
+            {{userSubscription.userDetails.email?userSubscription.userDetails.email:'-'}}</td>
+        <td data-title="Mobile" class="nowrap" *ngIf="showFieldFilter.mobile">
+            {{userSubscription.userDetails.mobileno?userSubscription.userDetails.mobileno:'-'}}</td>
+        <td data-title="Subscription ID" *ngIf="userSubscription.subscriptions.length===1 && showFieldFilter.subscriptionId"><a href="javascript:void(0)" (click)="openEditSubscription(userSubscription.subscriptions[0].subscriptionId,
+                                    'subscriptionId');">{{ userSubscription.subscriptions[0].subscriptionId}}</a>
+        </td>
+        <td data-title="Subscription ID" *ngIf="userSubscription.subscriptions.length> 1 && showFieldFilter.subscriptionId"><a href="javascript:void(0)" (click)="userSubscription.showInner = !userSubscription.showInner">Multiple</a>
+        </td>
+        <td data-title="Subscribed On" *ngIf="userSubscription.subscriptions.length === 1 && showFieldFilter.subscribedOn">
+            {{userSubscription.subscriptions[0].startedAt}}
+        </td>
+        <td data-title="Subscribed On" *ngIf="userSubscription.subscriptions.length > 1 && showFieldFilter.subscribedOn">
+            {{userSubscription.subscriptions[0].startedAt}}
+        </td>
+        <td data-title="Plan Name" *ngIf="showFieldFilter.planName"><span *ngIf="userSubscription.subscriptions?.length > 0 && showFieldFilter.planName">{{userSubscription.subscriptions[0].planDetails.name}}</span>
+        </td>
+        <td data-title="No. of Companies" *ngIf="showFieldFilter.noOfCompany">{{userSubscription.totalCompanies}}</td>
+        <td data-title="Transaction Limit" *ngIf="userSubscription.subscriptions.length === 1 && showFieldFilter.transactionLimit">{{userSubscription.subscriptions[0].planDetails.transactionLimit}}</td>
+        <td data-title="Transaction Limit" *ngIf="userSubscription.subscriptions.length > 1 && showFieldFilter.transactionLimit">{{userSubscription.subscriptions[0].planDetails.transactionLimit}}</td>
+        <td data-title="Remaining Transaction" *ngIf="userSubscription.subscriptions.length === 1 && showFieldFilter.remainingTransaction">{{userSubscription.subscriptions[0].remainingTransactions}}</td>
+        <td data-title="Remaining Transaction" *ngIf="userSubscription.subscriptions.length > 1 && showFieldFilter.remainingTransaction">{{userSubscription.subscriptions[0].remainingTransactions}}</td>
+        <td data-title="AddOn Transaction" *ngIf="userSubscription.subscriptions.length === 1 && showFieldFilter.addOnTransaction">{{userSubscription.subscriptions[0].addOnTransactions}}</td>
+        <td data-title="AddOn Transaction" *ngIf="userSubscription.subscriptions.length > 1 && showFieldFilter.addOnTransaction">{{userSubscription.subscriptions[0].addOnTransactions}}</td>
+        <td data-title="Additional Charges" *ngIf="userSubscription.subscriptions.length === 1 && showFieldFilter.additionalCharges">{{userSubscription.subscriptions[0].additionalCharges}}</td>
+        <td data-title="Additional Charges" *ngIf="userSubscription.subscriptions.length > 1 && showFieldFilter.additionalCharges">{{userSubscription.subscriptions[0].additionalCharges}}</td>
+        <td data-title="Rate/Transaction" *ngIf="userSubscription.subscriptions.length === 1 && showFieldFilter.ratePerTransaction">{{userSubscription.subscriptions[0].planDetails.ratePerExtraTransaction}}</td>
+        <td data-title="Rate/Transaction" *ngIf="userSubscription.subscriptions.length > 1 && showFieldFilter.ratePerTransaction">{{userSubscription.subscriptions[0].planDetails.ratePerExtraTransaction}}</td>
+        <td data-title="Country" *ngIf="userSubscription.subscriptions.length === 1 && showFieldFilter.country">{{userSubscription.subscriptions[0].planDetails.countries}}</td>
+        <td data-title="Country" *ngIf="userSubscription.subscriptions.length > 1 && showFieldFilter.country">{{userSubscription.subscriptions[0].planDetails.countries}}</td>
+
+        <td data-title="Expiry" *ngIf="userSubscription.subscriptions.length === 1 && showFieldFilter.expiry">{{userSubscription.subscriptions[0].expiry}}</td>
+        <td data-title="Expiry" *ngIf="userSubscription.subscriptions.length > 1 && showFieldFilter.expiry">{{userSubscription.subscriptions[0].expiry}}</td>
+
+        <td data-title="Status" *ngIf="userSubscription.subscriptions.length === 1 && showFieldFilter.status">{{userSubscription.subscriptions[0].status}}</td>
+        <td data-title="Status" *ngIf="userSubscription.subscriptions.length > 1 && showFieldFilter.status">{{userSubscription.subscriptions[0].status}}</td>
+        <!-- <td data-title="Total Amount">{{userSubscription.totalAmount}}/- <a href="javascript:void(0)" *ngIf="userSubscription.subscriptions?.length > 1" (click)="userSubscription.showInner = !userSubscription.showInner" class="d-inline-block pull-right"><span
                                     [ngClass]="{'fa': 1 === 1, 'fa-arrows-alt': !userSubscription.showInner, 'fa-expand': userSubscription.showInner}"></span></a>
-                        </td>
-                        <td class="cursor-pointer" data-title="Last Seen">
-                           <div class="d-inline-block" [tooltip]="userSubscription.lastSeenConvertedDate" [placement]="'top'"> {{ (userSubscription?.userDetails?.lastSeen) ? (userSubscription.userDetails.lastSeen | timeAgo) : '-'}}</div>
-                        </td>
-                    </tr>
-                    <tr [hidden]="userSubscription.subscriptions?.length === 1 || !userSubscription.showInner"
-                        *ngFor="let userSubscriptionInner of userSubscription.subscriptions;">
-                        <td data-title="Signup Date">&nbsp;</td>
-                        <td data-title="Owner">&nbsp;</td>
-                        <td data-title="Name">&nbsp;</td>
-                        <td data-title="Email">&nbsp;</td>
-                        <td data-title="Mobile">&nbsp;</td>
-                        <td data-title="Subscription ID"><a href="javascript:void(0)"
-                                (click)="openEditSubscription( userSubscriptionInner.subscriptionId);">{{userSubscriptionInner.subscriptionId}}</a>
-                        </td>
-                        <td data-title="Plan Name"><span>{{userSubscriptionInner.planDetails.name}}</span></td>
-                        <td data-title="No. of Companies">{{userSubscriptionInner.companyCount}}</td>
-                        <td data-title="Total Amount">{{userSubscriptionInner.planDetails.amount}}/-</td>
-                        <td data-title="Last Seen">&nbsp;</td>
-                    </tr>
-                </tbody>
-                <tbody *ngIf="!userSubscriptionData || userSubscriptionData.length === 0">
-                    <tr>
-                        <td colspan="10" align="center">No records found.</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="paginationWrapper">
-            <div *ngIf="userSubscriptionData && userlistRes && userlistRes.totalItems > 50">
-                <pagination [totalItems]="userlistRes.totalItems" [maxSize]="5" class="pagination-sm"
-                    [boundaryLinks]="true" [itemsPerPage]="50" [rotate]="false" previousText="&#9668;"
-                    nextText="&#9658;" (pageChanged)="pageChanged($event)"></pagination>
+        </td> -->
+        <td class="cursor-pointer" data-title="Last Seen" *ngIf="showFieldFilter.lastSeen">
+            <div class="d-inline-block" [tooltip]="userSubscription.lastSeenConvertedDate" [placement]="'top'">
+                {{ (userSubscription?.userDetails?.lastSeen) ? (userSubscription.userDetails.lastSeen | timeAgo) : '-'}}
             </div>
-        </div>
-        <!-- Footer -->
-        <div class="page-footer">
-            <div class="row">
-                <div class="col-md-1 col-sm-3 wrap-row">
-                    <div class="userNumber">
-                        <h4>{{totalUsers?.totalUser?totalUsers?.totalUser: 0}}</h4>
-                    </div>
-                    <div class="aboutUser">
-                        <p>Total User</p>
-                    </div>
-                </div>
-                <div class="col-md-1 col-sm-3 wrap-row">
-                    <div class="userNumber">
-                        <h4>{{totalUsers?.paidUsers? totalUsers?.paidUsers: 0}}</h4>
-                    </div>
-                    <div class="aboutUser">
-                        <p>Active User</p>
-                    </div>
-                </div>
-                <div class="col-md-1 col-sm-3 wrap-row">
-                    <div class="userNumber">
-                        <h4>{{totalUsers?.expiredUsers? totalUsers?.expiredUsers: 0}}</h4>
-                    </div>
-                    <div class="aboutUser">
-                        <p>Inactive User</p>
-                    </div>
-                </div>
-                <div class="col-md-1 col-sm-3 wrap-row">
-                    <div class="userNumber">
-                        <h4>{{totalUsers?.trialUsers? totalUsers?.trialUsers: 0}}</h4>
-                    </div>
-                    <div class="aboutUser">
-                        <p>Trial</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </td>
+    </tr>
+    <tr [hidden]="userSubscription.subscriptions?.length === 1 || !userSubscription.showInner" *ngFor="let userSubscriptionInner of userSubscription.subscriptions;">
+        <td data-title="Signup Date" *ngIf="showFieldFilter.signUpOn">&nbsp;</td>
+        <td data-title="Owner" *ngIf="showFieldFilter.owner">&nbsp;</td>
+        <td data-title="Name" *ngIf="showFieldFilter.name">&nbsp;</td>
+        <td data-title="Email" *ngIf="showFieldFilter.email">&nbsp;</td>
+        <td data-title="Mobile" *ngIf="showFieldFilter.mobile">&nbsp;</td>
+        <td data-title="Subscription ID" *ngIf="showFieldFilter.subscriptionId"><a href="javascript:void(0)" (click)="openEditSubscription( userSubscriptionInner.subscriptionId);">{{userSubscriptionInner.subscriptionId}}</a>
+        </td>
+        <td data-title="Subscribed On" *ngIf="showFieldFilter.subscribedOn">{{userSubscriptionInner.startedAt}}
+        </td>
 
+        <td data-title="Plan Name" *ngIf="showFieldFilter.planName"><span>{{userSubscriptionInner.planDetails.name}}</span></td>
+        <td data-title="No. of Companies" *ngIf="showFieldFilter.noOfCompany">{{userSubscriptionInner.companyCount}}</td>
+        <td data-title="Transaction Limit" *ngIf="showFieldFilter.transactionLimit">{{userSubscriptionInner.planDetails.transactionLimit}}
+        </td>
+        <td data-title="Remaining Transaction" *ngIf="showFieldFilter.remainingTransaction">{{userSubscriptionInner.remainingTransactions}}
+        </td>
+        <td data-title="AddOn Transaction" *ngIf="showFieldFilter.addOnTransaction">{{userSubscriptionInner.addOnTransactions}}
+        </td>
+        <td data-title="Additional Charges" *ngIf="showFieldFilter.additionalCharges">{{userSubscriptionInner.additionalCharges}}
+        </td>
+        <td data-title="Rate/Transaction" *ngIf="showFieldFilter.ratePerTransaction">{{userSubscriptionInner.planDetails.ratePerExtraTransaction}}
+        </td>
+        <td data-title="Country" *ngIf="showFieldFilter.country">{{userSubscriptionInner.planDetails.countries}}
+        </td>
 
+        <td data-title="Expiry" *ngIf="showFieldFilter.expiry">{{userSubscriptionInner.expiry}}
+        </td>
+        <td data-title="Status" *ngIf="showFieldFilter.status">{{userSubscriptionInner.status}}
+        </td>
+
+        <!-- <td data-title="Total Amount" *ngIf="showFieldFilter.mobile">{{userSubscriptionInner.planDetails.amount}}/-</td> -->
+        <td data-title="Last Seen" *ngIf="showFieldFilter.lastSeen">&nbsp;</td>
+    </tr>
+</tbody>
+<!-- <tbody *ngIf="!userSubscriptionData || userSubscriptionData.length === 0">
+    <tr>
+        <td colspan="10" align="center">No records found.</td>
+    </tr>
+</tbody> -->
+</table>
+</div>
+
+<div class="text-center" *ngIf="!userSubscriptionData || userSubscriptionData.length === 0">
+  <h3>No records found.</h3>
+</div>
+
+<div class="paginationWrapper">
+    <div *ngIf="userSubscriptionData && userlistRes && userlistRes.totalItems > 50">
+        <pagination [totalItems]="userlistRes.totalItems" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true" [itemsPerPage]="50" [rotate]="false" previousText="&#9668;" nextText="&#9658;" (pageChanged)="pageChanged($event)"></pagination>
     </div>
+</div>
+<!-- Footer -->
+<!-- <div class="page-footer">
+    <div class="row">
+        <div class="col-md-1 col-sm-3 wrap-row">
+            <div class="userNumber">
+                <h4>{{totalUsers?.totalUser?totalUsers?.totalUser: 0}}</h4>
+            </div>
+            <div class="aboutUser">
+                <p>Total User</p>
+            </div>
+        </div>
+        <div class="col-md-1 col-sm-3 wrap-row">
+            <div class="userNumber">
+                <h4>{{totalUsers?.paidUsers? totalUsers?.paidUsers: 0}}</h4>
+            </div>
+            <div class="aboutUser">
+                <p>Active User</p>
+            </div>
+        </div>
+        <div class="col-md-1 col-sm-3 wrap-row">
+            <div class="userNumber">
+                <h4>{{totalUsers?.expiredUsers? totalUsers?.expiredUsers: 0}}</h4>
+            </div>
+            <div class="aboutUser">
+                <p>Inactive User</p>
+            </div>
+        </div>
+        <div class="col-md-1 col-sm-3 wrap-row">
+            <div class="userNumber">
+                <h4>{{totalUsers?.trialUsers? totalUsers?.trialUsers: 0}}</h4>
+            </div>
+            <div class="aboutUser">
+                <p>Trial</p>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<div class="page-footer">
+    <div class="row">
+        <div class="col-md-1 col-sm-2 wrap-row">
+            <div class="userNumber">
+                <h4>{{totalUsersSubsription?.totalUser}}</h4>
+            </div>
+            <div class="aboutUser">
+                <p>Total User</p>
+            </div>
+        </div>
+        <div class="col-md-1 col-sm-2 wrap-row">
+            <div class="userNumber">
+                <h4>{{totalUsersSubsription?.total}}</h4>
+            </div>
+            <div class="aboutUser">
+                <p>Total Subscriptions</p>
+            </div>
+        </div>
+        <div class="col-md-1 col-sm-2 wrap-row">
+            <div class="userNumber">
+                <h4>{{totalUsersSubsription?.active}}</h4>
+            </div>
+            <div class="aboutUser">
+                <p>Paid Subscriptions</p>
+            </div>
+        </div>
+        <div class="col-md-1 col-sm-2 wrap-row">
+            <div class="userNumber">
+                <h4>{{totalUsersSubsription?.inactive}}</h4>
+            </div>
+            <div class="aboutUser">
+                <p>Not in use</p>
+            </div>
+        </div>
+        <div class="col-md-1 col-sm-2 wrap-row">
+            <div class="userNumber">
+                <h4>{{totalUsersSubsription?.trial}}</h4>
+            </div>
+            <div class="aboutUser">
+                <p>Trial</p>
+            </div>
+        </div>
+        <div class="col-md-1 col-sm-2 wrap-row">
+            <div class="userNumber">
+                <h4>{{totalUsersSubsription?.expired}}</h4>
+            </div>
+            <div class="aboutUser">
+                <p>Expired</p>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
 </div>

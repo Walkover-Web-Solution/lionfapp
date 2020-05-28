@@ -1,10 +1,65 @@
 <div class="pageHeader">
     <div class="d-flex align-items-center">
-        <div class="input-group input-date">
-            <span class="input-group-addon">
-                <i class="fa fa-calendar pull-right"></i>
-            </span>
-            <input type="text" placeholder="Select Date" readonly [(bsValue)]="bsValue" (bsValueChange)="onChangeFilterDate($event)" class="form-control date-range-picker" bsDaterangepicker>
+        <div class="d-flex">
+
+            <div class="dis pull-left mr-1">
+                <div class="btn-group mt-05" #filterDropDownList="bs-dropdown" dropdown [autoClose]="false" (clickOutside)="hideListItems()" [tooltip]="'Enable / Disable Column'" [placement]="'right'">
+                    <i dropdownToggle class="icon-options pd cp fs20"></i>
+
+                    <ul *dropdownMenu class="dropdown-menu dropdown-menu-left top-toggle-dropdown" role="menu" [style.width.px]="'200'">
+                        <li role="menuitem">
+                            <a class="dropdown-item">
+                                <input type="checkbox" name="isAllFieldColumnFilterApplied" [(ngModel)]="isAllFieldColumnFilterApplied" (ngModelChange)="selectAllColumns($event)"> Select All
+                            </a>
+                        </li>
+
+                        <li role="menuitem">
+                            <a class="dropdown-item">
+                                <input type="checkbox" name="planName" (ngModelChange)="columnFilter($event, 'planName')" [(ngModel)]="showFieldFilter.planName" /> Plan Name
+                            </a>
+                        </li>
+
+                        <li role="menuitem">
+                            <a class="dropdown-item">
+                                <input type="checkbox" name="createdOn" (ngModelChange)="columnFilter($event, 'createdOn')" [(ngModel)]="showFieldFilter.createdOn" /> Created On
+                            </a>
+                        </li>
+
+                        <li role="menuitem">
+                            <a class="dropdown-item">
+                                <input type="checkbox" name="noOfCompany" (ngModelChange)="columnFilter($event, 'noOfCompany')" [(ngModel)]="showFieldFilter.noOfCompany" /> No of Company
+                            </a>
+                        </li>
+                        <li role="menuitem">
+                            <a class="dropdown-item">
+                                <input type="checkbox" name="totalUser" (ngModelChange)="columnFilter($event, 'totalUser')" [(ngModel)]="showFieldFilter.totalUser" /> Total User
+                            </a>
+                        </li>
+                        <li role="menuitem">
+                            <a class="dropdown-item">
+                                <input type="checkbox" name="totalAmount" (ngModelChange)="columnFilter($event, 'totalAmount')" [(ngModel)]="showFieldFilter.totalAmount" /> Total Amount
+                            </a>
+                        </li>
+                        <li role="menuitem">
+                            <a class="dropdown-item">
+                                <input type="checkbox" name="expiry" (ngModelChange)="columnFilter($event, 'expiry')" [(ngModel)]="showFieldFilter.expiry" /> Expiry In Next 30 Days
+                            </a>
+                        </li>
+                        <li role="menuitem">
+                            <a class="dropdown-item">
+                                <input type="checkbox" name="country" (ngModelChange)="columnFilter($event, 'country')" [(ngModel)]="showFieldFilter.country" /> Country
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="input-group input-date">
+                <span class="input-group-addon">
+              <i class="fa fa-calendar pull-right"></i>
+          </span>
+                <input type="text" placeholder="Select Date" readonly [(bsValue)]="bsValue" (bsValueChange)="onChangeFilterDate($event)" class="form-control date-range-picker" bsDaterangepicker>
+            </div>
         </div>
 
         <button class=" btn-link" *ngIf="getAllPlansPostRequest.planName || getAllPlansPostRequest.countries.length || getAllPlansPostRequest.createdAtFrom" (click)="resetFilters();"><i class="icon icon-loop2
@@ -18,7 +73,7 @@
         <table class="table table-bordered basic subscrib-list-table card-list-table">
             <thead>
                 <tr (clickOutside)="inlineSearch = null">
-                    <th class="table-search">
+                    <th class="table-search" *ngIf="showFieldFilter.planName">
                         <div [hidden]="inlineSearch == 'planName'">
                             <div class="d-flex align-items-center justify-content-between">
                                 <span>Plan Name</span>
@@ -29,22 +84,22 @@
                             <input type="text" placeholder="Plan Name" class="form-control w100" #planNameField name="planName" [(ngModel)]="getAllPlansPostRequest.planName" (keypress)="columnSearch()" (keydown)="columnSearch()" />
                         </div>
                     </th>
-                    <th>
+                    <th *ngIf="showFieldFilter.createdOn">
                         Created on
                     </th>
-                    <th class="transform-none" (click)="sortBy('NO_OF_COMPANIES')">No of Company <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getAllPlansRequest.sortType === 'desc' && getAllPlansRequest.sortBy === 'NO_OF_COMPANIES', 'icon-icon-sort-down': (getAllPlansRequest.sortType === 'asc' && getAllPlansRequest.sortBy === 'NO_OF_COMPANIES') || getAllPlansRequest.sortBy !== 'NO_OF_COMPANIES'}"></i>
+                    <th *ngIf="showFieldFilter.noOfCompany" class="transform-none" (click)="sortBy('NO_OF_COMPANIES')">No of Company <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getAllPlansRequest.sortType === 'desc' && getAllPlansRequest.sortBy === 'NO_OF_COMPANIES', 'icon-icon-sort-down': (getAllPlansRequest.sortType === 'asc' && getAllPlansRequest.sortBy === 'NO_OF_COMPANIES') || getAllPlansRequest.sortBy !== 'NO_OF_COMPANIES'}"></i>
                     </th>
-                    <th (click)="sortBy('TOTAL_USERS')">Total User
+                    <th *ngIf="showFieldFilter.totalUser" (click)="sortBy('TOTAL_USERS')">Total User
                         <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getAllPlansRequest.sortType === 'desc' && getAllPlansRequest.sortBy === 'TOTAL_USERS', 'icon-icon-sort-down': (getAllPlansRequest.sortType === 'asc' && getAllPlansRequest.sortBy === 'TOTAL_USERS') || getAllPlansRequest.sortBy !== 'TOTAL_USERS'}"></i>
                     </th>
-                    <th (click)="sortBy('TOTAL_AMOUNT')">Total Amount
+                    <th *ngIf="showFieldFilter.totalAmount" (click)="sortBy('TOTAL_AMOUNT')">Total Amount
                         <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getAllPlansRequest.sortType === 'desc' && getAllPlansRequest.sortBy === 'TOTAL_AMOUNT', 'icon-icon-sort-down': (getAllPlansRequest.sortType === 'asc' && getAllPlansRequest.sortBy === 'TOTAL_AMOUNT') || getAllPlansRequest.sortBy !== 'TOTAL_AMOUNT'}"></i>
                     </th>
-                    <th (click)="sortBy('EXPIRY')">Expiry in next 30 days
+                    <th *ngIf="showFieldFilter.expiry" (click)="sortBy('EXPIRY')">Expiry in next 30 days
                         <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getAllPlansRequest.sortType === 'desc' && getAllPlansRequest.sortBy === 'EXPIRY', 'icon-icon-sort-down': (getAllPlansRequest.sortType === 'asc' && getAllPlansRequest.sortBy === 'EXPIRY') || getAllPlansRequest.sortBy !== 'EXPIRY'}"></i>
                     </th>
 
-                    <th class="table-dropdown">
+                    <th *ngIf="showFieldFilter.country" class="table-dropdown" [ngClass]="{'border-blue': selectedCountries && selectedCountries.length>0}">
                         <span class="pr c-dropdown" [ngClass]="{'open': showTaxPopup}" [attachOutsideOnClick]="true" (clickOutside)="handleInputFocus(true)">
                         <label>Country</label>
 
@@ -69,18 +124,18 @@
     </thead>
     <tbody *ngIf="plansDataResults">
         <tr *ngFor="let plans of plansDataResults">
-            <td><a href="javascript:;" (click)="showPlanDetails(plans.uniqueName)">{{plans.name}}</a></td>
-            <td>{{plans.createdAt}}</td>
-            <td>{{plans.totalCompanies}}</td>
-            <td>{{plans.totalUsers}}</td>
-            <td>{{plans.amount}}</td>
-            <td>{{plans.expiry}}</td>
-            <td>{{plans.countries}}</td>
+            <td *ngIf="showFieldFilter.planName"><a href="javascript:;" (click)="showPlanDetails(plans.uniqueName)">{{plans.name}}</a></td>
+            <td *ngIf="showFieldFilter.createdOn">{{plans.createdAt}}</td>
+            <td *ngIf="showFieldFilter.noOfCompany">{{plans.totalCompanies}}</td>
+            <td *ngIf="showFieldFilter.totalUser">{{plans.totalUsers}}</td>
+            <td *ngIf="showFieldFilter.totalAmount">{{plans.amount}}</td>
+            <td *ngIf="showFieldFilter.expiry">{{plans.expiry}}</td>
+            <td *ngIf="showFieldFilter.country">{{plans.countries}}</td>
         </tr>
     </tbody>
     <tbody *ngIf="!plansData || !plansDataResults || plansDataResults.length === 0">
         <tr>
-            <td colspan="7" align="center">No records found.</td>
+            <td colspan="7" align="center"><h3>No records found.</h3></td>
         </tr>
     </tbody>
     </table>

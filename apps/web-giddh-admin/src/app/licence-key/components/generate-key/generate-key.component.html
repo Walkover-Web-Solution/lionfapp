@@ -25,7 +25,7 @@
                 <div class="col-md-5">
                     <div class="row">
                         <div class="col-md-4">
-                            <input type="number" (blur)="validateLicenseKeys()" placeholder="No. of keys" class="form-control" name="noOfKeys" [(ngModel)]="generateLicenseKeysRequest.noOfKeys" required>
+                            <input type="number" (blur)="validateLicenseKeys()" #noOfKeys placeholder="No. of keys" class="form-control" name="noOfKeys" [(ngModel)]="generateLicenseKeysRequest.noOfKeys" required>
                         </div>
 
                         <div class="col-md-4">

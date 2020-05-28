@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { PlansService } from '../../../services/plan.service';
 import { ToasterService } from '../../../services/toaster.service';
 import { UpdatePlanRequest } from '../../../models/subscription';
@@ -10,6 +10,7 @@ import { UpdatePlanRequest } from '../../../models/subscription';
 })
 
 export class PlanDetailsComponent implements OnInit {
+    @ViewChild('planName') planName: ElementRef;
     @Input() public planUniqueName;
     @Input() public rightToggle: boolean = false;
     @Output() public hidePopup: EventEmitter<boolean> = new EventEmitter(true);
@@ -29,6 +30,10 @@ export class PlanDetailsComponent implements OnInit {
             this.toaster.errorToast("Plan doesn't exists! Please try again.");
             this.closePopup();
         }
+
+        setTimeout(() => {
+            this.planName.nativeElement.focus();
+        }, 20);
     }
 
     public closePopup() {

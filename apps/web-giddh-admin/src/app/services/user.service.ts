@@ -37,9 +37,9 @@ export class UserService {
     /**
     * Get all user data
     */
-    public getAllUserCounts() {
+    public getAllUserCounts(request: any) {
         let url = this.config.apiUrl + SUBSCRIPTION_API.GET_ALL_USER_COUNTS;
-        return this.http.get(url)
+        return this.http.post(url, request)
             .pipe(
                 map((res) => {
                     return res;
@@ -76,6 +76,28 @@ export class UserService {
         url = url.replace(":userUniqueName", userUniqueName);
 
         return this.http.put(url, post)
+            .pipe(
+                map((res) => {
+                    return res;
+                }),
+                catchError((e) => this.errorHandler.HandleCatch(e)));
+    }
+
+    /**
+     * This will export the subscription by users
+     *
+     * @param {*} model
+     * @returns
+     * @memberof UserService
+     */
+    public exportSubscriptionsByUsers(model: CommonPaginatedRequest, post: any) {
+        let url = this.config.apiUrl + SUBSCRIPTION_API.EXPORT_SUBSCRIPTIONS;
+        url = url.replace(":sortBy", model.sortBy);
+        url = url.replace(":sortType", model.sortType);
+        url = url.replace(":page", String(model.page));
+        url = url.replace(":count", String(model.count));
+
+        return this.http.post(url, post)
             .pipe(
                 map((res) => {
                     return res;
