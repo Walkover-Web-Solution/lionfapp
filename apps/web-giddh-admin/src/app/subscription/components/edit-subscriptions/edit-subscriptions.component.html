@@ -256,8 +256,8 @@
                     </a>
                 </th>
                 <th *ngIf="showFieldFilter.addOnTransactions">AddOn Transaction
-                    <a (click)="sortBy('ADDITIONAL_TRANSACTIONS')" class="text-black">
-                        <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': paginationRequest.sortType === 'desc' && paginationRequest.sortBy === 'ADDITIONAL_TRANSACTIONS', 'icon-icon-sort-down': (paginationRequest.sortType === 'asc' && paginationRequest.sortBy === 'ADDITIONAL_TRANSACTIONS') || paginationRequest.sortBy !== 'ADDITIONAL_TRANSACTIONS'}"></i>
+                    <a (click)="sortBy('ADDON_TRANSACTIONS')" class="text-black">
+                        <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': paginationRequest.sortType === 'desc' && paginationRequest.sortBy === 'ADDON_TRANSACTIONS', 'icon-icon-sort-down': (paginationRequest.sortType === 'asc' && paginationRequest.sortBy === 'ADDON_TRANSACTIONS') || paginationRequest.sortBy !== 'ADDON_TRANSACTIONS'}"></i>
                     </a>
                 </th>
                 <th *ngIf="showFieldFilter.additionalCharges">Additional Charges
