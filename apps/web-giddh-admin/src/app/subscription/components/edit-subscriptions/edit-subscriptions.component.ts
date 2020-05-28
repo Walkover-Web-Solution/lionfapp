@@ -7,7 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription, ReplaySubject, Subject, Observable, of as observableOf } from 'rxjs';
 import { takeUntil, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { AdminActions } from '../../../actions/admin.actions';
-import { CommonPaginatedRequest, SubscriberList, AuditLogsRequest, GetAllCompaniesRequest, PAGINATION_COUNT, StatusModel, CompanyAdvanceSearchRequestSubscriptions } from '../../../modules/modules/api-modules/subscription';
+import { CommonPaginatedRequest, SubscriberList, AuditLogsRequest, GetAllCompaniesRequest, PAGINATION_COUNT, StatusModel, CompanyAdvanceSearchRequestSubscriptions, AdvanceSearchFromTo } from '../../../modules/modules/api-modules/subscription';
 import { SubscriptionService } from '../../../services/subscription.service';
 import { ToasterService } from '../../../services/toaster.service';
 import { BsModalRef, BsModalService, BsDropdownDirective } from 'ngx-bootstrap';
@@ -54,11 +54,10 @@ export class EditSubscriptionsComponent implements OnInit {
     public companiesAllRes: SubscriberList = new SubscriberList();
     public subscriptionsAuditLogs = [];
     public subscriptionsAuditLogsResponse: any;
-    public getAllCompaniesRequest: GetAllCompaniesRequest;
     public showFieldFilter: CompanyFieldFilterColumnNames = new CompanyFieldFilterColumnNames();
     public isFieldColumnFilterApplied: boolean;
     public isAllFieldColumnFilterApplied: boolean;
-
+    public getAllCompaniesRequest:GetAllCompaniesRequest  = new GetAllCompaniesRequest();
     public planStatusType: StatusModel = {
         trial: false,
         active: false,
@@ -106,9 +105,10 @@ export class EditSubscriptionsComponent implements OnInit {
         this.paginationRequest.from = '';
         this.paginationRequest.page = 1;
         this.today = new Date();
-        this.getAllCompaniesRequest = new GetAllCompaniesRequest();
-        this.resetGellAllCompaniesFilters();
         this.paginationRequest.count = PAGINATION_COUNT;
+        // this.getAllCompaniesRequest.lastEntryAccess = new AdvanceSearchFromTo();
+
+        // this.getAllCompaniesRequest.lastCompanyAccess = new AdvanceSearchFromTo();
         this.getAllCompaniesRequest.lastEntryAccess.operation = "BEFORE";
         this.getAllCompaniesRequest.lastCompanyAccess.operation = "BEFORE";
         this.tempOperation = "relative_before";
@@ -117,8 +117,6 @@ export class EditSubscriptionsComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.getAllCompaniesRequest = new GetAllCompaniesRequest();
-        this.resetGellAllCompaniesFilters();
         this.resetLastEntryAccessFilter();
         this.resetLastCompanyAccessFilter();
         if (this.subscriptionService.getGetAllCompanyRequestObject()) {
@@ -480,7 +478,7 @@ export class EditSubscriptionsComponent implements OnInit {
     public resetFilters() {
         this.tempOperation = 'relative_before';
         this.tempCompanyOperation = 'relative_before_2';
-        this.resetGellAllCompaniesFilters();
+        this.resetGetAllCompaniesFilters();
         this.selectedPlans = [];
         this.selectedPlanStatus = [];
         this.paginationRequest.page = 1;
@@ -903,7 +901,7 @@ export class EditSubscriptionsComponent implements OnInit {
      *
      * @memberof EditSubscriptionsComponent
      */
-    public resetGellAllCompaniesFilters() {
+    public resetGetAllCompaniesFilters() {
         this.getAllCompaniesRequest = {
             startedAtFrom: '',
             companyName: '',
@@ -932,13 +930,13 @@ export class EditSubscriptionsComponent implements OnInit {
             lastEntryAccess: {
                 from: '',
                 to: '',
-                operation: '',
+                operation: 'BEFORE',
                 days: '',
             },
             lastCompanyAccess: {
                 from: '',
                 to: '',
-                operation: '',
+                operation: 'BEFORE',
                 days: '',
             },
         };
