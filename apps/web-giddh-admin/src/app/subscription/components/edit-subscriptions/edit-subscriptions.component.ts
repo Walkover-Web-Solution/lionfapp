@@ -7,7 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription, ReplaySubject, Subject, Observable, of as observableOf } from 'rxjs';
 import { takeUntil, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { AdminActions } from '../../../actions/admin.actions';
-import { CommonPaginatedRequest, SubscriberList, AuditLogsRequest, GetAllCompaniesRequest, PAGINATION_COUNT, StatusModel, CompanyAdvanceSearchRequestSubscriptions } from '../../../modules/modules/api-modules/subscription';
+import { CommonPaginatedRequest, SubscriberList, AuditLogsRequest, GetAllCompaniesRequest, PAGINATION_COUNT, StatusModel, CompanyAdvanceSearchRequestSubscriptions, AdvanceSearchFromTo } from '../../../modules/modules/api-modules/subscription';
 import { SubscriptionService } from '../../../services/subscription.service';
 import { ToasterService } from '../../../services/toaster.service';
 import { BsModalRef, BsModalService, BsDropdownDirective } from 'ngx-bootstrap';
@@ -54,48 +54,10 @@ export class EditSubscriptionsComponent implements OnInit {
     public companiesAllRes: SubscriberList = new SubscriberList();
     public subscriptionsAuditLogs = [];
     public subscriptionsAuditLogsResponse: any;
-    public getAllCompaniesRequest: GetAllCompaniesRequest = {
-            startedAtFrom: '',
-            companyName: '',
-            subscriptionId: '',
-            planUniqueNames: [],
-            userName: '',
-            status: [],
-            expiryFilter: {
-                from: '',
-                to: '',
-                operation: '',
-                days: '',
-            },
-            subscribeOn: {
-                from: '',
-                to: '',
-                operation: '',
-                days: '',
-            },
-            remainingTxnOpn: '',
-            remainingTxn: '',
-            transactionLimitOperation: '',
-            transactionLimit: '',
-            additionalChargesOperation: '',
-            additionalCharges: '',
-            lastEntryAccess: {
-                from: '',
-                to: '',
-                operation: 'BEFORE',
-                days: '',
-            },
-            lastCompanyAccess: {
-                from: '',
-                to: '',
-                operation: 'BEFORE',
-                days: '',
-            }
-    };
     public showFieldFilter: CompanyFieldFilterColumnNames = new CompanyFieldFilterColumnNames();
     public isFieldColumnFilterApplied: boolean;
     public isAllFieldColumnFilterApplied: boolean;
-
+    public getAllCompaniesRequest:GetAllCompaniesRequest  = new GetAllCompaniesRequest();
     public planStatusType: StatusModel = {
         trial: false,
         active: false,
@@ -144,6 +106,9 @@ export class EditSubscriptionsComponent implements OnInit {
         this.paginationRequest.page = 1;
         this.today = new Date();
         this.paginationRequest.count = PAGINATION_COUNT;
+        // this.getAllCompaniesRequest.lastEntryAccess = new AdvanceSearchFromTo();
+
+        // this.getAllCompaniesRequest.lastCompanyAccess = new AdvanceSearchFromTo();
         this.getAllCompaniesRequest.lastEntryAccess.operation = "BEFORE";
         this.getAllCompaniesRequest.lastCompanyAccess.operation = "BEFORE";
         this.tempOperation = "relative_before";
