@@ -6,7 +6,9 @@
     overflow-y: auto;
 }
 .dropdown-table {
-  min-height: 240px;
+  min-height: 320px;
+  max-height: calc(100vh - 380px);
+  margin-bottom: 20px;
 }
 .advance-btn {
   position: relative;
