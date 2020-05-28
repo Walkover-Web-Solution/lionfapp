@@ -5,6 +5,7 @@ import { SUBSCRIPTION_API } from './apiurls/subscription.api';
 import { ErrorHandler } from './catchManager/catchmanger';
 import { IServiceConfigArgs, ServiceConfig } from './service.config';
 import { CommonPaginatedRequest, AdvanceSearchRequestSubscriptions, UpdateSubscriptionModel, GetAllCompaniesRequest } from '../modules/modules/api-modules/subscription';
+import { Observable } from 'rxjs';
 
 
 @Injectable()
@@ -95,7 +96,7 @@ export class SubscriptionService {
      * @returns
      * @memberof SubscriptionService
      */
-    public getCompaniesFooter(body: GetAllCompaniesRequest) {
+    public getCompaniesFooter(body: GetAllCompaniesRequest):  Observable<any> {
         let url = SUBSCRIPTION_API.GET_COMPANIES_FOOTER
         return this.http.post(this.config.apiUrl + url, body)
             .pipe(
@@ -113,7 +114,7 @@ export class SubscriptionService {
     * @returns
     * @memberof SubscriptionService
     */
-    public getCompaniesPermission(companyUniqueName: string) {
+    public getCompaniesPermission(companyUniqueName: string):  Observable<any>  {
         let url = SUBSCRIPTION_API.GET_COMPANIES_PERMISSION;
 
         if (companyUniqueName) {

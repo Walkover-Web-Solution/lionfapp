@@ -96,7 +96,7 @@ export class LicenceKeyComponent implements OnInit {
      *
      * @memberof LicenceKeyComponent
      */
-    public hideListItems() {
+    public hideListItems(): void {
         this.filterDropDownList.hide();
     }
 
@@ -157,7 +157,7 @@ export class LicenceKeyComponent implements OnInit {
     *
     * @memberof LicenceKeyComponent
     */
-    public resetFilters() {
+    public resetFilters(): void {
         this.getAllLicenceKeyRequest.page = 1;
         this.selectAllColumns(true);
         this.getAllLicenceKey();
@@ -207,7 +207,7 @@ export class LicenceKeyComponent implements OnInit {
      * @param {string} column Column name
      * @memberof LicenceKeyComponent
      */
-    public columnFilter(event: boolean, column: string) {
+    public columnFilter(event: boolean, column: string): void {
         this.showFieldFilter[column] = event;
         this.isAllColumnFilterApplied()
         this.updateColumnFilter();
@@ -242,7 +242,7 @@ export class LicenceKeyComponent implements OnInit {
     *
     * @memberof LicenceKeyComponent
     */
-    public isAllColumnFilterApplied() {
+    public isAllColumnFilterApplied(): void {
         this.isAllFieldColumnFilterApplied = Object.keys(this.showFieldFilter).every((k) => this.showFieldFilter[k]);
     }
 
@@ -252,7 +252,7 @@ export class LicenceKeyComponent implements OnInit {
      *
      * @memberof LicenceKeyComponent
      */
-    public getColspanCount() {
+    public getColspanCount(): void {
         this.colSpanCount = 0;
         Object.keys(this.showFieldFilter).forEach(item => {
             if (this.showFieldFilter[item]) {
