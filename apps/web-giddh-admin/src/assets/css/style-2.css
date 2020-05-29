@@ -1182,7 +1182,9 @@ bs-datepicker-container {
 .min-width-210 {
   min-width: 210px !important;
 }
-
+.min-width-110 {
+  min-width: 110px !important;
+}
 /* .multiselect-dropdown {
   max-width: 200px !important;
   min-width: 200px !important;
