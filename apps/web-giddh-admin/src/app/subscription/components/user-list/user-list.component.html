@@ -135,7 +135,7 @@
                             Signup Date
                         </th> -->
 
-                        <th class="table-search min-width-110" *ngIf="showFieldFilter.signUpOn">
+                        <th class="table-search min-width-120" *ngIf="showFieldFilter.signUpOn">
                             <div [hidden]="inlineSearch == 'subscribersSignup'|| getUserListPostRequest.signUpOnFrom">
                                 <div class="d-flex align-items-center justify-content-between">
                                     <span>Signup On</span>
@@ -633,17 +633,17 @@
         <td data-title="Last Seen" *ngIf="showFieldFilter.lastSeen">&nbsp;</td>
     </tr>
 </tbody>
-<!-- <tbody *ngIf="!userSubscriptionData || userSubscriptionData.length === 0">
-    <tr>
-        <td colspan="10" align="center">No records found.</td>
-    </tr>
-</tbody> -->
+  <tbody *ngIf="!userSubscriptionData || userSubscriptionData.length === 0">
+      <tr>
+          <td colspan="10" align="center"><h3 class="pt-3 pb-3">No records found.</h3></td>
+      </tr>
+  </tbody>
 </table>
 </div>
 
-<div class="text-center" *ngIf="!userSubscriptionData || userSubscriptionData.length === 0">
+<!-- <div class="text-center" *ngIf="!userSubscriptionData || userSubscriptionData.length === 0">
   <h3>No records found.</h3>
-</div>
+</div> -->
 
 <div class="paginationWrapper">
     <div *ngIf="userSubscriptionData && userlistRes && userlistRes.totalItems > 50">
