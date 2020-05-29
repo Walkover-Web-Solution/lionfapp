@@ -96,6 +96,12 @@ export class AdvanceSearchFromTo {
     to: any;
     operation?: string;
     days?: string;
+    constructor() {
+        this.from = '';
+        this.to = '';
+        this.operation = '';
+        this.days = '';
+    }
 }
 
 export class AdvanceSearchRequestSubscriptions {
@@ -136,11 +142,11 @@ export class AuditLogsRequest {
 */
 export class GetAllCompaniesRequest {
     startedAtFrom: string;
-    companyName: string = '';
-    subscriptionId: string = '';
-    planUniqueNames: string[] = [];
-    userName: string = '';
-    status: string[] = []; // "trial","expired"
+    companyName: string;
+    subscriptionId: string;
+    planUniqueNames: string[];
+    userName: string;
+    status: string[]; // "trial","expired"
     expiryFilter?: AdvanceSearchFromTo;
     subscribeOn?: AdvanceSearchFromTo;
     remainingTxnOpn?: string;
@@ -151,6 +157,25 @@ export class GetAllCompaniesRequest {
     additionalCharges?: string;
     lastCompanyAccess?: AdvanceSearchFromTo;
     lastEntryAccess?: AdvanceSearchFromTo;
+
+    constructor() {
+        this.startedAtFrom = '';
+        this.companyName = '';
+        this.planUniqueNames = [];
+        this.userName = '';
+        this.status = [];
+        this.subscriptionId = '';
+        this.expiryFilter = new AdvanceSearchFromTo();
+        this.subscribeOn = new AdvanceSearchFromTo();
+        this.remainingTxnOpn = '';
+        this.remainingTxn = '';
+        this.transactionLimitOperation = '';
+        this.transactionLimit = '';
+        this.additionalCharges = '';
+        this.additionalChargesOperation = '';
+        this.lastCompanyAccess = new AdvanceSearchFromTo();
+        this.lastEntryAccess = new AdvanceSearchFromTo();
+    }
 }
 
 export class CompanyAdvanceSearchRequestSubscriptions {

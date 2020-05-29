@@ -95,7 +95,7 @@
                     <th *ngIf="showFieldFilter.totalAmount" (click)="sortBy('TOTAL_AMOUNT')">Total Amount
                         <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getAllPlansRequest.sortType === 'desc' && getAllPlansRequest.sortBy === 'TOTAL_AMOUNT', 'icon-icon-sort-down': (getAllPlansRequest.sortType === 'asc' && getAllPlansRequest.sortBy === 'TOTAL_AMOUNT') || getAllPlansRequest.sortBy !== 'TOTAL_AMOUNT'}"></i>
                     </th>
-                    <th *ngIf="showFieldFilter.expiry" (click)="sortBy('EXPIRY')">Expiry in next 30 days
+                    <th class="min-width-210" *ngIf="showFieldFilter.expiry" (click)="sortBy('EXPIRY')">Expiry in next 30 days
                         <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getAllPlansRequest.sortType === 'desc' && getAllPlansRequest.sortBy === 'EXPIRY', 'icon-icon-sort-down': (getAllPlansRequest.sortType === 'asc' && getAllPlansRequest.sortBy === 'EXPIRY') || getAllPlansRequest.sortBy !== 'EXPIRY'}"></i>
                     </th>
 
@@ -135,7 +135,7 @@
     </tbody>
     <tbody *ngIf="!plansData || !plansDataResults || plansDataResults.length === 0">
         <tr>
-            <td colspan="7" align="center">No records found.</td>
+            <td colspan="7" align="center"><h3>No records found.</h3></td>
         </tr>
     </tbody>
     </table>
