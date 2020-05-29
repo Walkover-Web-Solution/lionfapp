@@ -143,7 +143,7 @@
                             Signup Date
                         </th> -->
 
-                            <th class="table-search min-width-120" *ngIf="showFieldFilter.signUpOn">
+                            <th class="table-search" *ngIf="showFieldFilter.signUpOn">
                                 <div [hidden]="inlineSearch == 'subscribersSignup'|| getUserListPostRequest.signUpOnFrom">
                                     <div class="d-flex align-items-center justify-content-between">
                                         <span>Signup On</span>
@@ -546,8 +546,8 @@
 </thead>
 <tbody *ngFor="let userSubscription of userSubscriptionData">
     <tr>
-        <td data-title="Signup Date" *ngIf="userSubscription.subscriptions.length > 1 && showFieldFilter.signUpOn">{{userSubscription.userDetails.signUpOn}}</td>
-        <td data-title="Signup Date" *ngIf="userSubscription.subscriptions.length=== 1 && showFieldFilter.signUpOn" (mouseenter)="showRadioButton(userSubscription.subscriptions[0].subscriptionId)" (mouseleave)="hideRadioButton()"><span *ngIf="visibleSubscriptionRadioButton === userSubscription.subscriptionId || editSubscriptionIdTransaction === userSubscription.subscriptionId"><input type="radio" name="checkedSubscriptions" (click)="editSubscriptionTransactions(userSubscription.subscriptions[0].subscriptionId)"></span><span>{{userSubscription.userDetails.signUpOn}}</span></td>
+        <td class="nowrap" data-title="Signup Date" *ngIf="userSubscription.subscriptions.length > 1 && showFieldFilter.signUpOn">{{userSubscription.userDetails.signUpOn}}</td>
+        <td class="nowrap" data-title="Signup Date" *ngIf="userSubscription.subscriptions.length=== 1 && showFieldFilter.signUpOn" (mouseenter)="showRadioButton(userSubscription.subscriptions[0].subscriptionId)" (mouseleave)="hideRadioButton()"><span *ngIf="visibleSubscriptionRadioButton === userSubscription.subscriptionId || editSubscriptionIdTransaction === userSubscription.subscriptionId"><input type="radio" name="checkedSubscriptions" (click)="editSubscriptionTransactions(userSubscription.subscriptions[0].subscriptionId)"></span><span>{{userSubscription.userDetails.signUpOn}}</span></td>
 
         <td data-title="Owner" *ngIf="showFieldFilter.owner">
             <div class="btn-group owner-dropdown" dropdown>
