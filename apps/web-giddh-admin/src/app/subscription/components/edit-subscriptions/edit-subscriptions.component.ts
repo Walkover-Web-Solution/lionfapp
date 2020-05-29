@@ -183,6 +183,17 @@ export class EditSubscriptionsComponent implements OnInit {
         });
         this.getColumnFilter();
         this.getCompanyFooter();
+          let companyFilter = localStorage.getItem("companyListFilter");
+        let companyPaginationFilter = localStorage.getItem("companyPaginationFilter");
+
+        if (companyFilter) {
+            let retrievedCompanyFilterObject = JSON.parse(companyFilter);
+            console.log('companyFilter',retrievedCompanyFilterObject);
+        }
+        if (companyPaginationFilter) {
+            let retrievedCompanyPaginationFilterObject = JSON.parse(companyPaginationFilter);
+            console.log('companyPaginationFilter',retrievedCompanyPaginationFilterObject);
+        }
     }
 
     public getAllCompanies() {
@@ -193,6 +204,8 @@ export class EditSubscriptionsComponent implements OnInit {
                 this.showClearFilter = true;
             }
             this.getCompanyFooter();
+        localStorage.setItem("companyListFilter", JSON.stringify(this.getAllCompaniesRequest));
+        localStorage.setItem("companyPaginationFilter", JSON.stringify(this.paginationRequest));
             this.subscriptionService.getAllCompanies(this.getAllCompaniesRequest, this.paginationRequest).subscribe(resp => {
                 if (resp) {
                     if (resp.status === 'success') {

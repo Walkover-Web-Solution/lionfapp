@@ -140,10 +140,15 @@ export class UserListComponent implements OnInit {
         this.getUserListRequest.page = 1;
         this.getUserListRequest.sortBy = '';
         this.getUserListRequest.sortType = '';
-        this.getAllUserData();
+        // this.getAllUserData();
         this.getAllSubscriptionTotalData();
         this.getAllPlans();
         this.getOnboardCountries();
+
+        /** To check local storage filter available */
+        this.checkLocalStorageFilter();
+
+
 
         /** Search using user name  */
         this.searchViaUserName$.pipe(
@@ -420,6 +425,8 @@ export class UserListComponent implements OnInit {
      */
     public getAllUserData() {
         this.getAllSubscriptionTotalData();
+        localStorage.setItem("userListFilter", JSON.stringify(this.getUserListPostRequest));
+        localStorage.setItem("userPaginationFilter", JSON.stringify(this.getUserListRequest));
         this.userService.getAllSubscriptionsByUser(this.getUserListRequest, this.getUserListPostRequest).subscribe(res => {
             if (res.status === 'success') {
                 this.userlistRes = res.body;
@@ -736,11 +743,12 @@ export class UserListComponent implements OnInit {
         this.getAllPlansRequest.sortBy = '';
         this.getAllPlansRequest.sortType = '';
         this.plansService.getAllPlans(this.getAllPlansRequest, this.getAllPlansPostRequest).subscribe(res => {
+            this.allPlans = [];
             if (res.status === 'success') {
-                this.allPlans = [];
                 res.body.results.forEach(key => {
                     this.allPlans.push({ label: key.name, value: key.uniqueName, additional: false });
                 });
+                this.checkLocalStorageFilter();
             } else {
                 this.toaster.clearAllToaster();
                 this.toaster.errorToast("Something went wrong in getting plans! Please try again.");
@@ -1158,5 +1166,32 @@ export class UserListComponent implements OnInit {
                 this.toaster.errorToast(res.message);
             }
         });
+    }
+
+    /**
+    *To check local storage filter available
+    *
+    * @memberof UserListComponent
+    */
+    public checkLocalStorageFilter() {
+
+        let userFilter = localStorage.getItem("userListFilter");
+        let userPaginationFilter = localStorage.getItem("userPaginationFilter");
+        if (userFilter || userPaginationFilter) {
+            let retrievedUserFilterObject = JSON.parse(userFilter);
+            let retrievedUserPaginationFilterObject = JSON.parse(userPaginationFilter);
+            this.getUserListPostRequest = retrievedUserFilterObject;
+            this.getUserListRequest = retrievedUserPaginationFilterObject;
+            if (this.getUserListPostRequest && this.getUserListPostRequest.planUniqueNames && this.getUserListPostRequest.planUniqueNames.length > 0) {
+                this.allPlans.map(res => {
+                    res.additional = this.getUserListPostRequest.planUniqueNames.includes(res.value);
+                });
+            }
+            console.log('userListFilter', retrievedUserFilterObject);
+            console.log('userPaginationFilter', retrievedUserPaginationFilterObject);
+            this.getAllUserData();
+        } else {
+            this.getAllUserData();
+        }
     }
 }
