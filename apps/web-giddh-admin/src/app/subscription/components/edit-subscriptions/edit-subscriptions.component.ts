@@ -90,8 +90,6 @@ export class EditSubscriptionsComponent implements OnInit {
     public isAllPlanSelected: boolean = false;
     public isAllPlanTypeSelected: boolean = false;
     public searchedAdvancedRequestModelByAdvanceSearch: CompanyAdvanceSearchRequestSubscriptions;
-    /** Local storage to save filter */
-    public localStorageKeysForFilters = { pageType: 'pageTypeName', filter: 'Columnfilter' };
     public totalCompanies: number;
     public totalUser: number;
     public timeoutLastCompanyAccess: any;
@@ -953,5 +951,59 @@ export class EditSubscriptionsComponent implements OnInit {
                 days: '',
             },
         };
+        
     }
+
+     /**
+    *To check local storage filter available
+    *
+    * @memberof UserListComponent
+    */
+    // public checkLocalStorageFilter() {
+
+    //     let companyListFilter = localStorage.getItem("companyListFilter");
+    //     let companyPaginationFilter = localStorage.getItem("companyPaginationFilter");
+    //     if (companyListFilter || companyPaginationFilter) {
+    //         let retrievedCompanyListFilterrObject = JSON.parse(companyListFilter);
+    //         let retrievedCompanyPaginationFilterObject = JSON.parse(companyPaginationFilter);
+    //         this.getAllCompaniesRequest = retrievedCompanyListFilterrObject;
+    //         this.paginationRequest = retrievedCompanyPaginationFilterObject;
+    //         if (this.getAllCompaniesRequest && this.getAllCompaniesRequest.planUniqueNames && this.getAllCompaniesRequest.planUniqueNames.length > 0) {
+    //             this.selectedPlans = this.getAllCompaniesRequest.planUniqueNames;
+    //             this.allPlans.map(res => {
+    //                 res.additional = this.getAllCompaniesRequest.planUniqueNames.includes(res.value);
+    //             });
+    //         }
+    //         if (this.getUserListPostRequest && this.getUserListPostRequest.status && this.getUserListPostRequest.status.length > 0) {
+    //             this.selectedPlanStatus = this.getUserListPostRequest.status;
+    //             this.planStatusType.active = this.planStatusType.expired = this.planStatusType.trial = false;
+    //             this.selectedPlanStatus.forEach(res => {
+    //                 this.planStatusType[res] = true;
+    //             });
+    //         }
+    //         if (this.getUserListPostRequest && this.getUserListPostRequest.countryCodes && this.getUserListPostRequest.countryCodes.length > 0) {
+    //             this.selectedCountries = this.getUserListPostRequest.countryCodes;
+    //             this.countrySource.map(res => {
+    //                 res.additional = this.getUserListPostRequest.countryCodes.includes(res.value);
+    //             });
+    //         }
+    //         // if (this.getAllCompaniesRequest && this.getAllCompaniesRequest.lastSeen && this.getAllCompaniesRequest.lastSeen.operation) {
+    //         //     if (this.getAllCompaniesRequest.lastSeen.days) {
+    //         //         this.tempOperation = 'RELATIVE_' + this.getAllCompaniesRequest.lastSeen.operation;
+    //         //     } else if (this.getAllCompaniesRequest.lastSeen.from || this.getAllCompaniesRequest.lastSeen.to) {
+    //         //         this.tempOperation = 'ABSOLUTE_' + this.getAllCompaniesRequest.lastSeen.operation;
+    //         //     } else if (this.getAllCompaniesRequest.lastSeen.operation === 'UNAVAILABLE' || this.getAllCompaniesRequest.lastSeen.operation === 'AVAILABLE') {
+    //         //         this.tempOperation = this.getAllCompaniesRequest.lastSeen.operation;
+    //         //     }
+
+    //         // }
+    //         console.log('userListFilter', retrievedUserFilterObject);
+    //         console.log('userPaginationFilter', retrievedUserPaginationFilterObject);
+    //         this.getAllUserData();
+    //     } else {
+    //         this.getUserListPostRequest.lastSeen.operation = "BEFORE";
+    //         this.tempOperation = "BEFORE";
+    //         this.getAllUserData();
+    //     }
+    // }
 }

@@ -71,7 +71,7 @@ export class UserListComponent implements OnInit {
     public timeoutLastSeen: any;
     public tempOperation: any = "";
     @ViewChild("dp") public dp;
-    public adminUsersList: any;
+    public adminUsersList: any[] = [];
     public isAllOwnerSelected: boolean = false;
     public selectedOwners: string[] = [];
     public today: Date;
@@ -124,8 +124,8 @@ export class UserListComponent implements OnInit {
         private authenticationService: AuthenticationService, private columnFilterService: ColumnFilterService, private subscriptionService: SubscriptionService, ) {
         this.today = new Date();
         this.getUserListPostRequest.lastSeen = {}
-        this.getUserListPostRequest.lastSeen.operation = "BEFORE";
-        this.tempOperation = "relative_before";
+        // this.getUserListPostRequest.lastSeen.operation = "BEFORE";
+        // this.tempOperation = "relative_before";
         this.getAllAdminUsers();
     }
 
@@ -518,7 +518,7 @@ export class UserListComponent implements OnInit {
      */
     public resetFilters() {
         this.bsValue = null;
-        this.tempOperation = 'relative_before';
+        this.tempOperation = 'BEFORE';
         this.getUserListPostRequest.lastSeen = {};
         this.getUserListPostRequest.lastSeen.operation = 'relative_before';
         this.getUserListPostRequest.lastSeen.from = '';
@@ -541,6 +541,7 @@ export class UserListComponent implements OnInit {
         this.getUserListPostRequest.expiry = '';
         this.inlineSearch = null;
         this.getUserListPostRequest.transactionLimitField = '';
+        this.getUserListPostRequest.transactionLimit = '';
         this.getUserListPostRequest.remainingTxn = '';
         this.getUserListPostRequest.addOnTxn = '';
         this.getUserListPostRequest.ratePerExtraTxn = '';
@@ -1183,14 +1184,46 @@ export class UserListComponent implements OnInit {
             this.getUserListPostRequest = retrievedUserFilterObject;
             this.getUserListRequest = retrievedUserPaginationFilterObject;
             if (this.getUserListPostRequest && this.getUserListPostRequest.planUniqueNames && this.getUserListPostRequest.planUniqueNames.length > 0) {
+                this.selectedPlans = this.getUserListPostRequest.planUniqueNames;
                 this.allPlans.map(res => {
                     res.additional = this.getUserListPostRequest.planUniqueNames.includes(res.value);
                 });
+            }
+            if (this.getUserListPostRequest && this.getUserListPostRequest.managerUniqueNames && this.getUserListPostRequest.managerUniqueNames.length > 0) {
+                this.selectedOwners = this.getUserListPostRequest.managerUniqueNames;
+                this.adminUsersList.map(res => {
+                    res.additional = this.getUserListPostRequest.managerUniqueNames.includes(res.uniqueName);
+                });
+            }
+            if (this.getUserListPostRequest && this.getUserListPostRequest.status && this.getUserListPostRequest.status.length > 0) {
+                this.selectedPlanStatus = this.getUserListPostRequest.status;
+                this.planStatusType.active = this.planStatusType.expired = this.planStatusType.trial = false;
+                this.selectedPlanStatus.forEach(res => {
+                    this.planStatusType[res] = true;
+                });
+            }
+            if (this.getUserListPostRequest && this.getUserListPostRequest.countryCodes && this.getUserListPostRequest.countryCodes.length > 0) {
+                this.selectedCountries = this.getUserListPostRequest.countryCodes;
+                this.countrySource.map(res => {
+                    res.additional = this.getUserListPostRequest.countryCodes.includes(res.value);
+                });
+            }
+            if (this.getUserListPostRequest && this.getUserListPostRequest.lastSeen && this.getUserListPostRequest.lastSeen.operation) {
+                if (this.getUserListPostRequest.lastSeen.days) {
+                    this.tempOperation = 'RELATIVE_' + this.getUserListPostRequest.lastSeen.operation;
+                } else if (this.getUserListPostRequest.lastSeen.from || this.getUserListPostRequest.lastSeen.to) {
+                    this.tempOperation = 'ABSOLUTE_' + this.getUserListPostRequest.lastSeen.operation;
+                } else if (this.getUserListPostRequest.lastSeen.operation === 'UNAVAILABLE' || this.getUserListPostRequest.lastSeen.operation === 'AVAILABLE') {
+                    this.tempOperation = this.getUserListPostRequest.lastSeen.operation;
+                }
+
             }
             console.log('userListFilter', retrievedUserFilterObject);
             console.log('userPaginationFilter', retrievedUserPaginationFilterObject);
             this.getAllUserData();
         } else {
+            this.getUserListPostRequest.lastSeen.operation = "BEFORE";
+            this.tempOperation = "BEFORE";
             this.getAllUserData();
         }
     }
