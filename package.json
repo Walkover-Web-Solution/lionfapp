@@ -124,7 +124,7 @@
         "codelyzer": "~4.5.0",
         "cross-env": "^5.2.0",
         "dotenv": "6.2.0",
-        "electron": "^4.0.5",
+        "electron": "^9.1.0",
         "electron-builder": "^20.39.0",
         "electron-installer-dmg": "~2.0.0",
         "electron-is-dev": "^1.1.0",
