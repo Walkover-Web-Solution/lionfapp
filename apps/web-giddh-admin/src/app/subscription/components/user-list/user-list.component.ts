@@ -71,7 +71,8 @@ export class UserListComponent implements OnInit {
     public timeoutLastSeen: any;
     public tempOperation: any = "";
     @ViewChild("dp") public dp;
-    public adminUsersList: any;
+    /** Admin user list  */
+    public adminUsersList: any[] = [];
     public isAllOwnerSelected: boolean = false;
     public selectedOwners: string[] = [];
     public today: Date;
@@ -124,8 +125,6 @@ export class UserListComponent implements OnInit {
         private authenticationService: AuthenticationService, private columnFilterService: ColumnFilterService, private subscriptionService: SubscriptionService, ) {
         this.today = new Date();
         this.getUserListPostRequest.lastSeen = {}
-        this.getUserListPostRequest.lastSeen.operation = "BEFORE";
-        this.tempOperation = "relative_before";
         this.getAllAdminUsers();
     }
 
@@ -140,10 +139,15 @@ export class UserListComponent implements OnInit {
         this.getUserListRequest.page = 1;
         this.getUserListRequest.sortBy = '';
         this.getUserListRequest.sortType = '';
-        this.getAllUserData();
+        // this.getAllUserData();
         this.getAllSubscriptionTotalData();
         this.getAllPlans();
         this.getOnboardCountries();
+
+        /** To check local storage filter available */
+        this.checkLocalStorageFilter();
+
+
 
         /** Search using user name  */
         this.searchViaUserName$.pipe(
@@ -420,6 +424,8 @@ export class UserListComponent implements OnInit {
      */
     public getAllUserData() {
         this.getAllSubscriptionTotalData();
+        localStorage.setItem("userListFilter", JSON.stringify(this.getUserListPostRequest));
+        localStorage.setItem("userPaginationFilter", JSON.stringify(this.getUserListRequest));
         this.userService.getAllSubscriptionsByUser(this.getUserListRequest, this.getUserListPostRequest).subscribe(res => {
             if (res.status === 'success') {
                 this.userlistRes = res.body;
@@ -511,7 +517,7 @@ export class UserListComponent implements OnInit {
      */
     public resetFilters() {
         this.bsValue = null;
-        this.tempOperation = 'relative_before';
+        this.tempOperation = 'BEFORE';
         this.getUserListPostRequest.lastSeen = {};
         this.getUserListPostRequest.lastSeen.operation = 'relative_before';
         this.getUserListPostRequest.lastSeen.from = '';
@@ -534,6 +540,7 @@ export class UserListComponent implements OnInit {
         this.getUserListPostRequest.expiry = '';
         this.inlineSearch = null;
         this.getUserListPostRequest.transactionLimitField = '';
+        this.getUserListPostRequest.transactionLimit = '';
         this.getUserListPostRequest.remainingTxn = '';
         this.getUserListPostRequest.addOnTxn = '';
         this.getUserListPostRequest.ratePerExtraTxn = '';
@@ -736,11 +743,12 @@ export class UserListComponent implements OnInit {
         this.getAllPlansRequest.sortBy = '';
         this.getAllPlansRequest.sortType = '';
         this.plansService.getAllPlans(this.getAllPlansRequest, this.getAllPlansPostRequest).subscribe(res => {
+            this.allPlans = [];
             if (res.status === 'success') {
-                this.allPlans = [];
                 res.body.results.forEach(key => {
                     this.allPlans.push({ label: key.name, value: key.uniqueName, additional: false });
                 });
+                this.checkLocalStorageFilter();
             } else {
                 this.toaster.clearAllToaster();
                 this.toaster.errorToast("Something went wrong in getting plans! Please try again.");
@@ -1158,5 +1166,62 @@ export class UserListComponent implements OnInit {
                 this.toaster.errorToast(res.message);
             }
         });
+    }
+
+    /**
+    *To check local storage filter available
+    *
+    * @memberof UserListComponent
+    */
+    public checkLocalStorageFilter(): void {
+
+        let userFilter = localStorage.getItem("userListFilter");
+        let userPaginationFilter = localStorage.getItem("userPaginationFilter");
+        if (userFilter || userPaginationFilter) {
+            let retrievedUserFilterObject = JSON.parse(userFilter);
+            let retrievedUserPaginationFilterObject = JSON.parse(userPaginationFilter);
+            this.getUserListPostRequest = retrievedUserFilterObject;
+            this.getUserListRequest = retrievedUserPaginationFilterObject;
+            if (this.getUserListPostRequest && this.getUserListPostRequest.planUniqueNames && this.getUserListPostRequest.planUniqueNames.length > 0) {
+                this.selectedPlans = this.getUserListPostRequest.planUniqueNames;
+                this.allPlans.map(res => {
+                    res.additional = this.getUserListPostRequest.planUniqueNames.includes(res.value);
+                });
+            }
+            if (this.getUserListPostRequest && this.getUserListPostRequest.managerUniqueNames && this.getUserListPostRequest.managerUniqueNames.length > 0) {
+                this.selectedOwners = this.getUserListPostRequest.managerUniqueNames;
+                this.adminUsersList.map(res => {
+                    res.additional = this.getUserListPostRequest.managerUniqueNames.includes(res.uniqueName);
+                });
+            }
+            if (this.getUserListPostRequest && this.getUserListPostRequest.status && this.getUserListPostRequest.status.length > 0) {
+                this.selectedPlanStatus = this.getUserListPostRequest.status;
+                this.planStatusType.active = this.planStatusType.expired = this.planStatusType.trial = false;
+                this.selectedPlanStatus.forEach(res => {
+                    this.planStatusType[res] = true;
+                });
+            }
+            if (this.getUserListPostRequest && this.getUserListPostRequest.countryCodes && this.getUserListPostRequest.countryCodes.length > 0) {
+                this.selectedCountries = this.getUserListPostRequest.countryCodes;
+                this.countrySource.map(res => {
+                    res.additional = this.getUserListPostRequest.countryCodes.includes(res.value);
+                });
+            }
+            if (this.getUserListPostRequest && this.getUserListPostRequest.lastSeen && this.getUserListPostRequest.lastSeen.operation) {
+                if (this.getUserListPostRequest.lastSeen.days) {
+                    this.tempOperation = 'RELATIVE_' + this.getUserListPostRequest.lastSeen.operation;
+                } else if (this.getUserListPostRequest.lastSeen.from || this.getUserListPostRequest.lastSeen.to) {
+                    this.tempOperation = 'ABSOLUTE_' + this.getUserListPostRequest.lastSeen.operation;
+                } else if (this.getUserListPostRequest.lastSeen.operation === 'UNAVAILABLE' || this.getUserListPostRequest.lastSeen.operation === 'AVAILABLE') {
+                    this.tempOperation = this.getUserListPostRequest.lastSeen.operation;
+                }
+
+            }
+            this.getAllUserData();
+        } else {
+            this.getUserListPostRequest.lastSeen.operation = "BEFORE";
+            this.tempOperation = "BEFORE";
+            this.getAllUserData();
+        }
     }
 }
