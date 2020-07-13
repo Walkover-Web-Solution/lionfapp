@@ -46,9 +46,11 @@ export class LicenceKeyComponent implements OnInit {
         this.generalService.setCurrentPageTitle("License Keys");
         this.getAllLicenceKeyRequest.count = PAGINATION_COUNT;
         this.getAllLicenceKeyRequest.page = 1;
-        this.getAllLicenceKey();
+
         /** To get dynamic column filter  */
         this.getColumnFilter();
+        /** To check local storage filter available */
+        this.checkLocalStorageFilter();
     }
 
     /**
@@ -57,6 +59,8 @@ export class LicenceKeyComponent implements OnInit {
      * @memberof LicenceKeyComponent
      */
     public getAllLicenceKey() {
+
+        localStorage.setItem("licensePaginationFilter", JSON.stringify(this.getAllLicenceKeyRequest));
         this.licenseService.getAllLicenseKeys(this.getAllLicenceKeyRequest).subscribe(res => {
             if (res.status === 'success') {
                 this.LicenceKeyRes = res.body;
@@ -259,5 +263,22 @@ export class LicenceKeyComponent implements OnInit {
                 this.colSpanCount++;
             }
         });
+    }
+
+    /**
+    *To check local storage filter available
+    *
+    * @memberof UserListComponent
+    */
+    public checkLocalStorageFilter() {
+
+        let licensePaginationFilter = localStorage.getItem("licensePaginationFilter");
+        if (licensePaginationFilter) {
+            let retrievedLicensePaginationFilterObject = JSON.parse(licensePaginationFilter);
+            this.getAllLicenceKeyRequest = retrievedLicensePaginationFilterObject;
+            this.getAllLicenceKey();
+        } else {
+            this.getAllLicenceKey();
+        }
     }
 }
