@@ -277,7 +277,6 @@ export class LicenceKeyComponent implements OnInit {
             let retrievedLicensePaginationFilterObject = JSON.parse(licensePaginationFilter);
             this.getAllLicenceKeyRequest = retrievedLicensePaginationFilterObject;
             this.getAllLicenceKey();
-            console.log('LicensePaginationFilterObject', retrievedLicensePaginationFilterObject);
         } else {
             this.getAllLicenceKey();
         }

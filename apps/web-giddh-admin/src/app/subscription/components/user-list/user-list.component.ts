@@ -1218,8 +1218,6 @@ export class UserListComponent implements OnInit {
                 }
 
             }
-            console.log('userListFilter', retrievedUserFilterObject);
-            console.log('userPaginationFilter', retrievedUserPaginationFilterObject);
             this.getAllUserData();
         } else {
             this.getUserListPostRequest.lastSeen.operation = "BEFORE";

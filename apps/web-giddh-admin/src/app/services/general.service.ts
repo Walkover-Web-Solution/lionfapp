@@ -52,4 +52,23 @@ export class GeneralService {
         this.router.navigate(['login']);
     }
 
+    /**
+     * To clear local storage filtered data 
+     *
+     * @memberof GeneralService
+     */
+    public clearCacheStoredFilter() {
+        localStorage.removeItem('userListFilter');
+        localStorage.removeItem('userPaginationFilter');
+
+        localStorage.removeItem('licensePaginationFilter');
+
+        localStorage.removeItem('planPaginationFilter');
+        localStorage.removeItem('planListFilter');
+
+        localStorage.removeItem('companyListFilter');
+        localStorage.removeItem('companyPaginationFilter');
+
+    }
+
 }

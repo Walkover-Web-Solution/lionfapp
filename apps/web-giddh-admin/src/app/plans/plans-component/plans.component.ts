@@ -517,8 +517,6 @@ export class PlansComponent implements OnInit {
                 });
                 this.isAllCountriesSelected();
             }
-            console.log('planListFilter', retrievedUserFilterObject);
-            console.log('planPaginationFilter', retrievedUserPaginationFilterObject);
             this.getAllPlans();
         } else {
             this.getAllPlansRequest.page = 1;

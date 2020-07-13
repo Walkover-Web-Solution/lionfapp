@@ -186,11 +186,9 @@ export class EditSubscriptionsComponent implements OnInit {
 
         if (companyFilter) {
             let retrievedCompanyFilterObject = JSON.parse(companyFilter);
-            console.log('companyFilter',retrievedCompanyFilterObject);
         }
         if (companyPaginationFilter) {
             let retrievedCompanyPaginationFilterObject = JSON.parse(companyPaginationFilter);
-            console.log('companyPaginationFilter',retrievedCompanyPaginationFilterObject);
         }
     }
 
