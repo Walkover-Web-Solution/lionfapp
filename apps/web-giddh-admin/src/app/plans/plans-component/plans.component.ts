@@ -11,6 +11,8 @@ import { ColumnFilterService } from '../../services/column-filter.service';
 import { FavouriteColumnPageTypeEnum } from '../../actions/general/general.const';
 import { cloneDeep } from '../../lodash-optimized';
 import { PlanFieldFilterColumnNames } from '../../models/company';
+import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 
 @Component({
@@ -33,9 +35,8 @@ export class PlansComponent implements OnInit {
     public plansData: any;
     public plansDataResults: any;
     public getAllPlansRequest: any = {};
-    public getAllPlansPostRequest: any = {
-
-    };
+    public getAllPlansPostRequest: any = {};
+    public searchViaPlanName$ = new Subject<string>();
     public togglePanelBool: boolean;
     public togglePlanDetailsPanelBool: boolean;
     public selectedPlan: any = '';
@@ -43,7 +44,7 @@ export class PlansComponent implements OnInit {
     public timeout: any;
     public bsValue: any = '';
     public defaultLoad: boolean = true;
-    public planStats: any = {};
+    public planStates: any = {};
     public countrySource: IOption[] = [];
     public selectedCountries: string[] = []
     public isAllCountrySelected: boolean = false;
@@ -61,14 +62,25 @@ export class PlansComponent implements OnInit {
         this.getAllPlansPostRequest.countries = [];
         this.generalService.setCurrentPageTitle("Plans");
         this.getAllPlansRequest.count = PAGINATION_COUNT;
-        this.getAllPlansRequest.page = 1;
-        this.getAllPlansRequest.sortBy = '';
-        this.getAllPlansRequest.sortType = '';
-        this.getPlansStats();
-        this.getAllPlans();
+        this.getPlansStates();
+        // this.getAllPlans();
         this.getOnboardCountries();
         /** To get dynamic column filter  */
         this.getColumnFilter();
+
+        /** Search using plan name  */
+        this.searchViaPlanName$.pipe(
+            debounceTime(1000),
+            distinctUntilChanged()
+        ).subscribe(term => {
+            if (term) {
+                this.showClearFilter = true;
+            }
+            this.getAllPlansPostRequest.planName = term.trim();
+            this.getAllPlans();
+        });
+
+        this.checkLocalStorageFilter();
     }
 
     /**
@@ -86,6 +98,9 @@ export class PlansComponent implements OnInit {
      * @memberof PlansComponent
      */
     public getAllPlans() {
+        this.getPlansStates();
+        localStorage.setItem("planListFilter", JSON.stringify(this.getAllPlansPostRequest));
+        localStorage.setItem("planPaginationFilter", JSON.stringify(this.getAllPlansRequest));
         this.plansService.getAllPlans(this.getAllPlansRequest, this.getAllPlansPostRequest).subscribe(res => {
             if (res.status === 'success') {
                 this.plansData = res.body;
@@ -163,7 +178,7 @@ export class PlansComponent implements OnInit {
         if (dates !== null && !this.defaultLoad) {
             this.getAllPlansPostRequest.createdAtFrom = moment(dates[0]).format("DD-MM-YYYY");
             this.getAllPlansPostRequest.createdAtTo = moment(dates[1]).format("DD-MM-YYYY");
-            this.getPlansStats();
+            // this.getPlansStates();
             this.getAllPlans();
         }
 
@@ -189,23 +204,6 @@ export class PlansComponent implements OnInit {
     }
 
     /**
-     * This function is used to get plans by search
-     *
-     * @memberof PlansComponent
-     */
-    public columnSearch(): void {
-        if (this.timeout) {
-            clearTimeout(this.timeout);
-        }
-
-        this.timeout = setTimeout(() => {
-            this.getAllPlansRequest.page = 1;
-            this.getPlansStats();
-            this.getAllPlans();
-        }, 700);
-    }
-
-    /**
      * This function is used to hide aside popup
      *
      * @memberof PlansComponent
@@ -213,7 +211,7 @@ export class PlansComponent implements OnInit {
     public hidePopup() {
         this.togglePanelBool = false;
         this.getAllPlansRequest.page = 1;
-        this.getPlansStats();
+        // this.getPlansStates();
         this.getAllPlans();
         this.toggleBodyClass();
     }
@@ -226,7 +224,7 @@ export class PlansComponent implements OnInit {
     public hidePlanDetailsPopup() {
         this.selectedPlan = '';
         this.togglePlanDetailsPanelBool = false;
-        this.getPlansStats();
+        // this.getPlansStates();
         this.getAllPlans();
         this.toggleBodyClass();
     }
@@ -247,7 +245,7 @@ export class PlansComponent implements OnInit {
             res.additional = false;
         });
         this.selectAllColumns(true);
-        this.getPlansStats();
+        // this.getPlansStates();
         this.getAllPlans();
     }
 
@@ -282,10 +280,10 @@ export class PlansComponent implements OnInit {
      *
      * @memberof PlansComponent
      */
-    public getPlansStats() {
-        this.plansService.getPlansStats(this.getAllPlansPostRequest).subscribe(res => {
+    public getPlansStates() {
+        this.plansService.getPlansStates(this.getAllPlansPostRequest).subscribe(res => {
             if (res.status === 'success') {
-                this.planStats = res.body;
+                this.planStates = res.body;
             }
         });
     }
@@ -298,10 +296,12 @@ export class PlansComponent implements OnInit {
     public getOnboardCountries() {
         this.authenticationService.getCountry().subscribe(res => {
             if (res.status === 'success') {
+                this.countrySource = [];
                 if (res.body && res.body.length > 0) {
                     res.body.forEach(key => {
                         this.countrySource.push({ label: key.countryName, value: key.alpha2CountryCode, additional: false });
                     });
+                    this.checkLocalStorageFilter();
                 }
             } else {
                 this.toaster.clearAllToaster();
@@ -346,7 +346,7 @@ export class PlansComponent implements OnInit {
         }
         this.isAllCountriesSelected();
         this.getAllPlansPostRequest.countries = this.selectedCountries;
-        this.getPlansStats();
+        // this.getPlansStates();
         this.getAllPlans();
     }
 
@@ -368,7 +368,7 @@ export class PlansComponent implements OnInit {
         }
         this.getAllPlansPostRequest.countries = this.selectedCountries;
         this.isAllCountriesSelected();
-        this.getPlansStats();
+        // this.getPlansStates();
         this.getAllPlans();
     }
 
@@ -471,15 +471,15 @@ export class PlansComponent implements OnInit {
         this.updateColumnFilter();
     }
 
-      /**
-     *To check all column filter applied true
-     *
-     * @memberof PlansComponent
-     */
+    /**
+   *To check all column filter applied true
+   *
+   * @memberof PlansComponent
+   */
     public isAllColumnFilterApplied() {
         this.isAllFieldColumnFilterApplied = Object.keys(this.showFieldFilter).every((k) => this.showFieldFilter[k]);
     }
-    
+
 
     /**
     * To get count of colspan
@@ -493,5 +493,36 @@ export class PlansComponent implements OnInit {
                 this.colSpanCount++;
             }
         });
+    }
+
+
+    /**
+     * To check local storage filter available
+     *
+     * @memberof PlansComponent
+     */
+    public checkLocalStorageFilter(): void {
+        let planFilter = localStorage.getItem("planListFilter");
+        let planPaginationFilter = localStorage.getItem("planPaginationFilter");
+        if (planFilter || planPaginationFilter) {
+            let retrievedUserFilterObject = JSON.parse(planFilter);
+            let retrievedUserPaginationFilterObject = JSON.parse(planPaginationFilter);
+            this.getAllPlansPostRequest = retrievedUserFilterObject;
+            this.getAllPlansRequest = retrievedUserPaginationFilterObject;
+
+            if (this.getAllPlansPostRequest && this.getAllPlansPostRequest.countries && this.getAllPlansPostRequest.countries.length > 0) {
+                this.selectedCountries = this.getAllPlansPostRequest.countries;
+                this.countrySource.map(res => {
+                    res.additional = this.selectedCountries.includes(res.label);
+                });
+                this.isAllCountriesSelected();
+            }
+            this.getAllPlans();
+        } else {
+            this.getAllPlansRequest.page = 1;
+            this.getAllPlansRequest.sortBy = '';
+            this.getAllPlansRequest.sortType = '';
+            this.getAllPlans();
+        }
     }
 }

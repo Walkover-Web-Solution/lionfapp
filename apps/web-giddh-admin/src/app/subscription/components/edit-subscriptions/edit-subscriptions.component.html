@@ -138,7 +138,7 @@
             <button *ngIf="showClearFilter" class="btn btn-filter" (click)="resetFilters();"><i class="icon icon-loop2"></i>
         Clear Filter</button>
         </div> -->
-        <button class=" btn-link" *ngIf="showClearFilter" (click)="resetFilters();"><i class="icon icon-loop2
+        <button class=" btn-link" *ngIf="showClearFilter || getAllCompaniesRequest.companyName || getAllCompaniesRequest.userName || getAllCompaniesRequest.startedAtFrom || getAllCompaniesRequest.subscriptionId" (click)="resetFilters();"><i class="icon icon-loop2
 "></i> Clear Filter</button>
         <div class="d-flex">
             <a class="btn btn-blue" href="javascript:void(0)" (click)="togglePanel()">Advance Search</a>
@@ -637,7 +637,9 @@
         </td>
     </tr>
     <tr *ngIf="companiesData.length === 0">
-        <td colspan="16" align="center"><h3>No records found.</h3></td>
+        <td colspan="16" align="center">
+            <h3>No records found.</h3>
+        </td>
     </tr>
 </tbody>
 </table>
