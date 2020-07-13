@@ -57,7 +57,7 @@ export class GeneralService {
      *
      * @memberof GeneralService
      */
-    public clearCacheStoredFilter() {
+    public clearCacheStoredFilter(): void {
         localStorage.removeItem('userListFilter');
         localStorage.removeItem('userPaginationFilter');
 

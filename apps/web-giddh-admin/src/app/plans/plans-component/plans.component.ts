@@ -501,7 +501,7 @@ export class PlansComponent implements OnInit {
      *
      * @memberof PlansComponent
      */
-    public checkLocalStorageFilter() {
+    public checkLocalStorageFilter(): void {
         let planFilter = localStorage.getItem("planListFilter");
         let planPaginationFilter = localStorage.getItem("planPaginationFilter");
         if (planFilter || planPaginationFilter) {

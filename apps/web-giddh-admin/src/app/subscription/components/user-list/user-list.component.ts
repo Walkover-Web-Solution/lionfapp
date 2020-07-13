@@ -71,6 +71,7 @@ export class UserListComponent implements OnInit {
     public timeoutLastSeen: any;
     public tempOperation: any = "";
     @ViewChild("dp") public dp;
+    /** Admin user list  */
     public adminUsersList: any[] = [];
     public isAllOwnerSelected: boolean = false;
     public selectedOwners: string[] = [];
@@ -124,8 +125,6 @@ export class UserListComponent implements OnInit {
         private authenticationService: AuthenticationService, private columnFilterService: ColumnFilterService, private subscriptionService: SubscriptionService, ) {
         this.today = new Date();
         this.getUserListPostRequest.lastSeen = {}
-        // this.getUserListPostRequest.lastSeen.operation = "BEFORE";
-        // this.tempOperation = "relative_before";
         this.getAllAdminUsers();
     }
 
@@ -1174,7 +1173,7 @@ export class UserListComponent implements OnInit {
     *
     * @memberof UserListComponent
     */
-    public checkLocalStorageFilter() {
+    public checkLocalStorageFilter(): void {
 
         let userFilter = localStorage.getItem("userListFilter");
         let userPaginationFilter = localStorage.getItem("userPaginationFilter");
