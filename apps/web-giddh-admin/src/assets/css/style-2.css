@@ -1176,11 +1176,15 @@ bs-datepicker-container {
     background: #eeeff9!important;
 }
 
-.min-width-110 {
-    min-width: 101px !important;
+.min-width-120 {
+    min-width: 120px !important;
 }
-
-
+.min-width-210 {
+  min-width: 210px !important;
+}
+.min-width-110 {
+  min-width: 110px !important;
+}
 /* .multiselect-dropdown {
   max-width: 200px !important;
   min-width: 200px !important;
