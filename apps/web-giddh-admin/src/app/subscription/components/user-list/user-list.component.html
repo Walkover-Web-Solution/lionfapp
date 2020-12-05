@@ -581,8 +581,8 @@
         <td data-title="Additional Charges" *ngIf="userSubscription.subscriptions.length > 1 && showFieldFilter.additionalCharges">{{userSubscription.subscriptions[0].additionalCharges}}</td>
         <td data-title="Rate/Transaction" *ngIf="userSubscription.subscriptions.length === 1 && showFieldFilter.ratePerTransaction">{{userSubscription.subscriptions[0].planDetails.ratePerExtraTransaction}}</td>
         <td data-title="Rate/Transaction" *ngIf="userSubscription.subscriptions.length > 1 && showFieldFilter.ratePerTransaction">{{userSubscription.subscriptions[0].planDetails.ratePerExtraTransaction}}</td>
-        <td data-title="Country" *ngIf="userSubscription.subscriptions.length === 1 && showFieldFilter.country">{{userSubscription.subscriptions[0].planDetails.countries}}</td>
-        <td data-title="Country" *ngIf="userSubscription.subscriptions.length > 1 && showFieldFilter.country">{{userSubscription.subscriptions[0].planDetails.countries}}</td>
+        <td data-title="Country" *ngIf="userSubscription.subscriptions.length === 1 && showFieldFilter.country">{{userSubscription.subscriptions[0].country.countryName}}</td>
+        <td data-title="Country" *ngIf="userSubscription.subscriptions.length > 1 && showFieldFilter.country">{{userSubscription.subscriptions[0].country.countryName}}</td>
 
         <td data-title="Expiry" *ngIf="userSubscription.subscriptions.length === 1 && showFieldFilter.expiry">{{userSubscription.subscriptions[0].expiry}}</td>
         <td data-title="Expiry" *ngIf="userSubscription.subscriptions.length > 1 && showFieldFilter.expiry">{{userSubscription.subscriptions[0].expiry}}</td>
