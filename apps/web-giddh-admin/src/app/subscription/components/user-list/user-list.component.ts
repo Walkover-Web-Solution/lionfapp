@@ -525,7 +525,7 @@ export class UserListComponent implements OnInit {
         this.getUserListPostRequest.mobile = '';
         this.getUserListPostRequest.subscriptionId = '';
         this.getUserListPostRequest.planUniqueNames = this.selectedPlans = [];
-        this.getUserListPostRequest.countryCodes = this.selectedCountries = [];
+        this.getUserListPostRequest.userCountryCodes = this.selectedCountries = [];
         this.getUserListPostRequest.status = this.selectedPlanStatus = [];
         this.getUserListPostRequest.startedAtFrom = '';
         this.getUserListPostRequest.managerUniqueNames = [];
@@ -930,7 +930,7 @@ export class UserListComponent implements OnInit {
             });
         }
         this.isAllCountriesSelected();
-        this.getUserListPostRequest.countryCodes = this.selectedCountries;
+        this.getUserListPostRequest.userCountryCodes = this.selectedCountries;
         this.getAllUserData();
         // this.getAllPlans();
     }
@@ -952,7 +952,7 @@ export class UserListComponent implements OnInit {
             let index = this.selectedCountries.indexOf(item.value);
             this.selectedCountries.splice(index, 1);
         }
-        this.getUserListPostRequest.countryCodes = this.selectedCountries;
+        this.getUserListPostRequest.userCountryCodes = this.selectedCountries;
         this.isAllCountriesSelected();
         this.getAllUserData();
         // this.getAllPlans();
