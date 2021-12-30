@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CommonPaginatedRequest, PAGINATION_COUNT, CompanyAdvanceSearchRequestSubscriptions } from '../../../modules/modules/api-modules/subscription';
 import { AppState } from '../../../store';
@@ -9,7 +9,6 @@ import * as moment from 'moment/moment';
 import { GIDDH_DATE_FORMAT } from '../../../shared/defalutformatter/defaultDateFormat';
 import { digitsOnly } from '../../../shared/helper/customValidationhelper';
 import { IOption } from '../../../theme/ng-select/ng-select';
-import { ShSelectComponent } from '../../../theme/ng-virtual-select/sh-select.component';
 
 @Component({
     selector: 'app-company-advance-search',
