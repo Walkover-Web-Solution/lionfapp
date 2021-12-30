@@ -15,7 +15,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { cloneDeep } from '../../../lodash-optimized';
 import { ColumnFilterService } from '../../../services/column-filter.service';
 import { FavouriteColumnPageTypeEnum } from '../../../actions/general/general.const';
-import { BsDropdownDirective } from 'ngx-bootstrap';
+import { BsDropdownDirective } from 'ngx-bootstrap/dropdown';
 import { UserFieldFilterColumnNames } from '../../../models/company';
 import { SubscriptionService } from '../../../services/subscription.service';
 @Component({

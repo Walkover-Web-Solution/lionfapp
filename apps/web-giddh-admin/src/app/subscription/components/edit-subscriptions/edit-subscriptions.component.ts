@@ -1,16 +1,16 @@
 import { Component, OnInit, TemplateRef, ViewChild, Input, HostListener, ElementRef } from "@angular/core";
-import { Store, select } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { AppState } from '../../../store';
 import { GeneralService } from '../../../services/general.service';
 import { GeneralActions } from '../../../actions/general/general.action';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Subscription, ReplaySubject, Subject, Observable, of as observableOf } from 'rxjs';
-import { takeUntil, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { ReplaySubject, Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { AdminActions } from '../../../actions/admin.actions';
-import { CommonPaginatedRequest, SubscriberList, AuditLogsRequest, GetAllCompaniesRequest, PAGINATION_COUNT, StatusModel, CompanyAdvanceSearchRequestSubscriptions, AdvanceSearchFromTo } from '../../../modules/modules/api-modules/subscription';
+import { CommonPaginatedRequest, SubscriberList, AuditLogsRequest, GetAllCompaniesRequest, PAGINATION_COUNT, StatusModel, CompanyAdvanceSearchRequestSubscriptions } from '../../../modules/modules/api-modules/subscription';
 import { SubscriptionService } from '../../../services/subscription.service';
 import { ToasterService } from '../../../services/toaster.service';
-import { BsModalRef, BsModalService, BsDropdownDirective } from 'ngx-bootstrap';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { IOption } from '../../../theme/ng-select/ng-select';
 import { PlansService } from '../../../services/plan.service';
 import * as moment from 'moment/moment';
@@ -19,6 +19,7 @@ import { CompanyFieldFilterColumnNames } from '../../../models/company';
 import { FavouriteColumnPageTypeEnum } from '../../../actions/general/general.const';
 import { ColumnFilterService } from '../../../services/column-filter.service';
 import { cloneDeep } from '../../../lodash-optimized';
+import { BsDropdownDirective } from "ngx-bootstrap/dropdown";
 
 @Component({
     selector: 'edit-subscription',
