@@ -7,7 +7,6 @@ import { ToasterService } from '../../../services/toaster.service';
 import { IOption } from '../../../theme/ng-select/ng-select';
 import { IForceClear } from '../../../theme/ng-virtual-select/sh-select.component';
 import { Observable, of as observableOf } from 'rxjs';
-import { Router } from '@angular/router';
 import { GeneralService } from '../../../services/general.service';
 import { AuthenticationService } from '../../../services/authentication.service';
 
