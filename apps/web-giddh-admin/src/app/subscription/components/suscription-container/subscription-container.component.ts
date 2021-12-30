@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild, TemplateRef, Input, HostListener } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, HostListener } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { SubscriptionService } from '../../../services/subscription.service';
 import { AppState } from '../../../store';
 import { Store, select } from '@ngrx/store';
 import { AdminActions } from '../../../actions/admin.actions';
-import { takeUntil, take, debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { Observable, ReplaySubject, of as observableOf, Subject } from 'rxjs';
+import { takeUntil, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { ReplaySubject, Subject } from 'rxjs';
 import { CommonPaginatedRequest, SubscriberList, TotalSubscribers, AdvanceSearchRequestSubscriptions, GetAllCompaniesRequest, PAGINATION_COUNT, StatusModel } from '../../../modules/modules/api-modules/subscription';
 import { ToasterService } from '../../../services/toaster.service';
 import * as moment from 'moment/moment';
