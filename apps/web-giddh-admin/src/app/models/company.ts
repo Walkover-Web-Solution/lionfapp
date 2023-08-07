@@ -41,27 +41,27 @@ export class UserFieldFilterColumnNames {
 }
 
 export class PlanFieldFilterColumnNames {
-country: boolean;
-createdOn: boolean;
-expiry: boolean;
-noOfCompany: boolean;
-planName: boolean;
-totalAmount: boolean;
-totalUser: boolean;
+    country: boolean;
+    createdOn: boolean;
+    expiry: boolean;
+    noOfCompany: boolean;
+    planName: boolean;
+    totalAmount: boolean;
+    totalUser: boolean;
 }
 
 
 export class LicenseFieldFilterColumnNames {
-balance: boolean;
-comments: boolean;
-expiry: boolean;
-licenseKey: boolean;
-noOfCompany: boolean;
-planName: boolean;
-status: boolean;
-subscribedOn: boolean;
-subscriptionId: boolean;
-totalAmount: boolean;
-transactionLimit: boolean;
-userName: boolean;
+    balance: boolean;
+    comments: boolean;
+    expiry: boolean;
+    licenseKey: boolean;
+    noOfCompany: boolean;
+    planName: boolean;
+    status: boolean;
+    subscribedOn: boolean;
+    subscriptionId: boolean;
+    totalAmount: boolean;
+    transactionLimit: boolean;
+    userName: boolean;
 }

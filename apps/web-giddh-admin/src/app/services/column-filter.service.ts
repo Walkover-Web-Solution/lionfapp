@@ -4,6 +4,7 @@ import { Inject, Injectable, OnInit, Optional } from '@angular/core';
 import { ErrorHandler } from './catchManager/catchmanger';
 import { IServiceConfigArgs, ServiceConfig } from './service.config';
 import { COLUMN_FILTER } from './apiurls/column-filter.api';
+import { Observable } from 'rxjs';
 
 
 @Injectable()
@@ -19,7 +20,7 @@ export class ColumnFilterService {
      * 
      * @param {string} pageName Module/Page name 
      */
-    public getFavouritePage(pageName: string) {
+    public getFavouritePage(pageName: string): Observable<any> {
         let url = this.config.apiUrl + COLUMN_FILTER.FAVORITE_PAGE_COLUMN;
         if (pageName) {
             url = url.replace(":pageName", pageName);
@@ -40,7 +41,7 @@ export class ColumnFilterService {
      * @returns
      * @memberof UserService
      */
-    public updateFavouritePage(pageName: string, post: any) {
+    public updateFavouritePage(pageName: string, post: any):  Observable<any> {
         let url = this.config.apiUrl + COLUMN_FILTER.FAVORITE_PAGE_COLUMN;
         if (pageName) {
             url = url.replace(":pageName", pageName);

@@ -164,7 +164,7 @@ export class PlansComponent implements OnInit {
      *
      * @memberof PlansComponent
      */
-    public hideListItems() {
+    public hideListItems(): void {
         this.filterDropDownList.hide();
     }
 
@@ -447,7 +447,7 @@ export class PlansComponent implements OnInit {
     * @param {string} column Column name
     * @memberof PlansComponent
     */
-    public columnFilter(event: boolean, column: string) {
+    public columnFilter(event: boolean, column: string): void {
         this.showFieldFilter[column] = event;
         this.isAllColumnFilterApplied();
         this.updateColumnFilter();
@@ -476,7 +476,7 @@ export class PlansComponent implements OnInit {
    *
    * @memberof PlansComponent
    */
-    public isAllColumnFilterApplied() {
+    public isAllColumnFilterApplied(): void {
         this.isAllFieldColumnFilterApplied = Object.keys(this.showFieldFilter).every((k) => this.showFieldFilter[k]);
     }
 
