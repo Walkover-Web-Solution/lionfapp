@@ -6,13 +6,13 @@ import { ToasterService } from '../../services/toaster.service';
 import { AuthenticationService } from '../../services/authentication.service';
 import { IOption } from '../../theme/ng-select/ng-select';
 import { PAGINATION_COUNT } from '../../modules/modules/api-modules/subscription';
-import { BsDropdownDirective } from 'ngx-bootstrap/dropdown';
 import { ColumnFilterService } from '../../services/column-filter.service';
 import { FavouriteColumnPageTypeEnum } from '../../actions/general/general.const';
 import { cloneDeep } from '../../lodash-optimized';
 import { PlanFieldFilterColumnNames } from '../../models/company';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { BsDropdownDirective } from 'ngx-bootstrap/dropdown';
 
 
 @Component({

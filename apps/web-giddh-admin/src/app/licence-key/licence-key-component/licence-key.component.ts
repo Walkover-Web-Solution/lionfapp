@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { LicenceService } from '../../services/licence.service';
 import { SubscriberList, PAGINATION_COUNT } from '../../modules/modules/api-modules/subscription';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { GeneralService } from '../../services/general.service';
 import { Router } from '@angular/router';
 import { FavouriteColumnPageTypeEnum } from '../../actions/general/general.const';
@@ -9,6 +8,7 @@ import { ColumnFilterService } from '../../services/column-filter.service';
 import { ToasterService } from '../../services/toaster.service';
 import { cloneDeep } from '../../lodash-optimized';
 import { LicenseFieldFilterColumnNames } from '../../models/company';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { BsDropdownDirective } from 'ngx-bootstrap/dropdown';
 
 @Component({

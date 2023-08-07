@@ -10,7 +10,6 @@ import { AdminActions } from '../../../actions/admin.actions';
 import { CommonPaginatedRequest, SubscriberList, AuditLogsRequest, GetAllCompaniesRequest, PAGINATION_COUNT, StatusModel, CompanyAdvanceSearchRequestSubscriptions } from '../../../modules/modules/api-modules/subscription';
 import { SubscriptionService } from '../../../services/subscription.service';
 import { ToasterService } from '../../../services/toaster.service';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { IOption } from '../../../theme/ng-select/ng-select';
 import { PlansService } from '../../../services/plan.service';
 import * as moment from 'moment/moment';
@@ -20,6 +19,7 @@ import { FavouriteColumnPageTypeEnum } from '../../../actions/general/general.co
 import { ColumnFilterService } from '../../../services/column-filter.service';
 import { cloneDeep } from '../../../lodash-optimized';
 import { BsDropdownDirective } from "ngx-bootstrap/dropdown";
+import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
 
 @Component({
     selector: 'edit-subscription',
@@ -58,7 +58,7 @@ export class EditSubscriptionsComponent implements OnInit {
     public showFieldFilter: CompanyFieldFilterColumnNames = new CompanyFieldFilterColumnNames();
     public isFieldColumnFilterApplied: boolean;
     public isAllFieldColumnFilterApplied: boolean;
-    public getAllCompaniesRequest:GetAllCompaniesRequest  = new GetAllCompaniesRequest();
+    public getAllCompaniesRequest: GetAllCompaniesRequest = new GetAllCompaniesRequest();
     public planStatusType: StatusModel = {
         trial: false,
         active: false,
@@ -182,7 +182,7 @@ export class EditSubscriptionsComponent implements OnInit {
         });
         this.getColumnFilter();
         this.getCompanyFooter();
-          let companyFilter = localStorage.getItem("companyListFilter");
+        let companyFilter = localStorage.getItem("companyListFilter");
         let companyPaginationFilter = localStorage.getItem("companyPaginationFilter");
 
         if (companyFilter) {
@@ -201,8 +201,8 @@ export class EditSubscriptionsComponent implements OnInit {
                 this.showClearFilter = true;
             }
             this.getCompanyFooter();
-        localStorage.setItem("companyListFilter", JSON.stringify(this.getAllCompaniesRequest));
-        localStorage.setItem("companyPaginationFilter", JSON.stringify(this.paginationRequest));
+            localStorage.setItem("companyListFilter", JSON.stringify(this.getAllCompaniesRequest));
+            localStorage.setItem("companyPaginationFilter", JSON.stringify(this.paginationRequest));
             this.subscriptionService.getAllCompanies(this.getAllCompaniesRequest, this.paginationRequest).subscribe(resp => {
                 if (resp) {
                     if (resp.status === 'success') {
@@ -950,14 +950,14 @@ export class EditSubscriptionsComponent implements OnInit {
                 days: '',
             },
         };
-        
+
     }
 
-     /**
-    *To check local storage filter available
-    *
-    * @memberof UserListComponent
-    */
+    /**
+   *To check local storage filter available
+   *
+   * @memberof UserListComponent
+   */
     // public checkLocalStorageFilter() {
 
     //     let companyListFilter = localStorage.getItem("companyListFilter");

@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { UserService } from '../../../services/user.service';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { SubscriberList, PAGINATION_COUNT, TotalUsersCount, CommonPaginatedRequest, StatusModel, TotalSubscribers } from '../../../modules/modules/api-modules/subscription';
 import * as moment from 'moment/moment';
 import { GeneralService } from '../../../services/general.service';
@@ -15,9 +14,10 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { cloneDeep } from '../../../lodash-optimized';
 import { ColumnFilterService } from '../../../services/column-filter.service';
 import { FavouriteColumnPageTypeEnum } from '../../../actions/general/general.const';
-import { BsDropdownDirective } from 'ngx-bootstrap/dropdown';
 import { UserFieldFilterColumnNames } from '../../../models/company';
 import { SubscriptionService } from '../../../services/subscription.service';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { BsDropdownDirective } from 'ngx-bootstrap/dropdown';
 @Component({
     selector: 'app-user-list',
     templateUrl: './user-list.component.html',
@@ -122,7 +122,7 @@ export class UserListComponent implements OnInit {
     }
 
     constructor(private generalService: GeneralService, private userService: UserService, private modalService: BsModalService, private router: Router, private toaster: ToasterService, private plansService: PlansService,
-        private authenticationService: AuthenticationService, private columnFilterService: ColumnFilterService, private subscriptionService: SubscriptionService, ) {
+        private authenticationService: AuthenticationService, private columnFilterService: ColumnFilterService, private subscriptionService: SubscriptionService,) {
         this.today = new Date();
         this.getUserListPostRequest.lastSeen = {}
         this.getAllAdminUsers();
