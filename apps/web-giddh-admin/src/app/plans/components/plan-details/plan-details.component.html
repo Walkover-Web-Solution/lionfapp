@@ -1,47 +1,70 @@
-<div class="bg-box" [ngClass]="rightToggle ? 'in': 'out'"></div>
-<div class="rightSlide kot-repring-sidebar" [ngClass]="rightToggle ? 'in': 'out'">
-    <div class="top-right-head">
-        <p class="bold text-18 text-white mb-0">Plan Details</p>
-        <a href="javascript:;" (click)="closePopup()" class="close"><i class="icon-cross"></i></a>
+<div class="bg-box" [ngClass]="rightToggle ? 'in' : 'out'"></div>
+<div
+  class="rightSlide kot-repring-sidebar"
+  [ngClass]="rightToggle ? 'in' : 'out'"
+>
+  <div class="top-right-head">
+    <p class="bold text-18 text-white mb-0">Plan Details</p>
+    <a href="javascript:;" (click)="closePopup()" class="close"
+      ><i class="icon-cross"></i
+    ></a>
+  </div>
+  <div class="clearfix pr-2 pl-2 pt-2 plan-details" *ngIf="planDetails">
+    <div class="form-group">
+      <label>Plan name</label><br />
+      <input
+        type="text"
+        class="form-control"
+        #planName
+        [(ngModel)]="planDetails.name"
+        placeholder="Plan name"
+      />
+      <!-- <span>{{planDetails.name}}</span> -->
     </div>
-    <div class="clearfix pr-2 pl-2 pt-2 plan-details" *ngIf="planDetails">
-        <div class="form-group">
-            <label>Plan name</label><br>
-            <input type="text" class="form-control" #planName [(ngModel)]="planDetails.name" placeholder="Plan name">
-            <!-- <span>{{planDetails.name}}</span> -->
-        </div>
-        <div class="form-group">
-            <label>Number of companies allowed</label><br>
-            <span>{{planDetails.companiesLimit}}</span>
-        </div>
-        <div class="form-group">
-            <label>Number of transactions</label><br>
-            <span>{{planDetails.transactionLimit}}</span>
-        </div>
-        <div class="form-group">
-            <label>Subscription price</label><br>
-            <span>{{planDetails.amount}}</span>
-        </div>
-        <div class="form-group">
-            <label>Country</label><br>
-            <span>{{planDetails.countries}}</span>
-        </div>
-        <!-- <div class="form-group">
-            <label>Currency</label><br>
-            <span>{{planDetails.currency}}</span>
-        </div> -->
-        <div class="form-group">
-            <label>Duration</label><br>
-            <span>{{planDetails.duration}} {{planDetails.durationUnit}}</span>
-        </div>
-        <div class="form-group">
-            <label>Rate per extra transaction</label><br>
-            <span>{{planDetails.ratePerExtraTransaction}}</span>
-        </div>
-        <div class="form-group">
-            <input type="checkbox" [(ngModel)]="planDetails.isCommonPlan" class="form-control d-inline-block">
-            <label>Is Common Plan</label><br>
-        </div>
-        <button type="button" class="btn btn-blue mt-2" (click)="updatePlan(planDetails)">Update</button>
+    <div class="form-group">
+      <label>Number of companies allowed</label><br />
+      <span>{{ planDetails.companiesLimit }}</span>
     </div>
+    <div class="form-group">
+      <label>Number of transactions</label><br />
+      <span>{{ planDetails.transactionLimit }}</span>
+    </div>
+    <div class="form-group">
+      <label>Subscription price</label><br />
+      <span>{{ planDetails.amount }}</span>
+    </div>
+    <div class="form-group">
+      <label>Currency</label><br />
+      <span>{{
+        planDetails?.currency?.code ? planDetails.currency.code : "-"
+      }}</span>
+    </div>
+    <div class="form-group">
+      <label>Country</label><br />
+      <span>{{ planDetails.countries }}</span>
+    </div>
+    <div class="form-group">
+      <label>Duration</label><br />
+      <span>{{ planDetails.duration }} {{ planDetails.durationUnit }}</span>
+    </div>
+    <div class="form-group">
+      <label>Rate per extra transaction</label><br />
+      <span>{{ planDetails.ratePerExtraTransaction }}</span>
+    </div>
+    <div class="form-group">
+      <input
+        type="checkbox"
+        [(ngModel)]="planDetails.isCommonPlan"
+        class="form-control d-inline-block"
+      />
+      <label>Is Common Plan</label><br />
+    </div>
+    <button
+      type="button"
+      class="btn btn-blue mt-2"
+      (click)="updatePlan(planDetails)"
+    >
+      Update
+    </button>
+  </div>
 </div>
