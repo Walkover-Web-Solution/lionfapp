@@ -46,16 +46,6 @@
         />
       </div>
       <div class="form-group">
-        <label>Subscription price</label>
-        <input
-          type="number"
-          class="form-control"
-          name="amount"
-          [(ngModel)]="createPlanRequest.amount"
-          required
-        />
-      </div>
-      <div class="form-group">
         <label>Currency</label>
         <sh-select
           placeholder="Select Currency"
@@ -67,6 +57,16 @@
           [isFilterEnabled]="true"
           [ItemHeight]="33"
         ></sh-select>
+      </div>
+      <div class="form-group">
+        <label>Subscription price</label>
+        <input
+          type="number"
+          class="form-control"
+          name="amount"
+          [(ngModel)]="createPlanRequest.amount"
+          required
+        />
       </div>
       <div class="form-group">
         <label>Country</label>
