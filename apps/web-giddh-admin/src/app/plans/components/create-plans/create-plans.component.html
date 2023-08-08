@@ -46,6 +46,19 @@
         />
       </div>
       <div class="form-group">
+        <label>Currency</label>
+        <sh-select
+          placeholder="Select Currency"
+          name="currency"
+          autocomplete="false"
+          id="currency"
+          [(ngModel)]="createPlanRequest.currency"
+          [options]="currencies"
+          [isFilterEnabled]="true"
+          [ItemHeight]="33"
+        ></sh-select>
+      </div>
+      <div class="form-group">
         <label>Subscription price</label>
         <input
           type="number"
@@ -65,19 +78,6 @@
           id="countries"
           [(ngModel)]="createPlanRequest.countries"
           [options]="countries"
-          [isFilterEnabled]="true"
-          [ItemHeight]="33"
-        ></sh-select>
-      </div>
-      <div class="form-group">
-        <label>Currency</label>
-        <sh-select
-          placeholder="Select Currency"
-          name="currency"
-          autocomplete="false"
-          id="currency"
-          [(ngModel)]="createPlanRequest.currency"
-          [options]="currencies"
           [isFilterEnabled]="true"
           [ItemHeight]="33"
         ></sh-select>
