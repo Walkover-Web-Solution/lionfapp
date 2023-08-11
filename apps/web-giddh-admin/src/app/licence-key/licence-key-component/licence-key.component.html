@@ -140,7 +140,7 @@
         </div>
         <div class="paginationWrapper">
             <div *ngIf="LicenceKeyRes && LicenceKeyRes.totalItems > 50">
-                <pagination [totalItems]="LicenceKeyRes.totalItems" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true" [itemsPerPage]="50" [rotate]="false" previousText="&#9668;" nextText="&#9658;" (pageChanged)="pageChanged($event)"></pagination>
+                <pagination [totalItems]="LicenceKeyRes.totalItems" [maxSize]="5" class="pagination-sm" [(ngModel)]="getAllLicenceKeyRequest.page" [boundaryLinks]="true" [itemsPerPage]="50" [rotate]="false" previousText="&#9668;" nextText="&#9658;" (pageChanged)="pageChanged($event)"></pagination>
             </div>
         </div>
     </div>

@@ -10,7 +10,6 @@ import { AdminActions } from '../../../actions/admin.actions';
 import { CommonPaginatedRequest, SubscriberList, AuditLogsRequest, GetAllCompaniesRequest, PAGINATION_COUNT, StatusModel, CompanyAdvanceSearchRequestSubscriptions } from '../../../modules/modules/api-modules/subscription';
 import { SubscriptionService } from '../../../services/subscription.service';
 import { ToasterService } from '../../../services/toaster.service';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { IOption } from '../../../theme/ng-select/ng-select';
 import { PlansService } from '../../../services/plan.service';
 import * as moment from 'moment/moment';
@@ -20,6 +19,7 @@ import { FavouriteColumnPageTypeEnum } from '../../../actions/general/general.co
 import { ColumnFilterService } from '../../../services/column-filter.service';
 import { cloneDeep } from '../../../lodash-optimized';
 import { BsDropdownDirective } from "ngx-bootstrap/dropdown";
+import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
 
 @Component({
     selector: 'edit-subscription',
@@ -58,7 +58,7 @@ export class EditSubscriptionsComponent implements OnInit {
     public showFieldFilter: CompanyFieldFilterColumnNames = new CompanyFieldFilterColumnNames();
     public isFieldColumnFilterApplied: boolean;
     public isAllFieldColumnFilterApplied: boolean;
-    public getAllCompaniesRequest:GetAllCompaniesRequest  = new GetAllCompaniesRequest();
+    public getAllCompaniesRequest: GetAllCompaniesRequest = new GetAllCompaniesRequest();
     public planStatusType: StatusModel = {
         trial: false,
         active: false,
@@ -91,8 +91,6 @@ export class EditSubscriptionsComponent implements OnInit {
     public isAllPlanSelected: boolean = false;
     public isAllPlanTypeSelected: boolean = false;
     public searchedAdvancedRequestModelByAdvanceSearch: CompanyAdvanceSearchRequestSubscriptions;
-    /** Local storage to save filter */
-    public localStorageKeysForFilters = { pageType: 'pageTypeName', filter: 'Columnfilter' };
     public totalCompanies: number;
     public totalUser: number;
     public timeoutLastCompanyAccess: any;
@@ -184,6 +182,15 @@ export class EditSubscriptionsComponent implements OnInit {
         });
         this.getColumnFilter();
         this.getCompanyFooter();
+        let companyFilter = localStorage.getItem("companyListFilter");
+        let companyPaginationFilter = localStorage.getItem("companyPaginationFilter");
+
+        if (companyFilter) {
+            let retrievedCompanyFilterObject = JSON.parse(companyFilter);
+        }
+        if (companyPaginationFilter) {
+            let retrievedCompanyPaginationFilterObject = JSON.parse(companyPaginationFilter);
+        }
     }
 
     public getAllCompanies() {
@@ -194,6 +201,8 @@ export class EditSubscriptionsComponent implements OnInit {
                 this.showClearFilter = true;
             }
             this.getCompanyFooter();
+            localStorage.setItem("companyListFilter", JSON.stringify(this.getAllCompaniesRequest));
+            localStorage.setItem("companyPaginationFilter", JSON.stringify(this.paginationRequest));
             this.subscriptionService.getAllCompanies(this.getAllCompaniesRequest, this.paginationRequest).subscribe(resp => {
                 if (resp) {
                     if (resp.status === 'success') {
@@ -941,5 +950,59 @@ export class EditSubscriptionsComponent implements OnInit {
                 days: '',
             },
         };
+
     }
+
+    /**
+   *To check local storage filter available
+   *
+   * @memberof UserListComponent
+   */
+    // public checkLocalStorageFilter() {
+
+    //     let companyListFilter = localStorage.getItem("companyListFilter");
+    //     let companyPaginationFilter = localStorage.getItem("companyPaginationFilter");
+    //     if (companyListFilter || companyPaginationFilter) {
+    //         let retrievedCompanyListFilterrObject = JSON.parse(companyListFilter);
+    //         let retrievedCompanyPaginationFilterObject = JSON.parse(companyPaginationFilter);
+    //         this.getAllCompaniesRequest = retrievedCompanyListFilterrObject;
+    //         this.paginationRequest = retrievedCompanyPaginationFilterObject;
+    //         if (this.getAllCompaniesRequest && this.getAllCompaniesRequest.planUniqueNames && this.getAllCompaniesRequest.planUniqueNames.length > 0) {
+    //             this.selectedPlans = this.getAllCompaniesRequest.planUniqueNames;
+    //             this.allPlans.map(res => {
+    //                 res.additional = this.getAllCompaniesRequest.planUniqueNames.includes(res.value);
+    //             });
+    //         }
+    //         if (this.getUserListPostRequest && this.getUserListPostRequest.status && this.getUserListPostRequest.status.length > 0) {
+    //             this.selectedPlanStatus = this.getUserListPostRequest.status;
+    //             this.planStatusType.active = this.planStatusType.expired = this.planStatusType.trial = false;
+    //             this.selectedPlanStatus.forEach(res => {
+    //                 this.planStatusType[res] = true;
+    //             });
+    //         }
+    //         if (this.getUserListPostRequest && this.getUserListPostRequest.countryCodes && this.getUserListPostRequest.countryCodes.length > 0) {
+    //             this.selectedCountries = this.getUserListPostRequest.countryCodes;
+    //             this.countrySource.map(res => {
+    //                 res.additional = this.getUserListPostRequest.countryCodes.includes(res.value);
+    //             });
+    //         }
+    //         // if (this.getAllCompaniesRequest && this.getAllCompaniesRequest.lastSeen && this.getAllCompaniesRequest.lastSeen.operation) {
+    //         //     if (this.getAllCompaniesRequest.lastSeen.days) {
+    //         //         this.tempOperation = 'RELATIVE_' + this.getAllCompaniesRequest.lastSeen.operation;
+    //         //     } else if (this.getAllCompaniesRequest.lastSeen.from || this.getAllCompaniesRequest.lastSeen.to) {
+    //         //         this.tempOperation = 'ABSOLUTE_' + this.getAllCompaniesRequest.lastSeen.operation;
+    //         //     } else if (this.getAllCompaniesRequest.lastSeen.operation === 'UNAVAILABLE' || this.getAllCompaniesRequest.lastSeen.operation === 'AVAILABLE') {
+    //         //         this.tempOperation = this.getAllCompaniesRequest.lastSeen.operation;
+    //         //     }
+
+    //         // }
+    //         console.log('userListFilter', retrievedUserFilterObject);
+    //         console.log('userPaginationFilter', retrievedUserPaginationFilterObject);
+    //         this.getAllUserData();
+    //     } else {
+    //         this.getUserListPostRequest.lastSeen.operation = "BEFORE";
+    //         this.tempOperation = "BEFORE";
+    //         this.getAllUserData();
+    //     }
+    // }
 }

@@ -60,6 +60,8 @@ export class HeaderComponent implements OnInit {
 
     public clearData() {
         this.generalService.clearUserSession();
+        // To clear all stored local storage filter
+        this.generalService.clearCacheStoredFilter();
     }
 
     public getCompaniesList() {

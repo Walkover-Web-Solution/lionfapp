@@ -2,9 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
-import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-import { PaginationModule } from 'ngx-bootstrap/pagination';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { PlansRoutingModule } from './plans-routing.module';
 import { PlansComponent } from './plans-component/plans.component';
 import { CreatePlansComponent } from './components/create-plans/create-plans.component';
@@ -13,6 +10,9 @@ import { ShSelectModule } from '../theme/ng-virtual-select/sh-select.module';
 import { ClickOutsideModule } from 'ng-click-outside';
 import { MatSelectModule } from '@angular/material/select';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 
 
