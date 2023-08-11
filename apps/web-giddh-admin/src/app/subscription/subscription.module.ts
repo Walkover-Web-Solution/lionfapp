@@ -6,9 +6,6 @@ import { SubscriptionRoutingModule } from './subscription-routing.module';
 import { SubscriptionComponent } from './subscription-component/subscription.component';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { UserListComponent } from './components/user-list/user-list.component';
-import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-import { PaginationModule } from 'ngx-bootstrap/pagination';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { CompanyAdvanceSearchComponent } from './components/company-advance-search/company-advance-search.component';
 import { AdvanceSearchComponent } from './components/advance-search/advance-search.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
@@ -22,6 +19,9 @@ import { TimeAgoPipe } from 'time-ago-pipe';
 import { UpdateTransactionsComponent } from './components/update-transactions/update-transactions.component';
 import { ShSelectModule } from '../theme/ng-virtual-select/sh-select.module';
 import { AssignPlanComponent } from './components/assign-plan/assign-plan.component';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 @NgModule({
     declarations: [SubscriptionComponent, SubscriptionContainerComponent, UserListComponent, AdvanceSearchComponent, EditPlanModalComponent, EditSubscriptionsComponent, TimeAgoPipe, UpdateTransactionsComponent, AssignPlanComponent, CompanyAdvanceSearchComponent],

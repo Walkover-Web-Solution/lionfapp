@@ -74,14 +74,14 @@
             <thead>
                 <tr (clickOutside)="inlineSearch = null">
                     <th class="table-search" *ngIf="showFieldFilter.planName">
-                        <div [hidden]="inlineSearch == 'planName'">
+                        <div [hidden]="inlineSearch == 'planName' || getAllPlansPostRequest.planName">
                             <div class="d-flex align-items-center justify-content-between">
                                 <span>Plan Name</span>
                                 <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('planName')"></i>
                             </div>
                         </div>
-                        <div class="input-container" [hidden]="inlineSearch !== 'planName'">
-                            <input type="text" placeholder="Plan Name" class="form-control w100" #planNameField name="planName" [(ngModel)]="getAllPlansPostRequest.planName" (keypress)="columnSearch()" (keydown)="columnSearch()" />
+                        <div class="input-container" [hidden]="inlineSearch !== 'planName' && !getAllPlansPostRequest.planName">
+                            <input type="text" placeholder="Plan Name" class="form-control w100" #planNameField name="planName" [(ngModel)]="getAllPlansPostRequest.planName" (ngModelChange)="searchViaPlanName$.next($event)" />
                         </div>
                     </th>
                     <th *ngIf="showFieldFilter.createdOn">
@@ -95,7 +95,7 @@
                     <th *ngIf="showFieldFilter.totalAmount" (click)="sortBy('TOTAL_AMOUNT')">Total Amount
                         <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getAllPlansRequest.sortType === 'desc' && getAllPlansRequest.sortBy === 'TOTAL_AMOUNT', 'icon-icon-sort-down': (getAllPlansRequest.sortType === 'asc' && getAllPlansRequest.sortBy === 'TOTAL_AMOUNT') || getAllPlansRequest.sortBy !== 'TOTAL_AMOUNT'}"></i>
                     </th>
-                    <th *ngIf="showFieldFilter.expiry" (click)="sortBy('EXPIRY')">Expiry in next 30 days
+                    <th class="min-width-210" *ngIf="showFieldFilter.expiry" (click)="sortBy('EXPIRY')">Expiry in next 30 days
                         <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getAllPlansRequest.sortType === 'desc' && getAllPlansRequest.sortBy === 'EXPIRY', 'icon-icon-sort-down': (getAllPlansRequest.sortType === 'asc' && getAllPlansRequest.sortBy === 'EXPIRY') || getAllPlansRequest.sortBy !== 'EXPIRY'}"></i>
                     </th>
 
@@ -135,7 +135,9 @@
     </tbody>
     <tbody *ngIf="!plansData || !plansDataResults || plansDataResults.length === 0">
         <tr>
-            <td colspan="7" align="center"><h3>No records found.</h3></td>
+            <td colspan="7" align="center">
+                <h3>No records found.</h3>
+            </td>
         </tr>
     </tbody>
     </table>
@@ -143,7 +145,7 @@
 
 <div class="paginationWrapper">
     <div *ngIf="plansData && plansData.totalItems > PAGINATION_COUNT">
-        <pagination [totalItems]="plansData.totalItems" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true" [itemsPerPage]="PAGINATION_COUNT" [rotate]="false" previousText="&#9668;" nextText="&#9658;" (pageChanged)="pageChanged($event)"></pagination>
+        <pagination [totalItems]="plansData.totalItems" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true" [(ngModel)]="getAllPlansRequest.page" [itemsPerPage]="PAGINATION_COUNT" [rotate]="false" previousText="&#9668;" nextText="&#9658;" (pageChanged)="pageChanged($event)"></pagination>
     </div>
 </div>
 
@@ -151,7 +153,7 @@
     <div class="row">
         <div class="col-md-1 col-sm-3 wrap-row">
             <div class="userNumber">
-                <h4>{{planStats?.commonPlans}}</h4>
+                <h4>{{planStates?.commonPlans}}</h4>
             </div>
             <div class="aboutUser">
                 <p>Common Plans</p>
@@ -159,7 +161,7 @@
         </div>
         <div class="col-md-1 col-sm-3 wrap-row">
             <div class="userNumber">
-                <h4>{{planStats?.adminPlans}}</h4>
+                <h4>{{planStates?.adminPlans}}</h4>
             </div>
             <div class="aboutUser">
                 <p>Admin Plans</p>
@@ -167,7 +169,7 @@
         </div>
         <div class="col-md-1 col-sm-3 wrap-row">
             <div class="userNumber">
-                <h4>{{planStats?.totalPlans}}</h4>
+                <h4>{{planStates?.totalPlans}}</h4>
             </div>
             <div class="aboutUser">
                 <p>Total Plans</p>
@@ -175,7 +177,7 @@
         </div>
         <div class="col-md-1 col-sm-3 wrap-row">
             <div class="userNumber">
-                <h4>{{planStats?.paidPlans}}</h4>
+                <h4>{{planStates?.paidPlans}}</h4>
             </div>
             <div class="aboutUser">
                 <p>Paid Plans</p>
@@ -183,7 +185,7 @@
         </div>
         <div class="col-md-1 col-sm-3 wrap-row">
             <div class="userNumber">
-                <h4>{{planStats?.trialPlans}}</h4>
+                <h4>{{planStates?.trialPlans}}</h4>
             </div>
             <div class="aboutUser">
                 <p>Trial Plans</p>
