@@ -1,199 +1,410 @@
 <div class="pageHeader">
-    <div class="d-flex align-items-center">
-        <div class="d-flex">
+  <div class="d-flex align-items-center">
+    <div class="d-flex">
+      <div class="dis pull-left mr-1">
+        <div
+          class="btn-group mt-05"
+          #filterDropDownList="bs-dropdown"
+          dropdown
+          [autoClose]="false"
+          (clickOutside)="hideListItems()"
+          [tooltip]="'Enable / Disable Column'"
+          [placement]="'right'"
+        >
+          <i dropdownToggle class="icon-options pd cp fs20"></i>
 
-            <div class="dis pull-left mr-1">
-                <div class="btn-group mt-05" #filterDropDownList="bs-dropdown" dropdown [autoClose]="false" (clickOutside)="hideListItems()" [tooltip]="'Enable / Disable Column'" [placement]="'right'">
-                    <i dropdownToggle class="icon-options pd cp fs20"></i>
+          <ul
+            *dropdownMenu
+            class="dropdown-menu dropdown-menu-left top-toggle-dropdown"
+            role="menu"
+            [style.width.px]="'200'"
+          >
+            <li role="menuitem">
+              <a class="dropdown-item">
+                <input
+                  type="checkbox"
+                  name="isAllFieldColumnFilterApplied"
+                  [(ngModel)]="isAllFieldColumnFilterApplied"
+                  (ngModelChange)="selectAllColumns($event)"
+                />
+                Select All
+              </a>
+            </li>
 
-                    <ul *dropdownMenu class="dropdown-menu dropdown-menu-left top-toggle-dropdown" role="menu" [style.width.px]="'200'">
-                        <li role="menuitem">
-                            <a class="dropdown-item">
-                                <input type="checkbox" name="isAllFieldColumnFilterApplied" [(ngModel)]="isAllFieldColumnFilterApplied" (ngModelChange)="selectAllColumns($event)"> Select All
-                            </a>
-                        </li>
+            <li role="menuitem">
+              <a class="dropdown-item">
+                <input
+                  type="checkbox"
+                  name="planName"
+                  (ngModelChange)="columnFilter($event, 'planName')"
+                  [(ngModel)]="showFieldFilter.planName"
+                />
+                Plan Name
+              </a>
+            </li>
 
-                        <li role="menuitem">
-                            <a class="dropdown-item">
-                                <input type="checkbox" name="planName" (ngModelChange)="columnFilter($event, 'planName')" [(ngModel)]="showFieldFilter.planName" /> Plan Name
-                            </a>
-                        </li>
+            <li role="menuitem">
+              <a class="dropdown-item">
+                <input
+                  type="checkbox"
+                  name="createdOn"
+                  (ngModelChange)="columnFilter($event, 'createdOn')"
+                  [(ngModel)]="showFieldFilter.createdOn"
+                />
+                Created On
+              </a>
+            </li>
 
-                        <li role="menuitem">
-                            <a class="dropdown-item">
-                                <input type="checkbox" name="createdOn" (ngModelChange)="columnFilter($event, 'createdOn')" [(ngModel)]="showFieldFilter.createdOn" /> Created On
-                            </a>
-                        </li>
-
-                        <li role="menuitem">
-                            <a class="dropdown-item">
-                                <input type="checkbox" name="noOfCompany" (ngModelChange)="columnFilter($event, 'noOfCompany')" [(ngModel)]="showFieldFilter.noOfCompany" /> No of Company
-                            </a>
-                        </li>
-                        <li role="menuitem">
-                            <a class="dropdown-item">
-                                <input type="checkbox" name="totalUser" (ngModelChange)="columnFilter($event, 'totalUser')" [(ngModel)]="showFieldFilter.totalUser" /> Total User
-                            </a>
-                        </li>
-                        <li role="menuitem">
-                            <a class="dropdown-item">
-                                <input type="checkbox" name="totalAmount" (ngModelChange)="columnFilter($event, 'totalAmount')" [(ngModel)]="showFieldFilter.totalAmount" /> Total Amount
-                            </a>
-                        </li>
-                        <li role="menuitem">
-                            <a class="dropdown-item">
-                                <input type="checkbox" name="expiry" (ngModelChange)="columnFilter($event, 'expiry')" [(ngModel)]="showFieldFilter.expiry" /> Expiry In Next 30 Days
-                            </a>
-                        </li>
-                        <li role="menuitem">
-                            <a class="dropdown-item">
-                                <input type="checkbox" name="country" (ngModelChange)="columnFilter($event, 'country')" [(ngModel)]="showFieldFilter.country" /> Country
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="input-group input-date">
-                <span class="input-group-addon">
-              <i class="fa fa-calendar pull-right"></i>
-          </span>
-                <input type="text" placeholder="Select Date" readonly [(bsValue)]="bsValue" (bsValueChange)="onChangeFilterDate($event)" class="form-control date-range-picker" bsDaterangepicker>
-            </div>
+            <li role="menuitem">
+              <a class="dropdown-item">
+                <input
+                  type="checkbox"
+                  name="noOfCompany"
+                  (ngModelChange)="columnFilter($event, 'noOfCompany')"
+                  [(ngModel)]="showFieldFilter.noOfCompany"
+                />
+                No of Company
+              </a>
+            </li>
+            <li role="menuitem">
+              <a class="dropdown-item">
+                <input
+                  type="checkbox"
+                  name="totalUser"
+                  (ngModelChange)="columnFilter($event, 'totalUser')"
+                  [(ngModel)]="showFieldFilter.totalUser"
+                />
+                Total User
+              </a>
+            </li>
+            <li role="menuitem">
+              <a class="dropdown-item">
+                <input
+                  type="checkbox"
+                  name="totalAmount"
+                  (ngModelChange)="columnFilter($event, 'totalAmount')"
+                  [(ngModel)]="showFieldFilter.totalAmount"
+                />
+                Total Amount
+              </a>
+            </li>
+            <li role="menuitem">
+              <a class="dropdown-item">
+                <input
+                  type="checkbox"
+                  name="expiry"
+                  (ngModelChange)="columnFilter($event, 'expiry')"
+                  [(ngModel)]="showFieldFilter.expiry"
+                />
+                Expiry In Next 30 Days
+              </a>
+            </li>
+            <li role="menuitem">
+              <a class="dropdown-item">
+                <input
+                  type="checkbox"
+                  name="country"
+                  (ngModelChange)="columnFilter($event, 'country')"
+                  [(ngModel)]="showFieldFilter.country"
+                />
+                Country
+              </a>
+            </li>
+          </ul>
         </div>
+      </div>
 
-        <button class=" btn-link" *ngIf="getAllPlansPostRequest.planName || getAllPlansPostRequest.countries.length || getAllPlansPostRequest.createdAtFrom" (click)="resetFilters();"><i class="icon icon-loop2
-      "></i> Clear Filter</button>
+      <div class="input-group input-date">
+        <span class="input-group-addon">
+          <i class="fa fa-calendar pull-right"></i>
+        </span>
+        <input
+          type="text"
+          placeholder="Select Date"
+          readonly
+          [(bsValue)]="bsValue"
+          (bsValueChange)="onChangeFilterDate($event)"
+          class="form-control date-range-picker"
+          bsDaterangepicker
+        />
+      </div>
     </div>
 
-    <button type="button" class="btn btn-blue" (click)="togglePanel()">+ New Plan</button>
+    <button
+      class=" btn-link"
+      *ngIf="
+        getAllPlansPostRequest.planName ||
+        getAllPlansPostRequest.countries.length ||
+        getAllPlansPostRequest.createdAtFrom
+      "
+      (click)="resetFilters()"
+    >
+      <i
+        class="icon icon-loop2
+      "
+      ></i>
+      Clear Filter
+    </button>
+  </div>
+
+  <button type="button" class="btn btn-blue" (click)="togglePanel()">
+    + New Plan
+  </button>
 </div>
 <div class="page-content">
-    <div class="table-responsive table-height dropdown-table">
-        <table class="table table-bordered basic subscrib-list-table card-list-table">
-            <thead>
-                <tr (clickOutside)="inlineSearch = null">
-                    <th class="table-search" *ngIf="showFieldFilter.planName">
-                        <div [hidden]="inlineSearch == 'planName'">
-                            <div class="d-flex align-items-center justify-content-between">
-                                <span>Plan Name</span>
-                                <i class="fa fa-search pull-right" (click)="focusOnColumnSearch('planName')"></i>
-                            </div>
-                        </div>
-                        <div class="input-container" [hidden]="inlineSearch !== 'planName'">
-                            <input type="text" placeholder="Plan Name" class="form-control w100" #planNameField name="planName" [(ngModel)]="getAllPlansPostRequest.planName" (keypress)="columnSearch()" (keydown)="columnSearch()" />
-                        </div>
-                    </th>
-                    <th *ngIf="showFieldFilter.createdOn">
-                        Created on
-                    </th>
-                    <th *ngIf="showFieldFilter.noOfCompany" class="transform-none" (click)="sortBy('NO_OF_COMPANIES')">No of Company <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getAllPlansRequest.sortType === 'desc' && getAllPlansRequest.sortBy === 'NO_OF_COMPANIES', 'icon-icon-sort-down': (getAllPlansRequest.sortType === 'asc' && getAllPlansRequest.sortBy === 'NO_OF_COMPANIES') || getAllPlansRequest.sortBy !== 'NO_OF_COMPANIES'}"></i>
-                    </th>
-                    <th *ngIf="showFieldFilter.totalUser" (click)="sortBy('TOTAL_USERS')">Total User
-                        <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getAllPlansRequest.sortType === 'desc' && getAllPlansRequest.sortBy === 'TOTAL_USERS', 'icon-icon-sort-down': (getAllPlansRequest.sortType === 'asc' && getAllPlansRequest.sortBy === 'TOTAL_USERS') || getAllPlansRequest.sortBy !== 'TOTAL_USERS'}"></i>
-                    </th>
-                    <th *ngIf="showFieldFilter.totalAmount" (click)="sortBy('TOTAL_AMOUNT')">Total Amount
-                        <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getAllPlansRequest.sortType === 'desc' && getAllPlansRequest.sortBy === 'TOTAL_AMOUNT', 'icon-icon-sort-down': (getAllPlansRequest.sortType === 'asc' && getAllPlansRequest.sortBy === 'TOTAL_AMOUNT') || getAllPlansRequest.sortBy !== 'TOTAL_AMOUNT'}"></i>
-                    </th>
-                    <th *ngIf="showFieldFilter.expiry" (click)="sortBy('EXPIRY')">Expiry in next 30 days
-                        <i [ngClass]="{'fa pull-right': 1 === 1, 'icon-icon-sort-up': getAllPlansRequest.sortType === 'desc' && getAllPlansRequest.sortBy === 'EXPIRY', 'icon-icon-sort-down': (getAllPlansRequest.sortType === 'asc' && getAllPlansRequest.sortBy === 'EXPIRY') || getAllPlansRequest.sortBy !== 'EXPIRY'}"></i>
-                    </th>
+  <div class="table-responsive table-height dropdown-table">
+    <table
+      class="table table-bordered basic subscrib-list-table card-list-table"
+    >
+      <thead>
+        <tr (clickOutside)="inlineSearch = null">
+          <th class="table-search" *ngIf="showFieldFilter.planName">
+            <div [hidden]="inlineSearch == 'planName'">
+              <div class="d-flex align-items-center justify-content-between">
+                <span>Plan Name</span>
+                <i
+                  class="fa fa-search pull-right"
+                  (click)="focusOnColumnSearch('planName')"
+                ></i>
+              </div>
+            </div>
+            <div class="input-container" [hidden]="inlineSearch !== 'planName'">
+              <input
+                type="text"
+                placeholder="Plan Name"
+                class="form-control w100"
+                #planNameField
+                name="planName"
+                [(ngModel)]="getAllPlansPostRequest.planName"
+                (keypress)="columnSearch()"
+                (keydown)="columnSearch()"
+              />
+            </div>
+          </th>
+          <th *ngIf="showFieldFilter.createdOn">Created on</th>
+          <th
+            *ngIf="showFieldFilter.noOfCompany"
+            class="transform-none"
+            (click)="sortBy('NO_OF_COMPANIES')"
+          >
+            No of Company
+            <i
+              [ngClass]="{
+                'fa pull-right': 1 === 1,
+                'icon-icon-sort-up':
+                  getAllPlansRequest.sortType === 'desc' &&
+                  getAllPlansRequest.sortBy === 'NO_OF_COMPANIES',
+                'icon-icon-sort-down':
+                  (getAllPlansRequest.sortType === 'asc' &&
+                    getAllPlansRequest.sortBy === 'NO_OF_COMPANIES') ||
+                  getAllPlansRequest.sortBy !== 'NO_OF_COMPANIES'
+              }"
+            ></i>
+          </th>
+          <th *ngIf="showFieldFilter.totalUser" (click)="sortBy('TOTAL_USERS')">
+            Total User
+            <i
+              [ngClass]="{
+                'fa pull-right': 1 === 1,
+                'icon-icon-sort-up':
+                  getAllPlansRequest.sortType === 'desc' &&
+                  getAllPlansRequest.sortBy === 'TOTAL_USERS',
+                'icon-icon-sort-down':
+                  (getAllPlansRequest.sortType === 'asc' &&
+                    getAllPlansRequest.sortBy === 'TOTAL_USERS') ||
+                  getAllPlansRequest.sortBy !== 'TOTAL_USERS'
+              }"
+            ></i>
+          </th>
+          <th
+            *ngIf="showFieldFilter.totalAmount"
+            (click)="sortBy('TOTAL_AMOUNT')"
+          >
+            Total Amount
+            <i
+              [ngClass]="{
+                'fa pull-right': 1 === 1,
+                'icon-icon-sort-up':
+                  getAllPlansRequest.sortType === 'desc' &&
+                  getAllPlansRequest.sortBy === 'TOTAL_AMOUNT',
+                'icon-icon-sort-down':
+                  (getAllPlansRequest.sortType === 'asc' &&
+                    getAllPlansRequest.sortBy === 'TOTAL_AMOUNT') ||
+                  getAllPlansRequest.sortBy !== 'TOTAL_AMOUNT'
+              }"
+            ></i>
+          </th>
+          <th *ngIf="showFieldFilter.expiry" (click)="sortBy('EXPIRY')">
+            Expiry in next 30 days
+            <i
+              [ngClass]="{
+                'fa pull-right': 1 === 1,
+                'icon-icon-sort-up':
+                  getAllPlansRequest.sortType === 'desc' &&
+                  getAllPlansRequest.sortBy === 'EXPIRY',
+                'icon-icon-sort-down':
+                  (getAllPlansRequest.sortType === 'asc' &&
+                    getAllPlansRequest.sortBy === 'EXPIRY') ||
+                  getAllPlansRequest.sortBy !== 'EXPIRY'
+              }"
+            ></i>
+          </th>
 
-                    <th *ngIf="showFieldFilter.country" class="table-dropdown" [ngClass]="{'border-blue': selectedCountries && selectedCountries.length>0}">
-                        <span class="pr c-dropdown" [ngClass]="{'open': showTaxPopup}" [attachOutsideOnClick]="true" (clickOutside)="handleInputFocus(true)">
-                        <label>Country</label>
+          <th
+            *ngIf="showFieldFilter.country"
+            class="table-dropdown"
+            [ngClass]="{
+              'border-blue': selectedCountries && selectedCountries.length > 0
+            }"
+          >
+            <span
+              class="pr c-dropdown"
+              [ngClass]="{ open: showTaxPopup }"
+              [attachOutsideOnClick]="true"
+              (clickOutside)="handleInputFocus(true)"
+            >
+              <label>Country</label>
 
-                        <div class="btn-group pull-right" dropdown [autoClose]="true" placement="left">
-                          <button id="button-basic" dropdownToggle (click)="handleInputFocus(showTaxPopup)" type="button" class="btn-multiselect dropdown-toggle pull-right"><span class="fa fa-angle-down"></span>
-                        </button>
+              <div
+                class="btn-group pull-right"
+                dropdown
+                [autoClose]="true"
+                placement="left"
+              >
+                <button
+                  id="button-basic"
+                  dropdownToggle
+                  (click)="handleInputFocus(showTaxPopup)"
+                  type="button"
+                  class="btn-multiselect dropdown-toggle pull-right"
+                >
+                  <span class="fa fa-angle-down"></span>
+                </button>
 
-                        <ul id="dropdown-basic" class="dropdown-menu pd multiselect-dropdown" [ngStyle]="{'display': showTaxPopup ? 'block': 'none'}">
-                            <li role="menuitem" *ngIf="countrySource?.length"><input type="checkbox" [(ngModel)]="isAllCountrySelected" (click)="selectAllCountry($event);">Select all</li>
-                            <ng-container *ngFor="let item of countrySource">
-                                <li role="menuitem"><input type="checkbox" [(ngModel)]="item.additional" name="additional" (click)="checkedCountryName(item, $event);">{{item.label}}</li>
-                            </ng-container>
-                            <li *ngIf="countrySource.length==0">No results found</li>
-                        </ul>
-    </div>
-    </span>
-    </th>
-
-
-
-    </tr>
-    </thead>
-    <tbody *ngIf="plansDataResults">
+                <ul
+                  id="dropdown-basic"
+                  class="dropdown-menu pd multiselect-dropdown"
+                  [ngStyle]="{ display: showTaxPopup ? 'block' : 'none' }"
+                >
+                  <li role="menuitem" *ngIf="countrySource?.length">
+                    <input
+                      type="checkbox"
+                      [(ngModel)]="isAllCountrySelected"
+                      (click)="selectAllCountry($event)"
+                    />Select all
+                  </li>
+                  <ng-container *ngFor="let item of countrySource">
+                    <li role="menuitem">
+                      <input
+                        type="checkbox"
+                        [(ngModel)]="item.additional"
+                        name="additional"
+                        (click)="checkedCountryName(item, $event)"
+                      />{{ item.label }}
+                    </li>
+                  </ng-container>
+                  <li *ngIf="countrySource.length == 0">No results found</li>
+                </ul>
+              </div>
+            </span>
+          </th>
+        </tr>
+      </thead>
+      <tbody *ngIf="plansDataResults">
         <tr *ngFor="let plans of plansDataResults">
-            <td *ngIf="showFieldFilter.planName"><a href="javascript:;" (click)="showPlanDetails(plans.uniqueName)">{{plans.name}}</a></td>
-            <td *ngIf="showFieldFilter.createdOn">{{plans.createdAt}}</td>
-            <td *ngIf="showFieldFilter.noOfCompany">{{plans.totalCompanies}}</td>
-            <td *ngIf="showFieldFilter.totalUser">{{plans.totalUsers}}</td>
-            <td *ngIf="showFieldFilter.totalAmount">{{plans.amount}}</td>
-            <td *ngIf="showFieldFilter.expiry">{{plans.expiry}}</td>
-            <td *ngIf="showFieldFilter.country">{{plans.countries}}</td>
+          <td *ngIf="showFieldFilter.planName">
+            <a
+              href="javascript:;"
+              (click)="showPlanDetails(plans.uniqueName)"
+              >{{ plans.name }}</a
+            >
+          </td>
+          <td *ngIf="showFieldFilter.createdOn">{{ plans.createdAt }}</td>
+          <td *ngIf="showFieldFilter.noOfCompany">
+            {{ plans.totalCompanies }}
+          </td>
+          <td *ngIf="showFieldFilter.totalUser">{{ plans.totalUsers }}</td>
+          <td *ngIf="showFieldFilter.totalAmount">
+            {{
+              plans.amount +
+                " " +
+                (plans?.currency?.code ? plans.currency?.code : "")
+            }}
+          </td>
+          <td *ngIf="showFieldFilter.expiry">{{ plans.expiry }}</td>
+          <td *ngIf="showFieldFilter.country">{{ plans.countries }}</td>
         </tr>
-    </tbody>
-    <tbody *ngIf="!plansData || !plansDataResults || plansDataResults.length === 0">
+      </tbody>
+      <tbody
+        *ngIf="!plansData || !plansDataResults || plansDataResults.length === 0"
+      >
         <tr>
-            <td colspan="7" align="center"><h3>No records found.</h3></td>
+          <td colspan="7" align="center"><h3>No records found.</h3></td>
         </tr>
-    </tbody>
+      </tbody>
     </table>
-</div>
+  </div>
 
-<div class="paginationWrapper">
+  <div class="paginationWrapper">
     <div *ngIf="plansData && plansData.totalItems > PAGINATION_COUNT">
-        <pagination [totalItems]="plansData.totalItems" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true" [itemsPerPage]="PAGINATION_COUNT" [rotate]="false" previousText="&#9668;" nextText="&#9658;" (pageChanged)="pageChanged($event)"></pagination>
+      <pagination
+        [totalItems]="plansData.totalItems"
+        [maxSize]="5"
+        class="pagination-sm"
+        [boundaryLinks]="true"
+        [itemsPerPage]="PAGINATION_COUNT"
+        [rotate]="false"
+        previousText="&#9668;"
+        nextText="&#9658;"
+        (pageChanged)="pageChanged($event)"
+      ></pagination>
     </div>
-</div>
+  </div>
 
-<div class="page-footer">
+  <div class="page-footer">
     <div class="row">
-        <div class="col-md-1 col-sm-3 wrap-row">
-            <div class="userNumber">
-                <h4>{{planStats?.commonPlans}}</h4>
-            </div>
-            <div class="aboutUser">
-                <p>Common Plans</p>
-            </div>
+      <div class="col-md-1 col-sm-3 wrap-row">
+        <div class="userNumber">
+          <h4>{{ planStats?.commonPlans }}</h4>
         </div>
-        <div class="col-md-1 col-sm-3 wrap-row">
-            <div class="userNumber">
-                <h4>{{planStats?.adminPlans}}</h4>
-            </div>
-            <div class="aboutUser">
-                <p>Admin Plans</p>
-            </div>
+        <div class="aboutUser"><p>Common Plans</p></div>
+      </div>
+      <div class="col-md-1 col-sm-3 wrap-row">
+        <div class="userNumber">
+          <h4>{{ planStats?.adminPlans }}</h4>
         </div>
-        <div class="col-md-1 col-sm-3 wrap-row">
-            <div class="userNumber">
-                <h4>{{planStats?.totalPlans}}</h4>
-            </div>
-            <div class="aboutUser">
-                <p>Total Plans</p>
-            </div>
+        <div class="aboutUser"><p>Admin Plans</p></div>
+      </div>
+      <div class="col-md-1 col-sm-3 wrap-row">
+        <div class="userNumber">
+          <h4>{{ planStats?.totalPlans }}</h4>
         </div>
-        <div class="col-md-1 col-sm-3 wrap-row">
-            <div class="userNumber">
-                <h4>{{planStats?.paidPlans}}</h4>
-            </div>
-            <div class="aboutUser">
-                <p>Paid Plans</p>
-            </div>
+        <div class="aboutUser"><p>Total Plans</p></div>
+      </div>
+      <div class="col-md-1 col-sm-3 wrap-row">
+        <div class="userNumber">
+          <h4>{{ planStats?.paidPlans }}</h4>
         </div>
-        <div class="col-md-1 col-sm-3 wrap-row">
-            <div class="userNumber">
-                <h4>{{planStats?.trialPlans}}</h4>
-            </div>
-            <div class="aboutUser">
-                <p>Trial Plans</p>
-            </div>
+        <div class="aboutUser"><p>Paid Plans</p></div>
+      </div>
+      <div class="col-md-1 col-sm-3 wrap-row">
+        <div class="userNumber">
+          <h4>{{ planStats?.trialPlans }}</h4>
         </div>
+        <div class="aboutUser"><p>Trial Plans</p></div>
+      </div>
     </div>
+  </div>
 </div>
 
-
-</div>
-
-<app-create-plans *ngIf="togglePanelBool" [rightToggle]="togglePanelBool" (hidePopup)="hidePopup()"></app-create-plans>
-<app-plan-details *ngIf="togglePlanDetailsPanelBool" [planUniqueName]="selectedPlan" [rightToggle]="togglePlanDetailsPanelBool" (hidePopup)="hidePlanDetailsPopup()"></app-plan-details>
+<app-create-plans
+  *ngIf="togglePanelBool"
+  [rightToggle]="togglePanelBool"
+  (hidePopup)="hidePopup()"
+></app-create-plans>
+<app-plan-details
+  *ngIf="togglePlanDetailsPanelBool"
+  [planUniqueName]="selectedPlan"
+  [rightToggle]="togglePlanDetailsPanelBool"
+  (hidePopup)="hidePlanDetailsPopup()"
+></app-plan-details>
