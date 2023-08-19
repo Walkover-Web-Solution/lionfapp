@@ -55,16 +55,20 @@ export class PlanDetailsComponent implements OnInit {
     }
 
     public updatePlan(planObject) {
-        this.updatePlanRequest = planObject;
-        this.plansService.updatePlan(this.planUniqueName, this.updatePlanRequest).subscribe(res => {
-            this.isLoading = false;
-            if (res.status === 'success') {
-                this.planDetails = res.body;
-                this.toaster.successToast('Plan updated successfully');
-                this.closePopup();
-            } else {
-                this.toaster.errorToast(res.message);
-            }
-        });
+        if (planObject) {
+            let planObj = planObject;
+            planObj.currency = planObject.currency.code;
+            this.updatePlanRequest = planObj;
+            this.plansService.updatePlan(this.planUniqueName, this.updatePlanRequest).subscribe(res => {
+                this.isLoading = false;
+                if (res.status === 'success') {
+                    this.planDetails = res.body;
+                    this.toaster.successToast('Plan updated successfully');
+                    this.closePopup();
+                } else {
+                    this.toaster.errorToast(res.message);
+                }
+            });
+        }
     }
 }
