@@ -8,7 +8,7 @@ module.exports = {
             'errlyticsNeeded': JSON.stringify(false),
             'errlyticsKey': JSON.stringify(''),
             'AppUrl': JSON.stringify('https://vtest.giddh.com/'),
-            'ApiUrl': JSON.stringify('https://apitest.giddh.com/'),
+            'ApiUrl': JSON.stringify('https://routes.msg91.com/api/proxy/117230/18mbauq2/'),
             'APP_FOLDER': JSON.stringify(''),
             'process.env.ENV': 'production',
             'process.env.NODE_ENV': 'production',
@@ -16,7 +16,7 @@ module.exports = {
             'process.env.errlyticsNeeded': JSON.stringify(false),
             'process.env.errlyticsKey': JSON.stringify(''),
             'process.env.AppUrl': JSON.stringify('https://vtest.giddh.com/'),
-            'process.env.ApiUrl': JSON.stringify('https://apitest.giddh.com/'),
+            'process.env.ApiUrl': JSON.stringify('https://routes.msg91.com/api/proxy/117230/18mbauq2/'),
             'process.env.APP_FOLDER': JSON.stringify('')
         }),
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
