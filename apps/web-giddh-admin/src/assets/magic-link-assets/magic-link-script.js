@@ -298,16 +298,16 @@ var app = new Vue({
       switch (window.location.hostname) {
         case 'localapp.giddh.com':
         case 'dev.giddh.com':
-          apiBaseUrl = 'https://routes.msg91.com/api/proxy/117230/18uykxj1/';
+          apiBaseUrl = 'https://routes.msg91.com/api/proxy/117230/18mbauq2/';
           break;
         case 'vtest.giddh.com':
-          apiBaseUrl = 'https://routes.msg91.com/api/proxy/117230/18uykxj1/';
+          apiBaseUrl = 'https://routes.msg91.com/api/proxy/117230/18mbauq2/';
           break;
         case 'stage.giddh.com':
           apiBaseUrl = 'http://spi.giddh.com/';
           break;
         case 'giddh.com':
-          apiBaseUrl = 'https://routes.msg91.com/api/proxy/117230/18uykxj1/';
+          apiBaseUrl = 'https://routes.msg91.com/api/proxy/117230/18mbauq2/';
           break;
         default:
           apiBaseUrl = 'http://apidev.giddh.com/';
